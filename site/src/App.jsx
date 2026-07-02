@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx'
 import Work from './pages/Work.jsx'
 import ComponentLibrary from './pages/ComponentLibrary.jsx'
 import About from './pages/About.jsx'
+import CmsPage from './pages/CmsPage.jsx'
 
 // Scroll to top on route change; scroll to hash target if present.
 function ScrollManager() {
@@ -79,6 +80,8 @@ export default function App() {
           <Route path="/work" element={<Work />} />
           <Route path="/components" element={<ComponentLibrary />} />
           <Route path="/about" element={<About />} />
+          {/* Any CMS-authored page is live at its slug; static routes above win. */}
+          <Route path="/:slug" element={<CmsPage />} />
         </Routes>
       </main>
       <Footer />
