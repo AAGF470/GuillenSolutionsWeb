@@ -140,7 +140,7 @@ export const REFERRAL_NOTE =
 // Renewal honesty — grandfathering means fair, disclosed pricing, not a rate
 // frozen forever. Never promise "your price never changes."
 export const PRICING_PROMISE =
-  'Your renewal rate is agreed in writing before you sign — never a surprise increase. Current pricing is an intentional market-entry rate; as demand grows, rates rise for new clients, while existing clients keep fair, gradual pricing.'
+  'Renewal rates are agreed in writing before you sign — never a surprise. Today\'s prices are early rates; existing clients keep fair, gradual pricing.'
 
 // Where we fit — versus the alternatives a small business actually compares us to.
 export const POSITIONING = [

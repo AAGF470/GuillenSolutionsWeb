@@ -1,113 +1,150 @@
 /* ── GUILLEN SOLUTIONS THEME ─────────────────────────────────────────────── */
-/* Light mode — navy accent, warm neutrals.
+/* "The handshake" — warm paper, ink, deep petrol accent, ember highlights.
+   Editorial-craftsman: the site should feel like a well-set printed contract,
+   not a SaaS template. Serif display (Fraunces) for the big statements,
+   Inter for everything you interact with.
    Overrides shared token defaults from tokens.css.                           */
 
 :root {
 
   /* ── BACKGROUNDS ───────────────────────────────────────────────────────── */
 
-  --color-bg:           #ffffff;
-  --color-surface:      #f8f7f5;
-  --color-surface-high: #f0ede8;
+  --color-bg:           #fbf8f2;   /* warm paper */
+  --color-surface:      #f3eee3;   /* deeper paper */
+  --color-surface-high: #ffffff;
 
   /* ── TEXT ──────────────────────────────────────────────────────────────── */
 
-  --color-text:         #1a1818;
-  --color-text-sub:     #726c65;
-  --color-text-dim:     #9e9890;
-  --color-text-faint:   #b8b3ac;
+  --color-text:         #29241c;   /* warm ink */
+  --color-text-sub:     #6e675c;
+  --color-text-dim:     #999181;
+  --color-text-faint:   #b5ad9e;
 
   /* ── ACCENT ────────────────────────────────────────────────────────────── */
 
-  --color-accent:       #2c4a6e;
-  --color-accent-sub:   rgba(44, 74, 110, 0.08);
-  --color-accent-dim:   rgba(44, 74, 110, 0.15);
+  --color-accent:       #14594e;   /* deep petrol — calm, honest, not SaaS-navy */
+  --color-accent-sub:   rgba(20, 89, 78, 0.08);
+  --color-accent-dim:   rgba(20, 89, 78, 0.16);
 
-  /* Navy accent is dark — on-accent text is white */
-  --color-on-accent:     #ffffff;
-  --color-on-accent-sub: rgba(255, 255, 255, 0.72);
+  /* Petrol accent is dark — on-accent text is warm white */
+  --color-on-accent:     #fdf9f0;
+  --color-on-accent-sub: rgba(253, 249, 240, 0.75);
+
+  /* Site-local secondary: ember, for eyebrows + small warm pops */
+  --gs-ember: #b0562b;
 
   /* ── BORDERS ───────────────────────────────────────────────────────────── */
 
-  --color-border-sub:   #ede9e3;
-  --color-border-low:   #e5e0d8;
-  --color-border-mid:   #d0ccc6;
+  --color-border-sub:   #efe9dd;
+  --color-border-low:   #e5ddce;
+  --color-border-mid:   #cfc5b2;
 
-  /* ── SHADOWS ───────────────────────────────────────────────────────────── */
+  /* ── SHADOWS (warm-tinted) ─────────────────────────────────────────────── */
 
-  --shadow-sm:    0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md:    0 1px 4px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
-  --shadow-lg:    0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-modal: 0 8px 40px rgba(0, 0, 0, 0.14);
+  --shadow-sm:    0 1px 2px rgba(41, 36, 28, 0.05);
+  --shadow-md:    0 1px 4px rgba(41, 36, 28, 0.05), 0 10px 28px rgba(41, 36, 28, 0.06);
+  --shadow-lg:    0 4px 22px rgba(41, 36, 28, 0.10);
+  --shadow-modal: 0 8px 44px rgba(41, 36, 28, 0.16);
 
   /* ── NAV ───────────────────────────────────────────────────────────────── */
 
-  --nav-bg:         rgba(255, 255, 255, 0.95);
-  --nav-bg-open:    rgba(255, 255, 255, 0.99);
-  --nav-mobile-bg:  rgba(255, 255, 255, 0.99);
+  --nav-bg:         rgba(251, 248, 242, 0.92);
+  --nav-bg-open:    rgba(251, 248, 242, 0.99);
+  --nav-mobile-bg:  rgba(251, 248, 242, 0.99);
   --nav-blur:       blur(12px) saturate(140%);
-  --nav-border:     #ede9e3;
-  --nav-backdrop:   rgba(0, 0, 0, 0.20);
+  --nav-border:     #efe9dd;
+  --nav-backdrop:   rgba(41, 36, 28, 0.20);
 
-  --nav-glider-border: rgba(44, 74, 110, 0.25);
-  --nav-glider-shadow: 0 2px 12px rgba(44, 74, 110, 0.06);
+  --nav-glider-border: rgba(20, 89, 78, 0.25);
+  --nav-glider-shadow: 0 2px 12px rgba(20, 89, 78, 0.06);
 
-  --nav-logo-color:  rgba(26, 24, 24, 0.65);
-  --nav-logo-hover:  #1a1818;
-  --nav-logo-accent: #2c4a6e;
+  --nav-logo-color:  rgba(41, 36, 28, 0.70);
+  --nav-logo-hover:  #29241c;
+  --nav-logo-accent: #14594e;
 
-  --nav-link-rest:     rgba(26, 24, 24, 0.50);
-  --nav-link-hover:    #1a1818;
-  --nav-link-active:   #1a1818;
-  --nav-link-hover-bg: rgba(0, 0, 0, 0.04);
+  --nav-link-rest:     rgba(41, 36, 28, 0.52);
+  --nav-link-hover:    #29241c;
+  --nav-link-active:   #29241c;
+  --nav-link-hover-bg: rgba(41, 36, 28, 0.04);
 
-  --nav-cta-color:          #2c4a6e;
-  --nav-cta-hover-color:    #ffffff;
-  --nav-cta-border:         #2c4a6e;
-  --nav-cta-hover-border:   #2c4a6e;
-  --nav-cta-hover-bg:       #2c4a6e;
+  --nav-cta-color:          #14594e;
+  --nav-cta-hover-color:    #fdf9f0;
+  --nav-cta-border:         #14594e;
+  --nav-cta-hover-border:   #14594e;
+  --nav-cta-hover-bg:       #14594e;
 
-  --nav-hamburger-bar:      rgba(26, 24, 24, 0.60);
-  --nav-hamburger-hover-bg: rgba(0, 0, 0, 0.04);
+  --nav-hamburger-bar:      rgba(41, 36, 28, 0.60);
+  --nav-hamburger-hover-bg: rgba(41, 36, 28, 0.04);
 
-  --nav-mobile-link:             rgba(26, 24, 24, 0.55);
-  --nav-mobile-link-hover:       #1a1818;
-  --nav-mobile-link-active:      #1a1818;
-  --nav-mobile-link-hover-bg:    rgba(0, 0, 0, 0.03);
-  --nav-mobile-link-active-bg:   rgba(44, 74, 110, 0.06);
-  --nav-mobile-top-border:       #ede9e3;
-  --nav-mobile-cta-color:        #2c4a6e;
-  --nav-mobile-cta-hover:        #ffffff;
-  --nav-mobile-cta-border:       rgba(44, 74, 110, 0.30);
-  --nav-mobile-cta-hover-border: #2c4a6e;
-  --nav-mobile-cta-hover-bg:     #2c4a6e;
-  --nav-mobile-strip-bg:         rgba(255, 255, 255, 0.92);
-  --nav-mobile-strip-border:     #ede9e3;
+  --nav-mobile-link:             rgba(41, 36, 28, 0.55);
+  --nav-mobile-link-hover:       #29241c;
+  --nav-mobile-link-active:      #29241c;
+  --nav-mobile-link-hover-bg:    rgba(41, 36, 28, 0.03);
+  --nav-mobile-link-active-bg:   rgba(20, 89, 78, 0.07);
+  --nav-mobile-top-border:       #efe9dd;
+  --nav-mobile-cta-color:        #14594e;
+  --nav-mobile-cta-hover:        #fdf9f0;
+  --nav-mobile-cta-border:       rgba(20, 89, 78, 0.30);
+  --nav-mobile-cta-hover-border: #14594e;
+  --nav-mobile-cta-hover-bg:     #14594e;
+  --nav-mobile-strip-bg:         rgba(251, 248, 242, 0.92);
+  --nav-mobile-strip-border:     #efe9dd;
 
   /* ── BUTTONS ───────────────────────────────────────────────────────────── */
 
-  --btn-solid-bg:           #2c4a6e;
-  --btn-solid-text:         #ffffff;
-  --btn-solid-border:       #2c4a6e;
-  --btn-solid-hover-bg:     #1e3558;
-  --btn-solid-hover-text:   #ffffff;
-  --btn-solid-hover-border: #1e3558;
-  --btn-fill:               #1e3558;
+  --btn-solid-bg:           #14594e;
+  --btn-solid-text:         #fdf9f0;
+  --btn-solid-border:       #14594e;
+  --btn-solid-hover-bg:     #0e463d;
+  --btn-solid-hover-text:   #fdf9f0;
+  --btn-solid-hover-border: #0e463d;
+  --btn-fill:               #0e463d;
 
-  --btn-glow-tight:       rgba(44, 74, 110, 0.35);
-  --btn-glow-wide:        rgba(44, 74, 110, 0.12);
+  --btn-glow-tight:       rgba(20, 89, 78, 0.35);
+  --btn-glow-wide:        rgba(20, 89, 78, 0.12);
 
-  --btn-fill-lava:        #e86030;
-  --btn-glow-tight-lava:  rgba(232, 96, 48, 0.40);
-  --btn-glow-wide-lava:   rgba(232, 96, 48, 0.14);
+  --btn-fill-lava:        #c7562a;
+  --btn-glow-tight-lava:  rgba(199, 86, 42, 0.40);
+  --btn-glow-wide-lava:   rgba(199, 86, 42, 0.14);
 
-  --btn-ghost-text:         #2c4a6e;
-  --btn-ghost-color:        #1e3558;
-  --btn-ghost-border:       #d0ccc6;
-  --btn-ghost-border-hover: #2c4a6e;
-  --btn-ghost-hover-bg:     rgba(44, 74, 110, 0.04);
-  --btn-ghost-glow:         rgba(44, 74, 110, 0.12);
+  --btn-ghost-text:         #14594e;
+  --btn-ghost-color:        #0e463d;
+  --btn-ghost-border:       #cfc5b2;
+  --btn-ghost-border-hover: #14594e;
+  --btn-ghost-hover-bg:     rgba(20, 89, 78, 0.05);
+  --btn-ghost-glow:         rgba(20, 89, 78, 0.12);
 
+}
+
+/* ── DISPLAY TYPE — the big statements set in Fraunces ─────────────────────
+   Serif for what the business SAYS, sans for what the visitor DOES.        */
+
+.hero-section__headline,
+.section-title,
+.gs-intro__title,
+.work-item__name,
+.gs-explain__card-title,
+.plan__amount,
+.gs-libpeek__num {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 60;
+}
+
+.hero-section__headline { font-weight: 550; line-height: 1.04; }
+
+.gs-nav__logo,
+.gs-footer__brand {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Eyebrows get the ember pop — a small warm signal above every section. */
+.section-eyebrow,
+.gs-intro__eyebrow {
+  color: var(--gs-ember);
 }
 
 /* ── CMS escape-hatch blocks (richText / customHtml) ─────────────────────────

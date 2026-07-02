@@ -79,9 +79,9 @@ export default function Home() {
   return (
     <>
       <HeroSection
-        eyebrow="Guillen Solutions · Sites you can update yourself"
+        eyebrow="Websites for small businesses · English & Español"
         headline="Get your business online — and own every piece of it."
-        subtext="We build you a custom website you can actually run yourself — with a simple control panel (a CMS) that shows only what you need to change. Then we hand you the keys: your domain, content, and logins, no lock-in."
+        subtext="We design your website, set up everything around it, and put every login in your name. You update it yourself in plain English — and if you ever leave, you take all of it with you."
         ctas={[
           { label: 'See packages',     href: '#packages',  variant: 'solid' },
           { label: 'Build your quote', href: '#configure', variant: 'ghost' },
