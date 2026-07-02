@@ -18,15 +18,15 @@ const ICONS = ['check', 'star', 'shield', 'zap', 'clock', 'users', 'wrench', 'ma
   .map(v => ({ label: v, value: v }))
 
 const cta = (name = 'cta') => ({
-  name, type: 'group', fields: [
-    { name: 'label', type: 'text' },
-    { name: 'href', type: 'text' },
-    { name: 'variant', type: 'select', defaultValue: 'solid',
+  name, type: 'group' as const, fields: [
+    { name: 'label', type: 'text' as const },
+    { name: 'href', type: 'text' as const },
+    { name: 'variant', type: 'select' as const, defaultValue: 'solid',
       options: ['solid', 'ghost', 'ghost-bordered'].map(v => ({ label: v, value: v })) },
   ],
 })
 const variant = {
-  name: 'variant', type: 'select', defaultValue: 'default',
+  name: 'variant', type: 'select' as const, defaultValue: 'default',
   options: [
     { label: 'Default (page bg)', value: 'default' },
     { label: 'Alt (surface bg)', value: 'alt' },
