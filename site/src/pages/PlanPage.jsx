@@ -130,7 +130,18 @@ export const PLAN_PAGES = {
       'Full admin access from day one. It\'s your WordPress, not ours.',
       'Maximum portability: any developer can maintain, extend, or move it.',
     ],
-    getNote: 'Then $500/yr — more than our Standard plan\'s $350, and here\'s why, honestly: WordPress needs continuous core and plugin updates, security patching, and monitoring to stay safe. Our own headless system simply costs less to protect. You pay for what your platform actually costs to run — disclosed in writing before you sign.',
+    getNote: 'Then $500/yr — more than our Standard plan\'s $350. The section below explains exactly why, because you deserve to know what you\'re paying for.',
+    why: {
+      eyebrow: 'Priced honestly',
+      title: 'Why WordPress renewal costs more — the honest breakdown',
+      sub: 'We charge each platform what it actually costs to run safely — never as a lock-in lever. WordPress\'s upkeep is genuinely heavier, for three reasons:',
+      items: [
+        { icon: 'zap',    title: 'Heavier to run',           body: 'WordPress needs a PHP server and database running around the clock. Our own system serves your site as pre-built static pages — faster for visitors and far cheaper to keep online.' },
+        { icon: 'shield', title: 'Bigger attack surface',    body: 'WordPress powers much of the web, which makes it the internet\'s most-attacked platform — and plugins are its weakest point. Staying safe means continuous core updates, plugin patching, and monitoring. Our headless setup has almost nothing exposed to attack.' },
+        { icon: 'globe',  title: 'You\'re buying headroom',  body: 'The premium is really the price of portability: a general-purpose platform any developer can take over is less efficient than a system purpose-built for your site. That trade is worth it to some businesses — and we price it at cost, not as a penalty.' },
+        { icon: 'check',  title: 'What the $500 covers',     body: 'Managed hosting, SSL, daily backups, core and plugin updates, security patching, and monitoring — the full upkeep, in writing, no surprises.' },
+      ],
+    },
     steps: [
       { title: 'We learn your business', body: 'Same discovery as every plan — what you sell, who buys, what changes often. English or Español.' },
       { title: 'We build on WordPress', body: 'A lean theme, your six pages, and a tuned editor — none of the plugin bloat that makes WordPress sites slow.' },
@@ -190,6 +201,16 @@ export default function PlanPage() {
         note={plan.getNote}
         variant="alt"
       />
+      {plan.why && (
+        <FeatureGrid
+          eyebrow={plan.why.eyebrow}
+          headline={plan.why.title}
+          subtext={plan.why.sub}
+          items={plan.why.items}
+          columns={4}
+          variant="default"
+        />
+      )}
       <Steps
         eyebrow="How it works"
         headline="From first call to keys in hand"

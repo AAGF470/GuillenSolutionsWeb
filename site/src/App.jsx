@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Routes, Route, NavLink, Link, Navigate, useLocation } from 'react-router-dom'
 import './App.css'
 import { CONTACT_EMAIL } from './data'
@@ -38,14 +38,67 @@ function ScrollManager() {
   return null
 }
 
+// Nav dropdown — click-to-open (works on touch), closes on outside click,
+// Esc, or choosing an item.
+function NavDropdown({ label, active, items }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  useEffect(() => {
+    if (!open) return
+    const close = e => { if (!ref.current?.contains(e.target)) setOpen(false) }
+    const esc = e => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('pointerdown', close)
+    document.addEventListener('keydown', esc)
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', esc) }
+  }, [open])
+  return (
+    <div className={`gs-nav__dd${open ? ' is-open' : ''}`} ref={ref}>
+      <button
+        type="button"
+        className={`gs-nav__link gs-nav__dd-btn${active ? ' is-active' : ''}`}
+        aria-expanded={open}
+        onClick={() => setOpen(o => !o)}
+      >
+        {label} <span className="gs-nav__dd-caret" aria-hidden="true">▾</span>
+      </button>
+      {open && (
+        <div className="gs-nav__dd-menu">
+          {items.map(item => (
+            <Link key={item.to} to={item.to} className="gs-nav__dd-item" onClick={() => setOpen(false)}>
+              <span className="gs-nav__dd-item-label">{item.label}</span>
+              {item.sub && <span className="gs-nav__dd-item-sub">{item.sub}</span>}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function Nav() {
+  const { pathname } = useLocation()
   return (
     <nav className="gs-nav" aria-label="Main">
       <Link to="/" className="gs-nav__logo">Guillen <span>Solutions</span></Link>
       <div className="gs-nav__links">
         <NavLink to="/" end className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Home</NavLink>
-        <NavLink to="/work" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Work & Library</NavLink>
-        <NavLink to="/plans/standard" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Plans</NavLink>
+        <NavDropdown
+          label="Work & Library"
+          active={pathname === '/work'}
+          items={[
+            { to: '/work',         label: 'Client work',            sub: 'Three industries, three states, one system' },
+            { to: '/work#library', label: 'Live component library', sub: '47+ components, rendered on the page' },
+          ]}
+        />
+        <NavDropdown
+          label="Plans"
+          active={pathname.startsWith('/plans')}
+          items={[
+            { to: '/plans/freelance', label: 'Freelance / Solo',   sub: '$600 first year · independent professionals' },
+            { to: '/plans/standard',  label: 'Standard Business',  sub: '$950 first year · most popular' },
+            { to: '/plans/wordpress', label: 'WordPress Business', sub: '$1,350 first year · maximum portability' },
+          ]}
+        />
       </div>
       <Link to="/#configure" className="gs-nav__cta">Build your quote</Link>
     </nav>
