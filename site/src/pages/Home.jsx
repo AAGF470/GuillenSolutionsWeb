@@ -6,11 +6,10 @@ import {
   ImageText,
   Steps,
   PricingPlans,
-  ServiceList,
   Checklist,
 } from '@aagf470/ui'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
-import { PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, RUN_SAFE_POINTS } from '../data'
+import { PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, CMS_LEAD, RUN_SAFE_POINTS } from '../data'
 
 // Map shared pricing data → PricingPlans plan shape
 const PLANS = PACKAGES.map(p => ({
@@ -24,12 +23,6 @@ const PLANS = PACKAGES.map(p => ({
   features:    p.features,
   featured:    p.featured,
   cta:         { label: 'Build your quote', href: '#configure', variant: p.featured ? 'solid' : 'ghost-bordered' },
-}))
-
-const ADDON_SERVICES = ADDONS.map(a => ({
-  name:        a.name,
-  description: a.body,
-  price:       a.price,
 }))
 
 const WHAT_WE_DO = [
@@ -52,15 +45,6 @@ const LIBRARY_PEEK = [
   { icon: 'map',    title: 'Galleries & FAQs',   body: 'Project galleries, testimonials, and accessible FAQ accordions.' },
   { icon: 'mail',   title: 'Contact & forms',    body: 'Inquiry forms and hours/location blocks that route straight to you.' },
 ]
-
-const KeyIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
-    strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <circle cx="8" cy="9" r="5" />
-    <line x1="11.5" y1="12.5" x2="20" y2="21" />
-    <line x1="17" y1="18" x2="19" y2="16" />
-  </svg>
-)
 
 export default function Home() {
   return (
@@ -123,56 +107,15 @@ export default function Home() {
         />
         <div className="gs-inline-note-wrap">
           <p className="gs-note">
-            Want the full picture? Each plan has its own deep dive:{' '}
-            <Link to="/plans/freelance">Freelance / Solo</Link> ·{' '}
-            <Link to="/plans/standard">Standard Business</Link> ·{' '}
-            <Link to="/plans/wordpress">WordPress Business</Link>
+            Each plan has its own deep dive ({' '}
+            <Link to="/plans/freelance">Freelance</Link> ·{' '}
+            <Link to="/plans/standard">Standard</Link> ·{' '}
+            <Link to="/plans/wordpress">WordPress</Link>{' '}
+            ) and every option lives on one page at <Link to="/pricing">full pricing &amp; order</Link>.
           </p>
+          <p className="gs-note">{GROWTH_NOTE}</p>
         </div>
       </div>
-
-      <ServiceList
-        eyebrow="Add-ons"
-        headline="Pick only what fits"
-        subtext="Optional extras — add any to a package, or none. Most everyday changes you can make yourself for free once the site is live; these are for when you'd rather we handle it. Tailored combinations are quoted per business."
-        services={ADDON_SERVICES}
-        columns={2}
-        variant="alt"
-      />
-      <div className="gs-inline-note-wrap">
-        <p className="gs-note">{GROWTH_NOTE}</p>
-        <p className="gs-note">
-          <strong>Nothing else to decide today.</strong> Newsletters, landing pages, QR menus,
-          seasonal refreshes, translations — all available later, whenever you need them.{' '}
-          <Link to="/on-demand">See on-demand services →</Link>
-        </p>
-      </div>
-
-      {/* Pages vs. Items — plain-English explainer */}
-      <section className="section section--default gs-explain">
-        <div className="section-container">
-          <p className="section-eyebrow">Plain English</p>
-          <h2 className="section-title">Pages vs. Items</h2>
-          <p className="section-sub">{PAGES_ITEMS.intro}</p>
-          <div className="gs-explain__grid">
-            <div className="gs-explain__card">
-              <span className="gs-explain__badge">Pages · 6 included</span>
-              <h3 className="gs-explain__card-title">The rooms</h3>
-              <p>{PAGES_ITEMS.pages}</p>
-            </div>
-            <div className="gs-explain__card">
-              <span className="gs-explain__badge">Items · 25 included</span>
-              <h3 className="gs-explain__card-title">The dishes</h3>
-              <p>{PAGES_ITEMS.items}</p>
-            </div>
-          </div>
-          <p className="gs-note">{PAGES_ITEMS.savings}</p>
-          <div className="gs-cms-callout">
-            <span className="gs-cms-callout__mark"><KeyIcon /></span>
-            <p><strong>You can do it yourself — free.</strong> {CMS_NOTE}</p>
-          </div>
-        </div>
-      </section>
 
       {/* Your custom CMS + security, one section — the run-it-yourself promise */}
       <FeatureGrid

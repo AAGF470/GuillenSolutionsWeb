@@ -1,98 +1,92 @@
 import { Link } from 'react-router-dom'
-import { HeroSection, PricingPlans, ServiceList, CtaBanner } from '@aagf470/ui'
+import { HeroSection, CtaBanner } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import { Estimator } from './OnDemand.jsx'
-import { PACKAGES, ADDONS, ON_DEMAND, PRICING_PROMISE } from '../data'
+import { PRICING_PROMISE } from '../data'
 import './OnDemand.css'
+import './Pricing.css'
 
 // ---------------------------------------------------------------------------
-// Pricing & order — every plan, add-on, and on-demand service on one page,
-// with full deliverable descriptions and both live estimators. The single
-// place a buyer can see (and price) everything we sell.
+// Pricing & order — the working page, not another brochure. Visitors arrive
+// here having seen the plans elsewhere, so this page is just the two tools
+// with a compact explainer rail beside them. Configurator = new orders
+// (plan + launch add-ons); estimator = on-demand work for live sites.
 // ---------------------------------------------------------------------------
 
-const PLANS = PACKAGES.map(p => ({
-  badge: p.badge, tag: p.tag, name: p.name, price: p.price, period: p.period,
-  description: p.description, note: p.note, features: p.features, featured: p.featured,
-  cta: { label: 'Configure below', href: '#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
-}))
-
-const toServices = list => list.map(a => ({ name: a.name, description: a.body, price: a.price }))
+function Rail() {
+  return (
+    <aside className="gs-rail">
+      <div className="gs-rail__card">
+        <h3>Included vs. add-ons</h3>
+        <p>
+          Every plan already covers design, hosting, SSL, backups, your domain, and
+          your own editor. Add-ons are optional launch extras: phone line, email,
+          logo, forms, rush delivery. Plan details:{' '}
+          <Link to="/plans/freelance">Freelance</Link> ·{' '}
+          <Link to="/plans/standard">Standard</Link> ·{' '}
+          <Link to="/plans/wordpress">WordPress</Link>
+        </p>
+      </div>
+      <div className="gs-rail__card">
+        <h3>Pages vs. items</h3>
+        <p>
+          Pages are layouts we design (6 included). Items are the things they list,
+          like products, dishes, or listings, all sharing one design (25 imported,
+          then unlimited self-serve, free). A 40-product catalog is 1 page plus
+          40 items, not 40 pages. That's why a full catalog stays affordable.
+        </p>
+      </div>
+      <div className="gs-rail__card">
+        <h3>On-demand, later</h3>
+        <p>
+          Newsletters, landing pages, QR menus, seasonal swaps, translations — added
+          after launch, whenever you need them. Nothing to decide today; estimate
+          below or see <Link to="/on-demand">the full menu</Link>.
+        </p>
+      </div>
+    </aside>
+  )
+}
 
 export default function Pricing() {
   return (
     <>
       <Seo
         title="Pricing & Order"
-        description="Every plan, add-on, and on-demand service with full deliverable descriptions and honest prices — plus live estimators to build your own quote."
+        description="Build your order: pick a plan and add-ons for an all-in number, or estimate on-demand work for a live site. Every figure confirmed in writing."
         path="/pricing"
       />
       <HeroSection
-        eyebrow="Full pricing"
-        headline="Everything we sell, on one page."
-        subtext={`All three plans, every launch add-on, and every on-demand service, with what each one actually includes. ${PRICING_PROMISE}`}
+        eyebrow="Pricing & order"
+        headline="Price it yourself, right here."
+        subtext={`Pick a plan and any add-ons for a transparent, all-in number, or estimate on-demand work for a site that's already live. ${PRICING_PROMISE}`}
         size="compact"
         variant="alt"
-        ctas={[{ label: 'Build your order', href: '#order', variant: 'solid' }]}
+        ctas={[]}
       />
 
-      <div id="plans">
-        <PricingPlans
-          eyebrow="The plans"
-          headline="Three ways in"
-          subtext="One flat first-year price covering design, hosting, and your domain, then a yearly rate for hosting and renewal. Each plan has a full deep-dive page if you want the long version."
-          plans={PLANS}
-          variant="default"
-        />
-        <div className="gs-inline-note-wrap">
-          <p className="gs-note">
-            Deep dives: <Link to="/plans/freelance">Freelance / Solo</Link> ·{' '}
-            <Link to="/plans/standard">Standard Business</Link> ·{' '}
-            <Link to="/plans/wordpress">WordPress Business</Link>
-          </p>
-        </div>
-      </div>
-
-      <ServiceList
-        eyebrow="Launch add-ons"
-        headline="Picked with your package"
-        subtext="Optional pieces set up alongside the site — each one a fixed-scope deliverable, in your name."
-        services={toServices(ADDONS)}
-        columns={2}
-        variant="alt"
-      />
-
-      <ServiceList
-        eyebrow="On-demand services"
-        headline="Added later, whenever you need them"
-        subtext="Nothing here needs deciding at launch. Fixed prices, delivered when the need shows up."
-        services={toServices(ON_DEMAND)}
-        columns={2}
-        variant="default"
-      />
-
-      {/* The order builder — package + add-ons */}
-      <section id="order" className="section section--alt">
+      {/* New orders: configurator with the explainer rail beside it */}
+      <section id="order" className="section section--default">
         <div className="section-container">
-          <p className="section-eyebrow">Build your order</p>
-          <h2 className="section-title">Package + add-ons</h2>
-          <p className="section-sub">
-            Pick a plan and any launch add-ons for a transparent, all-in number.
-            Nothing is charged; every figure is confirmed in writing before work starts.
-          </p>
-          <PackageConfigurator />
+          <p className="section-eyebrow">New site</p>
+          <h2 className="section-title">Build your order</h2>
+          <div className="gs-order">
+            <div className="gs-order__main">
+              <PackageConfigurator />
+            </div>
+            <Rail />
+          </div>
         </div>
       </section>
 
-      {/* The on-demand estimator */}
-      <section id="estimate" className="section section--default">
+      {/* Existing sites: on-demand estimator */}
+      <section id="estimate" className="section section--alt">
         <div className="section-container">
           <p className="section-eyebrow">Already launched?</p>
           <h2 className="section-title">Estimate on-demand work</h2>
           <p className="section-sub">
-            For existing sites: mix one-time jobs, per-unit work, and quoted items
-            into one running total.
+            One-time jobs, per-unit work, and quoted items in one running total.
           </p>
           <Estimator />
         </div>

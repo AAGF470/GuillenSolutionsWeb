@@ -19,8 +19,8 @@
 //  Node 18+ (uses global fetch). Nothing is deleted; re-running is idempotent.
 // ─────────────────────────────────────────────────────────────────────────────
 import {
-  PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE,
-  POSITIONING, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, RUN_SAFE_POINTS, CONTACT_EMAIL,
+  PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE,
+  POSITIONING, CMS_LEAD, RUN_SAFE_POINTS, CONTACT_EMAIL,
 } from '../../site/src/data.js'
 import { PLAN_PAGES } from '../../site/src/planPages.js'
 
@@ -50,46 +50,15 @@ const STEPS = [
 
 // ── customHtml payloads (exact markup from the bespoke pages; site CSS has
 //    these classes because the bespoke pages remain bundled as fallbacks) ─────
-const KEY_ICON =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="9" r="5"/><line x1="11.5" y1="12.5" x2="20" y2="21"/><line x1="17" y1="18" x2="19" y2="16"/></svg>'
-
 const HTML_NOTES = `
 <div class="gs-inline-note-wrap">
+  <p class="gs-note">Each plan has its own deep dive (
+    <a href="/plans/freelance">Freelance</a> ·
+    <a href="/plans/standard">Standard</a> ·
+    <a href="/plans/wordpress">WordPress</a>
+    ) and every option lives on one page at <a href="/pricing">full pricing &amp; order</a>.</p>
   <p class="gs-note">${GROWTH_NOTE}</p>
-  <p class="gs-note"><strong>Nothing else to decide today.</strong> Newsletters, landing pages,
-    QR menus, seasonal refreshes, translations — all available later, whenever you
-    need them. <a href="/on-demand">See on-demand services →</a></p>
-  <p class="gs-note">Want the full picture? Each plan has its own deep dive:
-    <a href="/plans/freelance">Freelance / Solo</a> ·
-    <a href="/plans/standard">Standard Business</a> ·
-    <a href="/plans/wordpress">WordPress Business</a></p>
 </div>`
-
-const HTML_EXPLAINER = `
-<section class="section section--default gs-explain">
-  <div class="section-container">
-    <p class="section-eyebrow">Plain English</p>
-    <h2 class="section-title">Pages vs. Items</h2>
-    <p class="section-sub">${PAGES_ITEMS.intro}</p>
-    <div class="gs-explain__grid">
-      <div class="gs-explain__card">
-        <span class="gs-explain__badge">Pages · 6 included</span>
-        <h3 class="gs-explain__card-title">The rooms</h3>
-        <p>${PAGES_ITEMS.pages}</p>
-      </div>
-      <div class="gs-explain__card">
-        <span class="gs-explain__badge">Items · 25 included</span>
-        <h3 class="gs-explain__card-title">The dishes</h3>
-        <p>${PAGES_ITEMS.items}</p>
-      </div>
-    </div>
-    <p class="gs-note">${PAGES_ITEMS.savings}</p>
-    <div class="gs-cms-callout">
-      <span class="gs-cms-callout__mark">${KEY_ICON}</span>
-      <p><strong>You can do it yourself — free.</strong> ${CMS_NOTE}</p>
-    </div>
-  </div>
-</section>`
 
 const HTML_LIBPEEK = `
 <section class="section section--default gs-libpeek">
@@ -152,12 +121,7 @@ const PAGES = [
           features: p.features.map(text => ({ text })),
           cta: { label: 'Build your quote', href: '#configure', variant: p.featured ? 'solid' : 'ghost-bordered' },
         })) },
-      { blockType: 'serviceList', columns: '2', variant: 'alt',
-        eyebrow: 'Add-ons', headline: 'Pick only what fits',
-        subtext: "Optional extras — add any to a package, or none. Most everyday changes you can make yourself for free once the site is live; these are for when you'd rather we handle it. Tailored combinations are quoted per business.",
-        services: ADDONS.map(a => ({ name: a.name, description: a.body, price: a.price })) },
       { blockType: 'customHtml', variant: 'default', html: HTML_NOTES },
-      { blockType: 'customHtml', variant: 'default', html: HTML_EXPLAINER },
       grid({ eyebrow: 'Run it yourself', headline: 'Your own control panel, built around your business',
         subtext: CMS_LEAD, items: RUN_SAFE_POINTS, variant: 'alt' }),
       { blockType: 'customHtml', variant: 'default', html: HTML_LIBPEEK },

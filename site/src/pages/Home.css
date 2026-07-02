@@ -3,11 +3,11 @@
    Section scaffolding + tokens come from the shared library.
 --------------------------------------------------------------------------- */
 
-/* Growth note — continues the add-ons (surface) section */
+/* Inline notes — self-contained pills, neutral to whatever section precedes */
 .gs-inline-note-wrap {
-  background: var(--color-surface);
-  padding: 0 0 88px;
-  margin-top: -40px;
+  padding: 12px 0 64px;
+  display: grid;
+  gap: 12px;
 }
 .gs-inline-note-wrap .gs-note {
   max-width: min(1200px, 100%);
