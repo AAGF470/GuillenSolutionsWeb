@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   HeroSection, FeatureGrid, Steps, ImageText, Testimonials, Gallery, Faq,
-  PricingPlans, ServiceList, HoursLocation, CtaBanner, ContactSection, Checklist,
+  PricingPlans, ServiceList, HoursLocation, CtaBanner, ContactSection, Checklist, NewsletterSignup,
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
 import Seo from './components/Seo.jsx'
@@ -21,7 +21,7 @@ const MAP = {
   hero: HeroSection, featureGrid: FeatureGrid, steps: Steps, imageText: ImageText,
   testimonials: Testimonials, gallery: Gallery, faq: Faq, pricingPlans: PricingPlans,
   serviceList: ServiceList, hoursLocation: HoursLocation, ctaBanner: CtaBanner,
-  contactSection: ContactSection, checklist: Checklist,
+  contactSection: ContactSection, checklist: Checklist, newsletterSignup: NewsletterSignup,
 }
 
 const API = import.meta.env.VITE_CMS_URL

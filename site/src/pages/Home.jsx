@@ -155,6 +155,11 @@ export default function Home() {
       <div className="gs-inline-note-wrap">
         <p className="gs-note">{GROWTH_NOTE}</p>
         <p className="gs-note">{REFERRAL_NOTE}</p>
+        <p className="gs-note">
+          <strong>Nothing else to decide today.</strong> Newsletters, landing pages, QR menus,
+          seasonal refreshes, translations — all available later, whenever you need them.{' '}
+          <Link to="/on-demand">See on-demand services →</Link>
+        </p>
       </div>
 
       {/* Pages vs. Items — plain-English explainer */}

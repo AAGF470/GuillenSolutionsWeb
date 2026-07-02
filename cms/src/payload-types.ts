@@ -404,6 +404,25 @@ export interface Page {
             blockType: 'checklist';
           }
         | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            /**
+             * The newsletter vendor's form URL (Brevo/MailerLite/Buttondown). The vendor account is in the client's name.
+             */
+            action: string;
+            /**
+             * Input name the vendor expects: Buttondown "email", Brevo "EMAIL", MailerLite "fields[email]".
+             */
+            emailField?: string | null;
+            buttonLabel?: string | null;
+            disclaimer?: string | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'newsletterSignup';
+          }
+        | {
             content?: {
               root: {
                 type: string;
@@ -892,6 +911,20 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               note?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        newsletterSignup?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              action?: T;
+              emailField?: T;
+              buttonLabel?: T;
+              disclaimer?: T;
               variant?: T;
               id?: T;
               blockName?: T;

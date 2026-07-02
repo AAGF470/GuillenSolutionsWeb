@@ -113,6 +113,45 @@ export const ADDONS = [
     body: 'We get your business on Google Maps — or clean up your existing presence. All-inclusive: a guided walkthrough of creating and verifying your Google Business Profile, set up in your name.',
     amount: 300, kind: 'onetime',
   },
+]
+
+// ── On-demand services ───────────────────────────────────────────────────────
+// Deliberately separated from the launch add-ons so choosing a package stays
+// simple: NOTHING here needs deciding today. These are delivered whenever a
+// client ends up needing them — bounded, fixed-scope, quoted in writing.
+export const ON_DEMAND = [
+  {
+    id: 'newsletter',
+    name: 'Newsletter Setup',
+    price: '$225',
+    cadence: 'One-time',
+    body: 'Signup forms built into your site, a newsletter account opened in YOUR name (free tiers cover most small businesses), and an email template designed to match your website. You write and send; nothing routes through us.',
+    amount: 225, kind: 'onetime',
+  },
+  {
+    id: 'landing',
+    name: 'Landing Page',
+    price: '$150/page',
+    cadence: 'Per page',
+    body: 'A focused one-page pitch for a promotion, season, or single service — composed from your site\'s component system so it matches perfectly and ships fast.',
+    amount: 150, kind: 'per-unit', unit: 'page', unitPlural: 'pages',
+  },
+  {
+    id: 'qrmenu',
+    name: 'QR Menu / Price Sheet',
+    price: '$120',
+    cadence: 'One-time',
+    body: 'Your menu or price list as a clean, print-ready page with a QR code. Because it reads from the same content as your site, updating a price updates both — free, forever.',
+    amount: 120, kind: 'onetime',
+  },
+  {
+    id: 'seasonal',
+    name: 'Seasonal Refresh',
+    price: '$45/swap',
+    cadence: 'Per swap',
+    body: 'Holiday banner, seasonal promo, storm notice — we swap featured content and imagery for the season and swap it back after. A content change in our system, not a redesign.',
+    amount: 45, kind: 'per-unit', unit: 'swap', unitPlural: 'swaps',
+  },
   {
     id: 'items',
     name: 'Extra Items (beyond 25)',
@@ -125,9 +164,17 @@ export const ADDONS = [
     id: 'spanish',
     name: 'Spanish Pages',
     price: '$30/page',
-    cadence: 'Post-launch',
+    cadence: 'Per page',
     body: 'Full pages hand-translated by a native Spanish speaker (never machine-translated), with the layout adjusted to stay clean. Items are $2 each; pages are priced here.',
     amount: 30, kind: 'per-unit', unit: 'page', unitPlural: 'pages',
+  },
+  {
+    id: 'extrapage',
+    name: 'Extra Pages & Redesigns',
+    price: '$75–200',
+    cadence: 'Quoted',
+    body: 'New pages or reworked layouts as your business grows, quoted by page depth before we build. You only pay when you actually expand.',
+    amount: null, kind: 'quoted',
   },
 ]
 

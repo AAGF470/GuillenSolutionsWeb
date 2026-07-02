@@ -63,6 +63,9 @@ const HTML_NOTES = `
 <div class="gs-inline-note-wrap">
   <p class="gs-note">${GROWTH_NOTE}</p>
   <p class="gs-note">${REFERRAL_NOTE}</p>
+  <p class="gs-note"><strong>Nothing else to decide today.</strong> Newsletters, landing pages,
+    QR menus, seasonal refreshes, translations — all available later, whenever you
+    need them. <a href="/on-demand">See on-demand services →</a></p>
   <p class="gs-note">Want the full picture? Each plan has its own deep dive:
     <a href="/plans/freelance">Freelance / Solo</a> ·
     <a href="/plans/standard">Standard Business</a> ·

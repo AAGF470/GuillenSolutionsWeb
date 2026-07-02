@@ -57,6 +57,21 @@ export const hero: Block = {
   ],
 }
 
+export const newsletterSignup: Block = {
+  slug: 'newsletterSignup',
+  labels: { singular: 'Newsletter signup', plural: 'Newsletter signups' },
+  fields: [
+    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'action', type: 'text', required: true,
+      admin: { description: "The newsletter vendor's form URL (Brevo/MailerLite/Buttondown). The vendor account is in the client's name." } },
+    { name: 'emailField', type: 'text', defaultValue: 'email',
+      admin: { description: 'Input name the vendor expects: Buttondown "email", Brevo "EMAIL", MailerLite "fields[email]".' } },
+    { name: 'buttonLabel', type: 'text', defaultValue: 'Subscribe' },
+    { name: 'disclaimer', type: 'text' },
+    variant,
+  ],
+}
+
 export const checklist: Block = {
   slug: 'checklist',
   labels: { singular: 'Checklist', plural: 'Checklists' },
@@ -279,5 +294,5 @@ export const configurator: Block = {
 export const SECTION_BLOCKS: Block[] = [
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
-  checklist, richText, customHtml, configurator,
+  checklist, newsletterSignup, richText, customHtml, configurator,
 ]

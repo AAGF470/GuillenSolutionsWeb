@@ -5,6 +5,7 @@ import { CONTACT_EMAIL } from './data'
 import Home from './pages/Home.jsx'
 import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
 import PlanPage from './pages/PlanPage.jsx'
+import OnDemand from './pages/OnDemand.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
 import Seo, { BUSINESS_SCHEMA } from './components/Seo.jsx'
@@ -123,6 +124,7 @@ function Footer() {
           <Link to="/plans/freelance">Freelance plan</Link>
           <Link to="/plans/standard">Standard plan</Link>
           <Link to="/plans/wordpress">WordPress plan</Link>
+          <Link to="/on-demand">On-demand services</Link>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">Get in touch</span>
@@ -157,6 +159,7 @@ export default function App() {
           <Route path="/work" element={<><Seo {...SEO.work} /><WorkAndLibrary /></>} />
           {/* Per-plan sales pages (config-driven, one component). */}
           <Route path="/plans/:planId" element={<PlanPage />} />
+          <Route path="/on-demand" element={<OnDemand />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />

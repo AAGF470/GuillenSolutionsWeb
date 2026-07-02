@@ -12,6 +12,7 @@ import {
   ImageText,
   CtaBanner,
   ContactSection,
+  NewsletterSignup,
 } from '@aagf470/ui'
 
 // ---------------------------------------------------------------------------
@@ -184,6 +185,17 @@ export function LibraryShowcase() {
             subtext="One last nudge toward the thing you want visitors to do."
             cta={{ label: 'Get started', href: '#' }}
             variant="accent"
+          />
+        </Spec>
+
+        <Spec name="Newsletter signup" tag="<NewsletterSignup />"
+          desc="An email-capture band that posts straight to the client's newsletter vendor — the account stays in the client's name.">
+          <NewsletterSignup
+            eyebrow="Stay in the loop"
+            headline="News, offers, and updates — straight from us"
+            subtext="One short email when there's something worth knowing. No spam, unsubscribe anytime."
+            action="#"
+            disclaimer="Your address goes to YOUR newsletter account — never to a third party."
           />
         </Spec>
 
