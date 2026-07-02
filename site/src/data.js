@@ -31,10 +31,10 @@ export const PACKAGES = [
     badge: 'Most popular',
     tag: 'Custom in-house design',
     name: 'Standard Business',
-    price: '$800',
+    price: '$950',
     period: 'first year, all-in',
-    description: 'Our in-house design system — fast, modern, and easy to update.',
-    note: 'After year one: $300/yr hosting + domain renewal.',
+    description: 'Custom in-house design on our component system — fast, modern, and easy to update yourself.',
+    note: 'After year one: $350/yr hosting + domain renewal.',
     features: [
       'Up to 6 designed pages — home, about, services…',
       'Up to 25 items — products, menu items, listings',
@@ -44,17 +44,17 @@ export const PACKAGES = [
       'Edit it yourself, anytime — everything is yours',
     ],
     featured: true,
-    firstYear: 800,
-    recurring: 300,
+    firstYear: 950,
+    recurring: 350,
   },
   {
     id: 'wordpress',
     tag: 'Maximum portability',
     name: 'WordPress Business',
-    price: '$1,150',
+    price: '$1,350',
     period: 'first year, all-in',
-    description: "Built on the world's most widely-supported platform — maintainable by any developer.",
-    note: 'After year one: $300/yr hosting + domain renewal.',
+    description: "Built on the world's most widely-supported platform — maintainable by any developer, anywhere.",
+    note: 'After year one: $350/yr hosting + domain renewal.',
     features: [
       'Up to 6 designed pages — home, about, services…',
       'Up to 25 items — products, menu items, listings',
@@ -63,8 +63,8 @@ export const PACKAGES = [
       'Domain registered in your name',
       'Maximum portability — not tied to us',
     ],
-    firstYear: 1150,
-    recurring: 300,
+    firstYear: 1350,
+    recurring: 350,
   },
 ]
 
@@ -118,7 +118,7 @@ export const ADDONS = [
     name: 'Extra Items (beyond 25)',
     price: '$7/item',
     cadence: 'Per item',
-    body: 'Need more than the 25 included? We add each product, menu item, or listing for you. Add a Spanish version of any item for $2 more (both languages in one entry).',
+    body: 'Adding items yourself is always free and unlimited. This is for when you\'d rather we do the import — we add each product, menu item, or listing for you. Add a Spanish version of any item for $2 more (both languages in one entry).',
     amount: 7, kind: 'per-unit', unit: 'item', unitPlural: 'items',
   },
   {
@@ -133,6 +133,22 @@ export const ADDONS = [
 
 export const GROWTH_NOTE =
   'As your site grows: additional pages or redesigns are $75–200 each, quoted by page depth — so you only pay when you actually expand.'
+
+export const REFERRAL_NOTE =
+  'Know another business that needs a site? Every referral who signs earns you a 5% credit toward your next renewal.'
+
+// Renewal honesty — grandfathering means fair, disclosed pricing, not a rate
+// frozen forever. Never promise "your price never changes."
+export const PRICING_PROMISE =
+  'Your renewal rate is agreed in writing before you sign — never a surprise increase. Current pricing is an intentional market-entry rate; as demand grows, rates rise for new clients, while existing clients keep fair, gradual pricing.'
+
+// Where we fit — versus the alternatives a small business actually compares us to.
+export const POSITIONING = [
+  { icon: 'layers', title: 'vs. DIY builders',    body: 'Squarespace and Wix hand you a blank template and a monthly bill. We hand you a finished, custom-designed site — with an editor made for your business, not a generic dashboard.' },
+  { icon: 'zap',    title: 'vs. freelancers',     body: 'Freelance builds run $1,500–8,000 and start from scratch every time. Our component system industrializes the work — custom-looking sites at a fraction of the cost and time.' },
+  { icon: 'star',   title: 'vs. agencies',        body: 'Agency work starts around $6,000 with overhead to match. You get comparable polish without the minimums — because our system does the heavy lifting.' },
+  { icon: 'shield', title: 'vs. predatory vendors', body: 'Some local vendors keep your domain, resell your leads, and bill you forever. We\'re the opposite by design: you own everything, and we never touch your ad spend or your money.' },
+]
 
 // "You can do it yourself, free" — the fees are only for hands-off clients.
 export const CMS_NOTE =

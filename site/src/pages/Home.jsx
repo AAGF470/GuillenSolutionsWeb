@@ -9,7 +9,7 @@ import {
   ServiceList,
 } from '@aagf470/ui'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
-import { PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, CONTACT_EMAIL, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, CMS_POINTS, SECURITY_LEAD, SECURITY_POINTS } from '../data'
+import { PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, REFERRAL_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, CMS_POINTS, SECURITY_LEAD, SECURITY_POINTS } from '../data'
 
 // Map shared pricing data → PricingPlans plan shape
 const PLANS = PACKAGES.map(p => ({
@@ -109,6 +109,16 @@ export default function Home() {
         variant="default"
       />
 
+      {/* Where we fit — the honest comparison against every alternative */}
+      <FeatureGrid
+        eyebrow="Where we fit"
+        headline="Between doing it yourself and paying an agency"
+        subtext="Tailored, long-term, content-managed websites that you own — the gap the alternatives leave open."
+        items={POSITIONING}
+        columns={4}
+        variant="default"
+      />
+
       <Steps
         eyebrow="How it works"
         headline="From package to keys in four steps"
@@ -120,7 +130,7 @@ export default function Home() {
         <PricingPlans
           eyebrow="Packages"
           headline="Flat, all-in pricing"
-          subtext="Three tiers, one flat first-year price covering design, hosting, and your domain — then a low yearly rate for hosting + domain renewal, billed transparently. Current pricing is an intentional market-entry rate; existing clients stay grandfathered."
+          subtext={`Three tiers, one flat first-year price covering design, hosting, and your domain — then a low yearly rate for hosting + domain renewal, billed transparently. ${PRICING_PROMISE}`}
           plans={PLANS}
           variant="default"
         />
@@ -136,6 +146,7 @@ export default function Home() {
       />
       <div className="gs-inline-note-wrap">
         <p className="gs-note">{GROWTH_NOTE}</p>
+        <p className="gs-note">{REFERRAL_NOTE}</p>
       </div>
 
       {/* Pages vs. Items — plain-English explainer */}
