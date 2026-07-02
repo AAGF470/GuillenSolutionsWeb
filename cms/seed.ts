@@ -2,7 +2,7 @@
 // Run once after the DB is up:  npx tsx seed.ts   (or wire as an npm script)
 // Idempotent-ish: skips if a "home" page already exists.
 import { getPayload } from 'payload'
-import config from './payload.config'
+import config from './src/payload.config'
 
 async function run() {
   const payload = await getPayload({ config })

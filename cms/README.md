@@ -1,61 +1,117 @@
-# guillensolutions.com — CMS (Payload)
+# Payload Blank Template
 
-The curated CMS for the live-but-in-progress Guillen Solutions site. **Editors change
-content and add/remove/reorder blocks; they can never touch structure or code** — the
-proof-of-concept for what every client gets.
+This template comes configured with the bare minimum to get started on anything you need.
 
-> **Build status:** these are the deploy-ready files (schema, blocks, compose, Dockerfile,
-> seed, render adapter). Payload is a running Node app + Postgres, so it can't be
-> click-verified in the build sandbox — the steps below run + verify it on RAYA (or your
-> Mac). Everything a client edits lives on **your** Postgres, backed up by `ops/raya`.
+## Quick start
 
-## Files
-| File | Role |
-|---|---|
-| `payload.config.ts` | Collections (Pages · Posts · Media · Users) + curated access (Users admin-only). |
-| `../blocks.ts` | The shared section blocks = the editable surface (copy in beside the config). |
-| `docker-compose.yml` | Payload + internal-only Postgres; data under `/srv/docker` (backed up). |
-| `Dockerfile` · `.env.example` | Production image + secrets template. |
-| `seed.ts` | Starter Home page so there's content to edit immediately. |
-| `site/PayloadPage.jsx` | Renders a page's blocks with `@aagf470/ui` — drop into the site. |
+This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
 
-## Deploy runbook (RAYA)
+## Quick Start - local setup
+
+To spin up this template locally, follow these steps:
+
+### Clone
+
+After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+
+### Development
+
+1. First [clone the repo](#clone) if you have not done so already
+2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+
+3. `pnpm install && pnpm dev` to install dependencies and start the dev server
+4. open `http://localhost:3000` to open the app in your browser
+
+That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+
+#### Docker (Optional)
+
+If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+
+To do so, follow these steps:
+
+- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
+- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
+- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+
+## How it works
+
+The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+
+### Collections
+
+See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+
+- #### Users (Authentication)
+
+  Users are auth-enabled collections that have access to the admin panel.
+
+  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/3.x/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+
+- #### Media
+
+  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+
+### Docker
+
+Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+
+1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
+1. Next run `docker-compose up`
+1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+
+That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+
+## Questions
+
+If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+
+---
+
+# guillensolutions.com — deploy notes (Guillen Solutions)
+
+This is the curated CMS for the (live, in-progress) guillensolutions.com site.
+It was scaffolded with `create-payload-app` (Postgres) and then wired to our
+shared setup:
+
+- **`src/payload.config.ts`** — curated config. Collections: **Pages** (built
+  from the shared section blocks in `src/blocks.ts` — editors change content and
+  add/remove/reorder blocks, never structure), **Posts**, **Media**, and
+  **Users** (admin-only; a client editor only sees Pages/Posts/Media).
+- **`src/blocks.ts`** — the 12 section blocks (hero, featureGrid, steps, … )
+  mirrored from the shared library. Keep in sync across client CMSs.
+- **`docker-compose.yml`** — `guillensolutions-cms` (Payload/Next, built from
+  `Dockerfile`) + `guillensolutions-cms-db` (Postgres 16, **internal network
+  only, never exposed**). State bind-mounts under `/srv/docker/guillensolutions-cms`.
+- **`seed.ts`** — seeds a starter Home page.
+
+## First deploy on RAYA
+
 ```bash
-# 1. Scaffold the Next/Payload plumbing (choose Postgres, blank), then drop our files in:
-npx create-payload-app@latest guillensolutions-cms   # → creates the Next app + Dockerfile
-cd guillensolutions-cms
-cp /path/to/cms/blocks.ts               src/blocks.ts
-cp /path/to/cms/guillensolutions/payload.config.ts src/payload.config.ts
-cp /path/to/cms/guillensolutions/{docker-compose.yml,Dockerfile,.env.example,seed.ts} .
-cp .env.example .env    # fill PAYLOAD_SECRET + DB_PASSWORD (strong, random)
-
-# 2. Build + run on RAYA (in /srv/docker/guillensolutions-cms/)
+# on RAYA, in the repo:
+git pull
+cd cms
+cp .env.example .env         # then set DB_PASSWORD + PAYLOAD_SECRET (openssl rand -hex 32)
 docker compose up -d --build
-docker compose exec guillensolutions-cms npx tsx seed.ts   # starter Home page
-# create your admin user at first load
-
-# 3. Route it: add an NPM proxy host  cms.guillensolutions.com -> guillensolutions-cms:3000
-#    Postgres stays internal-only. pgdata + media under /srv/docker are already backed up.
 ```
-Log in at `https://cms.guillensolutions.com/admin` → open **Pages → Home** → edit text,
-swap images, add a **Feature grid** or **Gallery** block, save. That's the curated editing.
 
-## Point the site at the CMS
-In the guillenwebsites app:
-1. Copy `site/PayloadPage.jsx` in (or publish it as `@aagf470/ui/payload`).
-2. Set `VITE_CMS_URL=https://cms.guillensolutions.com` in the site's `.env`.
-3. Render a CMS-driven route with a static fallback while content is still being built:
-   ```jsx
-   <PayloadPage slug="home" fallback={<Home />} />
-   ```
-   As blocks are filled in, the page flips from the hardcoded version to the CMS one —
-   same `@aagf470/ui` components, now editable.
+Then in **Nginx Proxy Manager**: proxy host `cms.guillensolutions.com` →
+`guillensolutions-cms:3000` (both on the shared `proxy` network; request an SSL
+cert).
 
-## Adding to the editable palette later
-New section in `@aagf470/ui` → add a matching block to `../blocks.ts` and a line to
-`PayloadPage.jsx`'s `MAP`. That's the "add new components" selling point: the palette of
-blocks a client can drop in grows with the library.
+**Create the first admin** by opening `https://cms.guillensolutions.com/admin` —
+when the `users` collection is empty Payload shows a "create first user" form.
+(Do this in the browser, not the CLI: the container runs Next's *standalone*
+build, which doesn't ship the `payload`/`tsx` binaries or `src/`.)
 
-## Reuse for other sites (guillen.studio, cryark)
-`../blocks.ts` is shared. Copy this folder per site, swap the domain/container names in
-`docker-compose.yml` + `.env`, and point that site's `PayloadPage` at its own CMS URL.
+**Starter content:** just build the Home page in the admin (add blocks). The
+`seed.ts` script is a convenience for a local dev checkout — run it there with
+`npx tsx seed.ts` before containerizing; it is **not** runnable inside the
+standalone image.
+
+The public site points at this CMS via `VITE_CMS_URL` and renders blocks through
+`site/src/PayloadPage.jsx`.
+
+**Redeploy after code changes:** `git pull && cd cms && docker compose up -d --build`.
+Code lives in git; content lives in Postgres (backed up separately by `ops/raya`).
+

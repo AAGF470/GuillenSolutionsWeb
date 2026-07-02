@@ -7,13 +7,19 @@
 //  structure, styling, or code. Users collection is admin-only, so a client
 //  editor sees only Pages / Posts / Media.
 //
-//  Drop this into a `create-payload-app` project (see README). `../blocks` is the
-//  shared block set — copy it in beside this file when building the image.
+//  This file lives at src/payload.config.ts (create-payload-app layout). The
+//  curated block set is beside it in src/blocks.ts.
 // ═══════════════════════════════════════════════════════════════════════════
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import sharp from 'sharp'
 import { SECTION_BLOCKS } from './blocks'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
 const isAdmin = ({ req }: any) => req.user?.role === 'admin'
 // Editors can read/write content; only admins manage users + delete.
@@ -26,14 +32,28 @@ const Users = {
   access: { create: isAdmin, delete: isAdmin, update: isAdmin, read: () => true },
   fields: [
     { name: 'name', type: 'text' },
-    { name: 'role', type: 'select', defaultValue: 'editor', access: { update: isAdmin },
-      options: [{ label: 'Admin', value: 'admin' }, { label: 'Editor', value: 'editor' }] },
+    {
+      name: 'role',
+      type: 'select',
+      defaultValue: 'editor',
+      access: { update: isAdmin },
+      options: [
+        { label: 'Admin', value: 'admin' },
+        { label: 'Editor', value: 'editor' },
+      ],
+    },
   ],
 }
 
 const Media = {
   slug: 'media',
-  upload: { staticDir: 'media', imageSizes: [{ name: 'card', width: 768 }, { name: 'hero', width: 1600 }] },
+  upload: {
+    staticDir: path.resolve(dirname, '../media'),
+    imageSizes: [
+      { name: 'card', width: 768 },
+      { name: 'hero', width: 1600 },
+    ],
+  },
   access: { read: () => true },
   fields: [{ name: 'alt', type: 'text' }],
 }
@@ -44,10 +64,23 @@ const Pages = {
   access: { read: () => true, create: editorCanWrite, update: editorCanWrite, delete: isAdmin },
   fields: [
     { name: 'title', type: 'text', required: true },
-    { name: 'slug', type: 'text', required: true, unique: true, index: true,
-      admin: { description: 'URL path, e.g. "home", "about". The site fetches pages by this.' } },
-    { name: 'layout', type: 'blocks', blocks: SECTION_BLOCKS,
-      admin: { description: 'Add, reorder, or remove sections. Editing here changes content only — never the design.' } },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      index: true,
+      admin: { description: 'URL path, e.g. "home", "about". The site fetches pages by this.' },
+    },
+    {
+      name: 'layout',
+      type: 'blocks',
+      blocks: SECTION_BLOCKS,
+      admin: {
+        description:
+          'Add, reorder, or remove sections. Editing here changes content only — never the design.',
+      },
+    },
   ],
 }
 
@@ -67,10 +100,22 @@ const Posts = {
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  secret: process.env.PAYLOAD_SECRET!,
+  secret: process.env.PAYLOAD_SECRET || '',
+  admin: {
+    user: 'users',
+    importMap: { baseDir: path.resolve(dirname) },
+  },
   editor: lexicalEditor({}),
-  db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI } }),
-  collections: [Pages, Posts, Media, Users],
-  cors: [process.env.SITE_URL || ''].filter(Boolean),      // allow the site to fetch the API
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL || '',
+    },
+  }),
+  collections: [Pages as any, Posts as any, Media as any, Users as any],
+  cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
+  sharp,
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
 })
