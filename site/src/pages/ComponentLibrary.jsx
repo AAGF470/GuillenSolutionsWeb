@@ -41,14 +41,28 @@ export default function ComponentLibrary() {
       <header className="gs-intro">
         <div className="gs-intro__inner">
           <p className="gs-intro__eyebrow">Component library</p>
-          <h1 className="gs-intro__title">The toolkit your site is built from</h1>
+          <h1 className="gs-intro__title">One library. 47+ components. Every kind of business.</h1>
           <p className="gs-intro__lead">
-            Every one of these is a real, production component — tokenized so it works in light
-            and dark, responsive on every screen, and yours to rearrange as your business grows.
-            Everything below is live, rendered from sample content.
+            This is the in-house system every Guillen Solutions site is built from — and the
+            reason we deliver custom-tier design at a fraction of custom cost. Everything below
+            is live, rendered from sample content: real production components, mobile-ready,
+            light and dark, tested once and reused everywhere.
           </p>
         </div>
       </header>
+
+      <FeatureGrid
+        eyebrow="How the library works for you"
+        headline="Bigger with every project — safer for every client"
+        items={[
+          { icon: 'layers', title: '47+ and counting',        body: 'Heroes, pricing tables, galleries, FAQs, forms, checklists — a deep, diverse toolkit that already covers most of what a business site needs.' },
+          { icon: 'zap',    title: 'Grows with every project', body: 'When a client needs something new, we build it into the library — so every site we ship makes the next one better, faster, and cheaper.' },
+          { icon: 'shield', title: 'Controlled access',        body: 'You edit your content freely; the design, layout, and device behavior are locked inside the components. You can’t break your own site.' },
+          { icon: 'star',   title: 'One system, any look',     body: 'A single theme file restyles the whole library — the same components power a contractor, a game studio, and this very page.' },
+        ]}
+        columns={4}
+        variant="alt"
+      />
 
       <div className="gs-showcase">
         <div className="gs-showcase__inner">
@@ -94,7 +108,7 @@ export default function ComponentLibrary() {
               headline="Simple pricing"
               plans={[
                 { tag: 'Starter', name: 'Basic', price: '$500', period: 'one-time', description: 'For getting started.', features: ['One page', 'Hosting included', 'Yours to keep'], cta: { label: 'Choose', href: '#', variant: 'ghost-bordered' } },
-                { badge: 'Most popular', tag: 'Complete', name: 'Standard', price: '$800', period: 'first year', description: 'The full setup.', features: ['Multi-page site', 'Managed hosting', 'Content editor', 'Everything is yours'], featured: true, cta: { label: 'Choose', href: '#', variant: 'solid' } },
+                { badge: 'Most popular', tag: 'Complete', name: 'Standard', price: '$950', period: 'first year', description: 'The full setup.', features: ['Multi-page site', 'Managed hosting', 'Content editor', 'Everything is yours'], featured: true, cta: { label: 'Choose', href: '#', variant: 'solid' } },
               ]}
             />
           </Spec>

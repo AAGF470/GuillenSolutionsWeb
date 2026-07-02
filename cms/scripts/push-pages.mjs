@@ -36,7 +36,7 @@ if (!EMAIL || !PASSWORD) {
 // ── Content that previously lived only in the bespoke Home.jsx ───────────────
 // (Transitional duplication: once authored, the CMS holds the live copy.)
 const WHAT_WE_DO = [
-  { icon: 'star',   title: 'A custom-designed site',     body: 'Designed around your business on our in-house component system — custom-tier looks, not a cookie-cutter template.' },
+  { icon: 'star',   title: 'A custom-designed site',     body: 'Designed around your business on our in-house component system — custom-tier looks at template speed and cost, not a cookie-cutter template.' },
   { icon: 'layers', title: 'Update it yourself',         body: 'A simple control panel — your own CMS — that shows only what you actually change, so you can update the site yourself without touching code or breaking the design.' },
   { icon: 'shield', title: 'Managed hosting & security', body: 'SSL, backups, and uptime handled for you. You never have to think about servers or certificates.' },
   { icon: 'check',  title: 'You own everything',         body: 'Domain, content, accounts, and logins in your name from day one. Leave anytime with all of it.' },
@@ -102,7 +102,7 @@ const HTML_LIBPEEK = `
   <div class="section-container">
     <p class="section-eyebrow">Built-in toolkit</p>
     <h2 class="section-title">Your site is built from a real component library</h2>
-    <p class="section-sub">Every Guillen Solutions site is assembled from the same tested, mobile-ready, light-and-dark component set — the one this very page uses. One theme file morphs it into completely different looks: the same system powers three sites that look nothing alike — Cryark (cinematic), a university CubeSat team, and guillen.studio. That's how you get custom-tier design at near-template cost.</p>
+    <p class="section-sub">Every Guillen Solutions site is assembled from the same tested, mobile-ready, light-and-dark component set — the one this very page uses. One theme file morphs it into completely different looks, and the library grows with every project we ship. Every client gets controlled access to all of it: your content is yours to change, while the design system keeps every page safe and consistent. That's how you get custom-tier design at near-template cost.</p>
     <div class="gs-libpeek__stat">
       <span class="gs-libpeek__num">47<sup>+</sup></span>
       <span class="gs-libpeek__stat-copy">
