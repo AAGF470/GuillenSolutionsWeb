@@ -67,8 +67,10 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    pages: Page;
+    posts: Post;
     media: Media;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,15 +78,17 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {};
@@ -119,10 +123,337 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * URL path, e.g. "home", "about". The site fetches pages by this.
+   */
+  slug: string;
+  /**
+   * Add, reorder, or remove sections. Editing here changes content only — never the design.
+   */
+  layout?:
+    | (
+        | {
+            eyebrow?: string | null;
+            headline: string;
+            subtext?: string | null;
+            layout?: ('left' | 'centered') | null;
+            ctas?:
+              | {
+                  label?: string | null;
+                  href?: string | null;
+                  variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            columns?: ('2' | '3' | '4') | null;
+            items?:
+              | {
+                  icon?:
+                    | (
+                        | 'check'
+                        | 'star'
+                        | 'shield'
+                        | 'zap'
+                        | 'clock'
+                        | 'users'
+                        | 'wrench'
+                        | 'mail'
+                        | 'globe'
+                        | 'layers'
+                        | 'home'
+                        | 'fence'
+                        | 'map'
+                        | 'phone'
+                        | 'droplet'
+                        | 'wind'
+                      )
+                    | null;
+                  title: string;
+                  body?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'featureGrid';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            items?:
+              | {
+                  title: string;
+                  body?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'steps';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            body?: string | null;
+            image?: (number | null) | Media;
+            imageAlt?: string | null;
+            layout?: ('image-right' | 'image-left') | null;
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+              variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+            };
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageText';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            items?:
+              | {
+                  quote: string;
+                  author: string;
+                  role?: string | null;
+                  company?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            columns?: ('2' | '3' | '4') | null;
+            aspect?: ('1 / 1' | '4 / 3' | '3 / 4' | '16 / 9') | null;
+            images?:
+              | {
+                  image: number | Media;
+                  alt?: string | null;
+                  caption?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            single?: boolean | null;
+            items?:
+              | {
+                  q: string;
+                  a: string;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            plans?:
+              | {
+                  badge?: string | null;
+                  tag?: string | null;
+                  name?: string | null;
+                  price: string;
+                  period?: string | null;
+                  description?: string | null;
+                  note?: string | null;
+                  features?:
+                    | {
+                        text?: string | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  featured?: boolean | null;
+                  cta?: {
+                    label?: string | null;
+                    href?: string | null;
+                    variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricingPlans';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            columns?: ('1' | '2') | null;
+            services?:
+              | {
+                  name: string;
+                  description?: string | null;
+                  price?: string | null;
+                  from?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'serviceList';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            hours?:
+              | {
+                  day: string;
+                  time?: string | null;
+                  closed?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            address?: string | null;
+            phone?: string | null;
+            email?: string | null;
+            mapEmbedUrl?: string | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hoursLocation';
+          }
+        | {
+            eyebrow?: string | null;
+            headline: string;
+            subtext?: string | null;
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+              variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+            };
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaBanner';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            email?: string | null;
+            phone?: string | null;
+            showForm?: boolean | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactSection';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    hero?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  cover?: (number | null) | Media;
+  excerpt?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
+  name?: string | null;
+  role?: ('admin' | 'editor') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -144,29 +475,10 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -183,20 +495,28 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -206,10 +526,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -229,7 +549,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -237,25 +557,268 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "pages_select".
  */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  layout?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
+        hero?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              layout?: T;
+              ctas?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        featureGrid?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              columns?: T;
+              items?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        steps?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageText?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              body?: T;
+              image?: T;
+              imageAlt?: T;
+              layout?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              items?:
+                | T
+                | {
+                    quote?: T;
+                    author?: T;
+                    role?: T;
+                    company?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              columns?: T;
+              aspect?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    alt?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              single?: T;
+              items?:
+                | T
+                | {
+                    q?: T;
+                    a?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pricingPlans?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              plans?:
+                | T
+                | {
+                    badge?: T;
+                    tag?: T;
+                    name?: T;
+                    price?: T;
+                    period?: T;
+                    description?: T;
+                    note?: T;
+                    features?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    featured?: T;
+                    cta?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                          variant?: T;
+                        };
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        serviceList?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              columns?: T;
+              services?:
+                | T
+                | {
+                    name?: T;
+                    description?: T;
+                    price?: T;
+                    from?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        hoursLocation?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              hours?:
+                | T
+                | {
+                    day?: T;
+                    time?: T;
+                    closed?: T;
+                    id?: T;
+                  };
+              address?: T;
+              phone?: T;
+              email?: T;
+              mapEmbedUrl?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ctaBanner?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactSection?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              email?: T;
+              phone?: T;
+              showForm?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  cover?: T;
+  excerpt?: T;
+  content?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -274,6 +837,54 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        hero?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
