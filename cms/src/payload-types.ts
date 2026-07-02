@@ -151,6 +151,7 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -298,6 +299,13 @@ export interface Page {
                       }[]
                     | null;
                   featured?: boolean | null;
+                  total?: {
+                    label?: string | null;
+                    /**
+                     * e.g. "$950" — shown as the computed total line.
+                     */
+                    amount?: string | null;
+                  };
                   cta?: {
                     label?: string | null;
                     href?: string | null;
@@ -642,6 +650,7 @@ export interface PagesSelect<T extends boolean = true> {
                     variant?: T;
                     id?: T;
                   };
+              variant?: T;
               id?: T;
               blockName?: T;
             };
@@ -780,6 +789,12 @@ export interface PagesSelect<T extends boolean = true> {
                           id?: T;
                         };
                     featured?: T;
+                    total?:
+                      | T
+                      | {
+                          label?: T;
+                          amount?: T;
+                        };
                     cta?:
                       | T
                       | {

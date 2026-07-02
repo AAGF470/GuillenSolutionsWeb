@@ -53,6 +53,7 @@ export const hero: Block = {
         { label: 'Compact page intro', value: 'compact' },
       ] },
     { name: 'ctas', type: 'array', maxRows: 2, fields: [cta('_')].flatMap(g => g.fields) },
+    variant,
   ],
 }
 
@@ -167,6 +168,10 @@ export const pricingPlans: Block = {
       { name: 'description', type: 'textarea' }, { name: 'note', type: 'text' },
       { name: 'features', type: 'array', fields: [{ name: 'text', type: 'text' }] },
       { name: 'featured', type: 'checkbox' },
+      { name: 'total', type: 'group', fields: [
+        { name: 'label', type: 'text' },
+        { name: 'amount', type: 'text', admin: { description: 'e.g. "$950" — shown as the computed total line.' } },
+      ] },
       cta(),
     ] },
     variant,
@@ -207,7 +212,9 @@ export const ctaBanner: Block = {
   labels: { singular: 'CTA banner', plural: 'CTA banners' },
   fields: [
     { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text', required: true },
-    { name: 'subtext', type: 'textarea' }, cta(), variant,
+    { name: 'subtext', type: 'textarea' }, cta(),
+    // Banners default to the accent treatment (matches the component + Sanity).
+    { ...variant, defaultValue: 'accent' },
   ],
 }
 

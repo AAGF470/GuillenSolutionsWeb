@@ -36,6 +36,12 @@ function adapt(block) {
     o.plans = o.plans.map(p => ({ ...p, features: (p.features || []).map(f => f?.text ?? f) }))
   if (o.blockType === 'checklist' && Array.isArray(o.items))           // checklist [{text}] → [string]
     o.items = o.items.map(i => i?.text ?? i)
+  // Payload always stores cta groups (defaults fill variant) — an empty group
+  // is truthy and would render a blank Button. Drop CTAs with no label/href.
+  const emptyCta = c => c && !c.label && !c.href
+  if (emptyCta(o.cta)) delete o.cta
+  if (Array.isArray(o.ctas)) o.ctas = o.ctas.filter(c => !emptyCta(c))
+  if (Array.isArray(o.plans)) o.plans = o.plans.map(p => (emptyCta(p.cta) ? { ...p, cta: undefined } : p))
   return o
 }
 
@@ -61,7 +67,7 @@ function renderBlock(block) {
         <div className="section-container">
           {block.eyebrow && <p className="section-eyebrow">{block.eyebrow}</p>}
           {block.headline && <h2 className="section-title">{block.headline}</h2>}
-          {block.subtext && <p className="section-subtext">{block.subtext}</p>}
+          {block.subtext && <p className="section-sub">{block.subtext}</p>}
           <PackageConfigurator />
         </div>
       </section>
