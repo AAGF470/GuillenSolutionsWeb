@@ -8,6 +8,28 @@ import ComponentLibrary from './pages/ComponentLibrary.jsx'
 import About from './pages/About.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
+import Seo, { BUSINESS_SCHEMA } from './components/Seo.jsx'
+
+// Per-route SEO — one source of truth regardless of whether the CMS layout
+// or the bespoke fallback renders.
+const SEO = {
+  home: {
+    title: 'Websites Small Businesses Own',
+    description: 'Custom, content-managed websites with flat all-in pricing — and you own everything: domain, content, and every login. English & Español.',
+    path: '/',
+    schema: BUSINESS_SCHEMA,
+  },
+  work: {
+    title: 'Our Work',
+    description: 'Three states, three industries, one component system — sites for an electrician, a contractor, and a game studio, all owned by the client.',
+    path: '/work',
+  },
+  about: {
+    title: 'About Us',
+    description: 'Guillen Solutions exists because we watched a small business get taken advantage of — honest, upfront web services are the answer.',
+    path: '/about',
+  },
+}
 
 // Scroll to top on route change; scroll to hash target if present.
 function ScrollManager() {
@@ -81,10 +103,14 @@ export default function App() {
               blocks; otherwise they fall back to the bespoke React page (shown
               immediately, no blank flash). Build a CMS page at the slug to take
               over. /components stays code-only (it's a live library showcase). */}
-          <Route path="/" element={<PayloadPage slug="home" fallback={<Home />} fallbackWhileLoading />} />
-          <Route path="/work" element={<PayloadPage slug="work" fallback={<Work />} fallbackWhileLoading />} />
-          <Route path="/components" element={<ComponentLibrary />} />
-          <Route path="/about" element={<PayloadPage slug="about" fallback={<About />} fallbackWhileLoading />} />
+          <Route path="/" element={<PayloadPage slug="home" fallback={<Home />} fallbackWhileLoading seo={SEO.home} />} />
+          <Route path="/work" element={<PayloadPage slug="work" fallback={<Work />} fallbackWhileLoading seo={SEO.work} />} />
+          <Route path="/components" element={<>
+            <Seo title="Component Library" path="/components"
+              description="The live, mobile-ready component system every Guillen Solutions site is built from — heroes, pricing, galleries, FAQs, and more." />
+            <ComponentLibrary />
+          </>} />
+          <Route path="/about" element={<PayloadPage slug="about" fallback={<About />} fallbackWhileLoading seo={SEO.about} />} />
           {/* Any other CMS-authored page is live at its slug. */}
           <Route path="/:slug" element={<CmsPage />} />
         </Routes>

@@ -4,6 +4,7 @@ import {
   PricingPlans, ServiceList, HoursLocation, CtaBanner, ContactSection, Checklist,
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
+import Seo from './components/Seo.jsx'
 
 // ---------------------------------------------------------------------------
 // PayloadPage — renders a CMS `pages` doc's block layout with @aagf470/ui.
@@ -83,8 +84,11 @@ function renderBlock(block) {
     : el
 }
 
-export default function PayloadPage({ slug, fallback = null, fallbackWhileLoading = false }) {
-  const [layout, setLayout] = useState(null)
+// `seo`: { title, description, path, schema } — the route's SEO source of
+// truth, rendered no matter which source (CMS or bespoke fallback) wins.
+// Without it (dynamic /:slug pages), the CMS doc's own title is used.
+export default function PayloadPage({ slug, fallback = null, fallbackWhileLoading = false, seo = null }) {
+  const [page, setPage] = useState(null) // { layout, title }
   const [status, setStatus] = useState('loading') // 'loading' | 'cms' | 'none'
 
   useEffect(() => {
@@ -96,14 +100,20 @@ export default function PayloadPage({ slug, fallback = null, fallbackWhileLoadin
       .then(d => {
         if (!alive) return
         const doc = d?.docs?.[0]
-        if (doc?.layout?.length) { setLayout(doc.layout); setStatus('cms') } // non-empty CMS page wins
+        if (doc?.layout?.length) { setPage({ layout: doc.layout, title: doc.title }); setStatus('cms') } // non-empty CMS page wins
         else setStatus('none')                                              // missing/empty → fallback
       })
       .catch(() => { if (alive) setStatus('none') })
     return () => { alive = false }
   }, [slug])
 
-  if (status === 'cms') return <>{layout.map(renderBlock)}</>
-  if (status === 'loading') return fallbackWhileLoading ? fallback : null
-  return fallback // 'none'
+  const meta = seo
+    ? <Seo {...seo} />
+    : status === 'cms'
+      ? <Seo title={page.title} path={`/${slug}`} />
+      : null
+
+  if (status === 'cms') return <>{meta}{page.layout.map(renderBlock)}</>
+  if (status === 'loading') return <>{meta}{fallbackWhileLoading ? fallback : null}</>
+  return <>{meta}{fallback}</> // 'none'
 }
