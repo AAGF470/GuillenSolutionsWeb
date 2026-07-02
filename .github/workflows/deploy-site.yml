@@ -1,0 +1,50 @@
+name: Deploy site
+
+# Auto-deploy the public site whenever site/ changes on main.
+# Builds with @aagf470/ui + the CMS URL baked in, then rsyncs dist to RAYA.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy-site.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        working-directory: site
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}   # read:packages PAT for @aagf470/ui
+        run: npm install
+
+      - name: Build
+        working-directory: site
+        env:
+          VITE_CMS_URL: ${{ vars.CMS_URL || 'https://cms.guillensolutions.com' }}
+        run: npm run build
+
+      - name: Set up SSH to RAYA
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.RAYA_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy (rsync dist → RAYA)
+        run: |
+          rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519" \
+            site/dist/ "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}:/srv/static/guillensolutions/html/"
+          echo "✓ Deployed to https://guillensolutions.com"

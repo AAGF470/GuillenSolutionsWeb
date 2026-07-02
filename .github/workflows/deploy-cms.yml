@@ -1,0 +1,39 @@
+name: Deploy CMS
+
+# Auto-rebuild the Payload CMS on RAYA whenever cms/ changes on main.
+# RAYA pulls the repo (read-only deploy key) and rebuilds; Payload runs any
+# pending migrations on startup. Does NOT touch content — see author-pages.yml.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cms/**'
+      - '.github/workflows/deploy-cms.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-cms
+  cancel-in-progress: false   # never interrupt a rebuild mid-flight
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up SSH to RAYA
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.RAYA_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Pull & rebuild on RAYA
+        run: |
+          ssh -i ~/.ssh/id_ed25519 "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}" 'bash -se' <<'REMOTE'
+          set -euo pipefail
+          cd /srv/GuillenSolutionsWeb
+          git pull --ff-only
+          cd cms
+          docker compose up -d --build
+          docker image prune -f
+          echo "✓ CMS rebuilt (migrations run on startup)"
+          REMOTE
