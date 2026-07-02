@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   HeroSection, FeatureGrid, Steps, ImageText, Testimonials, Gallery, Faq,
-  PricingPlans, ServiceList, HoursLocation, CtaBanner, ContactSection,
+  PricingPlans, ServiceList, HoursLocation, CtaBanner, ContactSection, Checklist,
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
 
@@ -20,7 +20,7 @@ const MAP = {
   hero: HeroSection, featureGrid: FeatureGrid, steps: Steps, imageText: ImageText,
   testimonials: Testimonials, gallery: Gallery, faq: Faq, pricingPlans: PricingPlans,
   serviceList: ServiceList, hoursLocation: HoursLocation, ctaBanner: CtaBanner,
-  contactSection: ContactSection,
+  contactSection: ContactSection, checklist: Checklist,
 }
 
 const API = import.meta.env.VITE_CMS_URL
@@ -34,6 +34,8 @@ function adapt(block) {
     o.images = o.images.map(i => ({ src: i.image?.url ?? i.image, alt: i.alt || '', caption: i.caption || '' }))
   if (Array.isArray(o.plans))                                          // features [{text}] → [string]
     o.plans = o.plans.map(p => ({ ...p, features: (p.features || []).map(f => f?.text ?? f) }))
+  if (o.blockType === 'checklist' && Array.isArray(o.items))           // checklist [{text}] → [string]
+    o.items = o.items.map(i => i?.text ?? i)
   return o
 }
 

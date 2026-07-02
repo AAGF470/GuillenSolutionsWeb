@@ -47,7 +47,23 @@ export const hero: Block = {
     { name: 'subtext', type: 'textarea' },
     { name: 'layout', type: 'select', defaultValue: 'left',
       options: [{ label: 'Left', value: 'left' }, { label: 'Centered', value: 'centered' }] },
+    { name: 'size', type: 'select', defaultValue: 'full',
+      options: [
+        { label: 'Full-screen opener', value: 'full' },
+        { label: 'Compact page intro', value: 'compact' },
+      ] },
     { name: 'ctas', type: 'array', maxRows: 2, fields: [cta('_')].flatMap(g => g.fields) },
+  ],
+}
+
+export const checklist: Block = {
+  slug: 'checklist',
+  labels: { singular: 'Checklist', plural: 'Checklists' },
+  fields: [
+    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'items', type: 'array', fields: [{ name: 'text', type: 'text', required: true }] },
+    { name: 'note', type: 'textarea', admin: { description: 'Optional muted footnote card under the list.' } },
+    variant,
   ],
 }
 
@@ -256,5 +272,5 @@ export const configurator: Block = {
 export const SECTION_BLOCKS: Block[] = [
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
-  richText, customHtml, configurator,
+  checklist, richText, customHtml, configurator,
 ]

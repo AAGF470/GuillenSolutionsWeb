@@ -142,6 +142,7 @@ export interface Page {
             headline: string;
             subtext?: string | null;
             layout?: ('left' | 'centered') | null;
+            size?: ('full' | 'compact') | null;
             ctas?:
               | {
                   label?: string | null;
@@ -374,6 +375,25 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'contactSection';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            items?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Optional muted footnote card under the list.
+             */
+            note?: string | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'checklist';
           }
         | {
             content?: {
@@ -613,6 +633,7 @@ export interface PagesSelect<T extends boolean = true> {
               headline?: T;
               subtext?: T;
               layout?: T;
+              size?: T;
               ctas?:
                 | T
                 | {
@@ -839,6 +860,23 @@ export interface PagesSelect<T extends boolean = true> {
               email?: T;
               phone?: T;
               showForm?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        checklist?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              items?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              note?: T;
               variant?: T;
               id?: T;
               blockName?: T;
