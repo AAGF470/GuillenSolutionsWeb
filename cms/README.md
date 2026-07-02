@@ -83,7 +83,12 @@ shared setup:
 - **`docker-compose.yml`** — `guillensolutions-cms` (Payload/Next, built from
   `Dockerfile`) + `guillensolutions-cms-db` (Postgres 16, **internal network
   only, never exposed**). State bind-mounts under `/srv/docker/guillensolutions-cms`.
-- **`seed.ts`** — seeds a starter Home page.
+- **`src/migrations/`** — committed DB migrations. The container runs
+  `payload migrate` on startup (`push: false`), so the schema is created/updated
+  from these files — never auto-pushed in production. After changing collections
+  or blocks, regenerate: `npm run payload -- migrate:create <name>`, commit,
+  redeploy.
+- **`seed.ts`** — optional starter Home page (local dev convenience).
 
 ## First deploy on RAYA
 
@@ -99,15 +104,16 @@ Then in **Nginx Proxy Manager**: proxy host `cms.guillensolutions.com` →
 `guillensolutions-cms:3000` (both on the shared `proxy` network; request an SSL
 cert).
 
+On first boot the container waits for Postgres to be healthy, runs
+`payload migrate` (creating all tables), then starts Next. Watch it with
+`docker compose logs -f guillensolutions-cms` — you'll see the migration apply
+before `Ready`.
+
 **Create the first admin** by opening `https://cms.guillensolutions.com/admin` —
 when the `users` collection is empty Payload shows a "create first user" form.
-(Do this in the browser, not the CLI: the container runs Next's *standalone*
-build, which doesn't ship the `payload`/`tsx` binaries or `src/`.)
 
-**Starter content:** just build the Home page in the admin (add blocks). The
-`seed.ts` script is a convenience for a local dev checkout — run it there with
-`npx tsx seed.ts` before containerizing; it is **not** runnable inside the
-standalone image.
+**Starter content:** build the Home page in the admin (add blocks). Or, for a
+local dev checkout, run `npx tsx seed.ts` against a dev database.
 
 The public site points at this CMS via `VITE_CMS_URL` and renders blocks through
 `site/src/PayloadPage.jsx`.

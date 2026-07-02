@@ -30,7 +30,8 @@ services:
       # Uploaded media persists outside the container (see Media.staticDir = ../media).
       - /srv/docker/guillensolutions-cms/media:/app/media
     depends_on:
-      - guillensolutions-cms-db
+      guillensolutions-cms-db:
+        condition: service_healthy   # wait for Postgres before running migrations
     networks:
       - proxy      # reachable by Nginx Proxy Manager by container name
       - internal   # reaches the DB
@@ -45,6 +46,11 @@ services:
       POSTGRES_DB: payload
     volumes:
       - /srv/docker/guillensolutions-cms/pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U payload -d payload"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
     networks:
       - internal   # NOT on proxy — no host ports, never internet-reachable
 

@@ -110,12 +110,11 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    // Auto-create/sync the schema on boot. Payload disables this in production
-    // by default (expects `payload migrate`), but the standalone Docker image
-    // has no CLI to run migrations. Fine while bootstrapping / before real
-    // client content — switch to a migration workflow before this holds data
-    // we can't lose (drizzle push can drop columns on ambiguous changes).
-    push: true,
+    // Production uses committed migrations (run at container startup via
+    // `payload migrate`), not runtime schema-push. Regenerate with
+    // `npm run payload -- migrate:create` after changing collections/blocks.
+    push: false,
+    migrationDir: path.resolve(dirname, 'migrations'),
   }),
   collections: [Pages as any, Posts as any, Media as any, Users as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
