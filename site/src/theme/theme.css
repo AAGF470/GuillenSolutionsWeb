@@ -113,8 +113,10 @@
 /* ── CMS escape-hatch blocks (richText / customHtml) ─────────────────────────
    Section wrappers so CMS prose/HTML isn't full-bleed and picks up theme colors.
    The variant class matches other sections (default / alt / accent bg).        */
-.gs-cms-richtext,
-.gs-cms-html { padding: 3rem 1.5rem; color: var(--color-text); }
+.gs-cms-richtext { padding: 3rem 1.5rem; color: var(--color-text); }
+/* customHtml is raw markup — the author's HTML owns ALL spacing/backgrounds
+   (it usually embeds a full <section class="section …">); wrapper adds nothing. */
+.gs-cms-html { padding: 0; }
 .gs-cms-richtext--alt,
 .gs-cms-html--alt { background: var(--color-surface); }
 .gs-cms-richtext--accent,

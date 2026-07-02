@@ -73,7 +73,14 @@ function renderBlock(block) {
       </section>
     )
   const C = MAP[block.blockType]
-  return C ? <C key={block.id} {...adapt(block)} /> : null
+  if (!C) return null
+  // Payload's built-in "Block Name" doubles as an anchor: name a block
+  // "packages" and links to #packages scroll to it (matches the bespoke pages'
+  // <div id="..."> wrappers).
+  const el = <C key={block.id} {...adapt(block)} />
+  return block.blockName
+    ? <div key={block.id} id={block.blockName.toLowerCase().replace(/\s+/g, '-')}>{el}</div>
+    : el
 }
 
 export default function PayloadPage({ slug, fallback = null, fallbackWhileLoading = false }) {
