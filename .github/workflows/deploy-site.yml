@@ -41,7 +41,7 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "${{ secrets.RAYA_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -p 2222 -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Deploy (rsync dist → RAYA)
         run: |
@@ -50,7 +50,7 @@ jobs:
           # short; backoff lets a short penalty expire.
           for i in 1 2 3 4 5; do
             rsync -az --delete \
-              -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20" \
+              -e "ssh -i ~/.ssh/id_ed25519 -p 2222 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20" \
               site/dist/ "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}:/srv/static/guillensolutions/html/" \
               && { echo "✓ Deployed to https://guillensolutions.com"; exit 0; }
             echo "attempt $i failed; retrying in 30s…"; sleep 30
