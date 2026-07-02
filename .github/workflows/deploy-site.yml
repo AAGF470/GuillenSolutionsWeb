@@ -41,10 +41,10 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "${{ secrets.RAYA_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Deploy (rsync dist → RAYA)
         run: |
-          rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519" \
+          rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" \
             site/dist/ "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}:/srv/static/guillensolutions/html/"
           echo "✓ Deployed to https://guillensolutions.com"

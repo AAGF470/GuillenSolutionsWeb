@@ -24,11 +24,11 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "${{ secrets.RAYA_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keyscan -H "${{ secrets.RAYA_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Pull & rebuild on RAYA
         run: |
-          ssh -i ~/.ssh/id_ed25519 "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}" 'bash -se' <<'REMOTE'
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}" 'bash -se' <<'REMOTE'
           set -euo pipefail
           cd /srv/GuillenSolutionsWeb
           git pull --ff-only
