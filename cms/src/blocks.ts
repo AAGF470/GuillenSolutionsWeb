@@ -237,9 +237,24 @@ export const customHtml: Block = {
   ],
 }
 
+// configurator: the interactive "build your quote" widget. A curated
+// interactive block — the form itself is fixed (structure locked), editors just
+// place it in the page flow and can set the intro heading above it. This is a
+// sellable feature (a needs-assessment / quote builder) for client sites too.
+export const configurator: Block = {
+  slug: 'configurator',
+  labels: { singular: 'Quote builder (configurator)', plural: 'Quote builders' },
+  fields: [
+    { name: 'eyebrow', type: 'text' },
+    { name: 'headline', type: 'text' },
+    { name: 'subtext', type: 'textarea' },
+    variant,
+  ],
+}
+
 // The full curated set a client can add to a page.
 export const SECTION_BLOCKS: Block[] = [
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
-  richText, customHtml,
+  richText, customHtml, configurator,
 ]

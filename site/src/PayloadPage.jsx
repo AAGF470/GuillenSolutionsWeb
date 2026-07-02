@@ -3,6 +3,7 @@ import {
   HeroSection, FeatureGrid, Steps, ImageText, Testimonials, Gallery, Faq,
   PricingPlans, ServiceList, HoursLocation, CtaBanner, ContactSection,
 } from '@aagf470/ui'
+import PackageConfigurator from './components/PackageConfigurator.jsx'
 
 // ---------------------------------------------------------------------------
 // PayloadPage — renders a CMS `pages` doc's block layout with @aagf470/ui.
@@ -49,6 +50,18 @@ function renderBlock(block) {
     return (
       <section key={block.id} className={`gs-cms-html gs-cms-html--${block.variant || 'default'}`}>
         <div dangerouslySetInnerHTML={{ __html: block.html || '' }} />
+      </section>
+    )
+  // The interactive quote builder — fixed widget with an optional intro heading.
+  if (block.blockType === 'configurator')
+    return (
+      <section key={block.id} className={`section section--${block.variant || 'default'}`} id="configure">
+        <div className="section-container">
+          {block.eyebrow && <p className="section-eyebrow">{block.eyebrow}</p>}
+          {block.headline && <h2 className="section-title">{block.headline}</h2>}
+          {block.subtext && <p className="section-subtext">{block.subtext}</p>}
+          <PackageConfigurator />
+        </div>
       </section>
     )
   const C = MAP[block.blockType]

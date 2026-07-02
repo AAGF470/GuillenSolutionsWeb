@@ -407,6 +407,15 @@ export interface Page {
             blockName?: string | null;
             blockType: 'customHtml';
           }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'configurator';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -847,6 +856,16 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               html?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        configurator?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
               variant?: T;
               id?: T;
               blockName?: T;
