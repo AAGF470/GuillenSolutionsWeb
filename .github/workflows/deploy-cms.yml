@@ -28,12 +28,11 @@ jobs:
 
       - name: Pull & rebuild on RAYA
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}" 'bash -se' <<'REMOTE'
-          set -euo pipefail
-          cd /srv/GuillenSolutionsWeb
-          git pull --ff-only
-          cd cms
-          docker compose up -d --build
-          docker image prune -f
-          echo "✓ CMS rebuilt (migrations run on startup)"
-          REMOTE
+          REMOTE_CMD='set -e; cd /srv/GuillenSolutionsWeb && git pull --ff-only && cd cms && docker compose up -d --build && docker image prune -f && echo "CMS rebuilt (migrations run on startup)"'
+          # Retry to ride out OpenSSH PerSourcePenalties (see deploy-site.yml).
+          for i in 1 2 3 4 5; do
+            ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 \
+              "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}" "$REMOTE_CMD" && exit 0
+            echo "attempt $i failed; retrying in 30s…"; sleep 30
+          done
+          echo "CMS deploy failed after 5 attempts"; exit 1

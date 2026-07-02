@@ -45,6 +45,14 @@ jobs:
 
       - name: Deploy (rsync dist → RAYA)
         run: |
-          rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new" \
-            site/dist/ "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}:/srv/static/guillensolutions/html/"
-          echo "✓ Deployed to https://guillensolutions.com"
+          # Retry: OpenSSH PerSourcePenalties can briefly drop a runner IP that
+          # (or a co-tenant) recently failed auth. ConnectTimeout keeps each try
+          # short; backoff lets a short penalty expire.
+          for i in 1 2 3 4 5; do
+            rsync -az --delete \
+              -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20" \
+              site/dist/ "${{ secrets.RAYA_USER }}@${{ secrets.RAYA_HOST }}:/srv/static/guillensolutions/html/" \
+              && { echo "✓ Deployed to https://guillensolutions.com"; exit 0; }
+            echo "attempt $i failed; retrying in 30s…"; sleep 30
+          done
+          echo "deploy failed after 5 attempts"; exit 1
