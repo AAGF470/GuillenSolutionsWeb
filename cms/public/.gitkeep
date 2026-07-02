@@ -1,0 +1,1 @@
+# keeps public/ in git so the Docker runner stage COPY /app/public succeeds
