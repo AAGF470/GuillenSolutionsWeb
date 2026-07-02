@@ -54,7 +54,7 @@ export const PACKAGES = [
     price: '$1,350',
     period: 'first year, all-in',
     description: "Built on the world's most widely-supported platform — maintainable by any developer, anywhere.",
-    note: 'After year one: $350/yr hosting + domain renewal.',
+    note: 'After year one: $500/yr — managed WordPress needs ongoing core/plugin updates and security upkeep.',
     features: [
       'Up to 6 designed pages — home, about, services…',
       'WordPress CMS — 25 items imported for you, then unlimited self-serve, free',
@@ -64,7 +64,7 @@ export const PACKAGES = [
       'Maximum portability — any developer can maintain it',
     ],
     firstYear: 1350,
-    recurring: 350,
+    recurring: 500,
   },
 ]
 

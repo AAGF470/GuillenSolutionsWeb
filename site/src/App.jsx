@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
-import { Routes, Route, NavLink, Link, useLocation } from 'react-router-dom'
+import { Routes, Route, NavLink, Link, Navigate, useLocation } from 'react-router-dom'
 import './App.css'
 import { CONTACT_EMAIL } from './data'
 import Home from './pages/Home.jsx'
-import Work from './pages/Work.jsx'
-import ComponentLibrary from './pages/ComponentLibrary.jsx'
-import About from './pages/About.jsx'
+import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
+import PlanPage from './pages/PlanPage.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
 import Seo, { BUSINESS_SCHEMA } from './components/Seo.jsx'
@@ -20,14 +19,9 @@ const SEO = {
     schema: BUSINESS_SCHEMA,
   },
   work: {
-    title: 'Our Work',
-    description: 'Three states, three industries, one component system — sites for an electrician, a contractor, and a game studio, all owned by the client.',
+    title: 'Our Work & Component Library',
+    description: 'Three states, three industries, one 47+ component system — client sites for an electrician, a contractor, and a game studio, plus the live toolkit they were built from.',
     path: '/work',
-  },
-  about: {
-    title: 'About Us',
-    description: 'Guillen Solutions exists because we watched a small business get taken advantage of — honest, upfront web services are the answer.',
-    path: '/about',
   },
 }
 
@@ -50,9 +44,8 @@ function Nav() {
       <Link to="/" className="gs-nav__logo">Guillen <span>Solutions</span></Link>
       <div className="gs-nav__links">
         <NavLink to="/" end className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Home</NavLink>
-        <NavLink to="/work" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Work</NavLink>
-        <NavLink to="/components" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Component Library</NavLink>
-        <NavLink to="/about" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>About</NavLink>
+        <NavLink to="/work" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Work & Library</NavLink>
+        <NavLink to="/plans/standard" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Plans</NavLink>
       </div>
       <Link to="/#configure" className="gs-nav__cta">Build your quote</Link>
     </nav>
@@ -73,9 +66,10 @@ function Footer() {
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">Explore</span>
           <Link to="/">Home</Link>
-          <Link to="/work">Work</Link>
-          <Link to="/components">Component Library</Link>
-          <Link to="/about">About</Link>
+          <Link to="/work">Work & Library</Link>
+          <Link to="/plans/freelance">Freelance plan</Link>
+          <Link to="/plans/standard">Standard plan</Link>
+          <Link to="/plans/wordpress">WordPress plan</Link>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">Get in touch</span>
@@ -104,13 +98,15 @@ export default function App() {
               immediately, no blank flash). Build a CMS page at the slug to take
               over. /components stays code-only (it's a live library showcase). */}
           <Route path="/" element={<PayloadPage slug="home" fallback={<Home />} fallbackWhileLoading seo={SEO.home} />} />
-          <Route path="/work" element={<PayloadPage slug="work" fallback={<Work />} fallbackWhileLoading seo={SEO.work} />} />
-          <Route path="/components" element={<>
-            <Seo title="Component Library" path="/components"
-              description="The live, mobile-ready component system every Guillen Solutions site is built from — heroes, pricing, galleries, FAQs, and more." />
-            <ComponentLibrary />
-          </>} />
-          <Route path="/about" element={<PayloadPage slug="about" fallback={<About />} fallbackWhileLoading seo={SEO.about} />} />
+          {/* Merged Work + Component Library. Rendered directly (not via the
+              CMS) so the live showcase stays code-only; the old CMS 'work'
+              page is retired. */}
+          <Route path="/work" element={<><Seo {...SEO.work} /><WorkAndLibrary /></>} />
+          {/* Per-plan sales pages (config-driven, one component). */}
+          <Route path="/plans/:planId" element={<PlanPage />} />
+          {/* Old routes → merged destinations. */}
+          <Route path="/components" element={<Navigate to="/work" replace />} />
+          <Route path="/about" element={<Navigate to="/" replace />} />
           {/* Any other CMS-authored page is live at its slug. */}
           <Route path="/:slug" element={<CmsPage />} />
         </Routes>

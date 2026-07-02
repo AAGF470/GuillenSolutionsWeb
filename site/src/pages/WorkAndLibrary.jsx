@@ -1,10 +1,11 @@
+import { HeroSection, CtaBanner } from '@aagf470/ui'
+import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
 import './Work.css'
-import { CtaBanner } from '@aagf470/ui'
 
 // ---------------------------------------------------------------------------
-// Work — client showcase. Emphasizes breadth of reach (3 states) and
-// versatility (3 very different industries + visual styles), all built from
-// the same component system. Site views are branded placeholders.
+// Work & Library — merged showcase page: what we've built (client work) and
+// what we build with (the live component system). One narrative: the proof,
+// then the machine behind it.
 // ---------------------------------------------------------------------------
 
 const CLIENTS = [
@@ -61,20 +62,17 @@ function BrowserFrame({ url, image, alt }) {
   )
 }
 
-export default function Work() {
+export default function WorkAndLibrary() {
   return (
     <>
-      <header className="gs-intro">
-        <div className="gs-intro__inner">
-          <p className="gs-intro__eyebrow">Our work</p>
-          <h1 className="gs-intro__title">One toolkit. Every kind of business.</h1>
-          <p className="gs-intro__lead">
-            From a Dallas electrician to a Long Island contractor to a Boston game studio —
-            wildly different industries, three different states, three completely different looks.
-            All built from the same component system, and all owned by the client.
-          </p>
-        </div>
-      </header>
+      <HeroSection
+        eyebrow="Our work & the system behind it"
+        headline="One toolkit. Every kind of business."
+        subtext="From a Dallas electrician to a Long Island contractor to a Boston game studio — wildly different industries, three states, three completely different looks. All built from the same 47+ component library, and all owned by the client. The proof is below — and so is the toolkit itself, live."
+        size="compact"
+        variant="alt"
+        ctas={[]}
+      />
 
       {/* Reach / versatility stats */}
       <section className="section section--default work-reach-sec">
@@ -114,6 +112,23 @@ export default function Work() {
           ))}
         </div>
       </section>
+
+      {/* The system behind the work */}
+      <LibraryFacts />
+
+      {/* The live showcase — every component, rendered from sample content */}
+      <section className="section section--default" id="library" style={{ paddingBottom: 0 }}>
+        <div className="section-container">
+          <p className="section-eyebrow">The toolkit, live</p>
+          <h2 className="section-title">Every component, rendered right here</h2>
+          <p className="section-sub">
+            Everything below is a real production component shown with sample content —
+            mobile-ready, light and dark, tested once and reused everywhere. Your site is
+            composed from these, themed to your business.
+          </p>
+        </div>
+      </section>
+      <LibraryShowcase />
 
       <CtaBanner
         eyebrow="Your industry's next"

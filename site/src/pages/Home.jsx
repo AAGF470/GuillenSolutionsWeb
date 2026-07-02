@@ -105,7 +105,7 @@ export default function Home() {
         image="/img/sample-1.svg"
         imageAlt="Guillen Solutions"
         layout="image-right"
-        cta={{ label: 'Read our story', href: '/about', variant: 'ghost-bordered' }}
+        cta={{ label: 'See what we build', href: '/work', variant: 'ghost-bordered' }}
         variant="default"
       />
 
@@ -134,6 +134,14 @@ export default function Home() {
           plans={PLANS}
           variant="default"
         />
+        <div className="gs-inline-note-wrap">
+          <p className="gs-note">
+            Want the full picture? Each plan has its own deep dive:{' '}
+            <Link to="/plans/freelance">Freelance / Solo</Link> ·{' '}
+            <Link to="/plans/standard">Standard Business</Link> ·{' '}
+            <Link to="/plans/wordpress">WordPress Business</Link>
+          </p>
+        </div>
       </div>
 
       <ServiceList
@@ -225,7 +233,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <Link to="/components" className="gs-libpeek__cta">Explore the full component library →</Link>
+          <Link to="/work#library" className="gs-libpeek__cta">Explore the full component library →</Link>
         </div>
       </section>
 
