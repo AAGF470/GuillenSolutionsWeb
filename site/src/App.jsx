@@ -7,6 +7,7 @@ import Work from './pages/Work.jsx'
 import ComponentLibrary from './pages/ComponentLibrary.jsx'
 import About from './pages/About.jsx'
 import CmsPage from './pages/CmsPage.jsx'
+import PayloadPage from './PayloadPage.jsx'
 
 // Scroll to top on route change; scroll to hash target if present.
 function ScrollManager() {
@@ -76,11 +77,15 @@ export default function App() {
       <Nav />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/work" element={<Work />} />
+          {/* Main pages render from the CMS if a page exists at that slug with
+              blocks; otherwise they fall back to the bespoke React page (shown
+              immediately, no blank flash). Build a CMS page at the slug to take
+              over. /components stays code-only (it's a live library showcase). */}
+          <Route path="/" element={<PayloadPage slug="home" fallback={<Home />} fallbackWhileLoading />} />
+          <Route path="/work" element={<PayloadPage slug="work" fallback={<Work />} fallbackWhileLoading />} />
           <Route path="/components" element={<ComponentLibrary />} />
-          <Route path="/about" element={<About />} />
-          {/* Any CMS-authored page is live at its slug; static routes above win. */}
+          <Route path="/about" element={<PayloadPage slug="about" fallback={<About />} fallbackWhileLoading />} />
+          {/* Any other CMS-authored page is live at its slug. */}
           <Route path="/:slug" element={<CmsPage />} />
         </Routes>
       </main>

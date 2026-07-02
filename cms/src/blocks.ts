@@ -12,6 +12,10 @@
 //  Payload 3.x version you install.
 // ═══════════════════════════════════════════════════════════════════════════
 import type { Block } from 'payload'
+import { lexicalHTML } from '@payloadcms/richtext-lexical'
+
+// Admins only (client editors can't set raw HTML). Matches Users.role in config.
+const adminOnly = ({ req }: any) => req?.user?.role === 'admin'
 
 const ICONS = ['check', 'star', 'shield', 'zap', 'clock', 'users', 'wrench', 'mail',
   'globe', 'layers', 'home', 'fence', 'map', 'phone', 'droplet', 'wind']
@@ -202,8 +206,40 @@ export const contactSection: Block = {
   ],
 }
 
+// ── Escape-hatch blocks ─────────────────────────────────────────────────────
+// richText: safe formatted prose for everyone. We also generate an HTML field
+// (content_html) so the decoupled static site renders it without shipping a
+// lexical serializer.
+export const richText: Block = {
+  slug: 'richText',
+  labels: { singular: 'Rich text', plural: 'Rich text' },
+  fields: [
+    { name: 'content', type: 'richText' },
+    lexicalHTML('content', { name: 'content_html' }),
+    variant,
+  ],
+}
+
+// customHtml: raw HTML / embeds for anything the library can't express.
+// Admin-only — the markup field can only be set/changed by admins (field-level
+// access), so client editors can't inject code or break the layout.
+export const customHtml: Block = {
+  slug: 'customHtml',
+  labels: { singular: 'Custom HTML (admin only)', plural: 'Custom HTML (admin only)' },
+  fields: [
+    {
+      name: 'html',
+      type: 'code',
+      access: { update: adminOnly },
+      admin: { language: 'html', description: 'Raw HTML/embed, rendered as-is. Admin-only.' },
+    },
+    variant,
+  ],
+}
+
 // The full curated set a client can add to a page.
 export const SECTION_BLOCKS: Block[] = [
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
+  richText, customHtml,
 ]

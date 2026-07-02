@@ -375,6 +375,38 @@ export interface Page {
             blockName?: string | null;
             blockType: 'contactSection';
           }
+        | {
+            content?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            content_html?: string | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            /**
+             * Raw HTML/embed, rendered as-is. Admin-only.
+             */
+            html?: string | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'customHtml';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -798,6 +830,23 @@ export interface PagesSelect<T extends boolean = true> {
               email?: T;
               phone?: T;
               showForm?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        richText?:
+          | T
+          | {
+              content?: T;
+              content_html?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        customHtml?:
+          | T
+          | {
+              html?: T;
               variant?: T;
               id?: T;
               blockName?: T;

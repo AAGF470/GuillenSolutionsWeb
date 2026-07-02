@@ -109,3 +109,18 @@
   --btn-ghost-glow:         rgba(44, 74, 110, 0.12);
 
 }
+
+/* ── CMS escape-hatch blocks (richText / customHtml) ─────────────────────────
+   Section wrappers so CMS prose/HTML isn't full-bleed and picks up theme colors.
+   The variant class matches other sections (default / alt / accent bg).        */
+.gs-cms-richtext,
+.gs-cms-html { padding: 3rem 1.5rem; color: var(--color-text); }
+.gs-cms-richtext--alt,
+.gs-cms-html--alt { background: var(--color-surface); }
+.gs-cms-richtext--accent,
+.gs-cms-html--accent { background: var(--color-accent); color: var(--color-on-accent); }
+.gs-cms-richtext__inner { max-width: 760px; margin: 0 auto; line-height: 1.65; }
+.gs-cms-richtext__inner :where(h1,h2,h3) { line-height: 1.2; margin: 1.4em 0 0.5em; }
+.gs-cms-richtext__inner :where(p,ul,ol) { margin: 0 0 1em; }
+.gs-cms-richtext__inner a { color: var(--color-accent); }
+.gs-cms-richtext--accent .gs-cms-richtext__inner a { color: var(--color-on-accent); text-decoration: underline; }

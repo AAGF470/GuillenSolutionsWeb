@@ -9,8 +9,11 @@ import {
 // The site fetches a page by slug and maps each block → its section component.
 // Editors control the blocks + their content; the components own the design.
 //
-// Drop this into the site (or eventually @aagf470/ui/payload) and set
-// VITE_CMS_URL=https://cms.guillensolutions.com.
+// Used two ways:
+//  • Main routes (/, /work, /about): fallback = the bespoke React page, shown
+//    immediately (fallbackWhileLoading) so there's no blank flash. A CMS page at
+//    that slug takes over once it has blocks.
+//  • /:slug (CmsPage): fallback = a 404, shown only after the fetch resolves.
 // ---------------------------------------------------------------------------
 const MAP = {
   hero: HeroSection, featureGrid: FeatureGrid, steps: Steps, imageText: ImageText,
@@ -33,30 +36,46 @@ function adapt(block) {
   return o
 }
 
-export default function PayloadPage({ slug, fallback = null }) {
+function renderBlock(block) {
+  // Escape-hatch blocks render raw HTML: richText via its generated content_html
+  // (safe, lexical-derived); customHtml via admin-authored markup.
+  if (block.blockType === 'richText')
+    return (
+      <section key={block.id} className={`gs-cms-richtext gs-cms-richtext--${block.variant || 'default'}`}>
+        <div className="gs-cms-richtext__inner" dangerouslySetInnerHTML={{ __html: block.content_html || '' }} />
+      </section>
+    )
+  if (block.blockType === 'customHtml')
+    return (
+      <section key={block.id} className={`gs-cms-html gs-cms-html--${block.variant || 'default'}`}>
+        <div dangerouslySetInnerHTML={{ __html: block.html || '' }} />
+      </section>
+    )
+  const C = MAP[block.blockType]
+  return C ? <C key={block.id} {...adapt(block)} /> : null
+}
+
+export default function PayloadPage({ slug, fallback = null, fallbackWhileLoading = false }) {
   const [layout, setLayout] = useState(null)
-  const [missing, setMissing] = useState(false)
+  const [status, setStatus] = useState('loading') // 'loading' | 'cms' | 'none'
 
   useEffect(() => {
-    if (!slug) return
+    if (!slug) { setStatus('none'); return }
+    let alive = true
+    setStatus('loading')
     fetch(`${API}/api/pages?where[slug][equals]=${encodeURIComponent(slug)}&depth=2`)
       .then(r => r.json())
       .then(d => {
+        if (!alive) return
         const doc = d?.docs?.[0]
-        doc?.layout ? setLayout(doc.layout) : setMissing(true)
+        if (doc?.layout?.length) { setLayout(doc.layout); setStatus('cms') } // non-empty CMS page wins
+        else setStatus('none')                                              // missing/empty → fallback
       })
-      .catch(() => setMissing(true))
+      .catch(() => { if (alive) setStatus('none') })
+    return () => { alive = false }
   }, [slug])
 
-  if (missing) return fallback
-  if (!layout) return null
-
-  return (
-    <>
-      {layout.map(block => {
-        const C = MAP[block.blockType]
-        return C ? <C key={block.id} {...adapt(block)} /> : null
-      })}
-    </>
-  )
+  if (status === 'cms') return <>{layout.map(renderBlock)}</>
+  if (status === 'loading') return fallbackWhileLoading ? fallback : null
+  return fallback // 'none'
 }
