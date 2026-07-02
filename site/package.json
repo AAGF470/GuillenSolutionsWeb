@@ -1,0 +1,22 @@
+{
+  "name": "guillensolutions-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Guillen Solutions site — built on @aagf470/ui, content from the Payload CMS.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@aagf470/ui": "^0.1.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.10"
+  }
+}
