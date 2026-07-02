@@ -1,7 +1,9 @@
 # To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.mjs file.
 # From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
-FROM node:22.17.0-alpine AS base
+# node 24 / npm 11 to match the dev machine that generates package-lock.json
+# (npm 10 mis-reads an npm-11-written lock and fails `npm ci`).
+FROM node:24-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
