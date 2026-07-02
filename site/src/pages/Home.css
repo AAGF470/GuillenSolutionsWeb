@@ -121,7 +121,7 @@
   padding: 12px 26px; border-radius: var(--radius-md); text-decoration: none;
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
-.gs-btn-solid { background: #ffffff; color: var(--color-accent); border: 1px solid #ffffff; }
-.gs-btn-solid:hover { background: rgba(255,255,255,0.88); }
-.gs-btn-ghost { color: #ffffff; border: 1px solid rgba(255,255,255,0.45); }
-.gs-btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.7); }
+.gs-btn-solid { background: var(--color-on-accent); color: var(--color-accent); border: 1px solid var(--color-on-accent); }
+.gs-btn-solid:hover { background: color-mix(in srgb, var(--color-on-accent) 88%, transparent); }
+.gs-btn-ghost { color: var(--color-on-accent); border: 1px solid color-mix(in srgb, var(--color-on-accent) 45%, transparent); }
+.gs-btn-ghost:hover { background: color-mix(in srgb, var(--color-on-accent) 12%, transparent); border-color: color-mix(in srgb, var(--color-on-accent) 70%, transparent); }

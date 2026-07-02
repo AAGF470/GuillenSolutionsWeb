@@ -54,7 +54,7 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #ffffff;
+  color: var(--color-on-accent);
   background: var(--color-accent);
   border: 1px solid var(--color-accent);
   padding: 8px 18px;
@@ -71,30 +71,6 @@
 }
 
 /* ── PAGE INTRO (Components / About headers) ─────────────────────────────── */
-
-.gs-intro {
-  padding: 140px 0 56px;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border-sub);
-}
-.gs-intro__inner {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 5vw, 48px);
-}
-.gs-intro__eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--color-accent); opacity: 0.85; margin-bottom: 16px;
-}
-.gs-intro__eyebrow::before { content: ''; width: 22px; height: 1px; background: currentColor; }
-.gs-intro__title {
-  font-size: clamp(34px, 5vw, 52px); font-weight: 700; letter-spacing: -0.03em;
-  line-height: 1.08; color: var(--color-text); margin: 0 0 18px; max-width: 760px;
-}
-.gs-intro__lead {
-  font-size: 17px; color: var(--color-text-sub); line-height: 1.72; max-width: 620px; margin: 0;
-}
 
 /* ── COMPONENT SHOWCASE FRAME ────────────────────────────────────────────── */
 
@@ -144,17 +120,6 @@
 
 /* ── OWNERSHIP LIST (What you own / what we don't do) ─────────────────────── */
 
-.gs-own-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; max-width: 760px; }
-.gs-own-item {
-  display: flex; align-items: flex-start; gap: 14px;
-  font-size: 15.5px; color: var(--color-text); line-height: 1.6;
-}
-.gs-own-item__mark {
-  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
-  background: var(--color-accent-sub); color: var(--color-accent);
-  display: flex; align-items: center; justify-content: center; margin-top: 1px;
-}
-.gs-own-item__mark svg { width: 13px; height: 13px; }
 .gs-note {
   margin-top: 28px; padding: 18px 22px; border-radius: var(--radius-lg);
   background: var(--color-surface-high); border: 1px solid var(--color-border-low);

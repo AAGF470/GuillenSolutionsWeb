@@ -7,6 +7,7 @@ import {
   Steps,
   PricingPlans,
   ServiceList,
+  Checklist,
 } from '@aagf470/ui'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import { PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, REFERRAL_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, CMS_POINTS, SECURITY_LEAD, SECURITY_POINTS } from '../data'
@@ -58,13 +59,6 @@ const LIBRARY_PEEK = [
   { icon: 'map',    title: 'Galleries & FAQs',   body: 'Project galleries, testimonials, and accessible FAQ accordions.' },
   { icon: 'mail',   title: 'Contact & forms',    body: 'Inquiry forms and hours/location blocks that route straight to you.' },
 ]
-
-const CheckMark = () => (
-  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.2"
-    strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polyline points="2 7.5 5.5 11 12 3" />
-  </svg>
-)
 
 const KeyIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
@@ -263,21 +257,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What you own / what we don't do */}
-      <section className="section section--alt">
-        <div className="section-container">
-          <p className="section-eyebrow">The promise</p>
-          <h2 className="section-title">What you own — and what we don't do</h2>
-          <ul className="gs-own-list">
-            {OWNERSHIP.map(line => (
-              <li key={line} className="gs-own-item">
-                <span className="gs-own-item__mark"><CheckMark /></span>
-                {line}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* What you own / what we don't do — same Checklist component the CMS
+          version renders, so both sources are pixel-identical. */}
+      <Checklist
+        eyebrow="The promise"
+        headline="What you own — and what we don't do"
+        items={OWNERSHIP}
+        variant="alt"
+      />
 
       <section className="section section--accent gs-home-cta">
         <div className="section-container">

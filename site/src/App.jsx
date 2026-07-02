@@ -27,14 +27,28 @@ const SEO = {
 }
 
 // Scroll to top on route change; scroll to hash target if present.
+// Hash targets can arrive AFTER navigation (CMS pages render async), so retry
+// a few times before giving up — otherwise /#configure from another page
+// lands at the top instead of the configurator.
 function ScrollManager() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
-    if (hash) {
+    if (!hash) { window.scrollTo(0, 0); return }
+    let cancelled = false
+    const tryScroll = attempt => {
+      if (cancelled) return
       const el = document.querySelector(hash)
-      if (el) { el.scrollIntoView({ behavior: 'smooth' }); return }
+      if (el) {
+        // Instant jump: arriving from another page, animating thousands of
+        // pixels is worse than landing there ('instant' also overrides any
+        // CSS scroll-behavior).
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'instant' })
+        return
+      }
+      if (attempt < 5) setTimeout(() => tryScroll(attempt + 1), 300 * (attempt + 1))
     }
-    window.scrollTo(0, 0)
+    tryScroll(0)
+    return () => { cancelled = true }
   }, [pathname, hash])
   return null
 }

@@ -69,7 +69,7 @@
   border: 1.5px solid var(--color-border-mid);
   background: var(--color-bg);
   display: flex; align-items: center; justify-content: center;
-  color: #fff; transition: background 0.16s ease, border-color 0.16s ease;
+  color: var(--color-on-accent); transition: background 0.16s ease, border-color 0.16s ease;
 }
 .cfg-addon__check svg { width: 13px; height: 13px; opacity: 0; transition: opacity 0.12s ease; }
 .cfg-addon.is-active .cfg-addon__check { background: var(--color-accent); border-color: var(--color-accent); }
@@ -151,7 +151,7 @@
   font-size: 14px; font-weight: 600; letter-spacing: 0.02em; text-decoration: none;
   transition: background 0.18s ease, box-shadow 0.3s ease;
 }
-.cfg-sum__cta:hover { background: #1e3558; box-shadow: 0 4px 16px var(--color-accent-dim); }
+.cfg-sum__cta:hover { background: var(--btn-solid-hover-bg); box-shadow: 0 4px 16px var(--color-accent-dim); }
 
 .cfg-sum__fine { font-size: 12px; color: var(--color-text-faint); line-height: 1.55; margin: 12px 0 0; }
 

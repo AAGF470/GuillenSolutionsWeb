@@ -121,7 +121,6 @@
 
 .hero-section__headline,
 .section-title,
-.gs-intro__title,
 .work-item__name,
 .gs-explain__card-title,
 .plan__amount,
@@ -142,8 +141,7 @@
 }
 
 /* Eyebrows get the ember pop — a small warm signal above every section. */
-.section-eyebrow,
-.gs-intro__eyebrow {
+.section-eyebrow {
   color: var(--gs-ember);
 }
 
