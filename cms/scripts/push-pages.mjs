@@ -19,10 +19,10 @@
 //  Node 18+ (uses global fetch). Nothing is deleted; re-running is idempotent.
 // ─────────────────────────────────────────────────────────────────────────────
 import {
-  PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, REFERRAL_NOTE, PRICING_PROMISE,
-  POSITIONING, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, CMS_POINTS,
-  SECURITY_LEAD, SECURITY_POINTS, CONTACT_EMAIL,
+  PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE,
+  POSITIONING, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, RUN_SAFE_POINTS, CONTACT_EMAIL,
 } from '../../site/src/data.js'
+import { PLAN_PAGES } from '../../site/src/planPages.js'
 
 const CMS_URL = process.env.CMS_URL || 'https://cms.guillensolutions.com'
 const EMAIL = process.env.ADMIN_EMAIL
@@ -47,12 +47,6 @@ const STEPS = [
   { title: 'We set it up & explain it', body: 'Hosting, domain, SSL, and accounts — all configured in your name. Then we walk you through how everything works.' },
   { title: 'We hand you the keys', body: 'You own the domain, content, logins, and every asset. No lock-in, and we never touch your ad spend or your money.' },
 ]
-const LOCATIONS = [
-  { icon: 'globe', title: 'Remote-first',      body: 'We work with small businesses anywhere in the US — most of the process happens over a call and email.' },
-  { icon: 'map',   title: 'On-site in Boston', body: 'In-person consultations and setup are available across the Greater Boston area.' },
-  { icon: 'zap',   title: 'Everywhere else, remote', body: 'Long Island, NYC, and beyond — same full service, handled remotely over calls and screen-share.' },
-  { icon: 'users', title: 'English & Español', body: 'We work in both English and Spanish, so nothing gets lost in translation.' },
-]
 
 // ── customHtml payloads (exact markup from the bespoke pages; site CSS has
 //    these classes because the bespoke pages remain bundled as fallbacks) ─────
@@ -62,7 +56,6 @@ const KEY_ICON =
 const HTML_NOTES = `
 <div class="gs-inline-note-wrap">
   <p class="gs-note">${GROWTH_NOTE}</p>
-  <p class="gs-note">${REFERRAL_NOTE}</p>
   <p class="gs-note"><strong>Nothing else to decide today.</strong> Newsletters, landing pages,
     QR menus, seasonal refreshes, translations — all available later, whenever you
     need them. <a href="/on-demand">See on-demand services →</a></p>
@@ -165,13 +158,9 @@ const PAGES = [
         services: ADDONS.map(a => ({ name: a.name, description: a.body, price: a.price })) },
       { blockType: 'customHtml', variant: 'default', html: HTML_NOTES },
       { blockType: 'customHtml', variant: 'default', html: HTML_EXPLAINER },
-      grid({ eyebrow: 'Run it yourself', headline: 'Your own control panel — built around your business',
-        subtext: CMS_LEAD, items: CMS_POINTS, variant: 'alt' }),
-      grid({ eyebrow: 'Security & backups', headline: "Built so your data can't be lost",
-        subtext: SECURITY_LEAD, items: SECURITY_POINTS }),
+      grid({ eyebrow: 'Run it yourself', headline: 'Your own control panel, built around your business',
+        subtext: CMS_LEAD, items: RUN_SAFE_POINTS, variant: 'alt' }),
       { blockType: 'customHtml', variant: 'default', html: HTML_LIBPEEK },
-      grid({ eyebrow: 'Where we work', headline: "Local when you want us, remote when you don't",
-        items: LOCATIONS, variant: 'alt' }),
       { blockType: 'configurator', variant: 'default',
         eyebrow: 'Build your quote', headline: 'Configure your setup',
         subtext: "Choose a package and add-ons to see a transparent, all-in estimate. Nothing is charged — it's just a starting point we'll confirm in writing." },
@@ -180,12 +169,47 @@ const PAGES = [
         items: OWNERSHIP.map(text => ({ text })) },
       { blockType: 'ctaBanner', variant: 'accent',
         eyebrow: 'Ready?', headline: "Let's get your business online — the honest way.",
-        subtext: `Build a quote in a minute, or reach out at ${CONTACT_EMAIL} and we'll talk it through. English or Español.`,
+        subtext: `Build a quote in a minute, or reach out at ${CONTACT_EMAIL} and we'll talk it through. Boston in person, everywhere else remote. English or Español.`,
         cta: { label: 'Build your quote', href: '#configure', variant: 'solid' } },
     ],
   },
 
 ]
+
+// ── Plan pages: same PLAN_PAGES config the React fallback renders ────────────
+const planLayout = (id) => {
+  const plan = PLAN_PAGES[id]
+  const data = PACKAGES.find(p => p.id === id)
+  const layout = [
+    { blockType: 'hero', layout: 'left', size: 'compact', variant: 'alt',
+      eyebrow: plan.hero.eyebrow, headline: plan.hero.headline, subtext: plan.hero.subtext,
+      ctas: [{ label: 'Build your quote', href: '/#configure', variant: 'solid' }] },
+    { blockType: 'featureGrid', columns: '4', variant: 'default',
+      eyebrow: "Who it's for", headline: plan.whoTitle, subtext: plan.whoSub, items: plan.who },
+    { blockType: 'checklist', variant: 'alt',
+      eyebrow: 'What you get', headline: plan.getTitle,
+      items: plan.get.map(text => ({ text })), note: plan.getNote },
+  ]
+  if (plan.why) layout.push({ blockType: 'featureGrid', columns: '4', variant: 'default',
+    eyebrow: plan.why.eyebrow, headline: plan.why.title, subtext: plan.why.sub, items: plan.why.items })
+  layout.push(
+    { blockType: 'steps', variant: 'default', eyebrow: 'How it works',
+      headline: 'From first call to keys in hand', items: plan.steps },
+    { blockType: 'pricingPlans', variant: 'alt', eyebrow: 'The numbers', headline: 'Flat, all-in, in writing',
+      plans: [{ badge: data.badge, tag: data.tag, name: data.name, price: data.price,
+        period: data.period, description: data.description, note: data.note, featured: true,
+        features: data.features.map(text => ({ text })),
+        cta: { label: 'Build your quote', href: '/#configure', variant: 'solid' } }] },
+    { blockType: 'faq', variant: 'default', eyebrow: 'Good to know', headline: 'Common questions', items: plan.faq },
+    { blockType: 'ctaBanner', variant: 'accent', eyebrow: plan.cta.eyebrow,
+      headline: plan.cta.headline, subtext: plan.cta.subtext,
+      cta: { label: 'Build your quote', href: '/#configure', variant: 'solid' } },
+  )
+  return layout
+}
+for (const id of ['freelance', 'standard', 'wordpress']) {
+  PAGES.push({ title: PLAN_PAGES[id].seo.title, slug: `plans-${id}`, layout: planLayout(id) })
+}
 
 // ── API helpers ──────────────────────────────────────────────────────────────
 async function login() {

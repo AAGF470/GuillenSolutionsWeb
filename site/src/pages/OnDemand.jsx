@@ -14,7 +14,7 @@ import './OnDemand.css'
 
 const money = n => `$${n.toLocaleString()}`
 
-function Estimator() {
+export function Estimator() {
   const [picked, setPicked] = useState(new Set())
   const [qty, setQty] = useState({})
 

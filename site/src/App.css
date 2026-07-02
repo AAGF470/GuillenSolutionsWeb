@@ -229,3 +229,107 @@
   font-size: 12px;
   color: var(--color-text-dim);
 }
+
+/* Work images are links to the live sites */
+.work-item__link { display: block; text-decoration: none; transition: transform 0.18s ease; }
+.work-item__link:hover { transform: translateY(-3px); }
+
+/* ── MOBILE / TABLET MENU ────────────────────────────────────────────────── */
+
+.gs-nav__burger { display: none; }
+
+@media (max-width: 900px) {
+  .gs-nav__links { display: none; }
+
+  .gs-nav__burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4.5px;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    background: none;
+    border: 1px solid var(--color-border-low);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  .gs-nav__burger i {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-text);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .gs-nav__burger.is-open i:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .gs-nav__burger.is-open i:nth-child(2) { opacity: 0; }
+  .gs-nav__burger.is-open i:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+}
+
+@media (min-width: 901px) {
+  .gs-mnav { display: none; }
+}
+
+.gs-mnav__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(41, 36, 28, 0.35);
+  border: none;
+  cursor: pointer;
+}
+
+.gs-mnav__panel {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  max-height: calc(100dvh - 64px);
+  overflow-y: auto;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border-low);
+  box-shadow: var(--shadow-lg);
+  padding: 18px 22px 26px;
+  display: grid;
+  gap: 4px;
+}
+
+.gs-mnav__link {
+  padding: 11px 10px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.gs-mnav__link:active,
+.gs-mnav__link:hover { background: var(--color-accent-sub); }
+
+.gs-mnav__group { display: grid; gap: 2px; margin-top: 8px; }
+
+.gs-mnav__group-label {
+  padding: 0 10px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gs-ember);
+}
+
+.gs-mnav__link--sub {
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--color-text-sub);
+}
+
+.gs-mnav__cta {
+  margin-top: 16px;
+  text-align: center;
+  padding: 12px 18px;
+  font-size: 14px;
+}

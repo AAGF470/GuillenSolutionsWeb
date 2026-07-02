@@ -106,6 +106,14 @@ export const ADDONS = [
     amount: 250, kind: 'onetime',
   },
   {
+    id: 'rush',
+    name: 'Rush Delivery',
+    price: '$400',
+    cadence: 'One-time',
+    body: 'Need your site in days instead of the standard week or two? We clear the schedule and move your build to the front of the line. Available on every plan.',
+    amount: 400, kind: 'onetime',
+  },
+  {
     id: 'gbp',
     name: 'Google Business Profile',
     price: '$300',
@@ -179,22 +187,21 @@ export const ON_DEMAND = [
 ]
 
 export const GROWTH_NOTE =
-  'As your site grows: additional pages or redesigns are $75–200 each, quoted by page depth — so you only pay when you actually expand.'
+  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And every referral who signs earns you a 5% credit toward your next renewal.'
 
-export const REFERRAL_NOTE =
-  'Know another business that needs a site? Every referral who signs earns you a 5% credit toward your next renewal.'
+export const REFERRAL_NOTE = null // merged into GROWTH_NOTE
 
 // Renewal honesty — grandfathering means fair, disclosed pricing, not a rate
 // frozen forever. Never promise "your price never changes."
 export const PRICING_PROMISE =
-  'Renewal rates are agreed in writing before you sign — never a surprise. Today\'s prices are early rates; existing clients keep fair, gradual pricing.'
+  'Renewal rates are agreed in writing before you sign, so there are no surprises. Today\'s prices are early rates; existing clients keep fair, gradual pricing.'
 
 // Where we fit — versus the alternatives a small business actually compares us to.
 export const POSITIONING = [
-  { icon: 'layers', title: 'vs. DIY builders',    body: 'Squarespace and Wix hand you a blank template and a monthly bill. We hand you a finished, custom-designed site — with an editor made for your business, not a generic dashboard.' },
-  { icon: 'zap',    title: 'vs. freelancers',     body: 'Freelance builds run $1,500–8,000 and start from scratch every time. Our component system industrializes the work — custom-looking sites at a fraction of the cost and time.' },
-  { icon: 'star',   title: 'vs. agencies',        body: 'Agency work starts around $6,000 with overhead to match. You get comparable polish without the minimums — because our system does the heavy lifting.' },
-  { icon: 'shield', title: 'vs. predatory vendors', body: 'Some local vendors keep your domain, resell your leads, and bill you forever. We\'re the opposite by design: you own everything, and we never touch your ad spend or your money.' },
+  { icon: 'layers', title: 'vs. DIY builders',    body: 'Squarespace and Wix hand you a blank template and a monthly bill. We hand you a finished, custom-designed site with an editor made for your business.' },
+  { icon: 'zap',    title: 'vs. freelancers',     body: 'Freelance builds run $1,500 to $8,000 and start from scratch every time. Our component system does the heavy lifting, so you get custom-looking work at a fraction of the cost.' },
+  { icon: 'star',   title: 'vs. agencies',        body: 'Agency work starts around $6,000, with overhead to match. Our system delivers comparable polish without the minimums.' },
+  { icon: 'shield', title: 'vs. predatory vendors', body: 'Some local vendors keep your domain, resell your leads, and bill you forever. With us you own everything, and we never touch your ad spend or your money.' },
 ]
 
 // "You can do it yourself, free" — the fees are only for hands-off clients.
@@ -209,6 +216,14 @@ export const CMS_POINTS = [
   { icon: 'wrench', title: 'Tailored to your business', body: 'Products, menu, listings, hours — the CMS is shaped around what you actually manage, like a custom template built just for you.' },
   { icon: 'shield', title: 'Impossible to break',       body: 'Design and layout are locked into the components, so editing content can never break how your site looks. Safe to hand to anyone on your team.' },
   { icon: 'check',  title: 'Edit it yourself — free',   body: 'Add, change, and remove content anytime at no charge. Our fees only apply when you\'d rather we make the change for you.' },
+]
+
+// Home: one combined grid replaces the old separate CMS + security sections.
+export const RUN_SAFE_POINTS = [
+  { icon: 'layers', title: 'Only what you need',      body: 'Your editor shows the exact things your business changes: prices, photos, products, hours. Nothing else.' },
+  { icon: 'shield', title: 'Impossible to break',     body: 'Design and layout are locked into the components. Anyone on your team can edit content without breaking the site.' },
+  { icon: 'check',  title: 'Editing is always free',  body: 'Add, change, and remove content anytime at no charge. Fees only apply when you want us to do it for you.' },
+  { icon: 'zap',    title: 'Disaster-proof by design', body: 'Your content lives on separate, backed-up storage. If the public server ever fails, we rebuild from clean backups in hours.' },
 ]
 
 export const SECURITY_LEAD =

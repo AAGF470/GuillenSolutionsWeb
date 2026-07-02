@@ -95,7 +95,10 @@ export default function WorkAndLibrary() {
           {CLIENTS.map((c, i) => (
             <article key={c.name} className={`work-item${i % 2 ? ' work-item--reverse' : ''}`}>
               <div className="work-item__media">
-                <BrowserFrame url={c.url} image={c.image} alt={`${c.name} website`} />
+                <a href={`https://${c.url}`} target="_blank" rel="noopener noreferrer"
+                  className="work-item__link" aria-label={`Visit ${c.name} (opens in a new tab)`}>
+                  <BrowserFrame url={c.url} image={c.image} alt={`${c.name} website`} />
+                </a>
               </div>
               <div className="work-item__info">
                 <span className="work-item__badge">{c.location}</span>

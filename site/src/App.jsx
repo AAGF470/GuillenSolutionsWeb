@@ -5,6 +5,7 @@ import { CONTACT_EMAIL } from './data'
 import Home from './pages/Home.jsx'
 import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
 import PlanPage from './pages/PlanPage.jsx'
+import Pricing from './pages/Pricing.jsx'
 import OnDemand from './pages/OnDemand.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
@@ -90,32 +91,73 @@ function NavDropdown({ label, active, items }) {
   )
 }
 
+const NAV_GROUPS = [
+  {
+    label: 'Work & Library', match: p => p === '/work',
+    items: [
+      { to: '/work',         label: 'Client work',            sub: 'Three industries, three states, one system' },
+      { to: '/work#library', label: 'Live component library', sub: '47+ components, rendered on the page' },
+    ],
+  },
+  {
+    label: 'Plans', match: p => p.startsWith('/plans') || p === '/on-demand' || p === '/pricing',
+    items: [
+      { to: '/plans/freelance', label: 'Freelance / Solo',    sub: '$600 first year · independent professionals' },
+      { to: '/plans/standard',  label: 'Standard Business',   sub: '$950 first year · most popular' },
+      { to: '/plans/wordpress', label: 'WordPress Business',  sub: '$1,350 first year · maximum portability' },
+      { to: '/on-demand',       label: 'On-demand services',  sub: 'Add later, whenever you need them' },
+      { to: '/pricing',         label: 'Full pricing & order', sub: 'Every option on one page' },
+    ],
+  },
+]
+
+function MobileMenu({ open, onClose }) {
+  if (!open) return null
+  return (
+    <div className="gs-mnav" role="dialog" aria-label="Menu">
+      <div className="gs-mnav__panel">
+        <Link to="/" className="gs-mnav__link" onClick={onClose}>Home</Link>
+        {NAV_GROUPS.map(g => (
+          <div key={g.label} className="gs-mnav__group">
+            <span className="gs-mnav__group-label">{g.label}</span>
+            {g.items.map(item => (
+              <Link key={item.to} to={item.to} className="gs-mnav__link gs-mnav__link--sub" onClick={onClose}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        ))}
+        <Link to="/#configure" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>Build your quote</Link>
+      </div>
+      <button type="button" className="gs-mnav__backdrop" aria-label="Close menu" onClick={onClose} />
+    </div>
+  )
+}
+
 function Nav() {
   const { pathname } = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
+  useEffect(() => { setMenuOpen(false) }, [pathname]) // close on navigation
   return (
     <nav className="gs-nav" aria-label="Main">
       <Link to="/" className="gs-nav__logo">Guillen <span>Solutions</span></Link>
       <div className="gs-nav__links">
         <NavLink to="/" end className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>Home</NavLink>
-        <NavDropdown
-          label="Work & Library"
-          active={pathname === '/work'}
-          items={[
-            { to: '/work',         label: 'Client work',            sub: 'Three industries, three states, one system' },
-            { to: '/work#library', label: 'Live component library', sub: '47+ components, rendered on the page' },
-          ]}
-        />
-        <NavDropdown
-          label="Plans"
-          active={pathname.startsWith('/plans')}
-          items={[
-            { to: '/plans/freelance', label: 'Freelance / Solo',   sub: '$600 first year · independent professionals' },
-            { to: '/plans/standard',  label: 'Standard Business',  sub: '$950 first year · most popular' },
-            { to: '/plans/wordpress', label: 'WordPress Business', sub: '$1,350 first year · maximum portability' },
-          ]}
-        />
+        {NAV_GROUPS.map(g => (
+          <NavDropdown key={g.label} label={g.label} active={g.match(pathname)} items={g.items} />
+        ))}
       </div>
       <Link to="/#configure" className="gs-nav__cta">Build your quote</Link>
+      <button
+        type="button"
+        className={`gs-nav__burger${menuOpen ? ' is-open' : ''}`}
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen(o => !o)}
+      >
+        <i /><i /><i />
+      </button>
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </nav>
   )
 }
@@ -139,6 +181,7 @@ function Footer() {
           <Link to="/plans/standard">Standard plan</Link>
           <Link to="/plans/wordpress">WordPress plan</Link>
           <Link to="/on-demand">On-demand services</Link>
+          <Link to="/pricing">Full pricing &amp; order</Link>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">Get in touch</span>
@@ -174,6 +217,7 @@ export default function App() {
           {/* Per-plan sales pages (config-driven, one component). */}
           <Route path="/plans/:planId" element={<PlanPage />} />
           <Route path="/on-demand" element={<OnDemand />} />
+          <Route path="/pricing" element={<Pricing />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />

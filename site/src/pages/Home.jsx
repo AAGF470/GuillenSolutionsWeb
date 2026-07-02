@@ -10,7 +10,7 @@ import {
   Checklist,
 } from '@aagf470/ui'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
-import { PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, REFERRAL_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, CMS_POINTS, SECURITY_LEAD, SECURITY_POINTS } from '../data'
+import { PACKAGES, ADDONS, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, PAGES_ITEMS, CMS_NOTE, CMS_LEAD, RUN_SAFE_POINTS } from '../data'
 
 // Map shared pricing data → PricingPlans plan shape
 const PLANS = PACKAGES.map(p => ({
@@ -44,13 +44,6 @@ const STEPS = [
   { title: 'We design & build', body: 'We build your site on our component system (or WordPress), sized to your business and ready for your content.' },
   { title: 'We set it up & explain it', body: 'Hosting, domain, SSL, and accounts — all configured in your name. Then we walk you through how everything works.' },
   { title: 'We hand you the keys', body: 'You own the domain, content, logins, and every asset. No lock-in, and we never touch your ad spend or your money.' },
-]
-
-const LOCATIONS = [
-  { icon: 'globe', title: 'Remote-first',      body: 'We work with small businesses anywhere in the US — most of the process happens over a call and email.' },
-  { icon: 'map',   title: 'On-site in Boston', body: 'In-person consultations and setup are available across the Greater Boston area.' },
-  { icon: 'zap',   title: 'Everywhere else, remote', body: 'Long Island, NYC, and beyond — same full service, handled remotely over calls and screen-share.' },
-  { icon: 'users', title: 'English & Español', body: 'We work in both English and Spanish, so nothing gets lost in translation.' },
 ]
 
 const LIBRARY_PEEK = [
@@ -148,7 +141,6 @@ export default function Home() {
       />
       <div className="gs-inline-note-wrap">
         <p className="gs-note">{GROWTH_NOTE}</p>
-        <p className="gs-note">{REFERRAL_NOTE}</p>
         <p className="gs-note">
           <strong>Nothing else to decide today.</strong> Newsletters, landing pages, QR menus,
           seasonal refreshes, translations — all available later, whenever you need them.{' '}
@@ -182,24 +174,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Your custom CMS — the core offering */}
+      {/* Your custom CMS + security, one section — the run-it-yourself promise */}
       <FeatureGrid
         eyebrow="Run it yourself"
-        headline="Your own control panel — built around your business"
+        headline="Your own control panel, built around your business"
         subtext={CMS_LEAD}
-        items={CMS_POINTS}
+        items={RUN_SAFE_POINTS}
         columns={4}
         variant="alt"
-      />
-
-      {/* Security & backups — headless, separated storage, fast recovery */}
-      <FeatureGrid
-        eyebrow="Security & backups"
-        headline="Built so your data can't be lost"
-        subtext={SECURITY_LEAD}
-        items={SECURITY_POINTS}
-        columns={4}
-        variant="default"
       />
 
       {/* Component library snippet */}
@@ -236,14 +218,6 @@ export default function Home() {
         </div>
       </section>
 
-      <FeatureGrid
-        eyebrow="Where we work"
-        headline="Local when you want us, remote when you don't"
-        items={LOCATIONS}
-        columns={4}
-        variant="alt"
-      />
-
       {/* Configuration form */}
       <section id="configure" className="section section--default gs-configure">
         <div className="section-container">
@@ -271,7 +245,7 @@ export default function Home() {
           <p className="section-eyebrow">Ready?</p>
           <h2 className="section-title">Let's get your business online — the honest way.</h2>
           <p className="section-sub">
-            Build a quote in a minute, or reach out and we'll talk it through. English or Español.
+            Build a quote in a minute, or reach out and we'll talk it through. Boston in person, everywhere else remote. English or Español.
           </p>
           <div className="gs-home-cta__actions">
             <a className="gs-btn-solid" href="#configure">Build your quote</a>
