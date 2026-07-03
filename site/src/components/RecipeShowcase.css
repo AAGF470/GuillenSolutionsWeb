@@ -1,0 +1,42 @@
+/* ── RECIPE SHOWCASE — live style-recipe switcher ────────────────────────── */
+
+.recipe-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 28px 0 18px;
+}
+
+.recipe-tab {
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font: inherit;
+  display: grid;
+  gap: 4px;
+  transition: border-color 0.15s ease;
+}
+
+.recipe-tab:hover { border-color: var(--color-border-mid); }
+.recipe-tab.is-active { border-color: var(--color-accent); }
+.recipe-tab:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.recipe-tab__name { font-weight: 700; font-size: 14.5px; color: var(--color-text); }
+.recipe-tab__blurb { font-size: 12.5px; line-height: 1.5; color: var(--color-text-dim); }
+
+/* The stage IS a mini-site: recipe vars applied inline cascade to everything
+   inside, including background and type. */
+.recipe-stage {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  /* demo-scale rhythm so three sections stay skimmable */
+  --section-space: 56px;
+}
+
+.recipe-stage .hero-section { min-height: 0; padding-top: 64px; }

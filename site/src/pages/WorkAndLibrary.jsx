@@ -1,5 +1,6 @@
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
+import RecipeShowcase from '../components/RecipeShowcase.jsx'
 import './Work.css'
 
 // ---------------------------------------------------------------------------
@@ -118,6 +119,9 @@ export default function WorkAndLibrary() {
 
       {/* The system behind the work */}
       <LibraryFacts />
+
+      {/* One system, many identities — live proof */}
+      <RecipeShowcase />
 
       {/* The live showcase — every component, rendered from sample content */}
       <section className="section section--default" id="library" style={{ paddingBottom: 0 }}>
