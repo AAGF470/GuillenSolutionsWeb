@@ -37,6 +37,29 @@ function Spec({ name, tag, desc, children }) {
 
 const IMG = ['/img/sample-1.svg', '/img/sample-2.svg', '/img/sample-3.svg']
 
+// Every exported component, grouped — the compact name-grid at the end of the
+// showcase. No live demos for these (the page is long enough); the specs above
+// demo the workhorses.
+const CATALOG = [
+  { label: 'Sections', items: [
+    'HeroSection', 'FeatureGrid', 'Steps', 'ImageText', 'Testimonials', 'Gallery',
+    'Faq', 'PricingPlans', 'ServiceList', 'HoursLocation', 'CtaBanner',
+    'ContactSection', 'Checklist', 'NewsletterSignup',
+  ] },
+  { label: 'Content blocks', items: [
+    'TitleBlock', 'CalloutBlock', 'CodeBlock', 'ImageBlock', 'FactGrid',
+    'ScreenshotGallery', 'VideoPlayer', 'SideBySide', 'ContentCards',
+    'RoadmapBlock', 'ChangelogBlock', 'SystemRequirements', 'AssetGrid',
+    'HierarchyBlock', 'ArchitectureBlock', 'RawDiagramBlock', 'Spacer',
+  ] },
+  { label: 'Showcase pieces', items: [
+    'CinematicHero', 'CinematicBanner', 'FeatureSpotlight', 'LabHero',
+    'EmbeddedApp', 'PricingCTA', 'PlatformBadge', 'ProductInfoBar',
+    'BackgroundCanvas', 'PageLoader', 'DocLayout', 'DocSidebar',
+    'Button', 'Card', 'Pill', 'SiteNav', 'SocialIcon',
+  ] },
+]
+
 // The four-card value strip — how the library works for clients.
 export function LibraryFacts() {
   return (
@@ -231,6 +254,28 @@ export function LibraryShowcase() {
             email="hello@yourbusiness.com" phone="(555) 555-0100"
           />
         </Spec>
+
+        <section className="gs-catalog">
+          <div className="gs-spec__head">
+            <h2 className="gs-spec__name">Full catalog</h2>
+            <span className="gs-spec__tag">@aagf470/ui</span>
+          </div>
+          <p className="gs-spec__desc">
+            Everything the library exports, at a glance — and all of it is available
+            in every client&rsquo;s editor, from business-site sections to studio-grade
+            showcase pieces.
+          </p>
+          {CATALOG.map(group => (
+            <div className="gs-catalog__group" key={group.label}>
+              <h3 className="gs-catalog__label">{group.label}</h3>
+              <ul className="gs-catalog__pills">
+                {group.items.map(name => (
+                  <li className="gs-catalog__pill" key={name}>{name}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
 
         <p className="gs-showcase__foot">
           Want a page built from these? <Link to="/pricing#order">Build your quote →</Link>

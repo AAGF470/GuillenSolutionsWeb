@@ -6,6 +6,7 @@ import * as migration_20260702_052949_audit_parity_fixes from './20260702_052949
 import * as migration_20260702_203236_add_newsletter_block from './20260702_203236_add_newsletter_block';
 import * as migration_20260703_010853_posts_devlog_upgrade from './20260703_010853_posts_devlog_upgrade';
 import * as migration_20260703_031845_add_expressions from './20260703_031845_add_expressions';
+import * as migration_20260703_052823_full_catalog_blocks from './20260703_052823_full_catalog_blocks';
 
 export const migrations = [
   {
@@ -46,6 +47,11 @@ export const migrations = [
   {
     up: migration_20260703_031845_add_expressions.up,
     down: migration_20260703_031845_add_expressions.down,
-    name: '20260703_031845_add_expressions'
+    name: '20260703_031845_add_expressions',
+  },
+  {
+    up: migration_20260703_052823_full_catalog_blocks.up,
+    down: migration_20260703_052823_full_catalog_blocks.down,
+    name: '20260703_052823_full_catalog_blocks'
   },
 ];

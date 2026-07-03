@@ -473,6 +473,737 @@ export interface Page {
             blockName?: string | null;
             blockType: 'configurator';
           }
+        | {
+            eyebrow?: string | null;
+            heading: string;
+            description?: string | null;
+            align?: ('left' | 'center') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'titleBlock';
+          }
+        | {
+            variant?: ('note' | 'tip' | 'warning' | 'info') | null;
+            /**
+             * Optional — overrides the default variant label ("Note", "Tip", …).
+             */
+            label?: string | null;
+            body: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'callout';
+          }
+        | {
+            language?:
+              | (
+                  | 'text'
+                  | 'javascript'
+                  | 'jsx'
+                  | 'typescript'
+                  | 'tsx'
+                  | 'html'
+                  | 'css'
+                  | 'scss'
+                  | 'json'
+                  | 'yaml'
+                  | 'toml'
+                  | 'graphql'
+                  | 'sql'
+                  | 'python'
+                  | 'bash'
+                  | 'shell'
+                  | 'lua'
+                  | 'ruby'
+                  | 'php'
+                  | 'csharp'
+                  | 'cpp'
+                  | 'c'
+                  | 'rust'
+                  | 'go'
+                  | 'zig'
+                  | 'swift'
+                  | 'kotlin'
+                  | 'java'
+                  | 'glsl'
+                  | 'hlsl'
+                  | 'wgsl'
+                  | 'gdscript'
+                  | 'vue'
+                  | 'markdown'
+                  | 'dockerfile'
+                  | 'solidity'
+                )
+              | null;
+            /**
+             * Optional filename / context label shown in the header.
+             */
+            title?: string | null;
+            code: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'codeBlock';
+          }
+        | {
+            image_src: number | Media;
+            alt?: string | null;
+            caption?: string | null;
+            size?: ('normal' | 'wide') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageBlock';
+          }
+        | {
+            heading?: string | null;
+            facts?:
+              | {
+                  /**
+                   * The big stat: "4", "200+", "8GB".
+                   */
+                  value: string;
+                  label: string;
+                  description?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Leave empty to auto-fit to the fact count.
+             */
+            columns?: ('2' | '3' | '4') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'factGrid';
+          }
+        | {
+            /**
+             * Optional heading above the strip.
+             */
+            label?: string | null;
+            images?:
+              | {
+                  image: number | Media;
+                  alt?: string | null;
+                  caption?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'screenshotGallery';
+          }
+        | {
+            eyebrow?: string | null;
+            title?: string | null;
+            /**
+             * URL to the .mp4 file (H.264).
+             */
+            video_mp4: string;
+            /**
+             * Optional .webm (VP9) — preferred by Chrome/Firefox.
+             */
+            video_webm?: string | null;
+            poster_src?: (number | null) | Media;
+            caption?: string | null;
+            aspect_ratio?: ('16/9' | '21/9' | '4/3') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoPlayer';
+          }
+        | {
+            /**
+             * One block for the left column.
+             */
+            left?:
+              | (
+                  | {
+                      variant?: ('note' | 'tip' | 'warning' | 'info') | null;
+                      /**
+                       * Optional — overrides the default variant label ("Note", "Tip", …).
+                       */
+                      label?: string | null;
+                      body: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'callout';
+                    }
+                  | {
+                      language?:
+                        | (
+                            | 'text'
+                            | 'javascript'
+                            | 'jsx'
+                            | 'typescript'
+                            | 'tsx'
+                            | 'html'
+                            | 'css'
+                            | 'scss'
+                            | 'json'
+                            | 'yaml'
+                            | 'toml'
+                            | 'graphql'
+                            | 'sql'
+                            | 'python'
+                            | 'bash'
+                            | 'shell'
+                            | 'lua'
+                            | 'ruby'
+                            | 'php'
+                            | 'csharp'
+                            | 'cpp'
+                            | 'c'
+                            | 'rust'
+                            | 'go'
+                            | 'zig'
+                            | 'swift'
+                            | 'kotlin'
+                            | 'java'
+                            | 'glsl'
+                            | 'hlsl'
+                            | 'wgsl'
+                            | 'gdscript'
+                            | 'vue'
+                            | 'markdown'
+                            | 'dockerfile'
+                            | 'solidity'
+                          )
+                        | null;
+                      /**
+                       * Optional filename / context label shown in the header.
+                       */
+                      title?: string | null;
+                      code: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'codeBlock';
+                    }
+                  | {
+                      image_src: number | Media;
+                      alt?: string | null;
+                      caption?: string | null;
+                      size?: ('normal' | 'wide') | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'imageBlock';
+                    }
+                  | {
+                      heading?: string | null;
+                      facts?:
+                        | {
+                            /**
+                             * The big stat: "4", "200+", "8GB".
+                             */
+                            value: string;
+                            label: string;
+                            description?: string | null;
+                            id?: string | null;
+                          }[]
+                        | null;
+                      /**
+                       * Leave empty to auto-fit to the fact count.
+                       */
+                      columns?: ('2' | '3' | '4') | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'factGrid';
+                    }
+                )[]
+              | null;
+            /**
+             * One block for the right column.
+             */
+            right?:
+              | (
+                  | {
+                      variant?: ('note' | 'tip' | 'warning' | 'info') | null;
+                      /**
+                       * Optional — overrides the default variant label ("Note", "Tip", …).
+                       */
+                      label?: string | null;
+                      body: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'callout';
+                    }
+                  | {
+                      language?:
+                        | (
+                            | 'text'
+                            | 'javascript'
+                            | 'jsx'
+                            | 'typescript'
+                            | 'tsx'
+                            | 'html'
+                            | 'css'
+                            | 'scss'
+                            | 'json'
+                            | 'yaml'
+                            | 'toml'
+                            | 'graphql'
+                            | 'sql'
+                            | 'python'
+                            | 'bash'
+                            | 'shell'
+                            | 'lua'
+                            | 'ruby'
+                            | 'php'
+                            | 'csharp'
+                            | 'cpp'
+                            | 'c'
+                            | 'rust'
+                            | 'go'
+                            | 'zig'
+                            | 'swift'
+                            | 'kotlin'
+                            | 'java'
+                            | 'glsl'
+                            | 'hlsl'
+                            | 'wgsl'
+                            | 'gdscript'
+                            | 'vue'
+                            | 'markdown'
+                            | 'dockerfile'
+                            | 'solidity'
+                          )
+                        | null;
+                      /**
+                       * Optional filename / context label shown in the header.
+                       */
+                      title?: string | null;
+                      code: string;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'codeBlock';
+                    }
+                  | {
+                      image_src: number | Media;
+                      alt?: string | null;
+                      caption?: string | null;
+                      size?: ('normal' | 'wide') | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'imageBlock';
+                    }
+                  | {
+                      heading?: string | null;
+                      facts?:
+                        | {
+                            /**
+                             * The big stat: "4", "200+", "8GB".
+                             */
+                            value: string;
+                            label: string;
+                            description?: string | null;
+                            id?: string | null;
+                          }[]
+                        | null;
+                      /**
+                       * Leave empty to auto-fit to the fact count.
+                       */
+                      columns?: ('2' | '3' | '4') | null;
+                      id?: string | null;
+                      blockName?: string | null;
+                      blockType: 'factGrid';
+                    }
+                )[]
+              | null;
+            split?: ('50/50' | '60/40' | '40/60' | '67/33' | '33/67') | null;
+            align?: ('start' | 'center' | 'stretch') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'sideBySide';
+          }
+        | {
+            heading?: string | null;
+            cards?:
+              | {
+                  title: string;
+                  category?: string | null;
+                  /**
+                   * Slides up on hover.
+                   */
+                  description?: string | null;
+                  image_src?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Leave empty to auto-fit to the card count.
+             */
+            columns?: ('2' | '3' | '4') | null;
+            /**
+             * Card height in px (default 280).
+             */
+            card_height?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contentCards';
+          }
+        | {
+            image_src?: (number | null) | Media;
+            /**
+             * Optional .mp4 URL — plays autoplay/muted/loop instead of the image.
+             */
+            video_src?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            description?: string | null;
+            platforms?:
+              | {
+                  platform:
+                    | 'godot'
+                    | 'blender'
+                    | 'windows'
+                    | 'macos'
+                    | 'linux'
+                    | 'itch'
+                    | 'steam'
+                    | 'gumroad'
+                    | 'unreal'
+                    | 'unity';
+                  id?: string | null;
+                }[]
+              | null;
+            actions?:
+              | {
+                  label: string;
+                  href?: string | null;
+                  /**
+                   * Leave empty for the component default.
+                   */
+                  variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+                  /**
+                   * Solid variant only — fills with the theme color instead of white.
+                   */
+                  lava?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            flip?: boolean | null;
+            media_fit?: ('cover' | 'contain') | null;
+            /**
+             * CSS background for the media panel (useful with "contain").
+             */
+            media_bg?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'featureSpotlight';
+          }
+        | {
+            image_src: number | Media;
+            eyebrow?: string | null;
+            heading: string;
+            body?: string | null;
+            align?: ('left' | 'center') | null;
+            /**
+             * CSS min-height, e.g. "520px" (the default).
+             */
+            min_height?: string | null;
+            cta_label?: string | null;
+            cta_href?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cinematicBanner';
+          }
+        | {
+            /**
+             * Optional .mp4 URL — plays autoplay/muted/loop.
+             */
+            video_src?: string | null;
+            /**
+             * Video poster, or standalone background if no video.
+             */
+            image_src?: (number | null) | Media;
+            eyebrow?: string | null;
+            title: string;
+            subtitle?: string | null;
+            actions?:
+              | {
+                  label: string;
+                  href?: string | null;
+                  /**
+                   * Leave empty for the component default.
+                   */
+                  variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+                  /**
+                   * Solid variant only — fills with the theme color instead of white.
+                   */
+                  lava?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            align?: ('left' | 'center') | null;
+            show_scroll?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cinematicHero';
+          }
+        | {
+            back_href?: string | null;
+            back_label?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            /**
+             * Expanded full name below the title.
+             */
+            subtitle?: string | null;
+            abstract?: string | null;
+            status?: ('released' | 'in_dev' | 'research' | 'live' | 'collab') | null;
+            tags?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            stats?:
+              | {
+                  value: string;
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Optional collaborator line, e.g. "with NU AERO".
+             */
+            collab?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'labHero';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            milestones?:
+              | {
+                  label: string;
+                  description?: string | null;
+                  status?: ('done' | 'in_progress' | 'planned' | 'cut') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'roadmapBlock';
+          }
+        | {
+            /**
+             * Leave empty for the default "Changelog".
+             */
+            heading?: string | null;
+            entries?:
+              | {
+                  version: string;
+                  date?: string | null;
+                  title?: string | null;
+                  changes?:
+                    | {
+                        type?: ('added' | 'fixed' | 'changed' | 'breaking' | 'removed') | null;
+                        text: string;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'changelogBlock';
+          }
+        | {
+            /**
+             * Leave empty for the default "System Requirements".
+             */
+            heading?: string | null;
+            minimum?: {
+              os?: string | null;
+              cpu?: string | null;
+              gpu?: string | null;
+              ram?: string | null;
+              storage?: string | null;
+              notes?: string | null;
+            };
+            recommended?: {
+              os?: string | null;
+              cpu?: string | null;
+              gpu?: string | null;
+              ram?: string | null;
+              storage?: string | null;
+              notes?: string | null;
+            };
+            /**
+             * e.g. "Tested on Windows 11, RTX 3080".
+             */
+            tested_on?: string | null;
+            /**
+             * e.g. "PC only · Mac support planned 2025".
+             */
+            platform_note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'systemRequirements';
+          }
+        | {
+            heading?: string | null;
+            assets?:
+              | {
+                  name: string;
+                  /**
+                   * e.g. "3D Character", "Texture Pack".
+                   */
+                  category?: string | null;
+                  preview_src?: (number | null) | Media;
+                  file_url: string;
+                  file_type?: ('glb' | 'fbx' | 'obj' | 'blend' | 'png' | 'psd' | 'zip' | 'svg' | 'mp3' | 'wav') | null;
+                  /**
+                   * e.g. "4.2 MB".
+                   */
+                  file_size?: string | null;
+                  license?: ('free' | 'cc0' | 'attribution' | 'patreon') | null;
+                  description?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'assetGrid';
+          }
+        | {
+            heading?: string | null;
+            caption?: string | null;
+            nodes?:
+              | {
+                  /**
+                   * Short unique key, e.g. "player" — referenced by other nodes' Parent ID.
+                   */
+                  node_id: string;
+                  /**
+                   * Another node's Node ID. Leave blank for root nodes.
+                   */
+                  parent_id?: string | null;
+                  label: string;
+                  /**
+                   * Optional badge, e.g. "GameObject", "Camera", "Script".
+                   */
+                  type?: string | null;
+                  /**
+                   * Inline annotation, e.g. "(disabled)", "← entry".
+                   */
+                  note?: string | null;
+                  /**
+                   * Lower numbers first within the same parent.
+                   */
+                  order?: number | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hierarchyBlock';
+          }
+        | {
+            heading?: string | null;
+            caption?: string | null;
+            layout?: ('hub' | 'linear' | 'tree') | null;
+            /**
+             * Hub layout only — the Node ID of the central orchestrator.
+             */
+            center_id?: string | null;
+            node_size?: ('default' | 'compact' | 'wide') | null;
+            nodes?:
+              | {
+                  node_id: string;
+                  label: string;
+                  description?: string | null;
+                  role?: ('orchestrator' | 'reader' | 'processor' | 'renderer' | 'writer' | 'utility') | null;
+                  badge?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            edges?:
+              | {
+                  /**
+                   * Node ID.
+                   */
+                  from: string;
+                  /**
+                   * Node ID.
+                   */
+                  to: string;
+                  label?: string | null;
+                  bidirectional?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'architectureBlock';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            /**
+             * Loaded in the iframe only after the visitor clicks Launch.
+             */
+            embed_url: string;
+            poster_src?: (number | null) | Media;
+            launch_label?: string | null;
+            /**
+             * Small disclaimer, e.g. "Requires WebGL · ~45 MB".
+             */
+            warning?: string | null;
+            /**
+             * Iframe height in px (default 620).
+             */
+            height?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'embeddedApp';
+          }
+        | {
+            /**
+             * Leave empty for the default "Available Now".
+             */
+            heading?: string | null;
+            /**
+             * e.g. "$9.99", "Free", "Pay What You Want".
+             */
+            price?: string | null;
+            /**
+             * e.g. "One-time purchase · DRM-free".
+             */
+            price_note?: string | null;
+            links?:
+              | {
+                  label: string;
+                  href?: string | null;
+                  /**
+                   * Leave empty for the component default.
+                   */
+                  variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+                  /**
+                   * Optional icon key, e.g. "steam", "itch".
+                   */
+                  icon_slug?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            patreon_href?: string | null;
+            /**
+             * Leave empty for the default "Support on Patreon".
+             */
+            patreon_label?: string | null;
+            /**
+             * Fine print below everything.
+             */
+            note?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricingCTA';
+          }
+        | {
+            size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spacer';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -1001,6 +1732,479 @@ export interface PagesSelect<T extends boolean = true> {
               headline?: T;
               subtext?: T;
               variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        titleBlock?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              description?: T;
+              align?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callout?:
+          | T
+          | {
+              variant?: T;
+              label?: T;
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        codeBlock?:
+          | T
+          | {
+              language?: T;
+              title?: T;
+              code?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageBlock?:
+          | T
+          | {
+              image_src?: T;
+              alt?: T;
+              caption?: T;
+              size?: T;
+              id?: T;
+              blockName?: T;
+            };
+        factGrid?:
+          | T
+          | {
+              heading?: T;
+              facts?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              columns?: T;
+              id?: T;
+              blockName?: T;
+            };
+        screenshotGallery?:
+          | T
+          | {
+              label?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    alt?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        videoPlayer?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              video_mp4?: T;
+              video_webm?: T;
+              poster_src?: T;
+              caption?: T;
+              aspect_ratio?: T;
+              id?: T;
+              blockName?: T;
+            };
+        sideBySide?:
+          | T
+          | {
+              left?:
+                | T
+                | {
+                    callout?:
+                      | T
+                      | {
+                          variant?: T;
+                          label?: T;
+                          body?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    codeBlock?:
+                      | T
+                      | {
+                          language?: T;
+                          title?: T;
+                          code?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    imageBlock?:
+                      | T
+                      | {
+                          image_src?: T;
+                          alt?: T;
+                          caption?: T;
+                          size?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    factGrid?:
+                      | T
+                      | {
+                          heading?: T;
+                          facts?:
+                            | T
+                            | {
+                                value?: T;
+                                label?: T;
+                                description?: T;
+                                id?: T;
+                              };
+                          columns?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                  };
+              right?:
+                | T
+                | {
+                    callout?:
+                      | T
+                      | {
+                          variant?: T;
+                          label?: T;
+                          body?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    codeBlock?:
+                      | T
+                      | {
+                          language?: T;
+                          title?: T;
+                          code?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    imageBlock?:
+                      | T
+                      | {
+                          image_src?: T;
+                          alt?: T;
+                          caption?: T;
+                          size?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                    factGrid?:
+                      | T
+                      | {
+                          heading?: T;
+                          facts?:
+                            | T
+                            | {
+                                value?: T;
+                                label?: T;
+                                description?: T;
+                                id?: T;
+                              };
+                          columns?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                  };
+              split?: T;
+              align?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contentCards?:
+          | T
+          | {
+              heading?: T;
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    category?: T;
+                    description?: T;
+                    image_src?: T;
+                    id?: T;
+                  };
+              columns?: T;
+              card_height?: T;
+              id?: T;
+              blockName?: T;
+            };
+        featureSpotlight?:
+          | T
+          | {
+              image_src?: T;
+              video_src?: T;
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              platforms?:
+                | T
+                | {
+                    platform?: T;
+                    id?: T;
+                  };
+              actions?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                    lava?: T;
+                    id?: T;
+                  };
+              flip?: T;
+              media_fit?: T;
+              media_bg?: T;
+              id?: T;
+              blockName?: T;
+            };
+        cinematicBanner?:
+          | T
+          | {
+              image_src?: T;
+              eyebrow?: T;
+              heading?: T;
+              body?: T;
+              align?: T;
+              min_height?: T;
+              cta_label?: T;
+              cta_href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        cinematicHero?:
+          | T
+          | {
+              video_src?: T;
+              image_src?: T;
+              eyebrow?: T;
+              title?: T;
+              subtitle?: T;
+              actions?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                    lava?: T;
+                    id?: T;
+                  };
+              align?: T;
+              show_scroll?: T;
+              id?: T;
+              blockName?: T;
+            };
+        labHero?:
+          | T
+          | {
+              back_href?: T;
+              back_label?: T;
+              eyebrow?: T;
+              title?: T;
+              subtitle?: T;
+              abstract?: T;
+              status?: T;
+              tags?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              collab?: T;
+              id?: T;
+              blockName?: T;
+            };
+        roadmapBlock?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              milestones?:
+                | T
+                | {
+                    label?: T;
+                    description?: T;
+                    status?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        changelogBlock?:
+          | T
+          | {
+              heading?: T;
+              entries?:
+                | T
+                | {
+                    version?: T;
+                    date?: T;
+                    title?: T;
+                    changes?:
+                      | T
+                      | {
+                          type?: T;
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        systemRequirements?:
+          | T
+          | {
+              heading?: T;
+              minimum?:
+                | T
+                | {
+                    os?: T;
+                    cpu?: T;
+                    gpu?: T;
+                    ram?: T;
+                    storage?: T;
+                    notes?: T;
+                  };
+              recommended?:
+                | T
+                | {
+                    os?: T;
+                    cpu?: T;
+                    gpu?: T;
+                    ram?: T;
+                    storage?: T;
+                    notes?: T;
+                  };
+              tested_on?: T;
+              platform_note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        assetGrid?:
+          | T
+          | {
+              heading?: T;
+              assets?:
+                | T
+                | {
+                    name?: T;
+                    category?: T;
+                    preview_src?: T;
+                    file_url?: T;
+                    file_type?: T;
+                    file_size?: T;
+                    license?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hierarchyBlock?:
+          | T
+          | {
+              heading?: T;
+              caption?: T;
+              nodes?:
+                | T
+                | {
+                    node_id?: T;
+                    parent_id?: T;
+                    label?: T;
+                    type?: T;
+                    note?: T;
+                    order?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        architectureBlock?:
+          | T
+          | {
+              heading?: T;
+              caption?: T;
+              layout?: T;
+              center_id?: T;
+              node_size?: T;
+              nodes?:
+                | T
+                | {
+                    node_id?: T;
+                    label?: T;
+                    description?: T;
+                    role?: T;
+                    badge?: T;
+                    id?: T;
+                  };
+              edges?:
+                | T
+                | {
+                    from?: T;
+                    to?: T;
+                    label?: T;
+                    bidirectional?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        embeddedApp?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              embed_url?: T;
+              poster_src?: T;
+              launch_label?: T;
+              warning?: T;
+              height?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pricingCTA?:
+          | T
+          | {
+              heading?: T;
+              price?: T;
+              price_note?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                    icon_slug?: T;
+                    id?: T;
+                  };
+              patreon_href?: T;
+              patreon_label?: T;
+              note?: T;
+              id?: T;
+              blockName?: T;
+            };
+        spacer?:
+          | T
+          | {
+              size?: T;
               id?: T;
               blockName?: T;
             };

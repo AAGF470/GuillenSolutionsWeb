@@ -1,6 +1,7 @@
 import {
   CalloutBlock, CodeBlock, ImageBlock, SideBySide, ScreenshotGallery,
-  FactGrid, VideoPlayer,
+  FactGrid, VideoPlayer, TitleBlock, ContentCards, RoadmapBlock,
+  ChangelogBlock, SystemRequirements, AssetGrid, HierarchyBlock,
 } from '@aagf470/ui'
 
 // ---------------------------------------------------------------------------
@@ -73,6 +74,69 @@ const BLOCKS = {
       right={renderEmbedded(f.right?.[0])}
       split={f.split || '50/50'}
       align={f.align || 'start'}
+    />
+  ),
+  titleBlock: f => (
+    <TitleBlock
+      eyebrow={f.eyebrow || null}
+      heading={f.heading || ''}
+      description={f.description || null}
+      align={f.align || 'left'}
+    />
+  ),
+  contentCards: f => (
+    <ContentCards
+      heading={f.heading || null}
+      cards={(f.cards || []).map(c => ({
+        title: c.title, category: c.category || null,
+        description: c.description || '', image_src: url(c.image_src),
+      }))}
+      columns={f.columns ? Number(f.columns) : null}
+      card_height={f.card_height || undefined}
+    />
+  ),
+  roadmapBlock: f => (
+    <RoadmapBlock
+      eyebrow={f.eyebrow || null}
+      heading={f.heading || null}
+      milestones={(f.milestones || []).map(m => ({
+        label: m.label, description: m.description || null, status: m.status || 'planned',
+      }))}
+    />
+  ),
+  changelogBlock: f => (
+    <ChangelogBlock
+      heading={f.heading || undefined}
+      entries={(f.entries || []).map(e => ({
+        version: e.version, date: e.date || null, title: e.title || null,
+        changes: (e.changes || []).map(c => ({ type: c.type || 'added', text: c.text })),
+      }))}
+    />
+  ),
+  systemRequirements: f => (
+    <SystemRequirements
+      heading={f.heading || undefined}
+      minimum={f.minimum || null}
+      recommended={f.recommended || null}
+      tested_on={f.tested_on || null}
+      platform_note={f.platform_note || null}
+    />
+  ),
+  assetGrid: f => (
+    <AssetGrid
+      heading={f.heading || null}
+      assets={(f.assets || []).map(a => ({ ...a, preview_src: url(a.preview_src) }))}
+    />
+  ),
+  // Payload reserves `id` inside arrays, so nodes store `node_id` → id prop.
+  hierarchyBlock: f => (
+    <HierarchyBlock
+      heading={f.heading || null}
+      caption={f.caption || null}
+      nodes={(f.nodes || []).map(n => ({
+        id: n.node_id, parent_id: n.parent_id || null, label: n.label,
+        type: n.type || null, note: n.note || null, order: n.order ?? 0,
+      }))}
     />
   ),
 }

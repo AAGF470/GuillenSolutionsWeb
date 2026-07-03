@@ -304,20 +304,19 @@ export const configurator: Block = {
   ],
 }
 
-// The full curated set a client can add to a page.
-export const SECTION_BLOCKS: Block[] = [
-  hero, featureGrid, steps, imageText, testimonials, gallery, faq,
-  pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
-  checklist, newsletterSignup, richText, customHtml, configurator,
-]
-
 // ═══════════════════════════════════════════════════════════════════════════
-//  Devlog / case-study blocks — embedded INSIDE the posts rich-text body via
-//  lexical's BlocksFeature (NOT page sections; do not add to SECTION_BLOCKS).
+//  Devlog / case-study blocks — originally built for embedding INSIDE the
+//  posts rich-text body via lexical's BlocksFeature. Most now do double duty
+//  as page sections too (same block object in both palettes — one definition,
+//  one DB shape, two surfaces). SECTION_BLOCKS / DEVLOG_BLOCKS at the bottom
+//  of this file say which block goes where.
 //
 //  Field names mirror the @aagf470/ui component props 1:1 (including the
 //  snake_case ones like image_src / video_mp4) so the site-side renderer only
-//  has to resolve upload objects → URLs, never rename keys.
+//  has to resolve upload objects → URLs, never rename keys. The one forced
+//  exception: Payload reserves `id` inside arrays, so components with an `id`
+//  node prop (HierarchyBlock, ArchitectureBlock) use `node_id` and the
+//  renderers map node_id → id.
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Matches CodeBlock.jsx's LANG_LABELS keys (any string works — the component
@@ -445,7 +444,369 @@ export const sideBySide: Block = {
   ],
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+//  Studio / showcase catalog — the rest of the @aagf470/ui exports, so client
+//  editors get the FULL component library, not just the business-site basics.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Button-shaped rows: FeatureSpotlight / CinematicHero `actions` and
+// PricingCTA `links` share the { label, href, variant } core.
+const actionFields = [
+  { name: 'label', type: 'text' as const, required: true },
+  { name: 'href', type: 'text' as const },
+  { name: 'variant', type: 'select' as const,
+    options: ['solid', 'ghost', 'ghost-bordered'].map(v => ({ label: v, value: v })),
+    admin: { description: 'Leave empty for the component default.' } },
+]
+// `actions` rows (FeatureSpotlight / CinematicHero) also take Button's lava flag.
+const actionFieldsWithLava = [
+  ...actionFields,
+  { name: 'lava', type: 'checkbox' as const,
+    admin: { description: 'Solid variant only — fills with the theme color instead of white.' } },
+]
+
+// PlatformBadge.jsx's PLATFORM_LABELS keys.
+const PLATFORMS = ['godot', 'blender', 'windows', 'macos', 'linux', 'itch',
+  'steam', 'gumroad', 'unreal', 'unity'].map(v => ({ label: v, value: v }))
+
+// TitleBlock: eyebrow / heading / description / align
+export const titleBlock: Block = {
+  slug: 'titleBlock',
+  labels: { singular: 'Title block', plural: 'Title blocks' },
+  fields: [
+    { name: 'eyebrow', type: 'text' },
+    { name: 'heading', type: 'text', required: true },
+    { name: 'description', type: 'textarea' },
+    { name: 'align', type: 'select', defaultValue: 'left',
+      options: ['left', 'center'].map(v => ({ label: v, value: v })) },
+  ],
+}
+
+// ContentCards: heading / cards / columns / card_height
+export const contentCards: Block = {
+  slug: 'contentCards',
+  labels: { singular: 'Content cards', plural: 'Content cards' },
+  fields: [
+    { name: 'heading', type: 'text' },
+    { name: 'cards', type: 'array', fields: [
+      { name: 'title', type: 'text', required: true },
+      { name: 'category', type: 'text' },
+      { name: 'description', type: 'textarea',
+        admin: { description: 'Slides up on hover.' } },
+      { name: 'image_src', label: 'Image', type: 'upload', relationTo: 'media' },
+    ] },
+    { name: 'columns', type: 'select',
+      options: ['2', '3', '4'].map(v => ({ label: v, value: v })),
+      admin: { description: 'Leave empty to auto-fit to the card count.' } },
+    { name: 'card_height', type: 'number',
+      admin: { description: 'Card height in px (default 280).' } },
+  ],
+}
+
+// FeatureSpotlight: media panel + rich content split
+export const featureSpotlight: Block = {
+  slug: 'featureSpotlight',
+  labels: { singular: 'Feature spotlight', plural: 'Feature spotlights' },
+  fields: [
+    { name: 'image_src', label: 'Image', type: 'upload', relationTo: 'media' },
+    { name: 'video_src', label: 'Video URL', type: 'text',
+      admin: { description: 'Optional .mp4 URL — plays autoplay/muted/loop instead of the image.' } },
+    { name: 'eyebrow', type: 'text' },
+    { name: 'title', type: 'text', required: true },
+    { name: 'description', type: 'textarea' },
+    { name: 'platforms', type: 'array', fields: [
+      { name: 'platform', type: 'select', required: true, options: PLATFORMS },
+    ] },
+    { name: 'actions', type: 'array', maxRows: 2, fields: actionFieldsWithLava },
+    { name: 'flip', type: 'checkbox', label: 'Media on the right' },
+    { name: 'media_fit', type: 'select', defaultValue: 'cover',
+      options: ['cover', 'contain'].map(v => ({ label: v, value: v })) },
+    { name: 'media_bg', type: 'text',
+      admin: { description: 'CSS background for the media panel (useful with "contain").' } },
+  ],
+}
+
+// CinematicBanner: full-width atmospheric callout over a background image
+export const cinematicBanner: Block = {
+  slug: 'cinematicBanner',
+  labels: { singular: 'Cinematic banner', plural: 'Cinematic banners' },
+  fields: [
+    { name: 'image_src', label: 'Background image', type: 'upload', relationTo: 'media', required: true },
+    { name: 'eyebrow', type: 'text' },
+    { name: 'heading', type: 'text', required: true },
+    { name: 'body', type: 'textarea' },
+    { name: 'align', type: 'select', defaultValue: 'left',
+      options: ['left', 'center'].map(v => ({ label: v, value: v })) },
+    { name: 'min_height', type: 'text',
+      admin: { description: 'CSS min-height, e.g. "520px" (the default).' } },
+    { name: 'cta_label', type: 'text' },
+    { name: 'cta_href', type: 'text' },
+  ],
+}
+
+// CinematicHero: full-viewport hero with video/image background
+export const cinematicHero: Block = {
+  slug: 'cinematicHero',
+  labels: { singular: 'Cinematic hero', plural: 'Cinematic heroes' },
+  fields: [
+    { name: 'video_src', label: 'Video URL', type: 'text',
+      admin: { description: 'Optional .mp4 URL — plays autoplay/muted/loop.' } },
+    { name: 'image_src', label: 'Image', type: 'upload', relationTo: 'media',
+      admin: { description: 'Video poster, or standalone background if no video.' } },
+    { name: 'eyebrow', type: 'text' },
+    { name: 'title', type: 'text', required: true },
+    { name: 'subtitle', type: 'textarea' },
+    { name: 'actions', type: 'array', maxRows: 2, fields: actionFieldsWithLava },
+    { name: 'align', type: 'select', defaultValue: 'left',
+      options: ['left', 'center'].map(v => ({ label: v, value: v })) },
+    { name: 'show_scroll', type: 'checkbox', defaultValue: true,
+      label: 'Show animated scroll hint' },
+  ],
+}
+
+// LabHero: editorial page header with back-nav, metadata, and stats
+export const labHero: Block = {
+  slug: 'labHero',
+  labels: { singular: 'Lab hero', plural: 'Lab heroes' },
+  fields: [
+    { name: 'back_href', type: 'text', defaultValue: '/lab' },
+    { name: 'back_label', type: 'text', defaultValue: 'Lab' },
+    { name: 'eyebrow', type: 'text' },
+    { name: 'title', type: 'text', required: true },
+    { name: 'subtitle', type: 'text',
+      admin: { description: 'Expanded full name below the title.' } },
+    { name: 'abstract', type: 'textarea' },
+    { name: 'status', type: 'select',
+      options: ['released', 'in_dev', 'research', 'live', 'collab'].map(v => ({ label: v, value: v })) },
+    { name: 'tags', type: 'array', fields: [{ name: 'text', type: 'text', required: true }] },
+    { name: 'stats', type: 'array', fields: [
+      { name: 'value', type: 'text', required: true },
+      { name: 'label', type: 'text', required: true },
+    ] },
+    { name: 'collab', type: 'text',
+      admin: { description: 'Optional collaborator line, e.g. "with NU AERO".' } },
+  ],
+}
+
+// RoadmapBlock: eyebrow / heading / milestones
+export const roadmapBlock: Block = {
+  slug: 'roadmapBlock',
+  labels: { singular: 'Roadmap', plural: 'Roadmaps' },
+  fields: [
+    { name: 'eyebrow', type: 'text' },
+    { name: 'heading', type: 'text' },
+    { name: 'milestones', type: 'array', fields: [
+      { name: 'label', type: 'text', required: true },
+      { name: 'description', type: 'text' },
+      { name: 'status', type: 'select', defaultValue: 'planned',
+        options: [
+          { label: 'Done', value: 'done' },
+          { label: 'In progress', value: 'in_progress' },
+          { label: 'Planned', value: 'planned' },
+          { label: 'Cut', value: 'cut' },
+        ] },
+    ] },
+  ],
+}
+
+// ChangelogBlock: heading / entries [{ version, date, title?, changes }]
+export const changelogBlock: Block = {
+  slug: 'changelogBlock',
+  labels: { singular: 'Changelog', plural: 'Changelogs' },
+  fields: [
+    { name: 'heading', type: 'text',
+      admin: { description: 'Leave empty for the default "Changelog".' } },
+    { name: 'entries', type: 'array', fields: [
+      { name: 'version', type: 'text', required: true },
+      { name: 'date', type: 'date' },
+      { name: 'title', type: 'text' },
+      { name: 'changes', type: 'array', fields: [
+        { name: 'type', type: 'select', defaultValue: 'added',
+          options: ['added', 'fixed', 'changed', 'breaking', 'removed'].map(v => ({ label: v, value: v })) },
+        { name: 'text', type: 'text', required: true },
+      ] },
+    ] },
+  ],
+}
+
+// SystemRequirements: minimum / recommended spec groups (empty rows are
+// simply not rendered by the component).
+const specGroup = (name: string, label: string) => ({
+  name, label, type: 'group' as const,
+  fields: ['os', 'cpu', 'gpu', 'ram', 'storage', 'notes']
+    .map(f => ({ name: f, type: 'text' as const })),
+})
+
+export const systemRequirements: Block = {
+  slug: 'systemRequirements',
+  labels: { singular: 'System requirements', plural: 'System requirements' },
+  fields: [
+    { name: 'heading', type: 'text',
+      admin: { description: 'Leave empty for the default "System Requirements".' } },
+    specGroup('minimum', 'Minimum'),
+    specGroup('recommended', 'Recommended'),
+    { name: 'tested_on', type: 'text',
+      admin: { description: 'e.g. "Tested on Windows 11, RTX 3080".' } },
+    { name: 'platform_note', type: 'text',
+      admin: { description: 'e.g. "PC only · Mac support planned 2025".' } },
+  ],
+}
+
+// AssetGrid: downloadable asset cards. Previews are media uploads; the files
+// themselves are URLs (VPS/CDN-hosted — big binaries don't belong in the
+// media library), consistent with videoPlayer.
+export const assetGrid: Block = {
+  slug: 'assetGrid',
+  labels: { singular: 'Asset grid', plural: 'Asset grids' },
+  fields: [
+    { name: 'heading', type: 'text' },
+    { name: 'assets', type: 'array', fields: [
+      { name: 'name', type: 'text', required: true },
+      { name: 'category', type: 'text',
+        admin: { description: 'e.g. "3D Character", "Texture Pack".' } },
+      { name: 'preview_src', label: 'Preview image', type: 'upload', relationTo: 'media' },
+      { name: 'file_url', label: 'Download URL', type: 'text', required: true },
+      { name: 'file_type', type: 'select', defaultValue: 'zip',
+        options: ['glb', 'fbx', 'obj', 'blend', 'png', 'psd', 'zip', 'svg', 'mp3', 'wav']
+          .map(v => ({ label: v, value: v })) },
+      { name: 'file_size', type: 'text', admin: { description: 'e.g. "4.2 MB".' } },
+      { name: 'license', type: 'select', defaultValue: 'free',
+        options: ['free', 'cc0', 'attribution', 'patreon'].map(v => ({ label: v, value: v })) },
+      { name: 'description', type: 'text' },
+    ] },
+  ],
+}
+
+// HierarchyBlock: engine-style scene tree. The component's node `id` prop is a
+// reserved field name inside Payload arrays, so it's `node_id` here; the
+// renderers map node_id → id.
+export const hierarchyBlock: Block = {
+  slug: 'hierarchyBlock',
+  labels: { singular: 'Hierarchy tree', plural: 'Hierarchy trees' },
+  fields: [
+    { name: 'heading', type: 'text' },
+    { name: 'caption', type: 'text' },
+    { name: 'nodes', type: 'array', fields: [
+      { name: 'node_id', label: 'Node ID', type: 'text', required: true,
+        admin: { description: 'Short unique key, e.g. "player" — referenced by other nodes\' Parent ID.' } },
+      { name: 'parent_id', label: 'Parent ID', type: 'text',
+        admin: { description: 'Another node\'s Node ID. Leave blank for root nodes.' } },
+      { name: 'label', type: 'text', required: true },
+      { name: 'type', type: 'text',
+        admin: { description: 'Optional badge, e.g. "GameObject", "Camera", "Script".' } },
+      { name: 'note', type: 'text',
+        admin: { description: 'Inline annotation, e.g. "(disabled)", "← entry".' } },
+      { name: 'order', type: 'number',
+        admin: { description: 'Lower numbers first within the same parent.' } },
+    ] },
+  ],
+}
+
+// ArchitectureBlock: CSS architecture diagram — plain nodes/edges arrays (the
+// component computes its own layout; no measured data needed). Same `node_id`
+// workaround as hierarchyBlock.
+export const architectureBlock: Block = {
+  slug: 'architectureBlock',
+  labels: { singular: 'Architecture diagram', plural: 'Architecture diagrams' },
+  fields: [
+    { name: 'heading', type: 'text' },
+    { name: 'caption', type: 'text' },
+    { name: 'layout', type: 'select', defaultValue: 'hub',
+      options: ['hub', 'linear', 'tree'].map(v => ({ label: v, value: v })) },
+    { name: 'center_id', label: 'Center node ID', type: 'text',
+      admin: { description: 'Hub layout only — the Node ID of the central orchestrator.' } },
+    { name: 'node_size', type: 'select', defaultValue: 'default',
+      options: ['default', 'compact', 'wide'].map(v => ({ label: v, value: v })) },
+    { name: 'nodes', type: 'array', fields: [
+      { name: 'node_id', label: 'Node ID', type: 'text', required: true },
+      { name: 'label', type: 'text', required: true },
+      { name: 'description', type: 'text' },
+      { name: 'role', type: 'select',
+        options: ['orchestrator', 'reader', 'processor', 'renderer', 'writer', 'utility']
+          .map(v => ({ label: v, value: v })) },
+      { name: 'badge', type: 'text' },
+    ] },
+    { name: 'edges', type: 'array', fields: [
+      { name: 'from', type: 'text', required: true, admin: { description: 'Node ID.' } },
+      { name: 'to', type: 'text', required: true, admin: { description: 'Node ID.' } },
+      { name: 'label', type: 'text' },
+      { name: 'bidirectional', type: 'checkbox' },
+    ] },
+  ],
+}
+
+// EmbeddedApp: click-to-activate iframe for interactive demos
+export const embeddedApp: Block = {
+  slug: 'embeddedApp',
+  labels: { singular: 'Embedded app', plural: 'Embedded apps' },
+  fields: [
+    { name: 'title', type: 'text', required: true },
+    { name: 'description', type: 'textarea' },
+    { name: 'embed_url', label: 'Embed URL', type: 'text', required: true,
+      admin: { description: 'Loaded in the iframe only after the visitor clicks Launch.' } },
+    { name: 'poster_src', label: 'Poster image', type: 'upload', relationTo: 'media' },
+    { name: 'launch_label', type: 'text', defaultValue: 'Launch' },
+    { name: 'warning', type: 'text',
+      admin: { description: 'Small disclaimer, e.g. "Requires WebGL · ~45 MB".' } },
+    { name: 'height', type: 'number',
+      admin: { description: 'Iframe height in px (default 620).' } },
+  ],
+}
+
+// PricingCTA: purchase / download section with store links + Patreon strip
+export const pricingCTA: Block = {
+  slug: 'pricingCTA',
+  labels: { singular: 'Pricing CTA', plural: 'Pricing CTAs' },
+  fields: [
+    { name: 'heading', type: 'text',
+      admin: { description: 'Leave empty for the default "Available Now".' } },
+    { name: 'price', type: 'text',
+      admin: { description: 'e.g. "$9.99", "Free", "Pay What You Want".' } },
+    { name: 'price_note', type: 'text',
+      admin: { description: 'e.g. "One-time purchase · DRM-free".' } },
+    { name: 'links', type: 'array', fields: [
+      ...actionFields,
+      { name: 'icon_slug', type: 'text',
+        admin: { description: 'Optional icon key, e.g. "steam", "itch".' } },
+    ] },
+    { name: 'patreon_href', label: 'Patreon URL', type: 'text' },
+    { name: 'patreon_label', type: 'text',
+      admin: { description: 'Leave empty for the default "Support on Patreon".' } },
+    { name: 'note', type: 'text', admin: { description: 'Fine print below everything.' } },
+  ],
+}
+
+// Spacer: pure vertical gap between sections
+export const spacer: Block = {
+  slug: 'spacer',
+  labels: { singular: 'Spacer', plural: 'Spacers' },
+  fields: [
+    { name: 'size', type: 'select', defaultValue: 'md',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'].map(v => ({ label: v, value: v })) },
+  ],
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Palettes — which blocks appear where. Blocks listed in both are the SAME
+//  object (one definition, one interface in payload-types, two surfaces).
+// ═══════════════════════════════════════════════════════════════════════════
+
+// The full curated set a client can add to a page.
+export const SECTION_BLOCKS: Block[] = [
+  // Business-site sections
+  hero, featureGrid, steps, imageText, testimonials, gallery, faq,
+  pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
+  checklist, newsletterSignup, richText, customHtml, configurator,
+  // Studio / showcase catalog
+  titleBlock, callout, codeBlock, imageBlock, factGrid, screenshotGallery,
+  videoPlayer, sideBySide, contentCards, featureSpotlight, cinematicBanner,
+  cinematicHero, labHero, roadmapBlock, changelogBlock, systemRequirements,
+  assetGrid, hierarchyBlock, architectureBlock, embeddedApp, pricingCTA, spacer,
+]
+
 // The set exposed inside posts.content via BlocksFeature.
 export const DEVLOG_BLOCKS: Block[] = [
   callout, codeBlock, imageBlock, sideBySide, screenshotGallery, factGrid, videoPlayer,
+  titleBlock, contentCards, roadmapBlock, changelogBlock, systemRequirements,
+  assetGrid, hierarchyBlock,
 ]
