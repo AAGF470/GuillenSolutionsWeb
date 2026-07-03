@@ -53,6 +53,13 @@ export const hero: Block = {
         { label: 'Compact page intro', value: 'compact' },
       ] },
     { name: 'ctas', type: 'array', maxRows: 2, fields: [cta('_')].flatMap(g => g.fields) },
+    { name: 'expression', type: 'select', defaultValue: 'classic',
+      admin: { description: 'Structural layout — same content, different skeleton.' },
+      options: [
+        { label: 'Classic column', value: 'classic' },
+        { label: 'Editorial (masthead, two-column)', value: 'editorial' },
+        { label: 'Statement (poster type)', value: 'statement' },
+      ] },
     variant,
   ],
 }
@@ -95,6 +102,13 @@ export const featureGrid: Block = {
       { name: 'title', type: 'text', required: true },
       { name: 'body', type: 'textarea' },
     ] },
+    { name: 'expression', type: 'select', defaultValue: 'cards',
+      admin: { description: 'Structural layout — same content, different skeleton.' },
+      options: [
+        { label: 'Icon cards', value: 'cards' },
+        { label: 'Numbered list (editorial)', value: 'list' },
+        { label: 'Ruled columns (quiet)', value: 'columns' },
+      ] },
     variant,
   ],
 }

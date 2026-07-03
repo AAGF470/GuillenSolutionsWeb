@@ -153,6 +153,10 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Structural layout — same content, different skeleton.
+             */
+            expression?: ('classic' | 'editorial' | 'statement') | null;
             variant?: ('default' | 'alt' | 'accent') | null;
             id?: string | null;
             blockName?: string | null;
@@ -190,6 +194,10 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            /**
+             * Structural layout — same content, different skeleton.
+             */
+            expression?: ('cards' | 'list' | 'columns') | null;
             variant?: ('default' | 'alt' | 'accent') | null;
             id?: string | null;
             blockName?: string | null;
@@ -707,6 +715,7 @@ export interface PagesSelect<T extends boolean = true> {
                     variant?: T;
                     id?: T;
                   };
+              expression?: T;
               variant?: T;
               id?: T;
               blockName?: T;
@@ -726,6 +735,7 @@ export interface PagesSelect<T extends boolean = true> {
                     body?: T;
                     id?: T;
                   };
+              expression?: T;
               variant?: T;
               id?: T;
               blockName?: T;

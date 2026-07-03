@@ -33,6 +33,11 @@
   /* Site-local secondary: ember, for eyebrows + small warm pops */
   --gs-ember: #b0562b;
 
+  /* Display face — first-class token (library consumes it natively) */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-display-weight: 600;
+  --font-display-tracking: -0.015em;
+
   /* ── BORDERS ───────────────────────────────────────────────────────────── */
 
   --color-border-sub:   #efe9dd;
@@ -119,17 +124,19 @@
 /* ── DISPLAY TYPE — the big statements set in Fraunces ─────────────────────
    Serif for what the business SAYS, sans for what the visitor DOES.        */
 
-.hero-section__headline,
-.section-title,
+/* Site-local classes that also get the display face (the library's own
+   headings consume --font-display natively now). */
 .work-item__name,
 .gs-explain__card-title,
 .plan__amount,
 .gs-libpeek__num {
-  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  font-variation-settings: 'opsz' 60;
+  font-family: var(--font-display);
+  font-weight: var(--font-display-weight);
+  letter-spacing: var(--font-display-tracking);
 }
+
+.hero-section__headline,
+.section-title { font-variation-settings: 'opsz' 60; }
 
 .hero-section__headline { font-weight: 550; line-height: 1.04; }
 

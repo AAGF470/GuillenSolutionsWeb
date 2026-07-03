@@ -70,6 +70,17 @@ export function LibraryShowcase() {
           />
         </Spec>
 
+        <Spec name="Hero — editorial expression" tag='<HeroSection expression="editorial" />'
+          desc="Same hero content, different skeleton: masthead rule, headline left, supporting copy in a right column.">
+          <HeroSection
+            expression="editorial" size="compact"
+            eyebrow="Same content, new bones"
+            headline="One component, several silhouettes."
+            subtext="Expressions change the structure, not the content — so two sites built from the same block never share a skeleton."
+            ctas={[{ label: 'Primary action', href: '#', variant: 'solid' }]}
+          />
+        </Spec>
+
         <Spec name="Feature grid" tag="<FeatureGrid />"
           desc="A responsive grid of icon + title + text — for services, benefits, or trust signals.">
           <FeatureGrid
@@ -79,6 +90,19 @@ export function LibraryShowcase() {
               { icon: 'shield', title: 'Trustworthy', body: 'A short line explaining this benefit to your customer.' },
               { icon: 'zap',    title: 'Fast',        body: 'A short line explaining this benefit to your customer.' },
               { icon: 'star',   title: 'Proven',      body: 'A short line explaining this benefit to your customer.' },
+            ]}
+          />
+        </Spec>
+
+        <Spec name="Feature grid — list expression" tag='<FeatureGrid expression="list" />'
+          desc="The same items as numbered editorial rows — reads like a manifesto instead of a card grid.">
+          <FeatureGrid
+            expression="list"
+            eyebrow="Why us" headline="Three reasons, restated"
+            items={[
+              { title: 'Trustworthy', body: 'A short line explaining this benefit to your customer.' },
+              { title: 'Fast',        body: 'A short line explaining this benefit to your customer.' },
+              { title: 'Proven',      body: 'A short line explaining this benefit to your customer.' },
             ]}
           />
         </Spec>

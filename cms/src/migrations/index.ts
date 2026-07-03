@@ -5,6 +5,7 @@ import * as migration_20260702_051302_add_checklist_hero_size from './20260702_0
 import * as migration_20260702_052949_audit_parity_fixes from './20260702_052949_audit_parity_fixes';
 import * as migration_20260702_203236_add_newsletter_block from './20260702_203236_add_newsletter_block';
 import * as migration_20260703_010853_posts_devlog_upgrade from './20260703_010853_posts_devlog_upgrade';
+import * as migration_20260703_031845_add_expressions from './20260703_031845_add_expressions';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20260703_010853_posts_devlog_upgrade.up,
     down: migration_20260703_010853_posts_devlog_upgrade.down,
-    name: '20260703_010853_posts_devlog_upgrade'
+    name: '20260703_010853_posts_devlog_upgrade',
+  },
+  {
+    up: migration_20260703_031845_add_expressions.up,
+    down: migration_20260703_031845_add_expressions.down,
+    name: '20260703_031845_add_expressions'
   },
 ];
