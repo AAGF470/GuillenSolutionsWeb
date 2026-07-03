@@ -8,7 +8,6 @@ import {
   PricingPlans,
   Checklist,
 } from '@aagf470/ui'
-import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import { PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, CMS_LEAD, RUN_SAFE_POINTS } from '../data'
 
 // Map shared pricing data → PricingPlans plan shape
@@ -22,7 +21,7 @@ const PLANS = PACKAGES.map(p => ({
   note:        p.note,
   features:    p.features,
   featured:    p.featured,
-  cta:         { label: 'Build your quote', href: '#configure', variant: p.featured ? 'solid' : 'ghost-bordered' },
+  cta:         { label: 'Build your quote', href: '/pricing#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
 }))
 
 const WHAT_WE_DO = [
@@ -55,7 +54,7 @@ export default function Home() {
         subtext="We design your website, set up everything around it, and put every login in your name. You update it yourself in plain English — and if you ever leave, you take all of it with you."
         ctas={[
           { label: 'See packages',     href: '#packages',  variant: 'solid' },
-          { label: 'Build your quote', href: '#configure', variant: 'ghost' },
+          { label: 'Build your quote', href: '/pricing', variant: 'ghost' },
         ]}
         layout="left"
       />
@@ -161,19 +160,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Configuration form */}
-      <section id="configure" className="section section--default gs-configure">
-        <div className="section-container">
-          <p className="section-eyebrow">Build your quote</p>
-          <h2 className="section-title">Configure your setup</h2>
-          <p className="section-sub">
-            Choose a package and add-ons to see a transparent, all-in estimate. Nothing is charged —
-            it's just a starting point we'll confirm in writing.
-          </p>
-          <PackageConfigurator />
-        </div>
-      </section>
-
       {/* What you own / what we don't do — same Checklist component the CMS
           version renders, so both sources are pixel-identical. */}
       <Checklist
@@ -191,7 +177,7 @@ export default function Home() {
             Build a quote in a minute, or reach out and we'll talk it through. Boston in person, everywhere else remote. English or Español.
           </p>
           <div className="gs-home-cta__actions">
-            <a className="gs-btn-solid" href="#configure">Build your quote</a>
+            <Link className="gs-btn-solid" to="/pricing">Build your quote</Link>
             <a className="gs-btn-ghost" href={`mailto:${CONTACT_EMAIL}`}>Get in touch</a>
           </div>
         </div>

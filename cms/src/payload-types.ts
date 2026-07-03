@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
+    projects: Project;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -80,6 +81,7 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -515,6 +517,16 @@ export interface Post {
   slug: string;
   cover?: (number | null) | Media;
   excerpt?: string | null;
+  tags?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional — the project this guide/devlog is about.
+   */
+  project?: (number | null) | Project;
   content?: {
     root: {
       type: string;
@@ -531,6 +543,28 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  slug: string;
+  tagline?: string | null;
+  cover?: (number | null) | Media;
+  status?: ('active' | 'shipped' | 'archived') | null;
+  links?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  summary?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -592,6 +626,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
       } | null)
     | ({
         relationTo: 'media';
@@ -969,8 +1007,36 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   cover?: T;
   excerpt?: T;
+  tags?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  project?: T;
   content?: T;
   publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  tagline?: T;
+  cover?: T;
+  status?: T;
+  links?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  summary?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -41,7 +41,7 @@ function PlanPageContent({ planId }) {
         subtext={plan.hero.subtext}
         size="compact"
         variant="alt"
-        ctas={[{ label: 'Build your quote', href: '/#configure', variant: 'solid' }]}
+        ctas={[{ label: 'Build your quote', href: '/pricing#order', variant: 'solid' }]}
       />
       <FeatureGrid
         eyebrow="Who it's for"
@@ -81,7 +81,7 @@ function PlanPageContent({ planId }) {
           badge: data.badge, tag: data.tag, name: data.name, price: data.price,
           period: data.period, description: data.description, note: data.note,
           features: data.features, featured: true,
-          cta: { label: 'Build your quote', href: '/#configure', variant: 'solid' },
+          cta: { label: 'Build your quote', href: '/pricing#order', variant: 'solid' },
         }]}
         variant="alt"
       />
@@ -95,7 +95,7 @@ function PlanPageContent({ planId }) {
         eyebrow={plan.cta.eyebrow}
         headline={plan.cta.headline}
         subtext={plan.cta.subtext}
-        cta={{ label: 'Build your quote', href: '/#configure', variant: 'solid' }}
+        cta={{ label: 'Build your quote', href: '/pricing#order', variant: 'solid' }}
         variant="accent"
       />
     </>

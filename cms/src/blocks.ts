@@ -296,3 +296,142 @@ export const SECTION_BLOCKS: Block[] = [
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
   checklist, newsletterSignup, richText, customHtml, configurator,
 ]
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Devlog / case-study blocks — embedded INSIDE the posts rich-text body via
+//  lexical's BlocksFeature (NOT page sections; do not add to SECTION_BLOCKS).
+//
+//  Field names mirror the @aagf470/ui component props 1:1 (including the
+//  snake_case ones like image_src / video_mp4) so the site-side renderer only
+//  has to resolve upload objects → URLs, never rename keys.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Matches CodeBlock.jsx's LANG_LABELS keys (any string works — the component
+// falls back to language.toUpperCase() — but a curated select keeps it tidy).
+const CODE_LANGS = [
+  'text', 'javascript', 'jsx', 'typescript', 'tsx', 'html', 'css', 'scss',
+  'json', 'yaml', 'toml', 'graphql', 'sql', 'python', 'bash', 'shell', 'lua',
+  'ruby', 'php', 'csharp', 'cpp', 'c', 'rust', 'go', 'zig', 'swift', 'kotlin',
+  'java', 'glsl', 'hlsl', 'wgsl', 'gdscript', 'vue', 'markdown', 'dockerfile',
+  'solidity',
+].map(v => ({ label: v, value: v }))
+
+// CalloutBlock: variant / label / body
+export const callout: Block = {
+  slug: 'callout',
+  labels: { singular: 'Callout', plural: 'Callouts' },
+  fields: [
+    { name: 'variant', type: 'select', defaultValue: 'note',
+      options: ['note', 'tip', 'warning', 'info'].map(v => ({ label: v, value: v })) },
+    { name: 'label', type: 'text',
+      admin: { description: 'Optional — overrides the default variant label ("Note", "Tip", …).' } },
+    { name: 'body', type: 'textarea', required: true },
+  ],
+}
+
+// CodeBlock: language / title / code
+export const codeBlock: Block = {
+  slug: 'codeBlock',
+  labels: { singular: 'Code block', plural: 'Code blocks' },
+  fields: [
+    { name: 'language', type: 'select', defaultValue: 'text', options: CODE_LANGS },
+    { name: 'title', type: 'text',
+      admin: { description: 'Optional filename / context label shown in the header.' } },
+    { name: 'code', type: 'code', required: true },
+  ],
+}
+
+// ImageBlock: image_src / alt / caption / size — image_src is an upload here;
+// the site resolves it to a URL.
+export const imageBlock: Block = {
+  slug: 'imageBlock',
+  labels: { singular: 'Image', plural: 'Images' },
+  fields: [
+    { name: 'image_src', label: 'Image', type: 'upload', relationTo: 'media', required: true },
+    { name: 'alt', type: 'text' },
+    { name: 'caption', type: 'text' },
+    { name: 'size', type: 'select', defaultValue: 'normal',
+      options: [
+        { label: 'Normal (max 720px)', value: 'normal' },
+        { label: 'Wide (full content width)', value: 'wide' },
+      ] },
+  ],
+}
+
+// FactGrid: heading / facts / columns (empty columns = component auto-picks)
+export const factGrid: Block = {
+  slug: 'factGrid',
+  labels: { singular: 'Fact grid', plural: 'Fact grids' },
+  fields: [
+    { name: 'heading', type: 'text' },
+    { name: 'facts', type: 'array', fields: [
+      { name: 'value', type: 'text', required: true,
+        admin: { description: 'The big stat: "4", "200+", "8GB".' } },
+      { name: 'label', type: 'text', required: true },
+      { name: 'description', type: 'text' },
+    ] },
+    { name: 'columns', type: 'select',
+      options: ['2', '3', '4'].map(v => ({ label: v, value: v })),
+      admin: { description: 'Leave empty to auto-fit to the fact count.' } },
+  ],
+}
+
+// ScreenshotGallery: label / images [{src, alt?, caption?}] — src via upload.
+export const screenshotGallery: Block = {
+  slug: 'screenshotGallery',
+  labels: { singular: 'Screenshot gallery', plural: 'Screenshot galleries' },
+  fields: [
+    { name: 'label', type: 'text',
+      admin: { description: 'Optional heading above the strip.' } },
+    { name: 'images', type: 'array', fields: [
+      { name: 'image', type: 'upload', relationTo: 'media', required: true },
+      { name: 'alt', type: 'text' },
+      { name: 'caption', type: 'text' },
+    ] },
+  ],
+}
+
+// VideoPlayer: eyebrow / title / video_mp4 / video_webm / poster_src /
+// caption / aspect_ratio. Video sources are URLs (CDN-hosted — large files
+// don't belong in the media library); the poster is a normal upload.
+export const videoPlayer: Block = {
+  slug: 'videoPlayer',
+  labels: { singular: 'Video', plural: 'Videos' },
+  fields: [
+    { name: 'eyebrow', type: 'text' },
+    { name: 'title', type: 'text' },
+    { name: 'video_mp4', label: 'MP4 URL', type: 'text', required: true,
+      admin: { description: 'URL to the .mp4 file (H.264).' } },
+    { name: 'video_webm', label: 'WebM URL', type: 'text',
+      admin: { description: 'Optional .webm (VP9) — preferred by Chrome/Firefox.' } },
+    { name: 'poster_src', label: 'Poster image', type: 'upload', relationTo: 'media' },
+    { name: 'caption', type: 'text' },
+    { name: 'aspect_ratio', type: 'select', defaultValue: '16/9',
+      options: ['16/9', '21/9', '4/3'].map(v => ({ label: v, value: v })) },
+  ],
+}
+
+// SideBySide: the component takes rendered ReactNodes for `left` / `right`;
+// the closest CMS shape is one nested block per column (maxRows: 1) — the
+// site renders that child block into the column.
+const SIDE_BY_SIDE_CHILDREN: Block[] = [callout, codeBlock, imageBlock, factGrid]
+
+export const sideBySide: Block = {
+  slug: 'sideBySide',
+  labels: { singular: 'Side by side', plural: 'Side by sides' },
+  fields: [
+    { name: 'left', type: 'blocks', maxRows: 1, blocks: SIDE_BY_SIDE_CHILDREN,
+      admin: { description: 'One block for the left column.' } },
+    { name: 'right', type: 'blocks', maxRows: 1, blocks: SIDE_BY_SIDE_CHILDREN,
+      admin: { description: 'One block for the right column.' } },
+    { name: 'split', type: 'select', defaultValue: '50/50',
+      options: ['50/50', '60/40', '40/60', '67/33', '33/67'].map(v => ({ label: v, value: v })) },
+    { name: 'align', type: 'select', defaultValue: 'start',
+      options: ['start', 'center', 'stretch'].map(v => ({ label: v, value: v })) },
+  ],
+}
+
+// The set exposed inside posts.content via BlocksFeature.
+export const DEVLOG_BLOCKS: Block[] = [
+  callout, codeBlock, imageBlock, sideBySide, screenshotGallery, factGrid, videoPlayer,
+]

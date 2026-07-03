@@ -209,7 +209,7 @@ export function LibraryShowcase() {
         </Spec>
 
         <p className="gs-showcase__foot">
-          Want a page built from these? <Link to="/#configure">Build your quote →</Link>
+          Want a page built from these? <Link to="/pricing#order">Build your quote →</Link>
         </p>
       </div>
     </div>

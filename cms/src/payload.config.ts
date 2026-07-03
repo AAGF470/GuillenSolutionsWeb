@@ -14,9 +14,9 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, BlocksFeature } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp'
-import { SECTION_BLOCKS } from './blocks'
+import { SECTION_BLOCKS, DEVLOG_BLOCKS } from './blocks'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -84,6 +84,37 @@ const Pages = {
   ],
 }
 
+// Projects — the things guides/devlogs are written about. A post can point at
+// one via its `project` relationship; the site shows a "related project" link.
+const Projects = {
+  slug: 'projects',
+  admin: { useAsTitle: 'title' },
+  access: { read: () => true, create: editorCanWrite, update: editorCanWrite, delete: isAdmin },
+  fields: [
+    { name: 'title', type: 'text', required: true },
+    { name: 'slug', type: 'text', required: true, unique: true, index: true },
+    { name: 'tagline', type: 'text' },
+    { name: 'cover', type: 'upload', relationTo: 'media' },
+    {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'active',
+      options: [
+        { label: 'Active', value: 'active' },
+        { label: 'Shipped', value: 'shipped' },
+        { label: 'Archived', value: 'archived' },
+      ],
+    },
+    { name: 'links', type: 'array', fields: [
+      { name: 'label', type: 'text', required: true },
+      { name: 'href', type: 'text', required: true },
+    ] },
+    { name: 'summary', type: 'textarea' },
+  ],
+}
+
+// Posts — devlog / case-study grade: the body is lexical rich text with the
+// DEVLOG_BLOCKS embeddable inline (callouts, code, images, galleries, …).
 const Posts = {
   slug: 'posts',
   admin: { useAsTitle: 'title' },
@@ -93,7 +124,19 @@ const Posts = {
     { name: 'slug', type: 'text', required: true, unique: true, index: true },
     { name: 'cover', type: 'upload', relationTo: 'media' },
     { name: 'excerpt', type: 'textarea' },
-    { name: 'content', type: 'richText' },
+    { name: 'tags', type: 'array', fields: [{ name: 'text', type: 'text', required: true }] },
+    { name: 'project', type: 'relationship', relationTo: 'projects',
+      admin: { description: 'Optional — the project this guide/devlog is about.' } },
+    {
+      name: 'content',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => [
+          ...rootFeatures,
+          BlocksFeature({ blocks: DEVLOG_BLOCKS }),
+        ],
+      }),
+    },
     { name: 'publishedAt', type: 'date' },
   ],
 }
@@ -116,7 +159,7 @@ export default buildConfig({
     push: false,
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
-  collections: [Pages as any, Posts as any, Media as any, Users as any],
+  collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
   sharp,

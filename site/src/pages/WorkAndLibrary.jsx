@@ -137,7 +137,7 @@ export default function WorkAndLibrary() {
         eyebrow="Your industry's next"
         headline="Whatever you do, we can build it — and hand it to you."
         subtext="Different trade, different state, different style. Same honest, you-own-everything setup."
-        cta={{ label: 'Build your quote', href: '/#configure' }}
+        cta={{ label: 'Build your quote', href: '/pricing#order' }}
         variant="accent"
       />
     </>

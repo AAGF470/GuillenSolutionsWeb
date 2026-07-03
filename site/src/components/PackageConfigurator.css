@@ -164,3 +164,31 @@
 @media (max-width: 520px) {
   .cfg__pkgs { grid-template-columns: 1fr; }
 }
+
+
+/* Add-ons as a scannable grid — 20 options read better in cards than a list */
+.cfg__addons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+  gap: 10px;
+  align-items: start;
+}
+
+
+/* Layout: packages + summary side by side, add-on grid full-width below.
+   Summary spans both rows so its sticky positioning rides the whole form. */
+.cfg {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 296px;
+  grid-template-rows: auto auto;
+  column-gap: 22px;
+  align-items: start;
+}
+.cfg__choices { grid-column: 1; grid-row: 1; }
+.cfg__extras  { grid-column: 1; grid-row: 2; display: grid; gap: 28px; margin-top: 28px; }
+.cfg__summary { grid-column: 2; grid-row: 1 / 3; }
+
+@media (max-width: 900px) {
+  .cfg { grid-template-columns: 1fr; }
+  .cfg__choices, .cfg__extras, .cfg__summary { grid-column: 1; grid-row: auto; }
+}

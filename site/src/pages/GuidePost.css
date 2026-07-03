@@ -1,0 +1,166 @@
+/* ── GUIDE POST (article) ────────────────────────────────────────────────── */
+
+.gs-post {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 110px 1.5rem 80px;
+}
+
+.gs-post__back {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  text-decoration: none;
+  margin-bottom: 22px;
+}
+
+.gs-post__back:hover { color: var(--color-accent); }
+
+.gs-post__title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(30px, 5vw, 44px);
+  line-height: 1.12;
+  margin: 0 0 14px;
+  color: var(--color-text);
+}
+
+.gs-post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.gs-post__date { font-size: 13px; color: var(--color-text-dim); }
+
+.gs-post__tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border-mid);
+  border-radius: 999px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
+.gs-post__cover {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-low);
+  margin-bottom: 36px;
+}
+
+.gs-post__cover img { width: 100%; display: block; }
+
+/* ── Prose (RichContent) ─────────────────────────────────────────────────── */
+
+.rich-content {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-text-sub);
+}
+
+.rich-content p { margin: 0 0 1.2em; }
+
+.rich-content h2,
+.rich-content h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--color-text);
+  line-height: 1.25;
+  margin: 1.8em 0 0.6em;
+}
+
+.rich-content h2 { font-size: 27px; }
+.rich-content h3 { font-size: 21px; }
+
+.rich-content a { color: var(--color-accent); }
+
+.rich-content ul,
+.rich-content ol { margin: 0 0 1.2em; padding-left: 1.4em; }
+
+.rich-content li { margin-bottom: 0.35em; }
+
+.rich-content blockquote {
+  margin: 1.4em 0;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-text);
+  font-style: italic;
+}
+
+.rich-content hr {
+  border: none;
+  border-top: 1px solid var(--color-border-low);
+  margin: 2.2em 0;
+}
+
+.rich-content code {
+  font-size: 0.9em;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+/* Embedded devlog blocks get breathing room inside the prose column. */
+.rich-content__block { margin: 2em 0; }
+
+/* ── Related project card ────────────────────────────────────────────────── */
+
+.gs-post__project {
+  margin-top: 48px;
+  padding: 22px 24px;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+}
+
+.gs-post__project-eyebrow {
+  margin: 0 0 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.gs-post__project-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 21px;
+  margin: 0 0 4px;
+  color: var(--color-text);
+}
+
+.gs-post__project-tagline {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--color-text-sub);
+}
+
+.gs-post__project-summary {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-text-sub);
+}
+
+.gs-post__project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.gs-post__project-links a {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.gs-post__project-links a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .gs-post { padding-top: 90px; }
+}

@@ -7,6 +7,8 @@ import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
 import PlanPage from './pages/PlanPage.jsx'
 import Pricing from './pages/Pricing.jsx'
 import OnDemand from './pages/OnDemand.jsx'
+import Guides from './pages/Guides.jsx'
+import GuidePost from './pages/GuidePost.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
 import Seo, { BUSINESS_SCHEMA } from './components/Seo.jsx'
@@ -127,7 +129,7 @@ function MobileMenu({ open, onClose }) {
             ))}
           </div>
         ))}
-        <Link to="/#configure" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>Build your quote</Link>
+        <Link to="/pricing" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>Build your quote</Link>
       </div>
       <button type="button" className="gs-mnav__backdrop" aria-label="Close menu" onClick={onClose} />
     </div>
@@ -147,7 +149,7 @@ function Nav() {
           <NavDropdown key={g.label} label={g.label} active={g.match(pathname)} items={g.items} />
         ))}
       </div>
-      <Link to="/#configure" className="gs-nav__cta">Build your quote</Link>
+      <Link to="/pricing" className="gs-nav__cta">Build your quote</Link>
       <button
         type="button"
         className={`gs-nav__burger${menuOpen ? ' is-open' : ''}`}
@@ -182,11 +184,12 @@ function Footer() {
           <Link to="/plans/wordpress">WordPress plan</Link>
           <Link to="/on-demand">On-demand services</Link>
           <Link to="/pricing">Full pricing &amp; order</Link>
+          <Link to="/guides">Guides</Link>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">Get in touch</span>
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          <Link to="/#configure">Build your quote</Link>
+          <Link to="/pricing">Build your quote</Link>
           <span className="gs-footer__muted">English &amp; Español</span>
         </div>
       </div>
@@ -218,6 +221,8 @@ export default function App() {
           <Route path="/plans/:planId" element={<PlanPage />} />
           <Route path="/on-demand" element={<OnDemand />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/guides" element={<Guides />} />
+          <Route path="/guides/:slug" element={<GuidePost />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />

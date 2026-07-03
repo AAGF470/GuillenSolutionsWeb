@@ -67,7 +67,7 @@ export default function Pricing() {
       />
 
       {/* New orders: configurator with the explainer rail beside it */}
-      <section id="order" className="section section--default">
+      <section id="order" className="section section--default gs-seam-bottom">
         <div className="section-container">
           <p className="section-eyebrow">New site</p>
           <h2 className="section-title">Build your order</h2>
@@ -81,7 +81,7 @@ export default function Pricing() {
       </section>
 
       {/* Existing sites: on-demand estimator */}
-      <section id="estimate" className="section section--alt">
+      <section id="estimate" className="section section--alt gs-seam-top">
         <div className="section-container">
           <p className="section-eyebrow">Already launched?</p>
           <h2 className="section-title">Estimate on-demand work</h2>

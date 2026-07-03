@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import './PackageConfigurator.css'
-import { PACKAGES, ADDONS, CONTACT_EMAIL } from '../data'
+import { PACKAGES, ADDONS, ON_DEMAND, CONTACT_EMAIL } from '../data'
+
+const ALL_ADDONS = [...ADDONS, ...ON_DEMAND]
 
 // ---------------------------------------------------------------------------
 // PackageConfigurator — the "configuration form".
@@ -27,7 +29,7 @@ export default function PackageConfigurator() {
   const pkg = PACKAGES.find(p => p.id === pkgId) ?? null
 
   function toggleAddon(id) {
-    const addon = ADDONS.find(a => a.id === id)
+    const addon = ALL_ADDONS.find(a => a.id === id)
     setAddons(prev => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
@@ -44,7 +46,7 @@ export default function PackageConfigurator() {
   }
 
   const summary = useMemo(() => {
-    const chosen = ADDONS.filter(a => addons.has(a.id))
+    const chosen = ALL_ADDONS.filter(a => addons.has(a.id))
     let firstYear = pkg ? pkg.firstYear : 0
     let recurring = pkg ? pkg.recurring : 0
     let approx = false
@@ -117,7 +119,9 @@ export default function PackageConfigurator() {
             })}
           </div>
         </fieldset>
+      </div>
 
+      <div className="cfg__extras">
         <fieldset className="cfg__group">
           <legend className="cfg__legend">2 · Add only what you need</legend>
           <div className="cfg__addons">
@@ -145,6 +149,47 @@ export default function PackageConfigurator() {
                   {active && perUnit && (
                     <div className="cfg-addon__stepper">
                       <span className="cfg-addon__stepper-label">How many extra {a.unitPlural}?</span>
+                      <div className="cfg-stepper">
+                        <button type="button" onClick={() => bumpQty(a.id, -1)} aria-label={`Fewer ${a.unitPlural}`}>−</button>
+                        <span className="cfg-stepper__val">{qty[a.id] || 1}</span>
+                        <button type="button" onClick={() => bumpQty(a.id, 1)} aria-label={`More ${a.unitPlural}`}>+</button>
+                      </div>
+                      <span className="cfg-addon__linetotal">{money(a.amount * (qty[a.id] || 1))}</span>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </fieldset>
+
+        <fieldset className="cfg__group">
+          <legend className="cfg__legend">3 · On-demand extras — usually added later, all available now</legend>
+          <div className="cfg__addons">
+            {ON_DEMAND.map(a => {
+              const active = addons.has(a.id)
+              const perUnit = a.kind === 'per-unit'
+              return (
+                <div key={a.id} className={`cfg-addon${active ? ' is-active' : ''}`}>
+                  <label className="cfg-addon__toggle">
+                    <input
+                      type="checkbox" checked={active}
+                      onChange={() => toggleAddon(a.id)} className="cfg-addon__box"
+                    />
+                    <span className="cfg-addon__check" aria-hidden="true"><Check /></span>
+                    <span className="cfg-addon__main">
+                      <span className="cfg-addon__row">
+                        <span className="cfg-addon__name">{a.name}</span>
+                        <span className="cfg-addon__price">{a.price}</span>
+                      </span>
+                      <span className="cfg-addon__meta">{a.cadence}</span>
+                      <span className="cfg-addon__body">{a.body}</span>
+                    </span>
+                  </label>
+
+                  {active && perUnit && (
+                    <div className="cfg-addon__stepper">
+                      <span className="cfg-addon__stepper-label">How many {a.unitPlural}?</span>
                       <div className="cfg-stepper">
                         <button type="button" onClick={() => bumpQty(a.id, -1)} aria-label={`Fewer ${a.unitPlural}`}>−</button>
                         <span className="cfg-stepper__val">{qty[a.id] || 1}</span>

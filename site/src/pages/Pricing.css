@@ -44,3 +44,8 @@
   .gs-order { grid-template-columns: 1fr; }
   .gs-rail { position: static; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 }
+
+
+/* Tighter seam between the order builder and the on-demand estimator */
+.section.gs-seam-bottom { padding-bottom: 40px; }
+.section.gs-seam-top { padding-top: 44px; }
