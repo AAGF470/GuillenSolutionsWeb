@@ -1,4 +1,41 @@
+# Guillen Solutions — search + AI assistants are welcome.
+# The site is prerendered (real HTML + JSON-LD), built to be read and cited.
 User-agent: *
+Allow: /
+
+# Explicitly welcomed (already covered by * above; stated to make intent clear
+# and to opt in to generative/AI use, not just classic search indexing).
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://guillensolutions.com/sitemap.xml
