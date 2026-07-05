@@ -4,6 +4,7 @@ import {
   CG_RENDER_LEAD, CG_RENDER_ADVANTAGE, CG_RENDER_TIERS, CG_RENDER_SHOTS,
   CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE, CONTACT_EMAIL,
 } from '../data'
+import { rendersSchema } from '../schema'
 import './CGRenders.css'
 
 // ---------------------------------------------------------------------------
@@ -46,6 +47,7 @@ export default function CGRenders() {
         title="CG Product Renders"
         description="Studio-quality 3D product images for e-commerce — model once, render many. Complexity-tiered per product, cheap extra shots, affordable multi-shot packages. Bundle with a website or order standalone."
         path="/renders"
+        schema={rendersSchema}
       />
 
       <HeroSection

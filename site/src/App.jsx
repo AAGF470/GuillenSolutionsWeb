@@ -12,7 +12,8 @@ import Guides from './pages/Guides.jsx'
 import GuidePost from './pages/GuidePost.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
-import Seo, { BUSINESS_SCHEMA } from './components/Seo.jsx'
+import Seo from './components/Seo.jsx'
+import { homeSchema } from './schema'
 
 // Per-route SEO — one source of truth regardless of whether the CMS layout
 // or the bespoke fallback renders.
@@ -21,7 +22,7 @@ const SEO = {
     title: 'Digital Business Solutions You Own',
     description: 'Websites, CG product renders, and business setup for small businesses — flat all-in pricing, and you own everything: domain, content, images, every login. English & Español.',
     path: '/',
-    schema: BUSINESS_SCHEMA,
+    schema: homeSchema,
   },
   work: {
     title: 'Our Work & Component Library',

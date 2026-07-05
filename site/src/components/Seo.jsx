@@ -29,8 +29,11 @@ export default function Seo({ title, description, path = '/', schema }) {
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={full} />
       {description && <meta name="twitter:description" content={description} />}
-      {schema && (
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      {schema && (Array.isArray(schema)
+        ? schema.map((s, i) => (
+            <script key={s['@id'] || i} type="application/ld+json">{JSON.stringify(s)}</script>
+          ))
+        : <script type="application/ld+json">{JSON.stringify(schema)}</script>
       )}
     </>
   )

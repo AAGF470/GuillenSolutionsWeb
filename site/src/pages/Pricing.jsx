@@ -4,6 +4,7 @@ import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import { Estimator } from './OnDemand.jsx'
 import { PRICING_PROMISE, FAQS } from '../data'
+import { pricingSchema } from '../schema'
 import './OnDemand.css'
 import './Pricing.css'
 
@@ -57,6 +58,7 @@ export default function Pricing() {
         title="Pricing & Order"
         description="Build your order: pick a plan and add-ons for an all-in number, or estimate on-demand work for a live site. Every figure confirmed in writing."
         path="/pricing"
+        schema={pricingSchema}
       />
       <HeroSection
         eyebrow="Pricing & order"
