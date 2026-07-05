@@ -429,7 +429,7 @@ export const PAGES_ITEMS = {
 export const OWNERSHIP = [
   'You own everything: your domain, website, content, email, phone number, and every login.',
   'We hand you the keys — take your assets and leave anytime. No lock-in, no ransom.',
-  'If you cancel, your site keeps running: you receive a frozen snapshot of our component library as of that day, and your content is downloadable for 30 days. Leaving is designed for, not punished.',
+  'If you leave, you get a runnable copy of the whole site — a container of the site, the component library (built in and as source), and your full content export — with up to 120 days to collect it. Leaving is designed for, not punished.',
   'We never manage or authorize your ad spend, or handle your money.',
   'Transparent pricing, including any third-party costs (Google, domain) billed to you directly.',
   'Every service is a defined, fixed-scope deliverable. Tailored combinations are quoted per business.',
@@ -439,16 +439,20 @@ export const OWNERSHIP = [
 // AI-assisted shopping conversations about us). Reassurance lives here.
 export const FAQS = [
   {
-    q: 'What happens to my site if I cancel — or if you disappear?',
-    a: 'Your site keeps running. When you leave, you receive a snapshot of our component library exactly as your site uses it — it stops receiving our updates, but nothing breaks and nothing is taken away. Your content lives in secure storage separate from the public server and is downloadable for 30 days after cancellation, in clean, portable data files any developer can import elsewhere. Your domain was registered in your name from day one, so it was never ours to hold.',
+    q: 'What exactly do I get if I leave — and can another developer take over?',
+    a: 'A complete, runnable copy of your site — leaving is something we build for, not punish. You receive one clean download containing: a container of your website (its full working front end), the component library both built into that site and included separately as source code, and a copy of your CMS in its own folder. Your content — every product, listing, price, photo, and text block — exports in clean, portable files. You get 30 days to collect everything, extendable on request up to a hard cap of 120 days, and anything too large to hand over directly we move by a cloud-to-cloud transfer. Honest footnote: because the site runs on a modern stack (a container plus a headless CMS), standing it back up elsewhere is a job for a competent developer or a capable AI coding tool — not a one-click restore you\'d do yourself — but everything they need is in the box, with zero dependency on us afterward.',
   },
   {
     q: 'Do I really own everything? Even the design?',
-    a: 'You own your domain, content, accounts, images, and every login outright, from day one. The component library itself is what we license: while you\'re a client you get controlled access to all of it, and if you leave you keep a frozen copy of everything your site uses. The one thing you can\'t do is resell our library as your own — everything else is yours.',
+    a: 'You own your domain, content, accounts, images, and every login outright, from day one. The component library is the one piece we license rather than sell — and the license is generous: you get the perpetual right to use it on your site, commercially, including by any developer you later hire to maintain or change that site. The only limits: you can\'t hand the library to another agency, and you can\'t use it to build other, competing projects — it\'s the core tool our whole business runs on, not a freebie to resell. That restriction never touches a normal business; your site is yours to run and modify forever.',
+  },
+  {
+    q: 'Do I have to use your accounts? Who pays Shopify, my domain, email?',
+    a: 'Your accounts are yours, and you pay those providers directly at their rates — no markup from us, and we never sit between you and a vendor. Your domain, your Shopify (or Square/Toast/Clover) plan and its transaction fees, your email — all in your name. The only things we bill are the two we actively run for you if you choose them: a business phone line and Google Workspace email. Everything else, you own and pay for directly, so you\'re never locked to us by a bill.',
   },
   {
     q: 'Can you build me an online store with checkout?',
-    a: 'Yes — through an external platform integration ($400, one-time per integration). We connect your site to an engine like Shopify: our components are the fast, custom-designed storefront your customers see, and the platform underneath handles carts, payments, refunds, and inventory syncing with its bank-grade security. That split is deliberate — your card data belongs with a payments company, not any boutique — and it keeps the whole setup transferable. Orders and refunds are managed in the platform\'s dashboard; your site content stays in your CMS.',
+    a: 'Yes — through an external platform integration ($400, one-time per integration). We connect your site to an engine like Shopify: our components are the fast, custom-designed storefront your customers see, and the platform underneath handles carts, payments, refunds, and inventory syncing with its bank-grade security. That split is deliberate — your card data belongs with a payments company, not any boutique — and it keeps the whole setup transferable. Orders and refunds are managed in the platform\'s dashboard; your site content stays in your CMS. (The $400 is our one-time integration fee; the platform\'s own monthly plan and transaction fees are separate and paid by you directly.)',
   },
   {
     q: 'How do pages work? Can I add my own?',
