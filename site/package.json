@@ -6,7 +6,7 @@
   "description": "Guillen Solutions site — built on @aagf470/ui, content from the Payload CMS.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

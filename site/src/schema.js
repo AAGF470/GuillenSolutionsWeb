@@ -9,7 +9,7 @@
 import {
   PACKAGES, ADDONS, ON_DEMAND, FAQS, CONTACT_EMAIL,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES,
-} from './data'
+} from './data.js'
 
 const SITE = 'https://guillensolutions.com'
 const ORG_ID = `${SITE}#org`
