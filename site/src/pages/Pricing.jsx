@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { HeroSection, CtaBanner } from '@aagf470/ui'
+import { HeroSection, CtaBanner, Faq } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import { Estimator } from './OnDemand.jsx'
-import { PRICING_PROMISE } from '../data'
+import { PRICING_PROMISE, FAQS } from '../data'
 import './OnDemand.css'
 import './Pricing.css'
 
@@ -31,10 +31,11 @@ function Rail() {
       <div className="gs-rail__card">
         <h3>Pages vs. items</h3>
         <p>
-          Pages are layouts we design (6 included). Items are the things they list,
-          like products, dishes, or listings, all sharing one design (25 imported,
-          then unlimited self-serve, free). A 40-product catalog is 1 page plus
-          40 items, not 40 pages. That's why a full catalog stays affordable.
+          Pages are the layouts: 6 designed by us, plus up to 4 you assemble
+          yourself from the component library, free (10 total). Items are the
+          things they list — products, dishes, listings — all sharing one design
+          (25 imported, then unlimited self-serve, free). A 40-product catalog is
+          1 page plus 40 items, not 40 pages.
         </p>
       </div>
       <div className="gs-rail__card">
@@ -91,6 +92,16 @@ export default function Pricing() {
           <Estimator />
         </div>
       </section>
+
+      {/* The questions buyers (and their AI assistants) actually ask */}
+      <Faq
+        eyebrow="Before you decide"
+        headline="The questions people actually ask"
+        subtext="Exit policy, ownership, online stores, page limits, referrals — answered plainly. If yours isn't here, just ask."
+        items={FAQS}
+        single
+        variant="default"
+      />
 
       <CtaBanner
         eyebrow="Prefer to just talk?"

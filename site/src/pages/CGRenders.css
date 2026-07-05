@@ -215,6 +215,17 @@
 }
 .gs-cg__pack.is-featured .gs-cg__pack-cta:hover { background: var(--btn-solid-hover-bg); }
 
+/* product-line variant callout */
+.gs-cg__variant {
+  margin-top: 16px;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-left: 3px solid var(--gs-ember);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+}
+.gs-cg__variant p { margin: 0; font-size: 14.5px; color: var(--color-text-sub); line-height: 1.65; }
+
 /* notes */
 .gs-cg__notes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .gs-cg__note {

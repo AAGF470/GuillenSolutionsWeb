@@ -2,7 +2,7 @@ import { HeroSection, CtaBanner } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import {
   CG_RENDER_LEAD, CG_RENDER_ADVANTAGE, CG_RENDER_TIERS, CG_RENDER_SHOTS,
-  CG_RENDER_PACKAGES, CG_RENDER_NOTES, CONTACT_EMAIL,
+  CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE, CONTACT_EMAIL,
 } from '../data'
 import './CGRenders.css'
 
@@ -138,6 +138,10 @@ export default function CGRenders() {
                 <p>{s.body}</p>
               </div>
             ))}
+          </div>
+          <div className="gs-cg__variant">
+            <span className="gs-cg__note-tag">The product-line play</span>
+            <p>{CG_RENDER_VARIANT_NOTE}</p>
           </div>
         </div>
       </section>

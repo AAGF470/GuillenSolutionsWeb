@@ -36,7 +36,7 @@ export const PACKAGES = [
     description: 'Custom in-house design on our component system — fast, modern, and easy to update yourself.',
     note: 'After year one: $350/yr hosting + domain renewal.',
     features: [
-      'Up to 6 custom-designed pages — home, about, services…',
+      '6 pages designed by us + up to 4 you build yourself, free (10 total)',
       'Your own CMS — 25 items imported for you, then unlimited self-serve, free',
       'Unlimited item groups — organize however you like',
       'Domain registered in your name',
@@ -56,7 +56,7 @@ export const PACKAGES = [
     description: "Built on the world's most widely-supported platform — maintainable by any developer, anywhere.",
     note: 'After year one: $500/yr — managed WordPress needs ongoing core/plugin updates and security upkeep.',
     features: [
-      'Up to 6 designed pages — home, about, services…',
+      '6 pages designed by us + up to 4 you build yourself, free (10 total)',
       'WordPress CMS — 25 items imported for you, then unlimited self-serve, free',
       'Unlimited item groups — organize however you like',
       'Domain registered in your name',
@@ -181,8 +181,24 @@ export const ON_DEMAND = [
     name: 'Extra Pages & Redesigns',
     price: '$75–200',
     cadence: 'Quoted',
-    body: 'New pages or reworked layouts as your business grows, quoted by page depth before we build. You only pay when you actually expand.',
+    body: 'New pages or reworked layouts designed by us, quoted by page depth before we build. Assembling pages yourself from the component library is always free — this fee is only for pages we design.',
     amount: null, kind: 'quoted',
+  },
+  {
+    id: 'integration',
+    name: 'External Platform Integration',
+    price: '$400',
+    cadence: 'One-time, per integration',
+    body: 'We connect your site to an outside engine — Shopify checkout, a booking system, or another platform — with our components as the visual skin and your CMS reading from it. Payments and sensitive data stay with the platform (their bank-grade security, not a boutique\'s), and the whole setup stays transferable.',
+    amount: 400, kind: 'onetime',
+  },
+  {
+    id: 'posttype',
+    name: 'Custom Post Format',
+    price: '$125',
+    cadence: 'One-time',
+    body: 'A new content type designed around your business — blog posts, news updates, case studies, community announcements. We design the format once; after that you publish unlimited posts yourself, free.',
+    amount: 125, kind: 'onetime',
   },
 ]
 
@@ -273,6 +289,11 @@ export const CG_RENDER_PACKAGES = [
     includes: ['1 product model (up to complex)', '6 studio renders + variants', '2 lifestyle scenes', 'Sized for store, ads & social'],
   },
 ]
+
+// The product-line play: one form, many variants — the single biggest saving
+// for shops with big catalogs of the same physical shape.
+export const CG_RENDER_VARIANT_NOTE =
+  'Selling one product in many variants? If your line is 30 scents of the same candle jar, or 12 colorways of the same bottle, we model the form ONCE — then every label, color, or flavor variant is just an additional render, not a new model. A whole product line\'s imagery for a fraction of per-product cost. Tell us about your line and we\'ll quote it that way automatically.'
 
 export const CG_RENDER_NOTES = {
   bundled: 'Bundled with a website build — 15% off any render work, added to your order.',
@@ -398,7 +419,7 @@ export const PAGES_ITEMS = {
   intro:
     'Think of your website like a restaurant. The pages are the rooms — the entrance, the dining room, the “about us” wall. The items are the dishes on the menu: you can have a lot of them, and they all share one menu design.',
   pages:
-    'Pages are the parts we design by hand — your home page, about page, services page, or a page showing all your products. Your package includes 6 pages, enough for most businesses.',
+    'Pages are the layouts themselves — your home page, about page, services page. Your package includes 6 designed by us, and you can assemble up to 4 more yourself from the component library, free (10 total). The page fee only applies when we do the designing.',
   items:
     'Items are the individual things those pages show — a single product, one menu item, one listing. We design the look once, and every item you add uses it automatically. Your package includes 25 items, and you can add more anytime.',
   savings:
@@ -408,7 +429,53 @@ export const PAGES_ITEMS = {
 export const OWNERSHIP = [
   'You own everything: your domain, website, content, email, phone number, and every login.',
   'We hand you the keys — take your assets and leave anytime. No lock-in, no ransom.',
+  'If you cancel, your site keeps running: you receive a frozen snapshot of our component library as of that day, and your content is downloadable for 30 days. Leaving is designed for, not punished.',
   'We never manage or authorize your ad spend, or handle your money.',
   'Transparent pricing, including any third-party costs (Google, domain) billed to you directly.',
   'Every service is a defined, fixed-scope deliverable. Tailored combinations are quoted per business.',
+]
+
+// ── FAQ — the questions people actually ask (many verbatim from real
+// AI-assisted shopping conversations about us). Reassurance lives here.
+export const FAQS = [
+  {
+    q: 'What happens to my site if I cancel — or if you disappear?',
+    a: 'Your site keeps running. When you leave, you receive a snapshot of our component library exactly as your site uses it — it stops receiving our updates, but nothing breaks and nothing is taken away. Your content lives in secure storage separate from the public server and is downloadable for 30 days after cancellation, in clean, portable data files any developer can import elsewhere. Your domain was registered in your name from day one, so it was never ours to hold.',
+  },
+  {
+    q: 'Do I really own everything? Even the design?',
+    a: 'You own your domain, content, accounts, images, and every login outright, from day one. The component library itself is what we license: while you\'re a client you get controlled access to all of it, and if you leave you keep a frozen copy of everything your site uses. The one thing you can\'t do is resell our library as your own — everything else is yours.',
+  },
+  {
+    q: 'Can you build me an online store with checkout?',
+    a: 'Yes — through an external platform integration ($400, one-time per integration). We connect your site to an engine like Shopify: our components are the fast, custom-designed storefront your customers see, and the platform underneath handles carts, payments, refunds, and inventory syncing with its bank-grade security. That split is deliberate — your card data belongs with a payments company, not any boutique — and it keeps the whole setup transferable. Orders and refunds are managed in the platform\'s dashboard; your site content stays in your CMS.',
+  },
+  {
+    q: 'How do pages work? Can I add my own?',
+    a: 'Plans include 6 pages designed by us, and you can assemble up to 4 more yourself from the component library — 10 total — free. The $75–200 page fee only applies when you want US to design a new page or rework a layout. And remember items aren\'t pages: your 40 products live in the CMS and flow into one product layout, so a big catalog never eats your page count.',
+  },
+  {
+    q: 'I have dozens of products. Won\'t that cost a fortune?',
+    a: 'No — this is exactly what the pages-vs-items model is for. Products, menu entries, and listings are items: we design the layout once and every item uses it. Your plan imports the first 25 for you; after that, adding items yourself is unlimited and free, forever ($7/item only if you\'d rather we do the typing). Forty products is one page plus forty items — not forty pages.',
+  },
+  {
+    q: 'Can I add a blog or news section later?',
+    a: 'Yes. A custom post format is $125, one-time: we design a new content type around your business — blog posts, news updates, case studies — and from then on you publish unlimited posts yourself, free.',
+  },
+  {
+    q: 'What about product photos?',
+    a: 'That\'s our CG render service: we build a 3D model of your product once, then render every shot you need from it. If you sell one product in many variants — say, 30 scents of the same candle jar — we model the jar once and each label variant is just an additional render at $40–75, not a new model. A whole product line\'s imagery for a fraction of per-product photography. 15% off when bundled with a website.',
+  },
+  {
+    q: 'Will my renewal price creep up every year?',
+    a: 'Your renewal rate is agreed in writing before you sign — no surprises, ever. Today\'s prices are early rates and will rise for new clients as demand grows, but existing clients keep fair, gradual pricing. We put that in the contract because "the price never changes" is a promise nobody can honestly make — "you\'ll always know the number in advance" is one we can.',
+  },
+  {
+    q: 'Who writes and loads all my content?',
+    a: 'Either of us. Editing your own site is always free and unlimited — that\'s the point of your custom CMS. If you\'d rather hand it off, we import your first 25 items free with Standard and WordPress plans, and $7/item after that. For the build itself, we walk you through exactly what we need up front so the project never stalls on missing content.',
+  },
+  {
+    q: 'How does the referral program work? Can I refer a non-profit or a friend\'s business?',
+    a: 'Anyone can refer anyone — clients, friends, other business owners, non-profits included. When someone you send signs and pays for a package, you earn 10% on packages under $600 and 5% on packages $600 and up, paid by Zelle the same day both sides confirm each other. No sign-up, no forms: they mention your name, we confirm with you, done.',
+  },
 ]
