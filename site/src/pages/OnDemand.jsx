@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { HeroSection, ServiceList, CtaBanner } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
+import InquiryForm from '../components/InquiryForm.jsx'
 import { ON_DEMAND, CONTACT_EMAIL } from '../data'
 import './OnDemand.css'
 
@@ -51,11 +52,16 @@ export function Estimator() {
   const linePrice = s =>
     s.kind === 'quoted' ? 'quoted' : s.kind === 'per-unit' ? money(s.amount * (qty[s.id] || 1)) : money(s.amount)
 
-  const mailBody = encodeURIComponent(
-    `Hi — I'd like to add the following to my site:\n\n` +
-    chosen.map(s => `• ${lineLabel(s)} — ${linePrice(s)}`).join('\n') +
-    `\n\nEstimated total: ${money(total)}${hasQuoted ? ' + quoted items' : ''}\n\n(My website / business name: )`
-  )
+  const inquirySummary =
+    `On-demand: ${chosen.map(lineLabel).join(', ') || '(nothing picked)'} — ${money(total)}${hasQuoted ? '+' : ''}`
+  const inquiryDetails = {
+    services: chosen.map(s => ({
+      id: s.id, name: s.name, kind: s.kind,
+      ...(s.kind === 'per-unit' ? { qty: qty[s.id] || 1 } : {}),
+      line: linePrice(s),
+    })),
+    total, hasQuoted,
+  }
 
   return (
     <div className="gs-ode">
@@ -95,12 +101,13 @@ export function Estimator() {
               <span>Estimated total</span>
               <span>{money(total)}{hasQuoted ? ' + quoted' : ''}</span>
             </div>
-            <a
-              className="gs-ode__send"
-              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('On-demand services request')}&body=${mailBody}`}
-            >
-              Send this request
-            </a>
+            <InquiryForm
+              source="estimator"
+              summary={inquirySummary}
+              details={inquiryDetails}
+              cta="Send this request"
+              compact
+            />
           </>
         )}
         <p className="gs-ode__fine">

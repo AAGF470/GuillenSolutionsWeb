@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import './PackageConfigurator.css'
-import { PACKAGES, ADDONS, ON_DEMAND, CONTACT_EMAIL } from '../data'
+import { PACKAGES, ADDONS, ON_DEMAND } from '../data'
+import InquiryForm from './InquiryForm.jsx'
 
 const ALL_ADDONS = [...ADDONS, ...ON_DEMAND]
 
@@ -24,7 +25,6 @@ export default function PackageConfigurator() {
   const [pkgId, setPkgId]   = useState('standard')
   const [addons, setAddons] = useState(() => new Set())
   const [qty, setQty]       = useState({})   // per-unit add-on quantities
-  const [name, setName]     = useState('')
 
   const pkg = PACKAGES.find(p => p.id === pkgId) ?? null
 
@@ -70,27 +70,21 @@ export default function PackageConfigurator() {
     return money(a.amount)
   }
 
-  function buildInquiry() {
-    const lines = []
-    lines.push(pkg ? `Package: ${pkg.name} (${pkg.price} first year)` : 'Package: (none selected yet)')
-    if (summary.chosen.length) {
-      lines.push('', 'Add-ons:')
-      summary.chosen.forEach(a => {
-        const q = a.kind === 'per-unit' ? ` ×${qty[a.id] || 1}` : ''
-        lines.push(`  • ${a.name}${q} — ${lineAmount(a)}`)
-      })
-    }
-    lines.push('',
-      `Estimated first year, all-in: ${money(summary.firstYear)}${summary.quoted.length ? ' + quoted items' : ''}`,
-      `Estimated recurring: ${summary.approx ? 'from ' : ''}${money(summary.recurring)}/yr`)
-    if (summary.quoted.length) lines.push('', 'Needs a quote: ' + summary.quoted.map(a => a.name).join(', '))
-    if (name.trim()) lines.push('', `From: ${name.trim()}`)
-    return lines.join('\n')
+  // One line for the CMS inbox list; the full selection travels as JSON.
+  const inquirySummary =
+    `${pkg ? pkg.name : 'No package'}${summary.chosen.length ? ` + ${summary.chosen.length} add-on(s)` : ''}` +
+    ` — ${money(summary.firstYear)}${summary.quoted.length ? '+' : ''} first year`
+  const inquiryDetails = {
+    package: pkg ? { id: pkg.id, name: pkg.name, firstYear: pkg.firstYear, recurring: pkg.recurring } : null,
+    addons: summary.chosen.map(a => ({
+      id: a.id, name: a.name, kind: a.kind,
+      ...(a.kind === 'per-unit' ? { qty: qty[a.id] || 1 } : {}),
+      line: lineAmount(a),
+    })),
+    quoted: summary.quoted.map(a => a.name),
+    firstYear: summary.firstYear,
+    recurring: summary.recurring,
   }
-
-  const mailto = `mailto:${CONTACT_EMAIL}` +
-    `?subject=${encodeURIComponent('Website setup request')}` +
-    `&body=${encodeURIComponent(buildInquiry())}`
 
   return (
     <div className="cfg">
@@ -240,12 +234,13 @@ export default function PackageConfigurator() {
             </p>
           )}
 
-          <input
-            className="cfg-sum__name"
-            type="text" placeholder="Your name (optional)"
-            value={name} onChange={e => setName(e.target.value)}
+          <InquiryForm
+            source="configurator"
+            summary={inquirySummary}
+            details={inquiryDetails}
+            cta="Request this setup"
+            compact
           />
-          <a className="cfg-sum__cta" href={mailto}>Request this setup</a>
           <p className="cfg-sum__fine">
             Just an estimate — nothing is charged. Recurring items are billed yearly,
             starting in year one. We confirm every number in writing before any work begins.

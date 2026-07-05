@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { HeroSection, CtaBanner, Faq } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
+import PlanFinder from '../components/PlanFinder.jsx'
 import { Estimator } from './OnDemand.jsx'
 import { PRICING_PROMISE, FAQS } from '../data'
 import { pricingSchema } from '../schema'
@@ -68,6 +69,20 @@ export default function Pricing() {
         variant="alt"
         ctas={[]}
       />
+
+      {/* Not sure where to start: the 60-second plan finder */}
+      <section id="finder" className="section section--alt gs-seam-bottom">
+        <div className="section-container">
+          <p className="section-eyebrow">Not sure where to start?</p>
+          <h2 className="section-title">Find your plan in 60 seconds</h2>
+          <p className="section-sub">
+            Four quick questions, one clear recommendation — a full package with a
+            real number, sent as a request in one click. Prefer full control? The
+            complete builder is right below.
+          </p>
+          <PlanFinder />
+        </div>
+      </section>
 
       {/* New orders: configurator with the explainer rail beside it */}
       <section id="order" className="section section--default gs-seam-bottom">

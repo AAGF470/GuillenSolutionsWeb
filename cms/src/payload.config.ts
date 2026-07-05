@@ -12,7 +12,7 @@
 // ═══════════════════════════════════════════════════════════════════════════
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { buildConfig } from 'payload'
+import { APIError, buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor, BlocksFeature } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp'
@@ -141,6 +141,59 @@ const Posts = {
   ],
 }
 
+// Inquiries — requests sent from the site's forms (plan finder, configurator,
+// estimator). Anyone can CREATE (public forms); only logged-in users can read
+// or manage them. The hidden `website` field is a honeypot: humans never see
+// it, bots auto-fill it, and any value rejects the submission.
+const Inquiries = {
+  slug: 'inquiries',
+  admin: {
+    useAsTitle: 'summary',
+    defaultColumns: ['summary', 'email', 'source', 'status', 'createdAt'],
+    description: 'Requests from the website. Reply by email, then set the status.',
+  },
+  access: { create: () => true, read: editorCanWrite, update: editorCanWrite, delete: isAdmin },
+  hooks: {
+    beforeValidate: [
+      ({ data }: any) => {
+        if (data?.website) throw new APIError('Invalid submission.', 400)
+        return data
+      },
+    ],
+  },
+  fields: [
+    { name: 'summary', type: 'text', admin: { description: 'One line — what they asked for.' } },
+    { name: 'name', type: 'text' },
+    { name: 'email', type: 'email', required: true },
+    { name: 'business', type: 'text' },
+    { name: 'message', type: 'textarea' },
+    {
+      name: 'source',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'Plan finder', value: 'plan-finder' },
+        { label: 'Order builder', value: 'configurator' },
+        { label: 'On-demand estimator', value: 'estimator' },
+        { label: 'Contact', value: 'contact' },
+      ],
+    },
+    { name: 'details', type: 'json', admin: { description: 'Full selection payload from the form.' } },
+    {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'new',
+      options: [
+        { label: 'New', value: 'new' },
+        { label: 'Replied', value: 'replied' },
+        { label: 'Closed', value: 'closed' },
+      ],
+    },
+    // Honeypot — kept out of the admin UI; must remain empty.
+    { name: 'website', type: 'text', admin: { hidden: true } },
+  ],
+}
+
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   secret: process.env.PAYLOAD_SECRET || '',
@@ -159,7 +212,7 @@ export default buildConfig({
     push: false,
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
-  collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any],
+  collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any, Inquiries as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
   sharp,
