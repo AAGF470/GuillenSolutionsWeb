@@ -21,6 +21,7 @@
 import {
   PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE,
   POSITIONING, CMS_LEAD, RUN_SAFE_POINTS, CONTACT_EMAIL,
+  SERVICES, REFERRAL_PROGRAM,
 } from '../../site/src/data.js'
 import { PLAN_PAGES } from '../../site/src/planPages.js'
 
@@ -84,6 +85,47 @@ const HTML_LIBPEEK = `
 </section>`
 
 
+// Services overview + referral program ride in as customHtml (linked cards and
+// numbered steps aren't featureGrid shapes; the classes ship in bundled CSS).
+const HTML_SERVICES = `
+<section class="section section--alt gs-svc" id="services">
+  <div class="section-container">
+    <p class="section-eyebrow">What we do</p>
+    <h2 class="section-title">One team for your digital presence</h2>
+    <p class="section-sub">Most clients start with a website. But everything a small business needs to look established — the site, the product photos, the email, the phone line — comes from the same system, the same team, and the same promise: you own it.</p>
+    <div class="gs-svc__grid">
+      ${SERVICES.map(s => `
+      <a href="${s.to}" class="gs-svc__card">
+        <span class="gs-svc__tag">${s.tag}</span>
+        <h3 class="gs-svc__title">${s.title}</h3>
+        <p class="gs-svc__body">${s.body}</p>
+        <span class="gs-svc__foot">
+          <span class="gs-svc__price">${s.price}</span>
+          <span class="gs-svc__link">${s.linkLabel} →</span>
+        </span>
+      </a>`).join('')}
+    </div>
+  </div>
+</section>`
+
+const HTML_REFERRAL = `
+<section class="section section--default gs-refer">
+  <div class="section-container">
+    <p class="section-eyebrow">${REFERRAL_PROGRAM.eyebrow}</p>
+    <h2 class="section-title">${REFERRAL_PROGRAM.headline}</h2>
+    <p class="section-sub">${REFERRAL_PROGRAM.lead}</p>
+    <div class="gs-refer__steps">
+      ${REFERRAL_PROGRAM.steps.map((s, i) => `
+      <div class="gs-refer__step">
+        <span class="gs-refer__num">${i + 1}</span>
+        <h3>${s.title}</h3>
+        <p>${s.body}</p>
+      </div>`).join('')}
+    </div>
+    <p class="gs-refer__fine">${REFERRAL_PROGRAM.fine}</p>
+  </div>
+</section>`
+
 // ── Page definitions ─────────────────────────────────────────────────────────
 const grid = (props) => ({ blockType: 'featureGrid', columns: '4', variant: 'default', ...props })
 
@@ -93,16 +135,17 @@ const PAGES = [
     slug: 'home',
     layout: [
       { blockType: 'hero', layout: 'left', size: 'full', variant: 'default',
-        eyebrow: 'Websites for small businesses · English & Español',
-        headline: 'Get your business online — and own every piece of it.',
-        subtext: 'We design your website, set up everything around it, and put every login in your name. You update it yourself in plain English — and if you ever leave, you take all of it with you.',
+        eyebrow: 'Digital business solutions · English & Español',
+        headline: 'Everything your business needs to look real online — and you own all of it.',
+        subtext: 'Websites, studio-quality product images, and the business setup around them — email, phone, profiles — built for small businesses, priced flat, and put in your name. If you ever leave, you take every piece with you.',
         ctas: [
-          { label: 'See packages', href: '#packages', variant: 'solid' },
+          { label: 'See what we do', href: '#services', variant: 'solid' },
           { label: 'Build your quote', href: '/pricing', variant: 'ghost' },
         ] },
-      grid({ eyebrow: 'What we do', headline: 'Honest web services, start to finish',
+      { blockType: 'customHtml', variant: 'default', html: HTML_SERVICES },
+      grid({ eyebrow: 'How websites work here', headline: 'Honest digital services, start to finish',
         subtext: 'Design, hosting, security, and guidance — with one promise underneath all of it: everything we build is yours.',
-        items: WHAT_WE_DO, variant: 'alt' }),
+        items: WHAT_WE_DO }),
       { blockType: 'imageText', layout: 'image-right', variant: 'default', imageAlt: 'Guillen Solutions',
         eyebrow: 'Why we do it', headline: 'We built the opposite of a bad deal',
         body: 'A business we know was charged $2,800 for a website they never actually owned — their leads were siphoned to competitors who paid more, and their domain, content, and profiles were held hostage. We started Guillen Solutions to do the exact opposite: honest, upfront, and yours to keep.',
@@ -122,9 +165,14 @@ const PAGES = [
           cta: { label: 'Build your quote', href: '/pricing#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
         })) },
       { blockType: 'customHtml', variant: 'default', html: HTML_NOTES },
+      { blockType: 'imageText', layout: 'image-left', variant: 'default', imageAlt: 'CG product render examples',
+        eyebrow: 'New — CG product renders', headline: 'Product photos, without the photo studio',
+        body: 'We build a 3D model of your product once, then render every shot you need from it — clean white-background listing images, detail crops, and staged lifestyle scenes. No samples shipped, no reshoot fees, and every extra shot is cheap because the model already exists. From $150 per product, with multi-shot packages made for small businesses — and 15% off when bundled with a website.',
+        cta: { label: 'Explore product renders', href: '/renders', variant: 'solid' } },
       grid({ eyebrow: 'Run it yourself', headline: 'Your own control panel, built around your business',
         subtext: CMS_LEAD, items: RUN_SAFE_POINTS, variant: 'alt' }),
       { blockType: 'customHtml', variant: 'default', html: HTML_LIBPEEK },
+      { blockType: 'customHtml', variant: 'default', html: HTML_REFERRAL },
       { blockType: 'ctaBanner', variant: 'accent',
         eyebrow: 'Ready?', headline: "Let's get your business online — the honest way.",
         subtext: `Build a quote in a minute, or reach out at ${CONTACT_EMAIL} and we'll talk it through. Boston in person, everywhere else remote. English or Español.`,

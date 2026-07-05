@@ -8,7 +8,7 @@ import {
   PricingPlans,
   Checklist,
 } from '@aagf470/ui'
-import { PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, CMS_LEAD, RUN_SAFE_POINTS } from '../data'
+import { PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM } from '../data'
 
 // Map shared pricing data → PricingPlans plan shape
 const PLANS = PACKAGES.map(p => ({
@@ -49,23 +49,50 @@ export default function Home() {
   return (
     <>
       <HeroSection
-        eyebrow="Websites for small businesses · English & Español"
-        headline="Get your business online — and own every piece of it."
-        subtext="We design your website, set up everything around it, and put every login in your name. You update it yourself in plain English — and if you ever leave, you take all of it with you."
+        eyebrow="Digital business solutions · English & Español"
+        headline="Everything your business needs to look real online — and you own all of it."
+        subtext="Websites, studio-quality product images, and the business setup around them — email, phone, profiles — built for small businesses, priced flat, and put in your name. If you ever leave, you take every piece with you."
         ctas={[
-          { label: 'See packages',     href: '#packages',  variant: 'solid' },
+          { label: 'See what we do',   href: '#services',  variant: 'solid' },
           { label: 'Build your quote', href: '/pricing', variant: 'ghost' },
         ]}
         layout="left"
       />
 
+      {/* The service lines — websites are the core, no longer the whole story */}
+      <section className="section section--alt gs-svc" id="services">
+        <div className="section-container">
+          <p className="section-eyebrow">What we do</p>
+          <h2 className="section-title">One team for your digital presence</h2>
+          <p className="section-sub">
+            Most clients start with a website. But everything a small business needs
+            to look established — the site, the product photos, the email, the phone
+            line — comes from the same system, the same team, and the same promise:
+            you own it.
+          </p>
+          <div className="gs-svc__grid">
+            {SERVICES.map(s => (
+              <Link key={s.id} to={s.to} className="gs-svc__card">
+                <span className="gs-svc__tag">{s.tag}</span>
+                <h3 className="gs-svc__title">{s.title}</h3>
+                <p className="gs-svc__body">{s.body}</p>
+                <span className="gs-svc__foot">
+                  <span className="gs-svc__price">{s.price}</span>
+                  <span className="gs-svc__link">{s.linkLabel} →</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <FeatureGrid
-        eyebrow="What we do"
-        headline="Honest web services, start to finish"
+        eyebrow="How websites work here"
+        headline="Honest digital services, start to finish"
         subtext="Design, hosting, security, and guidance — with one promise underneath all of it: everything we build is yours."
         items={WHAT_WE_DO}
         columns={4}
-        variant="alt"
+        variant="default"
       />
 
       <ImageText
@@ -115,6 +142,18 @@ export default function Home() {
           <p className="gs-note">{GROWTH_NOTE}</p>
         </div>
       </div>
+
+      {/* CG product renders — the newest service line, spotlighted */}
+      <ImageText
+        eyebrow="New — CG product renders"
+        headline="Product photos, without the photo studio"
+        body="We build a 3D model of your product once, then render every shot you need from it — clean white-background listing images, detail crops, and staged lifestyle scenes. No samples shipped, no reshoot fees, and every extra shot is cheap because the model already exists. From $150 per product, with multi-shot packages made for small businesses — and 15% off when bundled with a website."
+        image="/img/sample-2.svg"
+        imageAlt="CG product render examples"
+        layout="image-left"
+        cta={{ label: 'Explore product renders', href: '/renders', variant: 'solid' }}
+        variant="default"
+      />
 
       {/* Your custom CMS + security, one section — the run-it-yourself promise */}
       <FeatureGrid
@@ -168,6 +207,25 @@ export default function Home() {
         items={OWNERSHIP}
         variant="alt"
       />
+
+      {/* Referral commission — open to anyone, not just clients */}
+      <section className="section section--default gs-refer">
+        <div className="section-container">
+          <p className="section-eyebrow">{REFERRAL_PROGRAM.eyebrow}</p>
+          <h2 className="section-title">{REFERRAL_PROGRAM.headline}</h2>
+          <p className="section-sub">{REFERRAL_PROGRAM.lead}</p>
+          <div className="gs-refer__steps">
+            {REFERRAL_PROGRAM.steps.map((s, i) => (
+              <div key={s.title} className="gs-refer__step">
+                <span className="gs-refer__num">{i + 1}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="gs-refer__fine">{REFERRAL_PROGRAM.fine}</p>
+        </div>
+      </section>
 
       <section className="section section--accent gs-home-cta">
         <div className="section-container">

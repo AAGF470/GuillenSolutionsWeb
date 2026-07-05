@@ -7,6 +7,7 @@ import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
 import PlanPage from './pages/PlanPage.jsx'
 import Pricing from './pages/Pricing.jsx'
 import OnDemand from './pages/OnDemand.jsx'
+import CGRenders from './pages/CGRenders.jsx'
 import Guides from './pages/Guides.jsx'
 import GuidePost from './pages/GuidePost.jsx'
 import CmsPage from './pages/CmsPage.jsx'
@@ -17,8 +18,8 @@ import Seo, { BUSINESS_SCHEMA } from './components/Seo.jsx'
 // or the bespoke fallback renders.
 const SEO = {
   home: {
-    title: 'Websites Small Businesses Own',
-    description: 'Custom, content-managed websites with flat all-in pricing — and you own everything: domain, content, and every login. English & Español.',
+    title: 'Digital Business Solutions You Own',
+    description: 'Websites, CG product renders, and business setup for small businesses — flat all-in pricing, and you own everything: domain, content, images, every login. English & Español.',
     path: '/',
     schema: BUSINESS_SCHEMA,
   },
@@ -102,13 +103,14 @@ const NAV_GROUPS = [
     ],
   },
   {
-    label: 'Plans', match: p => p.startsWith('/plans') || p === '/on-demand' || p === '/pricing',
+    label: 'Services', match: p => p.startsWith('/plans') || p === '/on-demand' || p === '/pricing' || p === '/renders',
     items: [
-      { to: '/plans/freelance', label: 'Freelance / Solo',    sub: '$600 first year · independent professionals' },
-      { to: '/plans/standard',  label: 'Standard Business',   sub: '$950 first year · most popular' },
-      { to: '/plans/wordpress', label: 'WordPress Business',  sub: '$1,350 first year · maximum portability' },
-      { to: '/on-demand',       label: 'On-demand services',  sub: 'Add later, whenever you need them' },
-      { to: '/pricing',         label: 'Full pricing & order', sub: 'Every option on one page' },
+      { to: '/plans/freelance', label: 'Freelance / Solo website',  sub: '$600 first year · independent professionals' },
+      { to: '/plans/standard',  label: 'Standard Business website', sub: '$950 first year · most popular' },
+      { to: '/plans/wordpress', label: 'WordPress Business website', sub: '$1,350 first year · maximum portability' },
+      { to: '/renders',         label: 'CG product renders',        sub: 'Model once, render many · from $150' },
+      { to: '/on-demand',       label: 'On-demand services',        sub: 'Add later, whenever you need them' },
+      { to: '/pricing',         label: 'Full pricing & order',      sub: 'Every option on one page' },
     ],
   },
 ]
@@ -171,8 +173,9 @@ function Footer() {
         <div className="gs-footer__brand-col">
           <Link to="/" className="gs-footer__brand">Guillen <span>Solutions</span></Link>
           <p className="gs-footer__tagline">
-            Honest, upfront web services for small businesses. You own your domain,
-            your content, your accounts, and every login — no lock-in, ever.
+            Honest, upfront digital services for small businesses — websites, product
+            renders, and the setup around them. You own your domain, your content,
+            your accounts, and every login — no lock-in, ever.
           </p>
         </div>
         <div className="gs-footer__col">
@@ -183,6 +186,7 @@ function Footer() {
           <Link to="/plans/standard">Standard plan</Link>
           <Link to="/plans/wordpress">WordPress plan</Link>
           <Link to="/on-demand">On-demand services</Link>
+          <Link to="/renders">CG product renders</Link>
           <Link to="/pricing">Full pricing &amp; order</Link>
           <Link to="/guides">Guides</Link>
         </div>
@@ -220,6 +224,7 @@ export default function App() {
           {/* Per-plan sales pages (config-driven, one component). */}
           <Route path="/plans/:planId" element={<PlanPage />} />
           <Route path="/on-demand" element={<OnDemand />} />
+          <Route path="/renders" element={<CGRenders />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/guides" element={<Guides />} />
           <Route path="/guides/:slug" element={<GuidePost />} />

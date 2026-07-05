@@ -186,8 +186,165 @@ export const ON_DEMAND = [
   },
 ]
 
+// ── CG product renders ───────────────────────────────────────────────────────
+// A separate visual service (not web). The economic engine: a standardized
+// Unreal Engine scene system means we model a product ONCE, then every extra
+// shot is cheap. So we tier the variable part (modeling complexity) and keep
+// additional renders / multi-shot packages affordable — accessible to small
+// businesses, fairly paid for the real modeling time. Deliberately priced
+// below the market's $800–3,500 full-package range.
+
+export const CG_RENDER_LEAD =
+  'Studio-quality product photography, made in software — no product samples shipped, no photo studio booked, no reshoot fees. We build a 3D model of your product once, then light and render it in our standardized studio scene. The first shot comes with the model; every shot after that is cheap, because the hard part is already done.'
+
+// Complexity-tiered per-product base. Each covers MODELING + the first studio
+// shot. We tier (never flat-rate) because modeling time varies far more than
+// render time.
+export const CG_RENDER_TIERS = [
+  {
+    id: 'simple',
+    name: 'Simple product',
+    price: '$150–250',
+    per: 'per product · model + first shot',
+    body: 'Clean, single-form products with straightforward materials.',
+    examples: 'Bottles, jars, boxes, mugs, candles, simple packaging.',
+  },
+  {
+    id: 'standard',
+    name: 'Standard product',
+    price: '$250–400',
+    per: 'per product · model + first shot',
+    body: 'Multi-part products, layered packaging, or moderate detail.',
+    examples: 'Appliances, tools, cartons with artwork, bags, apparel.',
+    featured: true,
+  },
+  {
+    id: 'complex',
+    name: 'Complex product',
+    price: '$400–600+',
+    per: 'per product · model + first shot',
+    body: 'Intricate geometry, tricky materials, or fine mechanical detail.',
+    examples: 'Jewelry, electronics, glass/liquids, transparent or mechanical parts.',
+  },
+]
+
+// Once the model exists, more shots are cheap — this is the whole advantage.
+export const CG_RENDER_SHOTS = [
+  {
+    id: 'studio',
+    name: 'Additional studio render',
+    price: '$40–75',
+    per: 'per shot',
+    body: 'Another angle, a detail crop, or a color/label variant in the same clean studio scene. The model already exists, so each extra shot is fast — this is the pipeline advantage passed straight to you.',
+  },
+  {
+    id: 'lifestyle',
+    name: 'Premium lifestyle shot',
+    price: '$100–250',
+    per: 'per shot',
+    body: 'Your product staged in a custom environment — a kitchen counter, a desk, an outdoor set — composed and lit as a hero image for ads, banners, and your homepage.',
+  },
+]
+
+// The accessible small-business sweet spot: multi-shot bundles built on one
+// model, so a business gets a whole listing gallery affordably.
+export const CG_RENDER_PACKAGES = [
+  {
+    id: 'starter',
+    name: 'Starter listing set',
+    price: '$425',
+    body: 'One product modeled + 4 studio shots — front, back, three-quarter, and a detail crop. A complete, consistent product-listing gallery.',
+    includes: ['1 product model (simple–standard)', '4 studio renders', 'White-background, marketplace-ready', 'All full-resolution files, yours to keep'],
+  },
+  {
+    id: 'full',
+    name: 'Full listing pack',
+    price: '$600',
+    badge: 'Most popular',
+    featured: true,
+    body: 'One product + 6 studio shots + 1 premium lifestyle scene — everything a marketplace listing and a homepage feature need, in one go.',
+    includes: ['1 product model (up to complex)', '6 studio renders', '1 lifestyle hero shot', 'All full-resolution files, yours to keep'],
+  },
+  {
+    id: 'launch',
+    name: 'Product launch set',
+    price: '$700',
+    body: 'One product + 8 shots including 2 lifestyle scenes and color/label variants — a full kit for a launch across your store, ads, and social.',
+    includes: ['1 product model (up to complex)', '6 studio renders + variants', '2 lifestyle scenes', 'Sized for store, ads & social'],
+  },
+]
+
+export const CG_RENDER_NOTES = {
+  bundled: 'Bundled with a website build — 15% off any render work, added to your order.',
+  standalone: 'Standalone, no website needed — priced exactly as listed. You still own every file at full resolution.',
+  market: 'Full-service product-CG studios charge $800–$3,500 per product. Our standardized studio-scene pipeline lets us sit well below that — genuinely accessible — while still tiering by real modeling effort, so complex products are priced fairly and simple ones stay cheap.',
+  quote: 'We complexity-tier or quote per product — never flat-rate — because modeling time varies far more than render time. You get a fixed number per product, agreed in writing, before any work starts.',
+}
+
+export const CG_RENDER_ADVANTAGE = [
+  { icon: 'wrench', title: 'Model once', body: 'We build an accurate 3D model of your product a single time. That model is the asset everything else is generated from — and it never needs rebuilding.' },
+  { icon: 'zap',    title: 'Render many', body: 'New angles, backgrounds, colors, and lifestyle scenes all come off the same model in our standardized studio setup — so every shot after the first is fast and cheap.' },
+  { icon: 'star',   title: 'Priced to match', body: 'Because extra shots cost us little, we can offer real multi-shot packages a small business can actually afford — while staying fairly paid for the modeling.' },
+]
+
+// ── What we offer — the service lines of a digital business solutions company.
+// Websites remain the core, but they're one line among several now.
+export const SERVICES = [
+  {
+    id: 'web',
+    tag: 'Core service',
+    title: 'Websites you own',
+    price: 'from $600',
+    body: 'Custom, content-managed sites with flat all-in pricing — domain, hosting, CMS, and every login in your name from day one.',
+    to: '/pricing',
+    linkLabel: 'See plans & pricing',
+  },
+  {
+    id: 'renders',
+    tag: 'New',
+    title: 'CG product renders',
+    price: 'from $150',
+    body: 'Studio-quality product imagery from a 3D model we build once — listing packs and lifestyle heroes, no photo studio, no reshoots.',
+    to: '/renders',
+    linkLabel: 'Explore product renders',
+  },
+  {
+    id: 'business',
+    tag: 'Set up in your name',
+    title: 'Business essentials',
+    price: 'add-ons',
+    body: 'Email at your domain, a business phone line, logo & cards, Google Business Profile — the digital plumbing, owned by you.',
+    to: '/pricing',
+    linkLabel: 'Browse add-ons',
+  },
+  {
+    id: 'ondemand',
+    tag: 'Whenever you need it',
+    title: 'On-demand work',
+    price: 'from $45',
+    body: 'Landing pages, newsletters, QR menus, translations, seasonal swaps — fixed-scope jobs, quoted in writing, delivered fast.',
+    to: '/on-demand',
+    linkLabel: 'See the menu',
+  },
+]
+
+// ── Referral commission program ──────────────────────────────────────────────
+// Open to ANYONE (clients, other business owners, friends) — a network
+// incentive, not a client perk. Commission on the package a referral pays for.
+export const REFERRAL_PROGRAM = {
+  eyebrow: 'Referral program',
+  headline: 'Know a business that needs us? Earn up to 10%.',
+  lead: 'Anyone can refer — you don\'t have to be a client. When someone you send our way signs and pays for a package, you earn a commission of up to 10% of that package price. Refer as many as you like.',
+  steps: [
+    { title: 'Send them our way',   body: 'Have them mention your name when they reach out — or email us the intro yourself. No sign-up, no dashboard, no forms.' },
+    { title: 'They sign & pay',     body: 'Your referral picks any package — a website plan or a product-render package — and pays for it.' },
+    { title: 'You get up to 10%',   body: 'We pay your commission on the package price once it\'s paid in full. Existing clients can take it as cash or as credit toward renewal.' },
+  ],
+  fine: 'Commission applies to the first package a new customer pays for, confirmed with you in writing when they sign. Rate depends on package type — ask us for specifics before you start referring.',
+}
+
 export const GROWTH_NOTE =
-  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And every referral who signs earns you a 5% credit toward your next renewal.'
+  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And referrals pay: anyone who sends us a customer earns up to 10% commission on the package they sign — client or not.'
 
 export const REFERRAL_NOTE = null // merged into GROWTH_NOTE
 
