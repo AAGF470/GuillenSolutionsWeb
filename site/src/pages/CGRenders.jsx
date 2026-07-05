@@ -12,8 +12,8 @@ import './CGRenders.css'
 // cheap additional shots, and affordable multi-shot e-commerce packages.
 //
 // IMAGE PLACEHOLDERS: each .gs-cg__ph is a swap slot. Drop a file into
-// site/public/renders/ and replace the <div className="gs-cg__ph">…</div>
-// with <img className="gs-cg__img" src="/renders/your-file.jpg" alt="…" />.
+// site/public/img/renders/ and replace the <div className="gs-cg__ph">…</div>
+// with <img className="gs-cg__img" src="/img/renders/your-file.jpg" alt="…" />.
 // ---------------------------------------------------------------------------
 
 const quoteHref =
@@ -32,7 +32,7 @@ function Shot({ label, file, wide }) {
     <figure className={`gs-cg__shot${wide ? ' gs-cg__shot--wide' : ''}`}>
       <div className="gs-cg__ph">
         <span className="gs-cg__ph-tag">Add image</span>
-        <small>/renders/{file}</small>
+        <small>/img/renders/{file}</small>
       </div>
       <figcaption>{label}</figcaption>
     </figure>
