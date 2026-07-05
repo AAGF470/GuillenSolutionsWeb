@@ -1,0 +1,23 @@
+name: Author guides (push CMS posts)
+
+# MANUAL only. Runs cms/scripts/push-guides.mjs to (re)author the Guides posts
+# from their definitions in code. Idempotent, keyed by slug — re-running updates
+# the same articles rather than duplicating them.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Push guides to the live CMS
+        working-directory: cms
+        env:
+          CMS_URL: ${{ vars.CMS_URL || 'https://cms.guillensolutions.com' }}
+          ADMIN_EMAIL: ${{ secrets.CMS_ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.CMS_ADMIN_PASSWORD }}
+        run: node scripts/push-guides.mjs
