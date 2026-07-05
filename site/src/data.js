@@ -334,17 +334,17 @@ export const SERVICES = [
 export const REFERRAL_PROGRAM = {
   eyebrow: 'Referral program',
   headline: 'Know a business that needs us? Earn up to 10%.',
-  lead: 'Anyone can refer — you don\'t have to be a client. When someone you send our way signs and pays for a package, you earn a commission of up to 10% of that package price. Refer as many as you like.',
+  lead: 'Anyone can refer — you don\'t have to be a client. When someone you send our way signs and pays for a package, you earn a commission: 10% on packages under $600, 5% on packages $600 and up. Refer as many people as you like.',
   steps: [
-    { title: 'Send them our way',   body: 'Have them mention your name when they reach out — or email us the intro yourself. No sign-up, no dashboard, no forms.' },
-    { title: 'They sign & pay',     body: 'Your referral picks any package — a website plan or a product-render package — and pays for it.' },
-    { title: 'You get up to 10%',   body: 'We pay your commission on the package price once it\'s paid in full. Existing clients can take it as cash or as credit toward renewal.' },
+    { title: 'Send them our way',      body: 'Have them mention your name when they reach out — or tell us about them yourself. Either order works: whoever reaches us first, we simply confirm with the other. No sign-up, no dashboard, no forms.' },
+    { title: 'They sign & pay',        body: 'Your referral picks any package — a website plan or a product-render package — and pays for it.' },
+    { title: 'Paid same day, by Zelle', body: 'Once both sides name each other and the package is paid in full, we send your commission by Zelle the same day. 10% under $600, 5% at $600 and up.' },
   ],
-  fine: 'Commission applies to the first package a new customer pays for, confirmed with you in writing when they sign. Rate depends on package type — ask us for specifics before you start referring.',
+  fine: 'Commission applies to the first package a new customer signs and pays for. Attribution is two-sided: the client names you and you name the client — in either order — and matching answers trigger same-day payment. No payout cycles, no minimums.',
 }
 
 export const GROWTH_NOTE =
-  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And referrals pay: anyone who sends us a customer earns up to 10% commission on the package they sign — client or not.'
+  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And referrals pay: send us a customer who signs and get 10% of packages under $600 (5% at $600 and up) by Zelle, same day — client or not.'
 
 export const REFERRAL_NOTE = null // merged into GROWTH_NOTE
 
