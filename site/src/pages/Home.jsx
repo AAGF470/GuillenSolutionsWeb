@@ -174,9 +174,10 @@ export default function Home() {
             Every Guillen Solutions site is assembled from the same tested, mobile-ready,
             light-and-dark component set — the one this very page uses. One theme file morphs
             it into completely different looks, and the library grows with every project we
-            ship. Every client gets controlled access to all of it: your content is yours to
-            change, while the design system keeps every page safe and consistent. That's how
-            you get custom-tier design at near-template cost.
+            ship — and every new component lands in your toolkit too, free. Every client gets
+            controlled access to all of it: your content is yours to change, while the design
+            system keeps every page safe and consistent. That's how you get custom-tier design
+            at near-template cost.
           </p>
 
           <div className="gs-libpeek__stat">

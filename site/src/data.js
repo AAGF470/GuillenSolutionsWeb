@@ -440,11 +440,15 @@ export const OWNERSHIP = [
 export const FAQS = [
   {
     q: 'What exactly do I get if I leave — and can another developer take over?',
-    a: 'A complete, runnable copy of your site — leaving is something we build for, not punish. You receive one clean download containing: a container of your website (its full working front end), the component library both built into that site and included separately as source code, and a copy of your CMS in its own folder. Your content — every product, listing, price, photo, and text block — exports in clean, portable files. You get 30 days to collect everything, extendable on request up to a hard cap of 120 days, and anything too large to hand over directly we move by a cloud-to-cloud transfer. Honest footnote: because the site runs on a modern stack (a container plus a headless CMS), standing it back up elsewhere is a job for a competent developer or a capable AI coding tool — not a one-click restore you\'d do yourself — but everything they need is in the box, with zero dependency on us afterward.',
+    a: 'A complete, runnable copy of your site — leaving is something we build for, not punish. You receive one clean download containing: a container of your website (its full working front end), the component library both built into that site and included separately as source code, and a copy of your CMS in its own folder. Your content — every product, listing, price, photo, and text block — exports in clean, portable files. You get 30 days to collect everything, extendable on request up to a hard cap of 120 days, and anything too large to hand over directly we move by a cloud-to-cloud transfer. Honest footnote: because the site runs on a modern stack (a container plus a headless CMS), standing it back up elsewhere is a job for a competent developer or a capable AI coding tool — not a one-click restore you\'d do yourself — but everything they need is in the box, with zero dependency on us afterward. And this isn\'t a hobby we\'ll abandon — we run our own sites on the same infrastructure under multi-year commitments, so the platform yours sits on is one our own livelihood depends on.',
+  },
+  {
+    q: 'Can I see it before I pay anything?',
+    a: 'Yes — before any deposit, we\'ll build you a free demo: your business rendered in our system, so you can judge the design fit and how the editor feels before a dollar changes hands. It\'s the fastest way to know whether we\'re right for you, and it costs nothing but a little of your time. We\'re new and earning trust on purpose — the free demo is part of how we do that.',
   },
   {
     q: 'Do I really own everything? Even the design?',
-    a: 'You own your domain, content, accounts, images, and every login outright, from day one. The component library is the one piece we license rather than sell — and the license is generous: you get the perpetual right to use it on your site, commercially, including by any developer you later hire to maintain or change that site. The only limits: you can\'t hand the library to another agency, and you can\'t use it to build other, competing projects — it\'s the core tool our whole business runs on, not a freebie to resell. That restriction never touches a normal business; your site is yours to run and modify forever.',
+    a: 'You own your domain, content, accounts, images, and every login outright, from day one. The component library is the one piece we license rather than sell — and the license is generous: you get the perpetual right to use it on your site, commercially, including by any developer you later hire to maintain or change that site. The only limits: you can\'t hand the library to another agency, and you can\'t use it to build other, competing projects — it\'s the core tool our whole business runs on, not a freebie to resell. That restriction never touches a normal business; your site is yours to run and modify forever. If you sell your business, your site, domain, content, and brand transfer with it — the buyer simply keeps operating under the same library terms.',
   },
   {
     q: 'Do I have to use your accounts? Who pays Shopify, my domain, email?',
@@ -493,6 +497,14 @@ export const FAQS = [
   {
     q: 'How long does a build take, and what if something breaks later?',
     a: 'A standard build takes about one to two weeks once we have your content; Rush Delivery ($400) moves you to the front of the line if you need it in days. After launch, managed hosting means SSL, backups, and uptime are handled for you — and because your content lives on separate, backed-up storage, we can rebuild from clean backups in hours if the public server ever fails. Edits you make yourself can\'t break the design (it\'s locked into the components), and if something does go wrong, you email one team directly — not a ticket queue.',
+  },
+  {
+    q: 'What do you maintain — and what\'s on me?',
+    a: 'We keep the machinery running: hosting, security, uptime, backups, and fixing any bug that\'s ours. What we don\'t do is manage your day-to-day content or redo your design on our own — editing your products, prices, hours, and photos is yours to do anytime, free, in your CMS (that\'s the whole point of it). If you\'d rather we make a change or add a page, that\'s a simple paid request. Clear line: we own that it works; you own what it says.',
+  },
+  {
+    q: 'Do you work with non-profits?',
+    a: 'Yes — reach out. We don\'t have a rigid non-profit discount yet, so we handle these case by case, and we\'ve waived build costs for causes we believe in. We\'ll also connect your donation provider (whichever you choose) at no integration charge — donations flow straight to you, never through us. Tell us about your organization and we\'ll put a fair arrangement in writing.',
   },
   {
     q: 'How does the referral program work? Can I refer a non-profit or a friend\'s business?',
