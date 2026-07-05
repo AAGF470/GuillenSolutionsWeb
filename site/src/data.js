@@ -332,9 +332,9 @@ export const SERVICES = [
   {
     id: 'business',
     tag: 'Set up in your name',
-    title: 'Business essentials',
+    title: 'Get set up & found',
     price: 'add-ons',
-    body: 'Email at your domain, a business phone line, logo & cards, Google Business Profile — the digital plumbing, owned by you.',
+    body: 'Google Business Profile so locals find you on Maps, plus email at your domain, a business phone line, and logo & cards — the essentials that get you discovered, all owned by you.',
     to: '/pricing',
     linkLabel: 'Browse add-ons',
   },
@@ -473,6 +473,22 @@ export const FAQS = [
   {
     q: 'Who writes and loads all my content?',
     a: 'Either of us. Editing your own site is always free and unlimited — that\'s the point of your custom CMS. If you\'d rather hand it off, we import your first 25 items free with Standard and WordPress plans, and $7/item after that. For the build itself, we walk you through exactly what we need up front so the project never stalls on missing content.',
+  },
+  {
+    q: 'Will people actually find my business online?',
+    a: 'Getting found matters as much as looking good, so we build for it. Every site is fast, mobile-first, and ships with clean structured data — the machine-readable schema that Google and AI assistants read to understand your business — which is the technical foundation search rewards. We\'ll also set up and verify your Google Business Profile ($300) so you appear on Maps for "near me" searches. What we won\'t do is sell you ads or promise a #1 ranking — anyone who guarantees that is guessing. We give you a fast, clean, well-structured site and honest local groundwork; we never touch your ad spend or your money.',
+  },
+  {
+    q: 'Do you build for restaurants, cafés, and shops?',
+    a: 'Yes — food and retail are a natural fit. Your menu or product list lives as items, so a full menu with seasonal drinks is designed once and yours to keep current, free. Online ordering, reservations, and loyalty run through an external platform integration ($400): we skin your Square, Toast, Clover, or Shopify setup so it matches your site, while payments and orders stay on the platform\'s secure system — never with us. Add a QR menu ($120) for tables and the counter, and seasonal refreshes ($45) for holiday menus. You get a café site that looks custom and handles real ordering, without us ever holding your sales.',
+  },
+  {
+    q: 'Will my site match my brand — or will it look like a tech company?',
+    a: 'It looks like you, not us. The component system is just the skeleton; a single theme file sets the whole personality — fonts, colors, warmth, imagery. The same library built a dark, cinematic game-studio site, a bold bilingual contractor site, and a clean university lab site, and none of them resemble each other. A coffee shop gets warm, inviting, and photo-forward; a law firm gets restrained and serious. We design to your vibe — the shared system just means we get there faster and cheaper than starting from a blank page.',
+  },
+  {
+    q: 'How long does a build take, and what if something breaks later?',
+    a: 'A standard build takes about one to two weeks once we have your content; Rush Delivery ($400) moves you to the front of the line if you need it in days. After launch, managed hosting means SSL, backups, and uptime are handled for you — and because your content lives on separate, backed-up storage, we can rebuild from clean backups in hours if the public server ever fails. Edits you make yourself can\'t break the design (it\'s locked into the components), and if something does go wrong, you email one team directly — not a ticket queue.',
   },
   {
     q: 'How does the referral program work? Can I refer a non-profit or a friend\'s business?',
