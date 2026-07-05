@@ -1,6 +1,5 @@
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
-import RecipeShowcase from '../components/RecipeShowcase.jsx'
 import './Work.css'
 
 // ---------------------------------------------------------------------------
@@ -51,6 +50,26 @@ const REACH = [
   { stat: '1', label: 'component system', sub: 'behind every one of them' },
 ]
 
+// Design concepts — spec builds that prove the range (and, for the boutique,
+// double as a showcase of the CG product renders). Live, scrollable, labeled
+// as concepts. Add more here as the portfolio grows.
+const EXAMPLES = [
+  {
+    name: 'Marigold & Ash',
+    kind: 'Hair studio & spa · design concept',
+    url: 'marigoldandash.com',
+    href: '/examples/salon/index.html',
+    blurb: 'Warm, editorial, photo-forward — the presentation an aesthetic-driven business lives or dies on. A world away from a template, and from a dark technical brand.',
+  },
+  {
+    name: 'Ember & Field',
+    kind: 'Candles & ceramics · design concept',
+    url: 'emberandfield.com',
+    href: '/examples/boutique/index.html',
+    blurb: 'A product-forward shop for a small-batch maker — clean, tactile, gallery-minimal. The product grid is exactly where our CG renders live: model once, shoot every listing.',
+  },
+]
+
 function BrowserFrame({ url, image, alt }) {
   return (
     <div className="work-frame">
@@ -67,9 +86,9 @@ export default function WorkAndLibrary() {
   return (
     <>
       <HeroSection
-        eyebrow="Our work & the system behind it"
-        headline="One toolkit. Every kind of business."
-        subtext="From a Dallas electrician to a Long Island contractor to a Boston game studio — wildly different industries, three states, three completely different looks. All built from the same 47+ component library, and all owned by the client. The proof is below — and so is the toolkit itself, live."
+        eyebrow="Our work"
+        headline="Custom sites, built to be owned."
+        subtext="From a boutique salon to a Long Island contractor to a Boston game studio — genuinely different businesses, genuinely different looks, none of them a template. Every one designed to fit the business, and owned by the client outright. Concepts and real client work below."
         size="compact"
         variant="alt"
         ctas={[]}
@@ -117,42 +136,47 @@ export default function WorkAndLibrary() {
         </div>
       </section>
 
-      {/* Design concept — the system dressed premium for an aesthetic business */}
-      <section className="section section--default work-concept-sec">
+      {/* Design concepts — live, scrollable spec sites that prove the range */}
+      <section className="section section--default work-examples-sec">
         <div className="section-container">
-          <p className="section-eyebrow">Design concept</p>
-          <h2 className="section-title">The same system, dressed for a boutique salon</h2>
+          <p className="section-eyebrow">Design concepts</p>
+          <h2 className="section-title">What "custom" actually looks like</h2>
           <p className="section-sub">
-            A concept build for a fictional hair studio &amp; spa — warm, editorial, and
-            photo-forward, the opposite end of the range from a dark technical studio.
-            Proof the toolkit isn't one look: it dresses up premium for the businesses
-            whose first impression is everything. It's live — open it and scroll.
+            Everyone says "custom." Here's the proof — concept builds for the kind of
+            businesses whose first impression is everything. Different worlds, different
+            looks, none of them a template. They're live: open one and scroll.
           </p>
-          <a className="work-concept" href="/examples/salon/index.html" target="_blank" rel="noopener noreferrer">
-            <div className="work-frame">
-              <div className="work-frame__bar">
-                <span className="work-frame__dots"><i /><i /><i /></span>
-                <span className="work-frame__url">marigoldandash.com</span>
-              </div>
-              <div className="work-concept__viewport">
-                <iframe
-                  className="work-concept__frame"
-                  src="/examples/salon/index.html"
-                  title="Marigold & Ash — salon design concept"
-                  loading="lazy" tabIndex={-1} aria-hidden="true" scrolling="no"
-                />
-              </div>
-            </div>
-            <span className="work-concept__cta">Open the live concept ↗</span>
-          </a>
+          <div className="work-examples">
+            {EXAMPLES.map(ex => (
+              <a key={ex.href} className="work-concept" href={ex.href} target="_blank" rel="noopener noreferrer">
+                <div className="work-frame">
+                  <div className="work-frame__bar">
+                    <span className="work-frame__dots"><i /><i /><i /></span>
+                    <span className="work-frame__url">{ex.url}</span>
+                  </div>
+                  <div className="work-concept__viewport">
+                    <iframe
+                      className="work-concept__frame"
+                      src={ex.href}
+                      title={`${ex.name} — design concept`}
+                      loading="lazy" tabIndex={-1} aria-hidden="true" scrolling="no"
+                    />
+                  </div>
+                </div>
+                <div className="work-concept__cap">
+                  <h3 className="work-concept__name">{ex.name}</h3>
+                  <p className="work-concept__kind">{ex.kind}</p>
+                  <p className="work-concept__blurb">{ex.blurb}</p>
+                  <span className="work-concept__cta">Open the live concept ↗</span>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* The system behind the work */}
       <LibraryFacts />
-
-      {/* One system, many identities — live proof */}
-      <RecipeShowcase />
 
       {/* The live showcase — every component, rendered from sample content */}
       <section className="section section--default" id="library" style={{ paddingBottom: 0 }}>
