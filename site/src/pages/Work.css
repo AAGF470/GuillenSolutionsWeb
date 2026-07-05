@@ -110,3 +110,25 @@
   .work-item--reverse .work-item__media { order: 0; }
   .work-list-sec .section-container { gap: 56px; }
 }
+
+/* ── Design concept (live salon iframe) ──────────────────────────────────── */
+.work-concept { display: block; text-decoration: none; max-width: 980px; margin-top: 32px; }
+.work-concept__viewport {
+  container-type: inline-size;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+  background: #f7f2ea;
+}
+.work-concept__frame {
+  position: absolute; top: 0; left: 0;
+  width: 1440px; height: 900px; border: 0;
+  transform: scale(calc(100cqw / 1440px));
+  transform-origin: top left;
+  pointer-events: none;
+}
+.work-concept__cta {
+  display: inline-block; margin-top: 16px;
+  font-size: 14px; font-weight: 600; color: var(--color-accent);
+}
+.work-concept:hover .work-concept__cta { text-decoration: underline; }

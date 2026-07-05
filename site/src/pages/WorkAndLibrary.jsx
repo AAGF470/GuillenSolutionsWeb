@@ -117,6 +117,37 @@ export default function WorkAndLibrary() {
         </div>
       </section>
 
+      {/* Design concept — the system dressed premium for an aesthetic business */}
+      <section className="section section--default work-concept-sec">
+        <div className="section-container">
+          <p className="section-eyebrow">Design concept</p>
+          <h2 className="section-title">The same system, dressed for a boutique salon</h2>
+          <p className="section-sub">
+            A concept build for a fictional hair studio &amp; spa — warm, editorial, and
+            photo-forward, the opposite end of the range from a dark technical studio.
+            Proof the toolkit isn't one look: it dresses up premium for the businesses
+            whose first impression is everything. It's live — open it and scroll.
+          </p>
+          <a className="work-concept" href="/examples/salon/index.html" target="_blank" rel="noopener noreferrer">
+            <div className="work-frame">
+              <div className="work-frame__bar">
+                <span className="work-frame__dots"><i /><i /><i /></span>
+                <span className="work-frame__url">marigoldandash.com</span>
+              </div>
+              <div className="work-concept__viewport">
+                <iframe
+                  className="work-concept__frame"
+                  src="/examples/salon/index.html"
+                  title="Marigold & Ash — salon design concept"
+                  loading="lazy" tabIndex={-1} aria-hidden="true" scrolling="no"
+                />
+              </div>
+            </div>
+            <span className="work-concept__cta">Open the live concept ↗</span>
+          </a>
+        </div>
+      </section>
+
       {/* The system behind the work */}
       <LibraryFacts />
 
