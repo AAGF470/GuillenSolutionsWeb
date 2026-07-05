@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>KINETIC — Strength &amp; Movement Studio (design concept)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   KINETIC — design concept for a boutique fitness studio. By Guillen Solutions.
+   Bold, high-energy, color-blocked: off-white + near-black + electric coral,
+   heavy grotesk, big uppercase type. The loudest, most confident of the set —
+   opposite the restrained elegance of the others. Fictional.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --paper:#f3f1ea; --ink:#111110; --coral:#ff3b2e; --coral-deep:#e02a1e; --ink-soft:#57544d; --line:rgba(17,17,16,.14);
+  --sans:'Archivo',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{margin:0;font-weight:900;line-height:.95;letter-spacing:-.02em;text-transform:uppercase;}
+a{color:inherit;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px;}
+.tag{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;}
+.ph{position:relative;overflow:hidden;background:
+  linear-gradient(135deg,#d9d5c9,#b8b3a4);}
+.ph--coral{background:linear-gradient(135deg,var(--coral),var(--coral-deep));}
+.ph::after{content:attr(data-label);position:absolute;left:14px;bottom:12px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(17,17,16,.4);}
+.ph--coral::after{color:rgba(255,255,255,.8);}
+
+.nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink);}
+.nav__in{display:flex;align-items:center;gap:26px;height:70px;}
+.brand{font-weight:900;font-size:22px;letter-spacing:-.02em;text-transform:uppercase;text-decoration:none;}
+.brand span{color:var(--coral);}
+.nav__links{margin-left:auto;display:flex;gap:24px;}
+.nav__links a{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink);}
+.nav__links a:hover{color:var(--coral);}
+.join{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--paper);background:var(--ink);padding:12px 22px;}
+.join:hover{background:var(--coral);}
+@media(max-width:800px){.nav__links{display:none;}}
+
+.hero{padding:76px 0 84px;}
+.hero h1{font-size:clamp(58px,11vw,150px);}
+.hero h1 span{color:var(--coral);}
+.hero__row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:26px;flex-wrap:wrap;}
+.hero p{max-width:38ch;font-size:18px;color:var(--ink-soft);}
+.btn{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:16px 30px;display:inline-block;}
+.btn--solid{background:var(--coral);color:var(--paper);}
+.btn--solid:hover{background:var(--coral-deep);}
+.btn--dark{background:var(--ink);color:var(--paper);}
+.btn--dark:hover{background:var(--coral);}
+.hero__band{height:280px;border-radius:4px;margin-top:44px;}
+
+.sec{padding:80px 0;border-top:2px solid var(--ink);}
+.sec--coral{background:var(--coral);color:var(--paper);border-top-color:var(--coral);}
+.sec--coral .tag{color:rgba(255,255,255,.85);}
+.sec--ink{background:var(--ink);color:var(--paper);border-top-color:var(--ink);}
+.sec__head{margin-bottom:40px;}
+.sec__head h2{font-size:clamp(34px,5vw,64px);margin-top:10px;}
+
+.classes{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink);}
+.classes>div{background:var(--paper);padding:30px 26px;}
+.classes h3{font-size:26px;}
+.classes p{margin:10px 0 0;font-size:14px;color:var(--ink-soft);line-height:1.6;}
+.classes .num{font-size:13px;font-weight:800;color:var(--coral);}
+@media(max-width:820px){.classes{grid-template-columns:1fr;}}
+
+/* schedule */
+.sched{width:100%;border-collapse:collapse;}
+.sched th,.sched td{text-align:left;padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.2);font-size:14px;}
+.sched th{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;}
+.sched td:first-child{font-weight:800;}
+.sched .cls{font-weight:700;}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.plan{border:2px solid var(--ink);padding:30px 26px;display:flex;flex-direction:column;}
+.plan--feat{background:var(--ink);color:var(--paper);}
+.plan__name{font-size:20px;}
+.plan__price{font-size:48px;font-weight:900;letter-spacing:-.03em;margin:10px 0 2px;}
+.plan__price span{font-size:15px;font-weight:600;color:var(--coral);}
+.plan__note{font-size:13px;color:var(--ink-soft);margin:0 0 18px;}
+.plan--feat .plan__note{color:rgba(243,241,234,.7);}
+.plan ul{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:9px;font-size:14px;}
+.plan li::before{content:"→ ";color:var(--coral);font-weight:800;}
+.plan .btn{margin-top:auto;text-align:center;}
+@media(max-width:820px){.plans{grid-template-columns:1fr;}}
+
+.close{text-align:center;padding:100px 0;}
+.close h2{font-size:clamp(44px,7vw,96px);}
+.close p{max-width:40ch;margin:16px auto 30px;color:rgba(243,241,234,.75);}
+
+.foot{background:var(--ink);color:rgba(243,241,234,.7);padding:40px 0;font-size:13px;}
+.foot__in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;}
+.foot .brand{color:var(--paper);}
+
+.concept{position:fixed;right:16px;bottom:16px;z-index:99;background:var(--ink);color:var(--paper);text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.04em;padding:10px 15px;}
+.concept b{color:var(--coral);}.concept span{opacity:.7;font-weight:400;}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#">KIN<span>E</span>TIC</a>
+    <nav class="nav__links">
+      <a href="#classes">Classes</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#pricing">Membership</a>
+    </nav>
+    <a class="join" href="#pricing">Join now</a>
+  </div>
+</header>
+
+<section class="wrap hero">
+  <div class="reveal">
+    <p class="tag" style="color:var(--coral);">Strength &amp; movement studio · Chicago</p>
+    <h1 style="margin-top:20px;">Show up.<br>Get <span>strong.</span></h1>
+    <div class="hero__row">
+      <p>Small classes, heavy weights, real coaching. Forty-five minutes that actually change something. First class is on us.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a class="btn btn--solid" href="#pricing">Claim free class</a>
+        <a class="btn btn--dark" href="#schedule">See schedule</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero__band ph ph--coral reveal" data-label="In the studio"></div>
+</section>
+
+<section class="sec" id="classes">
+  <div class="wrap">
+    <div class="sec__head reveal"><p class="tag" style="color:var(--coral);">The formats</p><h2>Pick your poison</h2></div>
+    <div class="classes reveal">
+      <div><span class="num">45 MIN</span><h3>Strength</h3><p>Barbell and dumbbell work, coached in groups of ten. Build real, usable power.</p></div>
+      <div><span class="num">45 MIN</span><h3>Conditioning</h3><p>Rowers, bikes, and sleds. Heart rate up, clock running, nowhere to hide.</p></div>
+      <div><span class="num">50 MIN</span><h3>Flow</h3><p>Mobility and controlled movement to keep the hard days sustainable.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--ink" id="schedule">
+  <div class="wrap">
+    <div class="sec__head reveal"><p class="tag" style="color:var(--coral);">This week</p><h2>Get on the board</h2></div>
+    <table class="sched reveal">
+      <thead><tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>
+      <tbody>
+        <tr><td>6:00 AM</td><td class="cls">Strength</td><td class="cls">Cond.</td><td class="cls">Strength</td><td class="cls">Cond.</td><td class="cls">Strength</td><td>—</td></tr>
+        <tr><td>9:00 AM</td><td class="cls">Flow</td><td class="cls">Strength</td><td class="cls">Flow</td><td class="cls">Strength</td><td class="cls">Flow</td><td class="cls">Strength</td></tr>
+        <tr><td>5:30 PM</td><td class="cls">Cond.</td><td class="cls">Strength</td><td class="cls">Cond.</td><td class="cls">Strength</td><td>—</td><td>—</td></tr>
+        <tr><td>7:00 PM</td><td class="cls">Strength</td><td class="cls">Flow</td><td class="cls">Strength</td><td class="cls">Cond.</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec__head reveal"><p class="tag" style="color:var(--coral);">Membership</p><h2>No contracts. Ever.</h2></div>
+    <div class="plans reveal">
+      <div class="plan">
+        <span class="plan__name">Drop-in</span>
+        <p class="plan__price">$24<span> /class</span></p>
+        <p class="plan__note">Pay as you go, no commitment.</p>
+        <ul><li>Any class, any time</li><li>Book from the app</li><li>Free first class</li></ul>
+        <a class="btn btn--dark" href="#">Book a class</a>
+      </div>
+      <div class="plan plan--feat">
+        <span class="plan__name">Unlimited</span>
+        <p class="plan__price">$149<span> /mo</span></p>
+        <p class="plan__note">Most members. Cancel anytime.</p>
+        <ul><li>Unlimited classes</li><li>Priority booking</li><li>Guest passes monthly</li><li>Free InBody scans</li></ul>
+        <a class="btn btn--solid" href="#">Start free week</a>
+      </div>
+      <div class="plan">
+        <span class="plan__name">8-pack</span>
+        <p class="plan__price">$160<span> /8 classes</span></p>
+        <p class="plan__note">Two a week, at your pace.</p>
+        <ul><li>8 classes, 60-day expiry</li><li>Book from the app</li><li>Share with a partner</li></ul>
+        <a class="btn btn--dark" href="#">Buy a pack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--coral close">
+  <div class="wrap reveal">
+    <p class="tag">Your first class is free</p>
+    <h2>Let's go.</h2>
+    <p>Grab a free class this week — no card, no catch. Just show up.</p>
+    <a class="btn btn--dark" href="#">Claim your free class</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="brand" href="#">KIN<span style="color:var(--coral);">E</span>TIC</a>
+    <span>© 2026 Kinetic Studio · Chicago, IL · A fictional studio</span>
+  </div>
+</footer>
+
+<a class="concept" href="https://guillensolutions.com" target="_blank" rel="noopener"><b>Design concept</b> <span>by Guillen Solutions ↗</span></a>
+
+<script>
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

@@ -68,6 +68,20 @@ const EXAMPLES = [
     href: '/examples/boutique/index.html',
     blurb: 'A product-forward shop for a small-batch maker — clean, tactile, gallery-minimal. The product grid is exactly where our CG renders live: model once, shoot every listing.',
   },
+  {
+    name: 'Copper & Rye',
+    kind: 'Cocktail bar & kitchen · design concept',
+    url: 'copperandrye.com',
+    href: '/examples/bar/index.html',
+    blurb: 'Dark, cinematic, and moody — near-black and copper with a high-contrast serif. The same system can turn the lights way down for a bar or restaurant.',
+  },
+  {
+    name: 'Kinetic',
+    kind: 'Fitness studio · design concept',
+    url: 'kineticstudio.com',
+    href: '/examples/studio/index.html',
+    blurb: 'Loud, bold, color-blocked, high-energy — heavy type and electric coral. Proof the range runs all the way to confident and kinetic, not just calm and premium.',
+  },
 ]
 
 function BrowserFrame({ url, image, alt }) {
