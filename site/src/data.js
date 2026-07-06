@@ -349,6 +349,21 @@ export const SERVICES = [
   },
 ]
 
+// ── Getting found — search + AI discoverability (how we "do SEO") ────────────
+// Honest, capability-backed: we build the technical groundwork search rewards
+// and welcome AI assistants — but never sell ads or promise a ranking.
+export const FOUND = {
+  eyebrow: 'Found by search — and by AI',
+  headline: 'Built to be discovered, not just built',
+  lead: "Looking good is only half of it — getting found is the other half, so we build for it from day one. Every site is fast, mobile-first, and ships with the structured data and real, readable HTML that search engines and AI assistants need to understand and recommend your business. We'll set up your Google Business Profile too. What we won't do is sell you ads or promise a #1 ranking — anyone who guarantees that is guessing. We do the honest technical groundwork; the rest is earned.",
+  points: [
+    { icon: 'star',   title: 'Structured data, built in',      body: 'Every site ships with clean JSON-LD — the machine-readable schema that tells Google and AI assistants exactly what your business is, what you offer, and what it costs. Facts they can cite, not prose they have to guess at.' },
+    { icon: 'zap',    title: 'Real HTML, not an empty shell',  body: 'Your pages are prerendered to readable HTML with the content baked in, so search crawlers and the AI tools people now use to vet businesses can read and cite you on the first pass — not a blank page waiting on JavaScript.' },
+    { icon: 'layers', title: 'Fast & mobile-first',            body: 'Lightweight, mobile-first pages with the fundamentals search rewards — strong Core Web Vitals, semantic markup, and clean metadata — so your site competes on its merits, not on ad spend.' },
+    { icon: 'shield', title: 'Open to AI, on your terms',      body: 'We explicitly welcome AI assistants — an llms.txt summary and an AI-friendly crawler policy — so tools like ChatGPT, Claude, Gemini, and Perplexity can find and recommend you, where more and more buyers now start their search.' },
+  ],
+}
+
 // ── Referral commission program ──────────────────────────────────────────────
 // Open to ANYONE (clients, other business owners, friends) — a network
 // incentive, not a client perk. Commission on the package a referral pays for.

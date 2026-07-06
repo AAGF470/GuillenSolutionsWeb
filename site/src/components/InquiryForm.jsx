@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sendInquiry } from '../lib/inquiries'
 import { CONTACT_EMAIL } from '../data'
+import { useT } from '../i18n.jsx'
 import './InquiryForm.css'
 
 // ---------------------------------------------------------------------------
@@ -17,7 +18,9 @@ import './InquiryForm.css'
 //   compact  boolean — single-row name/email layout (for sidebars)
 // ---------------------------------------------------------------------------
 
-export default function InquiryForm({ source, summary, details, cta = 'Send request', compact = false }) {
+export default function InquiryForm({ source, summary, details, cta, compact = false }) {
+  const t = useT()
+  const ctaLabel = cta ?? t('Send request', 'Enviar solicitud')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -36,23 +39,26 @@ export default function InquiryForm({ source, summary, details, cta = 'Send requ
   if (state === 'sent') {
     return (
       <div className="gs-inq gs-inq--sent" role="status">
-        <p className="gs-inq__sent-title">Request sent ✓</p>
+        <p className="gs-inq__sent-title">{t('Request sent ✓', 'Solicitud enviada ✓')}</p>
         <p className="gs-inq__sent-body">
-          We'll reply to <strong>{email}</strong> — usually within a business day.
-          Nothing is charged; every number is confirmed in writing first.
+          {t("We'll reply to", 'Responderemos a')} <strong>{email}</strong>{' '}
+          {t(
+            '— usually within a business day. Nothing is charged; every number is confirmed in writing first.',
+            '— normalmente dentro de un día hábil. No se cobra nada; cada número se confirma primero por escrito.',
+          )}
         </p>
       </div>
     )
   }
 
-  const mailtoFallback = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(summary || 'Website request')}` +
+  const mailtoFallback = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(summary || t('Website request', 'Solicitud de sitio web'))}` +
     `&body=${encodeURIComponent((message ? message + '\n\n' : '') + (summary || ''))}`
 
   return (
     <form className={`gs-inq${compact ? ' gs-inq--compact' : ''}`} onSubmit={submit}>
       <div className="gs-inq__row">
         <input
-          type="text" placeholder="Your name (optional)" autoComplete="name"
+          type="text" placeholder={t('Your name (optional)', 'Tu nombre (opcional)')} autoComplete="name"
           value={name} onChange={e => setName(e.target.value)}
         />
         <input
@@ -62,7 +68,7 @@ export default function InquiryForm({ source, summary, details, cta = 'Send requ
       </div>
       {!compact && (
         <textarea
-          placeholder="Anything we should know? (optional)"
+          placeholder={t('Anything we should know? (optional)', '¿Algo que debamos saber? (opcional)')}
           rows={3} value={message} onChange={e => setMessage(e.target.value)}
         />
       )}
@@ -73,11 +79,11 @@ export default function InquiryForm({ source, summary, details, cta = 'Send requ
         placeholder="Website"
       />
       <button type="submit" className="gs-inq__send" disabled={state === 'sending'}>
-        {state === 'sending' ? 'Sending…' : cta}
+        {state === 'sending' ? t('Sending…', 'Enviando…') : ctaLabel}
       </button>
       {state === 'error' && (
         <p className="gs-inq__error">
-          {error} — or <a href={mailtoFallback}>email us directly</a> instead.
+          {error} — {t('or', 'o')} <a href={mailtoFallback}>{t('email us directly', 'escríbenos directamente')}</a> {t('instead.', 'en su lugar.')}
         </p>
       )}
     </form>

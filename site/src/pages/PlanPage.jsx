@@ -4,8 +4,8 @@ import {
 } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import PayloadPage from '../PayloadPage.jsx'
-import { PACKAGES } from '../data'
-import { PLAN_PAGES } from '../planPages.js'
+import { useContent } from '../content.js'
+import { useT } from '../i18n.jsx'
 
 // ---------------------------------------------------------------------------
 // PlanPage — one config-driven sales page per package (/plans/:planId).
@@ -13,24 +13,25 @@ import { PLAN_PAGES } from '../planPages.js'
 // the page that sells the system is made of the system.
 // ---------------------------------------------------------------------------
 
-const pkg = id => PACKAGES.find(p => p.id === id)
-
 function NotFound() {
+  const t = useT()
   return (
     <section style={{ maxWidth: 640, margin: '0 auto', padding: '8rem 1.5rem', textAlign: 'center' }}>
       <title>Plan not found — Guillen Solutions</title>
       <meta name="robots" content="noindex" />
-      <h1>Plan not found</h1>
-      <p style={{ opacity: 0.7 }}>See all packages on the home page instead.</p>
-      <a className="gs-nav__cta" href="/#packages">See packages</a>
+      <h1>{t('Plan not found', 'Plan no encontrado')}</h1>
+      <p style={{ opacity: 0.7 }}>{t('See all packages on the home page instead.', 'Mejor mira todos los paquetes en la página de inicio.')}</p>
+      <a className="gs-nav__cta" href="/#packages">{t('See packages', 'Ver paquetes')}</a>
     </section>
   )
 }
 
 // The bespoke render — used directly and as the CMS fallback.
 function PlanPageContent({ planId }) {
+  const t = useT()
+  const { PACKAGES, PLAN_PAGES } = useContent()
   const plan = PLAN_PAGES[planId]
-  const data = pkg(planId)
+  const data = PACKAGES.find(p => p.id === planId)
   if (!plan || !data) return <NotFound />
 
   return (
@@ -41,10 +42,10 @@ function PlanPageContent({ planId }) {
         subtext={plan.hero.subtext}
         size="compact"
         variant="alt"
-        ctas={[{ label: 'Build your quote', href: '/pricing#order', variant: 'solid' }]}
+        ctas={[{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' }]}
       />
       <FeatureGrid
-        eyebrow="Who it's for"
+        eyebrow={t("Who it's for", 'Para quién es')}
         headline={plan.whoTitle}
         subtext={plan.whoSub}
         items={plan.who}
@@ -52,7 +53,7 @@ function PlanPageContent({ planId }) {
         variant="default"
       />
       <Checklist
-        eyebrow="What you get"
+        eyebrow={t('What you get', 'Lo que obtienes')}
         headline={plan.getTitle}
         items={plan.get}
         note={plan.getNote}
@@ -69,25 +70,25 @@ function PlanPageContent({ planId }) {
         />
       )}
       <Steps
-        eyebrow="How it works"
-        headline="From first call to keys in hand"
+        eyebrow={t('How it works', 'Cómo funciona')}
+        headline={t('From first call to keys in hand', 'De la primera llamada a las llaves en mano')}
         items={plan.steps}
         variant="default"
       />
       <PricingPlans
-        eyebrow="The numbers"
-        headline="Flat, all-in, in writing"
+        eyebrow={t('The numbers', 'Los números')}
+        headline={t('Flat, all-in, in writing', 'Plano, todo incluido, por escrito')}
         plans={[{
           badge: data.badge, tag: data.tag, name: data.name, price: data.price,
           period: data.period, description: data.description, note: data.note,
           features: data.features, featured: true,
-          cta: { label: 'Build your quote', href: '/pricing#order', variant: 'solid' },
+          cta: { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' },
         }]}
         variant="alt"
       />
       <Faq
-        eyebrow="Good to know"
-        headline="Common questions"
+        eyebrow={t('Good to know', 'Bueno saber')}
+        headline={t('Common questions', 'Preguntas comunes')}
         items={plan.faq}
         variant="default"
       />
@@ -95,7 +96,7 @@ function PlanPageContent({ planId }) {
         eyebrow={plan.cta.eyebrow}
         headline={plan.cta.headline}
         subtext={plan.cta.subtext}
-        cta={{ label: 'Build your quote', href: '/pricing#order', variant: 'solid' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' }}
         variant="accent"
       />
     </>
@@ -108,6 +109,7 @@ function PlanPageContent({ planId }) {
 // tweaks the CMS version.
 export default function PlanPage() {
   const { planId } = useParams()
+  const { PLAN_PAGES } = useContent()
   const plan = PLAN_PAGES[planId]
   if (!plan) return <NotFound />
   return (

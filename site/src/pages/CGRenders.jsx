@@ -1,9 +1,8 @@
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
-import {
-  CG_RENDER_LEAD, CG_RENDER_ADVANTAGE, CG_RENDER_TIERS, CG_RENDER_SHOTS,
-  CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE, CONTACT_EMAIL,
-} from '../data'
+import { CONTACT_EMAIL } from '../data'
+import { useContent } from '../content.js'
+import { useT } from '../i18n.jsx'
 import { rendersSchema } from '../schema'
 import './CGRenders.css'
 
@@ -17,22 +16,13 @@ import './CGRenders.css'
 // with <img className="gs-cg__img" src="/img/renders/your-file.jpg" alt="…" />.
 // ---------------------------------------------------------------------------
 
-const quoteHref =
-  `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('CG product render quote')}` +
-  `&body=${encodeURIComponent(
-    'Hi — I\'d like a quote for product renders.\n\n' +
-    'Product(s): \n' +
-    'Roughly how many shots per product: \n' +
-    'Do you also need a website (bundle discount)? : \n\n' +
-    '(Links or photos of the product help us tier complexity.)'
-  )}`
-
 // A swappable image slot. Replace with <img> when the real render exists.
 function Shot({ label, file, wide }) {
+  const t = useT()
   return (
     <figure className={`gs-cg__shot${wide ? ' gs-cg__shot--wide' : ''}`}>
       <div className="gs-cg__ph">
-        <span className="gs-cg__ph-tag">Add image</span>
+        <span className="gs-cg__ph-tag">{t('Add image', 'Agregar imagen')}</span>
         <small>/img/renders/{file}</small>
       </div>
       <figcaption>{label}</figcaption>
@@ -41,32 +31,53 @@ function Shot({ label, file, wide }) {
 }
 
 export default function CGRenders() {
+  const t = useT()
+  const {
+    CG_RENDER_LEAD, CG_RENDER_ADVANTAGE, CG_RENDER_TIERS, CG_RENDER_SHOTS,
+    CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE,
+  } = useContent()
+
+  const quoteHref =
+    `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('CG product render quote', 'Cotización de renders de producto 3D'))}` +
+    `&body=${encodeURIComponent(t(
+      'Hi — I\'d like a quote for product renders.\n\n' +
+      'Product(s): \n' +
+      'Roughly how many shots per product: \n' +
+      'Do you also need a website (bundle discount)? : \n\n' +
+      '(Links or photos of the product help us tier complexity.)',
+      'Hola — me gustaría una cotización para renders de producto.\n\n' +
+      'Producto(s): \n' +
+      'Aproximadamente cuántas tomas por producto: \n' +
+      '¿También necesitas un sitio web (descuento por combinar)? : \n\n' +
+      '(Enlaces o fotos del producto nos ayudan a ubicar la complejidad.)',
+    ))}`
+
   return (
     <>
       <Seo
-        title="CG Product Renders"
-        description="Studio-quality 3D product images for e-commerce — model once, render many. Complexity-tiered per product, cheap extra shots, affordable multi-shot packages. Bundle with a website or order standalone."
+        title={t('CG Product Renders', 'Renders de producto 3D')}
+        description={t('Studio-quality 3D product images for e-commerce — model once, render many. Complexity-tiered per product, cheap extra shots, affordable multi-shot packages. Bundle with a website or order standalone.', 'Imágenes de producto en 3D con calidad de estudio para e-commerce — modela una vez, renderiza muchas. Con precio por complejidad por producto, tomas extra económicas y paquetes de varias tomas accesibles. Combínalo con un sitio web o pídelo por separado.')}
         path="/renders"
         schema={rendersSchema}
       />
 
       <HeroSection
-        eyebrow="Product renders · model once, render many"
-        headline="Studio-quality product images, without the studio."
-        subtext="We build your product in 3D once, then light and render it in our standardized studio scene. No samples shipped, no photographer booked, no reshoot fees — and every extra shot is cheap, because the model already exists."
+        eyebrow={t('Product renders · model once, render many', 'Renders de producto · modela una vez, renderiza muchas')}
+        headline={t('Studio-quality product images, without the studio.', 'Imágenes de producto con calidad de estudio, sin el estudio.')}
+        subtext={t('We build your product in 3D once, then light and render it in our standardized studio scene. No samples shipped, no photographer booked, no reshoot fees — and every extra shot is cheap, because the model already exists.', 'Construimos tu producto en 3D una vez, y luego lo iluminamos y renderizamos en nuestra escena de estudio estandarizada. Sin enviar muestras, sin contratar fotógrafo, sin costos de repetición — y cada toma extra es económica, porque el modelo ya existe.')}
         size="compact"
         variant="alt"
         ctas={[
-          { label: 'Get a quote', href: quoteHref, variant: 'solid' },
-          { label: 'See pricing', href: '#pricing', variant: 'ghost' },
+          { label: t('Get a quote', 'Pide una cotización'), href: quoteHref, variant: 'solid' },
+          { label: t('See pricing', 'Ver precios'), href: '#pricing', variant: 'ghost' },
         ]}
       />
 
       {/* ── The advantage ─────────────────────────────────────────────── */}
       <section className="section">
         <div className="section-container">
-          <p className="section-eyebrow">Why it's affordable</p>
-          <h2 className="section-title">One model. Every shot you need.</h2>
+          <p className="section-eyebrow">{t("Why it's affordable", 'Por qué es accesible')}</p>
+          <h2 className="section-title">{t('One model. Every shot you need.', 'Un modelo. Cada toma que necesitas.')}</h2>
           <p className="section-sub">{CG_RENDER_LEAD}</p>
           <div className="gs-cg__adv">
             {CG_RENDER_ADVANTAGE.map((a, i) => (
@@ -83,19 +94,21 @@ export default function CGRenders() {
       {/* ── Gallery of placeholders ───────────────────────────────────── */}
       <section className="section section--alt">
         <div className="section-container">
-          <p className="section-eyebrow">Recent work</p>
-          <h2 className="section-title">From studio packs to lifestyle heroes</h2>
+          <p className="section-eyebrow">{t('Recent work', 'Trabajo reciente')}</p>
+          <h2 className="section-title">{t('From studio packs to lifestyle heroes', 'De paquetes de estudio a tomas principales ambientadas')}</h2>
           <p className="section-sub">
-            Placeholders below — swap in real renders as we build the portfolio.
-            The same model produces the clean listing shots and the staged scenes.
+            {t(
+              'Placeholders below — swap in real renders as we build the portfolio. The same model produces the clean listing shots and the staged scenes.',
+              'Marcadores de posición abajo — los reemplazamos con renders reales conforme armamos el portafolio. El mismo modelo produce las tomas de listado limpias y las escenas ambientadas.',
+            )}
           </p>
           <div className="gs-cg__gallery">
-            <Shot wide label="Lifestyle hero — product staged in a real scene" file="lifestyle-hero.jpg" />
-            <Shot label="White-background listing shot" file="studio-front.jpg" />
-            <Shot label="Three-quarter angle" file="studio-34.jpg" />
-            <Shot label="Detail crop — materials & finish" file="detail.jpg" />
-            <Shot label="Color / label variant" file="variant.jpg" />
-            <Shot wide label="Second lifestyle scene — ad / banner ready" file="lifestyle-2.jpg" />
+            <Shot wide label={t('Lifestyle hero — product staged in a real scene', 'Toma principal ambientada — producto montado en una escena real')} file="lifestyle-hero.jpg" />
+            <Shot label={t('White-background listing shot', 'Toma de listado con fondo blanco')} file="studio-front.jpg" />
+            <Shot label={t('Three-quarter angle', 'Ángulo de tres cuartos')} file="studio-34.jpg" />
+            <Shot label={t('Detail crop — materials & finish', 'Acercamiento de detalle — materiales y acabado')} file="detail.jpg" />
+            <Shot label={t('Color / label variant', 'Variante de color / etiqueta')} file="variant.jpg" />
+            <Shot wide label={t('Second lifestyle scene — ad / banner ready', 'Segunda escena ambientada — lista para anuncio / banner')} file="lifestyle-2.jpg" />
           </div>
         </div>
       </section>
@@ -103,22 +116,23 @@ export default function CGRenders() {
       {/* ── Pricing: complexity tiers ─────────────────────────────────── */}
       <section className="section" id="pricing">
         <div className="section-container">
-          <p className="section-eyebrow">Per-product base</p>
-          <h2 className="section-title">Priced by complexity, not guesswork</h2>
+          <p className="section-eyebrow">{t('Per-product base', 'Base por producto')}</p>
+          <h2 className="section-title">{t('Priced by complexity, not guesswork', 'Con precio según complejidad, no adivinanzas')}</h2>
           <p className="section-sub">
-            Each product's base covers the 3D model plus your first studio shot.
-            We tier by modeling effort — never flat-rate — because that's the part
-            that actually varies.
+            {t(
+              "Each product's base covers the 3D model plus your first studio shot. We tier by modeling effort — never flat-rate — because that's the part that actually varies.",
+              'La base de cada producto cubre el modelo 3D más tu primera toma de estudio. Escalonamos según el esfuerzo de modelado — nunca tarifa plana — porque esa es la parte que de verdad varía.',
+            )}
           </p>
           <div className="gs-cg__tiers">
-            {CG_RENDER_TIERS.map(t => (
-              <div className={`gs-cg__tier${t.featured ? ' is-featured' : ''}`} key={t.id}>
-                {t.featured && <span className="gs-cg__tier-badge">Most common</span>}
-                <h3 className="gs-cg__tier-name">{t.name}</h3>
-                <p className="gs-cg__tier-price">{t.price}</p>
-                <p className="gs-cg__tier-per">{t.per}</p>
-                <p className="gs-cg__tier-body">{t.body}</p>
-                <p className="gs-cg__tier-eg"><span>Examples</span>{t.examples}</p>
+            {CG_RENDER_TIERS.map(tier => (
+              <div className={`gs-cg__tier${tier.featured ? ' is-featured' : ''}`} key={tier.id}>
+                {tier.featured && <span className="gs-cg__tier-badge">{t('Most common', 'El más común')}</span>}
+                <h3 className="gs-cg__tier-name">{tier.name}</h3>
+                <p className="gs-cg__tier-price">{tier.price}</p>
+                <p className="gs-cg__tier-per">{tier.per}</p>
+                <p className="gs-cg__tier-body">{tier.body}</p>
+                <p className="gs-cg__tier-eg"><span>{t('Examples', 'Ejemplos')}</span>{tier.examples}</p>
               </div>
             ))}
           </div>
@@ -128,8 +142,8 @@ export default function CGRenders() {
       {/* ── Add-on shots ──────────────────────────────────────────────── */}
       <section className="section section--alt">
         <div className="section-container">
-          <p className="section-eyebrow">More shots, once the model exists</p>
-          <h2 className="section-title">Extra renders are the cheap part</h2>
+          <p className="section-eyebrow">{t('More shots, once the model exists', 'Más tomas, una vez que el modelo existe')}</p>
+          <h2 className="section-title">{t('Extra renders are the cheap part', 'Los renders extra son la parte barata')}</h2>
           <div className="gs-cg__shots">
             {CG_RENDER_SHOTS.map(s => (
               <div className="gs-cg__shotrow" key={s.id}>
@@ -142,7 +156,7 @@ export default function CGRenders() {
             ))}
           </div>
           <div className="gs-cg__variant">
-            <span className="gs-cg__note-tag">The product-line play</span>
+            <span className="gs-cg__note-tag">{t('The product-line play', 'La jugada de la línea de productos')}</span>
             <p>{CG_RENDER_VARIANT_NOTE}</p>
           </div>
         </div>
@@ -151,11 +165,13 @@ export default function CGRenders() {
       {/* ── Packages ──────────────────────────────────────────────────── */}
       <section className="section" id="packages">
         <div className="section-container">
-          <p className="section-eyebrow">The small-business sweet spot</p>
-          <h2 className="section-title">Multi-shot packages</h2>
+          <p className="section-eyebrow">{t('The small-business sweet spot', 'El punto ideal para el pequeño negocio')}</p>
+          <h2 className="section-title">{t('Multi-shot packages', 'Paquetes de varias tomas')}</h2>
           <p className="section-sub">
-            Built on one model, so a whole listing gallery stays affordable. All
-            files are full-resolution and yours to keep.
+            {t(
+              'Built on one model, so a whole listing gallery stays affordable. All files are full-resolution and yours to keep.',
+              'Construidos sobre un solo modelo, para que toda una galería de listado siga siendo accesible. Todos los archivos son de resolución completa y tuyos para conservar.',
+            )}
           </p>
           <div className="gs-cg__packs">
             {CG_RENDER_PACKAGES.map(p => (
@@ -167,7 +183,7 @@ export default function CGRenders() {
                 <ul className="gs-cg__pack-list">
                   {p.includes.map(x => <li key={x}>{x}</li>)}
                 </ul>
-                <a className="gs-cg__pack-cta" href={quoteHref}>Start this package</a>
+                <a className="gs-cg__pack-cta" href={quoteHref}>{t('Start this package', 'Empezar este paquete')}</a>
               </div>
             ))}
           </div>
@@ -179,19 +195,19 @@ export default function CGRenders() {
         <div className="section-container">
           <div className="gs-cg__notes">
             <div className="gs-cg__note gs-cg__note--accent">
-              <span className="gs-cg__note-tag">Bundle &amp; save</span>
+              <span className="gs-cg__note-tag">{t('Bundle & save', 'Combina y ahorra')}</span>
               <p>{CG_RENDER_NOTES.bundled}</p>
             </div>
             <div className="gs-cg__note">
-              <span className="gs-cg__note-tag">Standalone</span>
+              <span className="gs-cg__note-tag">{t('Standalone', 'Por separado')}</span>
               <p>{CG_RENDER_NOTES.standalone}</p>
             </div>
             <div className="gs-cg__note">
-              <span className="gs-cg__note-tag">Where we fit</span>
+              <span className="gs-cg__note-tag">{t('Where we fit', 'Dónde encajamos')}</span>
               <p>{CG_RENDER_NOTES.market}</p>
             </div>
             <div className="gs-cg__note">
-              <span className="gs-cg__note-tag">How we quote</span>
+              <span className="gs-cg__note-tag">{t('How we quote', 'Cómo cotizamos')}</span>
               <p>{CG_RENDER_NOTES.quote}</p>
             </div>
           </div>
@@ -199,10 +215,10 @@ export default function CGRenders() {
       </section>
 
       <CtaBanner
-        eyebrow="Send us your product"
-        headline="Get a per-product quote — free, in writing."
-        subtext="Share a link or a few photos and rough shot count. We'll tier the complexity and send a fixed number before any work starts. Bundling with a website? Ask about the 15% discount."
-        cta={{ label: 'Get a quote', href: quoteHref }}
+        eyebrow={t('Send us your product', 'Envíanos tu producto')}
+        headline={t('Get a per-product quote — free, in writing.', 'Obtén una cotización por producto — gratis, por escrito.')}
+        subtext={t("Share a link or a few photos and rough shot count. We'll tier the complexity and send a fixed number before any work starts. Bundling with a website? Ask about the 15% discount.", 'Comparte un enlace o unas fotos y un conteo aproximado de tomas. Ubicamos la complejidad y te enviamos un número fijo antes de empezar cualquier trabajo. ¿Lo combinas con un sitio web? Pregunta por el 15% de descuento.')}
+        cta={{ label: t('Get a quote', 'Pide una cotización'), href: quoteHref }}
         variant="accent"
       />
     </>

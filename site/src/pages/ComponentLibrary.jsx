@@ -14,6 +14,7 @@ import {
   ContactSection,
   NewsletterSignup,
 } from '@aagf470/ui'
+import { useT } from '../i18n.jsx'
 
 // ---------------------------------------------------------------------------
 // Component library — living showcase. Every section is rendered live from
@@ -62,15 +63,16 @@ const CATALOG = [
 
 // The four-card value strip — how the library works for clients.
 export function LibraryFacts() {
+  const t = useT()
   return (
     <FeatureGrid
-      eyebrow="How the library works for you"
-      headline="Bigger with every project — safer for every client"
+      eyebrow={t('How the library works for you', 'Cómo funciona la biblioteca para ti')}
+      headline={t('Bigger with every project — safer for every client', 'Más grande con cada proyecto — más segura para cada cliente')}
       items={[
-        { icon: 'layers', title: '47+ and counting',        body: 'Heroes, pricing tables, galleries, FAQs, forms, checklists — a deep, diverse toolkit that already covers most of what a business site needs.' },
-        { icon: 'zap',    title: 'Grows with every project', body: 'When a client needs something new, we build it into the library — so every site we ship makes the next one better, faster, and cheaper.' },
-        { icon: 'shield', title: 'Controlled access',        body: 'You edit your content freely; the design, layout, and device behavior are locked inside the components. You can’t break your own site.' },
-        { icon: 'star',   title: 'One system, any look',     body: 'A single theme file restyles the whole library — the same components power a contractor, a game studio, and this very page.' },
+        { icon: 'layers', title: t('47+ and counting', '47+ y contando'),        body: t('Heroes, pricing tables, galleries, FAQs, forms, checklists — a deep, diverse toolkit that already covers most of what a business site needs.', 'Portadas, tablas de precios, galerías, preguntas frecuentes, formularios, listas de verificación — un kit profundo y variado que ya cubre casi todo lo que necesita el sitio de un negocio.') },
+        { icon: 'zap',    title: t('Grows with every project', 'Crece con cada proyecto'), body: t('When a client needs something new, we build it into the library — so every site we ship makes the next one better, faster, and cheaper.', 'Cuando un cliente necesita algo nuevo, lo incorporamos a la biblioteca — así cada sitio que entregamos hace que el siguiente sea mejor, más rápido y más barato.') },
+        { icon: 'shield', title: t('Controlled access', 'Acceso controlado'),        body: t('You edit your content freely; the design, layout, and device behavior are locked inside the components. You can’t break your own site.', 'Editas tu contenido con libertad; el diseño, la disposición y el comportamiento en cada dispositivo quedan bloqueados dentro de los componentes. No puedes romper tu propio sitio.') },
+        { icon: 'star',   title: t('One system, any look', 'Un sistema, cualquier look'),     body: t('A single theme file restyles the whole library — the same components power a contractor, a game studio, and this very page.', 'Un solo archivo de tema reestiliza toda la biblioteca — los mismos componentes dan vida a un contratista, a un estudio de videojuegos y a esta misma página.') },
       ]}
       columns={4}
       variant="alt"
@@ -79,12 +81,13 @@ export function LibraryFacts() {
 }
 
 export function LibraryShowcase() {
+  const t = useT()
   return (
     <div className="gs-showcase">
       <div className="gs-showcase__inner">
 
-        <Spec name="Hero" tag="<HeroSection />"
-          desc="The page opener — headline, supporting line, and call-to-action buttons.">
+        <Spec name={t('Hero', 'Portada')} tag="<HeroSection />"
+          desc={t('The page opener — headline, supporting line, and call-to-action buttons.', 'La apertura de la página — titular, línea de apoyo y botones de llamada a la acción.')}>
           <HeroSection
             eyebrow="Your business"
             headline="A headline that sells in one line."
@@ -93,8 +96,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Hero — editorial expression" tag='<HeroSection expression="editorial" />'
-          desc="Same hero content, different skeleton: masthead rule, headline left, supporting copy in a right column.">
+        <Spec name={t('Hero — editorial expression', 'Portada — expresión editorial')} tag='<HeroSection expression="editorial" />'
+          desc={t('Same hero content, different skeleton: masthead rule, headline left, supporting copy in a right column.', 'El mismo contenido de portada, otro esqueleto: línea de cabecera, titular a la izquierda y texto de apoyo en una columna a la derecha.')}>
           <HeroSection
             expression="editorial" size="compact"
             eyebrow="Same content, new bones"
@@ -104,8 +107,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Feature grid" tag="<FeatureGrid />"
-          desc="A responsive grid of icon + title + text — for services, benefits, or trust signals.">
+        <Spec name={t('Feature grid', 'Cuadrícula de características')} tag="<FeatureGrid />"
+          desc={t('A responsive grid of icon + title + text — for services, benefits, or trust signals.', 'Una cuadrícula adaptable de ícono + título + texto — para servicios, beneficios o señales de confianza.')}>
           <FeatureGrid
             eyebrow="Why us" headline="Three reasons to pick you"
             columns={3}
@@ -117,8 +120,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Feature grid — list expression" tag='<FeatureGrid expression="list" />'
-          desc="The same items as numbered editorial rows — reads like a manifesto instead of a card grid.">
+        <Spec name={t('Feature grid — list expression', 'Cuadrícula de características — expresión de lista')} tag='<FeatureGrid expression="list" />'
+          desc={t('The same items as numbered editorial rows — reads like a manifesto instead of a card grid.', 'Los mismos elementos como filas editoriales numeradas — se lee como un manifiesto en lugar de una cuadrícula de tarjetas.')}>
           <FeatureGrid
             expression="list"
             eyebrow="Why us" headline="Three reasons, restated"
@@ -130,8 +133,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Steps" tag="<Steps />"
-          desc="A numbered vertical process — how it works, onboarding, or your service flow.">
+        <Spec name={t('Steps', 'Pasos')} tag="<Steps />"
+          desc={t('A numbered vertical process — how it works, onboarding, or your service flow.', 'Un proceso vertical numerado — cómo funciona, la incorporación o el flujo de tu servicio.')}>
           <Steps
             eyebrow="How it works" headline="Three simple steps"
             items={[
@@ -142,8 +145,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Pricing / packages" tag="<PricingPlans />"
-          desc="Package cards with a name, price, feature list, optional 'most popular' badge, and CTA.">
+        <Spec name={t('Pricing / packages', 'Precios / paquetes')} tag="<PricingPlans />"
+          desc={t("Package cards with a name, price, feature list, optional 'most popular' badge, and CTA.", "Tarjetas de paquete con nombre, precio, lista de características, insignia opcional de 'más popular' y llamada a la acción.")}>
           <PricingPlans
             headline="Simple pricing"
             plans={[
@@ -153,8 +156,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Service list / menu" tag="<ServiceList />"
-          desc="A clean menu of services with optional prices and a dotted leader — great for salons or contractors.">
+        <Spec name={t('Service list / menu', 'Lista / menú de servicios')} tag="<ServiceList />"
+          desc={t('A clean menu of services with optional prices and a dotted leader — great for salons or contractors.', 'Un menú limpio de servicios con precios opcionales y una guía punteada — ideal para salones o contratistas.')}>
           <ServiceList
             headline="Services & pricing" columns={2}
             services={[
@@ -166,8 +169,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Hours + location" tag="<HoursLocation />"
-          desc="A business-hours table with address, phone, email, and an optional embedded map.">
+        <Spec name={t('Hours + location', 'Horario + ubicación')} tag="<HoursLocation />"
+          desc={t('A business-hours table with address, phone, email, and an optional embedded map.', 'Una tabla de horario de atención con dirección, teléfono, correo y un mapa incrustado opcional.')}>
           <HoursLocation
             eyebrow="Come see us" headline="Hours & location"
             hours={[
@@ -181,8 +184,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Gallery" tag="<Gallery />"
-          desc="A responsive image grid with hover captions — completed projects, looks, or products.">
+        <Spec name={t('Gallery', 'Galería')} tag="<Gallery />"
+          desc={t('A responsive image grid with hover captions — completed projects, looks, or products.', 'Una cuadrícula de imágenes adaptable con leyendas al pasar el cursor — proyectos terminados, looks o productos.')}>
           <Gallery
             eyebrow="Our work" headline="Recent projects" columns={3} aspect="4 / 3"
             images={[
@@ -193,8 +196,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Testimonials" tag="<Testimonials />"
-          desc="Client quotes with auto-generated avatar initials and attribution.">
+        <Spec name={t('Testimonials', 'Testimonios')} tag="<Testimonials />"
+          desc={t('Client quotes with auto-generated avatar initials and attribution.', 'Citas de clientes con iniciales de avatar autogeneradas y atribución.')}>
           <Testimonials
             eyebrow="Kind words" headline="What clients say"
             items={[
@@ -204,8 +207,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="FAQ" tag="<Faq />"
-          desc="An accessible accordion built on native details/summary — keyboard-friendly, no JavaScript required.">
+        <Spec name={t('FAQ', 'Preguntas frecuentes')} tag="<Faq />"
+          desc={t('An accessible accordion built on native details/summary — keyboard-friendly, no JavaScript required.', 'Un acordeón accesible construido sobre details/summary nativos — amigable con el teclado, sin necesidad de JavaScript.')}>
           <Faq
             eyebrow="Questions" headline="Frequently asked"
             items={[
@@ -215,8 +218,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Image + text" tag="<ImageText />"
-          desc="A two-column split — image on one side, copy and an optional button on the other.">
+        <Spec name={t('Image + text', 'Imagen + texto')} tag="<ImageText />"
+          desc={t('A two-column split — image on one side, copy and an optional button on the other.', 'Una división en dos columnas — imagen de un lado, texto y un botón opcional del otro.')}>
           <ImageText
             eyebrow="About" headline="Tell your story"
             body="A paragraph about your business, your values, or what makes you different — paired with a supporting image."
@@ -225,8 +228,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="CTA banner" tag="<CtaBanner />"
-          desc="A bold, full-width call-to-action — usually a colored section that closes the page.">
+        <Spec name={t('CTA banner', 'Banner de llamada a la acción')} tag="<CtaBanner />"
+          desc={t('A bold, full-width call-to-action — usually a colored section that closes the page.', 'Una llamada a la acción llamativa de ancho completo — normalmente una sección de color que cierra la página.')}>
           <CtaBanner
             eyebrow="Ready?" headline="A strong closing call to action"
             subtext="One last nudge toward the thing you want visitors to do."
@@ -235,8 +238,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Newsletter signup" tag="<NewsletterSignup />"
-          desc="An email-capture band that posts straight to the client's newsletter vendor — the account stays in the client's name.">
+        <Spec name={t('Newsletter signup', 'Suscripción al boletín')} tag="<NewsletterSignup />"
+          desc={t("An email-capture band that posts straight to the client's newsletter vendor — the account stays in the client's name.", 'Una franja de captura de correos que envía directo al proveedor de boletines del cliente — la cuenta queda a nombre del cliente.')}>
           <NewsletterSignup
             eyebrow="Stay in the loop"
             headline="News, offers, and updates — straight from us"
@@ -246,8 +249,8 @@ export function LibraryShowcase() {
           />
         </Spec>
 
-        <Spec name="Contact" tag="<ContactSection />"
-          desc="Contact details beside a working inquiry form — submissions route straight to the owner's inbox.">
+        <Spec name={t('Contact', 'Contacto')} tag="<ContactSection />"
+          desc={t("Contact details beside a working inquiry form — submissions route straight to the owner's inbox.", 'Datos de contacto junto a un formulario de consulta funcional — los envíos llegan directo a la bandeja del dueño.')}>
           <ContactSection
             eyebrow="Get in touch" headline="Contact us"
             subtext="Tell us what you need and we'll get back to you."
@@ -257,13 +260,11 @@ export function LibraryShowcase() {
 
         <section className="gs-catalog">
           <div className="gs-spec__head">
-            <h2 className="gs-spec__name">Full catalog</h2>
+            <h2 className="gs-spec__name">{t('Full catalog', 'Catálogo completo')}</h2>
             <span className="gs-spec__tag">@aagf470/ui</span>
           </div>
           <p className="gs-spec__desc">
-            Everything the library exports, at a glance — and all of it is available
-            in every client&rsquo;s editor, from business-site sections to studio-grade
-            showcase pieces.
+            {t('Everything the library exports, at a glance — and all of it is available in every client’s editor, from business-site sections to studio-grade showcase pieces.', 'Todo lo que exporta la biblioteca, de un vistazo — y todo está disponible en el editor de cada cliente, desde secciones para sitios de negocios hasta piezas de vitrina de nivel estudio.')}
           </p>
           {CATALOG.map(group => (
             <div className="gs-catalog__group" key={group.label}>
@@ -278,7 +279,7 @@ export function LibraryShowcase() {
         </section>
 
         <p className="gs-showcase__foot">
-          Want a page built from these? <Link to="/pricing#order">Build your quote →</Link>
+          {t('Want a page built from these?', '¿Quieres una página construida con estos?')} <Link to="/pricing#order">{t('Build your quote →', 'Arma tu cotización →')}</Link>
         </p>
       </div>
     </div>

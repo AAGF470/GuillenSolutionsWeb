@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HeroSection } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
+import { useT } from '../i18n.jsx'
 import './Guides.css'
 
 // ---------------------------------------------------------------------------
@@ -12,17 +13,17 @@ import './Guides.css'
 
 const API = import.meta.env.VITE_CMS_URL
 
-export const formatDate = iso => {
+export const formatDate = (iso, locale = 'en-US') => {
   if (!iso) return null
   const d = new Date(iso)
-  return isNaN(d) ? null : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  return isNaN(d) ? null : d.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 // Prefer the resized card rendition when the CMS has generated one.
 const coverUrl = cover => cover?.sizes?.card?.url || cover?.url || null
 
-function GuideCard({ post }) {
-  const date = formatDate(post.publishedAt)
+function GuideCard({ post, locale }) {
+  const date = formatDate(post.publishedAt, locale)
   const tags = (post.tags || []).map(t => t?.text ?? t).filter(Boolean)
   const src = coverUrl(post.cover)
   return (
@@ -45,6 +46,8 @@ function GuideCard({ post }) {
 }
 
 export default function Guides() {
+  const t = useT()
+  const locale = t('en-US', 'es-ES')
   const [posts, setPosts] = useState(null) // null = loading, [] = none
 
   useEffect(() => {
@@ -59,14 +62,14 @@ export default function Guides() {
   return (
     <>
       <Seo
-        title="Guides & Devlogs"
-        description="Build notes, case studies, and practical guides from real client projects — how the sites are built, what the tools are, and what we learned shipping them."
+        title={t('Guides & Devlogs', 'Guías y Devlogs')}
+        description={t('Build notes, case studies, and practical guides from real client projects — how the sites are built, what the tools are, and what we learned shipping them.', 'Notas de construcción, casos de estudio y guías prácticas de proyectos reales de clientes — cómo se construyen los sitios, cuáles son las herramientas y qué aprendimos al lanzarlos.')}
         path="/guides"
       />
       <HeroSection
-        eyebrow="Guides · devlogs & case studies"
-        headline="Notes from the workbench."
-        subtext="How we build the sites we ship — real decisions, real code, real screenshots. Written for clients who like to look under the hood, and for anyone building something similar."
+        eyebrow={t('Guides · devlogs & case studies', 'Guías · devlogs y casos de estudio')}
+        headline={t('Notes from the workbench.', 'Notas desde el taller.')}
+        subtext={t('How we build the sites we ship — real decisions, real code, real screenshots. Written for clients who like to look under the hood, and for anyone building something similar.', 'Cómo construimos los sitios que entregamos — decisiones reales, código real, capturas reales. Escrito para clientes a los que les gusta mirar bajo el capó, y para cualquiera que esté construyendo algo similar.')}
         size="compact"
         variant="alt"
         ctas={[]}
@@ -77,17 +80,16 @@ export default function Guides() {
           {posts === null && <div className="gs-guides__grid" aria-busy="true" />}
           {posts?.length === 0 && (
             <div className="gs-guides__empty">
-              <h2>Guides are coming.</h2>
+              <h2>{t('Guides are coming.', 'Las guías vienen en camino.')}</h2>
               <p>
-                We&rsquo;re writing up the first batch right now — devlogs and case
-                studies from real projects. Check back soon, or{' '}
-                <Link to="/work">browse our work</Link> in the meantime.
+                {t('We’re writing up the first batch right now — devlogs and case studies from real projects. Check back soon, or', 'Estamos escribiendo el primer lote ahora mismo — devlogs y casos de estudio de proyectos reales. Vuelve pronto, o')}{' '}
+                <Link to="/work">{t('browse our work', 'explora nuestro trabajo')}</Link>{t(' in the meantime.', ' mientras tanto.')}
               </p>
             </div>
           )}
           {posts?.length > 0 && (
             <div className="gs-guides__grid">
-              {posts.map(p => <GuideCard key={p.id} post={p} />)}
+              {posts.map(p => <GuideCard key={p.id} post={p} locale={locale} />)}
             </div>
           )}
         </div>

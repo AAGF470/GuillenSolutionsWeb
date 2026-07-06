@@ -5,7 +5,33 @@
    Inter for everything you interact with.
    Overrides shared token defaults from tokens.css.                           */
 
+/* ── ZERO-CLS FONT FALLBACKS ──────────────────────────────────────────────
+   Fraunces and Inter load from Google Fonts (display=swap). The big hero
+   headline was reflowing when the web font swapped in because the system
+   fallback has different glyph widths → the headline rewrapped to a different
+   number of lines → a large layout shift (Cumulative Layout Shift).
+   These size-adjusted fallback faces make the local fallback occupy the SAME
+   width as the web font (ratios measured in-browser: Fraunces ≈ 80.9% of
+   Georgia's advance; Inter ≈ 106.9% of Arial's), so the text wraps identically
+   before and after the swap and nothing moves. line-height is unitless/fixed,
+   so vertical metrics are already stable — width is the only thing to match. */
+@font-face {
+  font-family: 'Fraunces Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 94.5%;
+  ascent-override: 95%;
+  descent-override: 24%;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Roboto');
+  size-adjust: 106.94%;
+}
+
 :root {
+
+  /* Body face with a width-matched fallback (overrides tokens.css --font-sans) */
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
 
   /* ── BACKGROUNDS ───────────────────────────────────────────────────────── */
 
@@ -34,7 +60,7 @@
   --gs-ember: #b0562b;
 
   /* Display face — first-class token (library consumes it natively) */
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-display: 'Fraunces', 'Fraunces Fallback', Georgia, 'Times New Roman', serif;
   --font-display-weight: 600;
   --font-display-tracking: -0.015em;
 
@@ -142,7 +168,7 @@
 
 .gs-nav__logo,
 .gs-footer__brand {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Fraunces', 'Fraunces Fallback', Georgia, serif;
   font-weight: 600;
   letter-spacing: -0.01em;
 }

@@ -1,5 +1,6 @@
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
+import { useT } from '../i18n.jsx'
 import './Work.css'
 
 // ---------------------------------------------------------------------------
@@ -7,82 +8,6 @@ import './Work.css'
 // what we build with (the live component system). One narrative: the proof,
 // then the machine behind it.
 // ---------------------------------------------------------------------------
-
-const CLIENTS = [
-  {
-    name: 'Angel Electrical Services',
-    location: 'Dallas, Texas',
-    industry: 'Licensed Electrician',
-    url: 'angelelectrical.com',
-    image: '/img/work/angel-electrical.svg',
-    blurb: 'A trust-first site for a residential & commercial electrician — clear service list, service-area coverage, and a quote form that routes straight to the owner.',
-    quote: 'Booked three new commercial jobs the first month. The site finally looks as professional as the work we do.',
-    author: 'Angel R.',
-    role: 'Owner',
-  },
-  {
-    name: 'FencingPatrol',
-    location: 'Long Island, New York',
-    industry: 'General Contractor',
-    url: 'fencingpatrol.com',
-    image: '/img/work/fencingpatrol.svg',
-    blurb: 'A bold, bilingual site for a family contractor — roofing, fencing, and paving, with a project gallery and a call-first layout in English and Español.',
-    quote: 'Sending people one link that shows everything we do — in both languages — changed how we win jobs.',
-    author: 'FencingPatrol',
-    role: 'Family crew',
-  },
-  {
-    name: 'Cryark Inc',
-    location: 'Boston, Massachusetts',
-    industry: 'Game Development Studio',
-    url: 'cryark.net',
-    image: '/img/work/cryark.svg',
-    blurb: 'A cinematic, dark-mode studio site for a game & tools developer — product showcases, a devlog, and a component-driven docs system.',
-    quote: 'It carries the mood of what we make. The same system that built a contractor site scaled to a full studio presence.',
-    author: 'Cryark',
-    role: 'Studio team',
-  },
-]
-
-const REACH = [
-  { stat: '3', label: 'states', sub: 'Texas · New York · Massachusetts' },
-  { stat: '3', label: 'industries', sub: 'Electrical · Construction · Games' },
-  { stat: '1', label: 'component system', sub: 'behind every one of them' },
-]
-
-// Design concepts — spec builds that prove the range (and, for the boutique,
-// double as a showcase of the CG product renders). Live, scrollable, labeled
-// as concepts. Add more here as the portfolio grows.
-const EXAMPLES = [
-  {
-    name: 'Marigold & Ash',
-    kind: 'Hair studio & spa · design concept',
-    url: 'marigoldandash.com',
-    href: '/examples/salon/index.html',
-    blurb: 'Warm, editorial, photo-forward — the presentation an aesthetic-driven business lives or dies on. A world away from a template, and from a dark technical brand.',
-  },
-  {
-    name: 'Ember & Field',
-    kind: 'Candles & ceramics · design concept',
-    url: 'emberandfield.com',
-    href: '/examples/boutique/index.html',
-    blurb: 'A product-forward shop for a small-batch maker — clean, tactile, gallery-minimal. The product grid is exactly where our CG renders live: model once, shoot every listing.',
-  },
-  {
-    name: 'Copper & Rye',
-    kind: 'Cocktail bar & kitchen · design concept',
-    url: 'copperandrye.com',
-    href: '/examples/bar/index.html',
-    blurb: 'Dark, cinematic, and moody — near-black and copper with a high-contrast serif. The same system can turn the lights way down for a bar or restaurant.',
-  },
-  {
-    name: 'Kinetic',
-    kind: 'Fitness studio · design concept',
-    url: 'kineticstudio.com',
-    href: '/examples/studio/index.html',
-    blurb: 'Loud, bold, color-blocked, high-energy — heavy type and electric coral. Proof the range runs all the way to confident and kinetic, not just calm and premium.',
-  },
-]
 
 function BrowserFrame({ url, image, alt }) {
   return (
@@ -97,12 +22,90 @@ function BrowserFrame({ url, image, alt }) {
 }
 
 export default function WorkAndLibrary() {
+  const t = useT()
+
+  const CLIENTS = [
+    {
+      name: 'Angel Electrical Services',
+      location: 'Dallas, Texas',
+      industry: t('Licensed Electrician', 'Electricista con licencia'),
+      url: 'angelelectrical.com',
+      image: '/img/work/angel-electrical.svg',
+      blurb: t('A trust-first site for a residential & commercial electrician — clear service list, service-area coverage, and a quote form that routes straight to the owner.', 'Un sitio que genera confianza para un electricista residencial y comercial — lista de servicios clara, cobertura por zona y un formulario de cotización que llega directo al dueño.'),
+      quote: t('Booked three new commercial jobs the first month. The site finally looks as professional as the work we do.', 'Conseguimos tres trabajos comerciales nuevos el primer mes. Por fin el sitio se ve tan profesional como el trabajo que hacemos.'),
+      author: 'Angel R.',
+      role: t('Owner', 'Dueño'),
+    },
+    {
+      name: 'FencingPatrol',
+      location: 'Long Island, New York',
+      industry: t('General Contractor', 'Contratista general'),
+      url: 'fencingpatrol.com',
+      image: '/img/work/fencingpatrol.svg',
+      blurb: t('A bold, bilingual site for a family contractor — roofing, fencing, and paving, with a project gallery and a call-first layout in English and Español.', 'Un sitio llamativo y bilingüe para un contratista familiar — techos, cercas y pavimentación, con una galería de proyectos y un diseño enfocado en la llamada, en English y Español.'),
+      quote: t('Sending people one link that shows everything we do — in both languages — changed how we win jobs.', 'Mandar a la gente un solo enlace que muestra todo lo que hacemos — en los dos idiomas — cambió la forma en que ganamos trabajos.'),
+      author: 'FencingPatrol',
+      role: t('Family crew', 'Equipo familiar'),
+    },
+    {
+      name: 'Cryark Inc',
+      location: 'Boston, Massachusetts',
+      industry: t('Game Development Studio', 'Estudio de desarrollo de videojuegos'),
+      url: 'cryark.net',
+      image: '/img/work/cryark.svg',
+      blurb: t('A cinematic, dark-mode studio site for a game & tools developer — product showcases, a devlog, and a component-driven docs system.', 'Un sitio de estudio cinematográfico en modo oscuro para un desarrollador de juegos y herramientas — vitrinas de productos, un devlog y un sistema de documentación basado en componentes.'),
+      quote: t('It carries the mood of what we make. The same system that built a contractor site scaled to a full studio presence.', 'Transmite el ambiente de lo que creamos. El mismo sistema que construyó el sitio de un contratista escaló hasta la presencia completa de un estudio.'),
+      author: 'Cryark',
+      role: t('Studio team', 'Equipo del estudio'),
+    },
+  ]
+
+  const REACH = [
+    { stat: '3', label: t('states', 'estados'), sub: 'Texas · New York · Massachusetts' },
+    { stat: '3', label: t('industries', 'industrias'), sub: t('Electrical · Construction · Games', 'Electricidad · Construcción · Videojuegos') },
+    { stat: '1', label: t('component system', 'sistema de componentes'), sub: t('behind every one of them', 'detrás de cada uno de ellos') },
+  ]
+
+  // Design concepts — spec builds that prove the range (and, for the boutique,
+  // double as a showcase of the CG product renders). Live, scrollable, labeled
+  // as concepts. Add more here as the portfolio grows.
+  const EXAMPLES = [
+    {
+      name: 'Marigold & Ash',
+      kind: t('Hair studio & spa · design concept', 'Estudio de cabello y spa · concepto de diseño'),
+      url: 'marigoldandash.com',
+      href: '/examples/salon/index.html',
+      blurb: t('Warm, editorial, photo-forward — the presentation an aesthetic-driven business lives or dies on. A world away from a template, and from a dark technical brand.', 'Cálido, editorial, con la foto al frente — la presentación de la que depende un negocio guiado por la estética. A un mundo de distancia de una plantilla, y de una marca técnica oscura.'),
+    },
+    {
+      name: 'Ember & Field',
+      kind: t('Candles & ceramics · design concept', 'Velas y cerámica · concepto de diseño'),
+      url: 'emberandfield.com',
+      href: '/examples/boutique/index.html',
+      blurb: t('A product-forward shop for a small-batch maker — clean, tactile, gallery-minimal. The product grid is exactly where our CG renders live: model once, shoot every listing.', 'Una tienda con el producto al frente para un fabricante de lotes pequeños — limpia, táctil, de galería minimalista. La cuadrícula de productos es justo donde viven nuestros renders CG: modela una vez, fotografía cada artículo.'),
+    },
+    {
+      name: 'Copper & Rye',
+      kind: t('Cocktail bar & kitchen · design concept', 'Bar de cócteles y cocina · concepto de diseño'),
+      url: 'copperandrye.com',
+      href: '/examples/bar/index.html',
+      blurb: t('Dark, cinematic, and moody — near-black and copper with a high-contrast serif. The same system can turn the lights way down for a bar or restaurant.', 'Oscuro, cinematográfico y con carácter — casi negro y cobre con una tipografía serif de alto contraste. El mismo sistema puede bajar mucho las luces para un bar o restaurante.'),
+    },
+    {
+      name: 'Kinetic',
+      kind: t('Fitness studio · design concept', 'Estudio de fitness · concepto de diseño'),
+      url: 'kineticstudio.com',
+      href: '/examples/studio/index.html',
+      blurb: t('Loud, bold, color-blocked, high-energy — heavy type and electric coral. Proof the range runs all the way to confident and kinetic, not just calm and premium.', 'Estridente, atrevido, con bloques de color y mucha energía — tipografía gruesa y coral eléctrico. La prueba de que el rango llega hasta lo seguro y dinámico, no solo lo calmado y premium.'),
+    },
+  ]
+
   return (
     <>
       <HeroSection
-        eyebrow="Our work"
-        headline="Custom sites, built to be owned."
-        subtext="From a boutique salon to a Long Island contractor to a Boston game studio — genuinely different businesses, genuinely different looks, none of them a template. Every one designed to fit the business, and owned by the client outright. Concepts and real client work below."
+        eyebrow={t('Our work', 'Nuestro trabajo')}
+        headline={t('Custom sites, built to be owned.', 'Sitios a la medida, hechos para ser tuyos.')}
+        subtext={t('From a boutique salon to a Long Island contractor to a Boston game studio — genuinely different businesses, genuinely different looks, none of them a template. Every one designed to fit the business, and owned by the client outright. Concepts and real client work below.', 'Desde un salón boutique hasta un contratista de Long Island y un estudio de videojuegos en Boston — negocios genuinamente distintos, con looks genuinamente distintos, ninguno una plantilla. Cada uno diseñado a la medida del negocio y propiedad total del cliente. Conceptos y trabajo real de clientes abajo.')}
         size="compact"
         variant="alt"
         ctas={[]}
@@ -143,7 +146,7 @@ export default function WorkAndLibrary() {
                   <p>“{c.quote}”</p>
                   <footer><strong>{c.author}</strong> · {c.role}</footer>
                 </blockquote>
-                <span className="work-item__note">Site view is a design placeholder</span>
+                <span className="work-item__note">{t('Site view is a design placeholder', 'La vista del sitio es un marcador de diseño')}</span>
               </div>
             </article>
           ))}
@@ -153,12 +156,10 @@ export default function WorkAndLibrary() {
       {/* Design concepts — live, scrollable spec sites that prove the range */}
       <section className="section section--default work-examples-sec">
         <div className="section-container">
-          <p className="section-eyebrow">Design concepts</p>
-          <h2 className="section-title">What "custom" actually looks like</h2>
+          <p className="section-eyebrow">{t('Design concepts', 'Conceptos de diseño')}</p>
+          <h2 className="section-title">{t('What "custom" actually looks like', 'Cómo se ve realmente lo "a la medida"')}</h2>
           <p className="section-sub">
-            Everyone says "custom." Here's the proof — concept builds for the kind of
-            businesses whose first impression is everything. Different worlds, different
-            looks, none of them a template. They're live: open one and scroll.
+            {t('Everyone says "custom." Here\'s the proof — concept builds for the kind of businesses whose first impression is everything. Different worlds, different looks, none of them a template. They\'re live: open one and scroll.', 'Todos dicen "a la medida." Aquí está la prueba — construcciones conceptuales para el tipo de negocios cuya primera impresión lo es todo. Mundos distintos, looks distintos, ninguno una plantilla. Están en vivo: abre uno y desplázate.')}
           </p>
           <div className="work-examples">
             {EXAMPLES.map(ex => (
@@ -181,7 +182,7 @@ export default function WorkAndLibrary() {
                   <h3 className="work-concept__name">{ex.name}</h3>
                   <p className="work-concept__kind">{ex.kind}</p>
                   <p className="work-concept__blurb">{ex.blurb}</p>
-                  <span className="work-concept__cta">Open the live concept ↗</span>
+                  <span className="work-concept__cta">{t('Open the live concept ↗', 'Abrir el concepto en vivo ↗')}</span>
                 </div>
               </a>
             ))}
@@ -195,22 +196,20 @@ export default function WorkAndLibrary() {
       {/* The live showcase — every component, rendered from sample content */}
       <section className="section section--default" id="library" style={{ paddingBottom: 0 }}>
         <div className="section-container">
-          <p className="section-eyebrow">The toolkit, live</p>
-          <h2 className="section-title">Every component, rendered right here</h2>
+          <p className="section-eyebrow">{t('The toolkit, live', 'El kit de herramientas, en vivo')}</p>
+          <h2 className="section-title">{t('Every component, rendered right here', 'Cada componente, mostrado aquí mismo')}</h2>
           <p className="section-sub">
-            Everything below is a real production component shown with sample content —
-            mobile-ready, light and dark, tested once and reused everywhere. Your site is
-            composed from these, themed to your business.
+            {t('Everything below is a real production component shown with sample content — mobile-ready, light and dark, tested once and reused everywhere. Your site is composed from these, themed to your business.', 'Todo lo de abajo es un componente real de producción mostrado con contenido de ejemplo — listo para móvil, claro y oscuro, probado una vez y reutilizado en todas partes. Tu sitio se compone a partir de estos, con el tema de tu negocio.')}
           </p>
         </div>
       </section>
       <LibraryShowcase />
 
       <CtaBanner
-        eyebrow="Your industry's next"
-        headline="Whatever you do, we can build it — and hand it to you."
-        subtext="Different trade, different state, different style. Same honest, you-own-everything setup."
-        cta={{ label: 'Build your quote', href: '/pricing#order' }}
+        eyebrow={t("Your industry's next", 'Tu industria es la que sigue')}
+        headline={t('Whatever you do, we can build it — and hand it to you.', 'Hagas lo que hagas, podemos construirlo — y entregártelo.')}
+        subtext={t('Different trade, different state, different style. Same honest, you-own-everything setup.', 'Otro oficio, otro estado, otro estilo. La misma configuración honesta en la que eres dueño de todo.')}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order' }}
         variant="accent"
       />
     </>

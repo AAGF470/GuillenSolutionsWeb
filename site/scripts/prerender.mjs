@@ -18,7 +18,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
-  PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS,
+  PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS, FOUND,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CONTACT_EMAIL,
 } from '../src/data.js'
 import { ORG, homeSchema, pricingSchema, rendersSchema } from '../src/schema.js'
@@ -59,6 +59,7 @@ const bodies = {
     'Websites, studio-quality product images, and the business setup around them — built for small businesses, priced flat, and put in your name.',
     `<h2>What we do</h2>${list(SERVICES.map(s => `<strong>${esc(s.title)}</strong> (${esc(s.price)}) — ${esc(s.body)} <a href="${s.to}">${esc(s.linkLabel)}</a>`))}
      <h2>Website plans</h2>${list(PACKAGES.map(planLine))}
+     <h2>${esc(FOUND.headline)}</h2><p>${esc(FOUND.lead)}</p>${list(FOUND.points.map(p => `<strong>${esc(p.title)}</strong> — ${esc(p.body)}`))}
      <p><a href="/pricing">Build your quote</a></p>`,
   ),
   work: wrap(

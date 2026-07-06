@@ -8,53 +8,64 @@ import {
   PricingPlans,
   Checklist,
 } from '@aagf470/ui'
-import { PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING, CONTACT_EMAIL, CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM } from '../data'
-
-// Map shared pricing data → PricingPlans plan shape
-const PLANS = PACKAGES.map(p => ({
-  badge:       p.badge,
-  tag:         p.tag,
-  name:        p.name,
-  price:       p.price,
-  period:      p.period,
-  description: p.description,
-  note:        p.note,
-  features:    p.features,
-  featured:    p.featured,
-  cta:         { label: 'Build your quote', href: '/pricing#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
-}))
-
-const WHAT_WE_DO = [
-  { icon: 'star',   title: 'A custom-designed site',    body: 'Designed around your business on our in-house component system — custom-tier looks at template speed and cost, not a cookie-cutter template.' },
-  { icon: 'layers', title: 'Update it yourself',        body: 'A simple control panel — your own CMS — that shows only what you actually change, so you can update the site yourself without touching code or breaking the design.' },
-  { icon: 'shield', title: 'Managed hosting & security', body: 'SSL, backups, and uptime handled for you. You never have to think about servers or certificates.' },
-  { icon: 'check',  title: 'You own everything',        body: 'Domain, content, accounts, and logins in your name from day one. Leave anytime with all of it.' },
-]
-
-const STEPS = [
-  { title: 'Choose a package', body: 'Pick a base package and add only the pieces you need. The configurator gives you a transparent, all-in number.' },
-  { title: 'We design & build', body: 'We build your site on our component system (or WordPress), sized to your business and ready for your content.' },
-  { title: 'We set it up & explain it', body: 'Hosting, domain, SSL, and accounts — all configured in your name. Then we walk you through how everything works.' },
-  { title: 'We hand you the keys', body: 'You own the domain, content, logins, and every asset. No lock-in, and we never touch your ad spend or your money.' },
-]
-
-const LIBRARY_PEEK = [
-  { icon: 'star',   title: 'Heroes & banners',   body: 'Bold openers and call-to-action banners that set the tone.' },
-  { icon: 'layers', title: 'Pricing & packages', body: 'Clear pricing tables and service menus — like the ones on this page.' },
-  { icon: 'map',    title: 'Galleries & FAQs',   body: 'Project galleries, testimonials, and accessible FAQ accordions.' },
-  { icon: 'mail',   title: 'Contact & forms',    body: 'Inquiry forms and hours/location blocks that route straight to you.' },
-]
+import { CONTACT_EMAIL } from '../data'
+import { useContent } from '../content.js'
+import { useT } from '../i18n.jsx'
 
 export default function Home() {
+  const t = useT()
+  const {
+    PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
+    CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND,
+  } = useContent()
+
+  // Map shared pricing data → PricingPlans plan shape
+  const PLANS = PACKAGES.map(p => ({
+    badge:       p.badge,
+    tag:         p.tag,
+    name:        p.name,
+    price:       p.price,
+    period:      p.period,
+    description: p.description,
+    note:        p.note,
+    features:    p.features,
+    featured:    p.featured,
+    cta:         { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
+  }))
+
+  const WHAT_WE_DO = [
+    { icon: 'star',   title: t('A custom-designed site', 'Un sitio diseñado a la medida'),    body: t('Designed around your business on our in-house component system — custom-tier looks at template speed and cost, not a cookie-cutter template.', 'Diseñado alrededor de tu negocio sobre nuestro sistema de componentes interno — aspecto a la medida a velocidad y costo de plantilla, no una plantilla genérica.') },
+    { icon: 'layers', title: t('Update it yourself', 'Actualízalo tú mismo'),        body: t('A simple control panel — your own CMS — that shows only what you actually change, so you can update the site yourself without touching code or breaking the design.', 'Un panel simple — tu propio CMS — que muestra solo lo que de verdad cambias, para que actualices el sitio tú mismo sin tocar código ni romper el diseño.') },
+    { icon: 'shield', title: t('Managed hosting & security', 'Hosting y seguridad administrados'), body: t('SSL, backups, and uptime handled for you. You never have to think about servers or certificates.', 'SSL, copias de seguridad y disponibilidad a cargo nuestro. Nunca tienes que pensar en servidores ni certificados.') },
+    { icon: 'check',  title: t('You own everything', 'Eres dueño de todo'),        body: t('Domain, content, accounts, and logins in your name from day one. Leave anytime with all of it.', 'Dominio, contenido, cuentas y accesos a tu nombre desde el primer día. Vete cuando quieras con todo.') },
+  ]
+
+  const STEPS = [
+    { title: t('Choose a package', 'Elige un paquete'), body: t('Pick a base package and add only the pieces you need. The configurator gives you a transparent, all-in number.', 'Elige un paquete base y agrega solo las piezas que necesitas. El configurador te da un número transparente y todo incluido.') },
+    { title: t('We design & build', 'Diseñamos y construimos'), body: t('We build your site on our component system (or WordPress), sized to your business and ready for your content.', 'Construimos tu sitio sobre nuestro sistema de componentes (o WordPress), a la medida de tu negocio y listo para tu contenido.') },
+    { title: t('We set it up & explain it', 'Lo configuramos y te lo explicamos'), body: t('Hosting, domain, SSL, and accounts — all configured in your name. Then we walk you through how everything works.', 'Hosting, dominio, SSL y cuentas — todo configurado a tu nombre. Luego te guiamos por cómo funciona todo.') },
+    { title: t('We hand you the keys', 'Te entregamos las llaves'), body: t('You own the domain, content, logins, and every asset. No lock-in, and we never touch your ad spend or your money.', 'Eres dueño del dominio, contenido, accesos y cada recurso. Sin ataduras, y nunca tocamos tu gasto en anuncios ni tu dinero.') },
+  ]
+
+  const LIBRARY_PEEK = [
+    { icon: 'star',   title: t('Heroes & banners', 'Portadas y banners'),   body: t('Bold openers and call-to-action banners that set the tone.', 'Aperturas llamativas y banners de llamada a la acción que marcan el tono.') },
+    { icon: 'layers', title: t('Pricing & packages', 'Precios y paquetes'), body: t('Clear pricing tables and service menus — like the ones on this page.', 'Tablas de precios claras y menús de servicios — como los de esta página.') },
+    { icon: 'map',    title: t('Galleries & FAQs', 'Galerías y preguntas frecuentes'),   body: t('Project galleries, testimonials, and accessible FAQ accordions.', 'Galerías de proyectos, testimonios y acordeones de preguntas frecuentes accesibles.') },
+    { icon: 'mail',   title: t('Contact & forms', 'Contacto y formularios'),    body: t('Inquiry forms and hours/location blocks that route straight to you.', 'Formularios de contacto y bloques de horarios/ubicación que te llegan directo a ti.') },
+  ]
+
   return (
     <>
       <HeroSection
-        eyebrow="Digital business solutions · English & Español"
-        headline="Everything your business needs to look real online — and you own all of it."
-        subtext="Websites, studio-quality product images, and the business setup around them — email, phone, profiles — built for small businesses, priced flat, and put in your name. If you ever leave, you take every piece with you."
+        eyebrow={t('Digital business solutions · English & Español', 'Soluciones digitales para tu negocio · English & Español')}
+        headline={t('Everything your business needs to look real online — and you own all of it.', 'Todo lo que tu negocio necesita para verse real en línea — y todo es tuyo.')}
+        subtext={t(
+          'Websites, studio-quality product images, and the business setup around them — email, phone, profiles — built for small businesses, priced flat, and put in your name. If you ever leave, you take every piece with you.',
+          'Sitios web, imágenes de producto con calidad de estudio y toda la preparación del negocio alrededor — correo, teléfono, perfiles — hechos para pequeños negocios, con precio plano y puestos a tu nombre. Si algún día te vas, te llevas cada pieza contigo.',
+        )}
         ctas={[
-          { label: 'See what we do',   href: '#services',  variant: 'solid' },
-          { label: 'Build your quote', href: '/pricing', variant: 'ghost' },
+          { label: t('See what we do', 'Ver qué hacemos'),   href: '#services',  variant: 'solid' },
+          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing', variant: 'ghost' },
         ]}
         layout="left"
       />
@@ -62,13 +73,13 @@ export default function Home() {
       {/* The service lines — websites are the core, no longer the whole story */}
       <section className="section section--alt gs-svc" id="services">
         <div className="section-container">
-          <p className="section-eyebrow">What we do</p>
-          <h2 className="section-title">One team for your digital presence</h2>
+          <p className="section-eyebrow">{t('What we do', 'Qué hacemos')}</p>
+          <h2 className="section-title">{t('One team for your digital presence', 'Un solo equipo para tu presencia digital')}</h2>
           <p className="section-sub">
-            Most clients start with a website. But everything a small business needs
-            to look established — the site, the product photos, the email, the phone
-            line — comes from the same system, the same team, and the same promise:
-            you own it.
+            {t(
+              'Most clients start with a website. But everything a small business needs to look established — the site, the product photos, the email, the phone line — comes from the same system, the same team, and the same promise: you own it.',
+              'La mayoría de los clientes empiezan con un sitio web. Pero todo lo que un pequeño negocio necesita para verse establecido — el sitio, las fotos de producto, el correo, la línea telefónica — viene del mismo sistema, el mismo equipo y la misma promesa: es tuyo.',
+            )}
           </p>
           <div className="gs-svc__grid">
             {SERVICES.map(s => (
@@ -87,57 +98,63 @@ export default function Home() {
       </section>
 
       <FeatureGrid
-        eyebrow="How websites work here"
-        headline="Honest digital services, start to finish"
-        subtext="Design, hosting, security, and guidance — with one promise underneath all of it: everything we build is yours."
+        eyebrow={t('How websites work here', 'Cómo funcionan los sitios web aquí')}
+        headline={t('Honest digital services, start to finish', 'Servicios digitales honestos, de principio a fin')}
+        subtext={t('Design, hosting, security, and guidance — with one promise underneath all of it: everything we build is yours.', 'Diseño, hosting, seguridad y orientación — con una promesa debajo de todo: todo lo que construimos es tuyo.')}
         items={WHAT_WE_DO}
         columns={4}
         variant="default"
       />
 
       <ImageText
-        eyebrow="Why we do it"
-        headline="We built the opposite of a bad deal"
-        body="A business we know was charged $2,800 for a website they never actually owned — their leads were siphoned to competitors who paid more, and their domain, content, and profiles were held hostage. We started Guillen Solutions to do the exact opposite: honest, upfront, and yours to keep."
+        eyebrow={t('Why we do it', 'Por qué lo hacemos')}
+        headline={t('We built the opposite of a bad deal', 'Construimos lo opuesto a un mal trato')}
+        body={t(
+          'A business we know was charged $2,800 for a website they never actually owned — their leads were siphoned to competitors who paid more, and their domain, content, and profiles were held hostage. We started Guillen Solutions to do the exact opposite: honest, upfront, and yours to keep.',
+          'A un negocio que conocemos le cobraron $2,800 por un sitio web que nunca fue suyo — sus clientes potenciales se desviaban a competidores que pagaban más, y su dominio, contenido y perfiles quedaron secuestrados. Empezamos Guillen Solutions para hacer exactamente lo opuesto: honesto, transparente y tuyo para conservar.',
+        )}
         image="/img/sample-1.svg"
         imageAlt="Guillen Solutions"
         layout="image-right"
-        cta={{ label: 'See what we build', href: '/work', variant: 'ghost-bordered' }}
+        cta={{ label: t('See what we build', 'Ver lo que construimos'), href: '/work', variant: 'ghost-bordered' }}
         variant="default"
       />
 
       {/* Where we fit — the honest comparison against every alternative */}
       <FeatureGrid
-        eyebrow="Where we fit"
-        headline="Between doing it yourself and paying an agency"
-        subtext="Tailored, long-term, content-managed websites that you own — the gap the alternatives leave open."
+        eyebrow={t('Where we fit', 'Dónde encajamos')}
+        headline={t('Between doing it yourself and paying an agency', 'Entre hacerlo tú mismo y pagarle a una agencia')}
+        subtext={t('Tailored, long-term, content-managed websites that you own — the gap the alternatives leave open.', 'Sitios web a la medida, de largo plazo y gestionables que son tuyos — el hueco que las alternativas dejan abierto.')}
         items={POSITIONING}
         columns={4}
         variant="default"
       />
 
       <Steps
-        eyebrow="How it works"
-        headline="From package to keys in four steps"
+        eyebrow={t('How it works', 'Cómo funciona')}
+        headline={t('From package to keys in four steps', 'Del paquete a las llaves en cuatro pasos')}
         items={STEPS}
         variant="alt"
       />
 
       <div id="packages">
         <PricingPlans
-          eyebrow="Packages"
-          headline="Flat, all-in pricing"
-          subtext={`Three tiers, one flat first-year price covering design, hosting, and your domain — then a low yearly rate for hosting + domain renewal, billed transparently. ${PRICING_PROMISE}`}
+          eyebrow={t('Packages', 'Paquetes')}
+          headline={t('Flat, all-in pricing', 'Precio plano, todo incluido')}
+          subtext={`${t(
+            'Three tiers, one flat first-year price covering design, hosting, and your domain — then a low yearly rate for hosting + domain renewal, billed transparently.',
+            'Tres niveles, un precio plano el primer año que cubre diseño, hosting y tu dominio — luego una tarifa anual baja por hosting + renovación del dominio, facturada con transparencia.',
+          )} ${PRICING_PROMISE}`}
           plans={PLANS}
           variant="default"
         />
         <div className="gs-inline-note-wrap">
           <p className="gs-note">
-            Each plan has its own deep dive ({' '}
+            {t('Each plan has its own deep dive', 'Cada plan tiene su propio recorrido a fondo')} ({' '}
             <Link to="/plans/freelance">Freelance</Link> ·{' '}
-            <Link to="/plans/standard">Standard</Link> ·{' '}
+            <Link to="/plans/standard">{t('Standard', 'Estándar')}</Link> ·{' '}
             <Link to="/plans/wordpress">WordPress</Link>{' '}
-            ) and every option lives on one page at <Link to="/pricing">full pricing &amp; order</Link>.
+            ) {t('and every option lives on one page at', 'y todas las opciones viven en una página en')} <Link to="/pricing">{t('full pricing & order', 'precios completos y pedido')}</Link>.
           </p>
           <p className="gs-note">{GROWTH_NOTE}</p>
         </div>
@@ -145,46 +162,56 @@ export default function Home() {
 
       {/* CG product renders — the newest service line, spotlighted */}
       <ImageText
-        eyebrow="New — CG product renders"
-        headline="Product photos, without the photo studio"
-        body="We build a 3D model of your product once, then render every shot you need from it — clean white-background listing images, detail crops, and staged lifestyle scenes. No samples shipped, no reshoot fees, and every extra shot is cheap because the model already exists. From $150 per product, with multi-shot packages made for small businesses — and 15% off when bundled with a website."
+        eyebrow={t('New — CG product renders', 'Nuevo — renders de producto 3D')}
+        headline={t('Product photos, without the photo studio', 'Fotos de producto, sin el estudio fotográfico')}
+        body={t(
+          'We build a 3D model of your product once, then render every shot you need from it — clean white-background listing images, detail crops, and staged lifestyle scenes. No samples shipped, no reshoot fees, and every extra shot is cheap because the model already exists. From $150 per product, with multi-shot packages made for small businesses — and 15% off when bundled with a website.',
+          'Construimos un modelo 3D de tu producto una vez, y luego renderizamos cada toma que necesites a partir de él — imágenes de listado con fondo blanco limpio, acercamientos de detalle y escenas ambientadas. Sin enviar muestras, sin costos de repetición, y cada toma extra es económica porque el modelo ya existe. Desde $150 por producto, con paquetes de varias tomas hechos para pequeños negocios — y 15% de descuento al combinarlo con un sitio web.',
+        )}
         image="/img/sample-2.svg"
         imageAlt="CG product render examples"
         layout="image-left"
-        cta={{ label: 'Explore product renders', href: '/renders', variant: 'solid' }}
+        cta={{ label: t('Explore product renders', 'Explorar renders de producto'), href: '/renders', variant: 'solid' }}
         variant="default"
       />
 
       {/* Your custom CMS + security, one section — the run-it-yourself promise */}
       <FeatureGrid
-        eyebrow="Run it yourself"
-        headline="Your own control panel, built around your business"
+        eyebrow={t('Run it yourself', 'Manéjalo tú mismo')}
+        headline={t('Your own control panel, built around your business', 'Tu propio panel de control, hecho alrededor de tu negocio')}
         subtext={CMS_LEAD}
         items={RUN_SAFE_POINTS}
         columns={4}
         variant="alt"
       />
 
+      {/* Found by search & AI — how we build for discoverability, honestly */}
+      <FeatureGrid
+        eyebrow={FOUND.eyebrow}
+        headline={FOUND.headline}
+        subtext={FOUND.lead}
+        items={FOUND.points}
+        columns={4}
+        variant="default"
+      />
+
       {/* Component library snippet */}
       <section className="section section--default gs-libpeek">
         <div className="section-container">
-          <p className="section-eyebrow">Built-in toolkit</p>
-          <h2 className="section-title">Your site is built from a real component library</h2>
+          <p className="section-eyebrow">{t('Built-in toolkit', 'Kit de herramientas incluido')}</p>
+          <h2 className="section-title">{t('Your site is built from a real component library', 'Tu sitio se construye a partir de una biblioteca de componentes real')}</h2>
           <p className="section-sub">
-            Every Guillen Solutions site is assembled from the same tested, mobile-ready,
-            light-and-dark component set — the one this very page uses. One theme file morphs
-            it into completely different looks, and the library grows with every project we
-            ship — and every new component lands in your toolkit too, free. Every client gets
-            controlled access to all of it: your content is yours to change, while the design
-            system keeps every page safe and consistent. That's how you get custom-tier design
-            at near-template cost.
+            {t(
+              "Every Guillen Solutions site is assembled from the same tested, mobile-ready, light-and-dark component set — the one this very page uses. One theme file morphs it into completely different looks, and the library grows with every project we ship — and every new component lands in your toolkit too, free. Every client gets controlled access to all of it: your content is yours to change, while the design system keeps every page safe and consistent. That's how you get custom-tier design at near-template cost.",
+              'Cada sitio de Guillen Solutions se arma con el mismo conjunto de componentes probados, listos para móvil y con modo claro y oscuro — el mismo que usa esta página. Un solo archivo de tema lo transforma en aspectos completamente distintos, y la biblioteca crece con cada proyecto que entregamos — y cada componente nuevo llega también a tu kit de herramientas, gratis. Cada cliente obtiene acceso controlado a todo: tu contenido es tuyo para cambiar, mientras el sistema de diseño mantiene cada página segura y consistente. Así obtienes diseño a la medida a un costo casi de plantilla.',
+            )}
           </p>
 
           <div className="gs-libpeek__stat">
             <span className="gs-libpeek__num">47<sup>+</sup></span>
             <span className="gs-libpeek__stat-copy">
-              <span className="gs-libpeek__stat-label">components and counting</span>
-              <span className="gs-libpeek__stat-sub">Yours to use — no code required.</span>
+              <span className="gs-libpeek__stat-label">{t('components and counting', 'componentes y contando')}</span>
+              <span className="gs-libpeek__stat-sub">{t('Yours to use — no code required.', 'Tuyos para usar — sin necesidad de código.')}</span>
             </span>
           </div>
 
@@ -196,15 +223,15 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <Link to="/work#library" className="gs-libpeek__cta">Explore the full component library →</Link>
+          <Link to="/work#library" className="gs-libpeek__cta">{t('Explore the full component library →', 'Explora la biblioteca de componentes completa →')}</Link>
         </div>
       </section>
 
       {/* What you own / what we don't do — same Checklist component the CMS
           version renders, so both sources are pixel-identical. */}
       <Checklist
-        eyebrow="The promise"
-        headline="What you own — and what we don't do"
+        eyebrow={t('The promise', 'La promesa')}
+        headline={t("What you own — and what we don't do", 'Qué es tuyo — y qué no hacemos')}
         items={OWNERSHIP}
         variant="alt"
       />
@@ -230,14 +257,17 @@ export default function Home() {
 
       <section className="section section--accent gs-home-cta">
         <div className="section-container">
-          <p className="section-eyebrow">Ready?</p>
-          <h2 className="section-title">Let's get your business online — the honest way.</h2>
+          <p className="section-eyebrow">{t('Ready?', '¿Listo?')}</p>
+          <h2 className="section-title">{t("Let's get your business online — the honest way.", 'Pongamos tu negocio en línea — de la forma honesta.')}</h2>
           <p className="section-sub">
-            Build a quote in a minute, or reach out and we'll talk it through. Boston in person, everywhere else remote. English or Español.
+            {t(
+              "Build a quote in a minute, or reach out and we'll talk it through. Boston in person, everywhere else remote. English or Español.",
+              'Arma una cotización en un minuto, o contáctanos y lo conversamos. Boston en persona, todo lo demás remoto. En inglés o español.',
+            )}
           </p>
           <div className="gs-home-cta__actions">
-            <Link className="gs-btn-solid" to="/pricing">Build your quote</Link>
-            <a className="gs-btn-ghost" href={`mailto:${CONTACT_EMAIL}`}>Get in touch</a>
+            <Link className="gs-btn-solid" to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
+            <a className="gs-btn-ghost" href={`mailto:${CONTACT_EMAIL}`}>{t('Get in touch', 'Contáctanos')}</a>
           </div>
         </div>
       </section>

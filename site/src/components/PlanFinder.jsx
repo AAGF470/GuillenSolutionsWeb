@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import { PACKAGES } from '../data'
 import InquiryForm from './InquiryForm.jsx'
+import { useContent } from '../content.js'
+import { useT } from '../i18n.jsx'
 import './PlanFinder.css'
 
 // ---------------------------------------------------------------------------
@@ -15,75 +16,77 @@ import './PlanFinder.css'
 
 const money = n => `$${n.toLocaleString('en-US')}`
 
-const QUESTIONS = [
-  {
-    id: 'kind',
-    q: 'What best describes your business?',
-    options: [
-      { v: 'solo',     label: 'Just me',            sub: 'Freelancer, stylist, tutor, maker — clients hire you.' },
-      { v: 'services', label: 'A local business',   sub: 'Contractor, shop, salon, restaurant — services & hours.' },
-      { v: 'products', label: 'We sell products',   sub: 'A catalog, a menu, listings — things people browse.' },
-    ],
-  },
-  {
-    id: 'commerce',
-    q: 'Will customers buy, book, or order online?',
-    options: [
-      { v: 'yes',   label: 'Yes',       sub: 'Checkout, reservations, or online ordering on the site.' },
-      { v: 'later', label: 'Maybe later', sub: 'Start with inquiries; add ordering when it makes sense.' },
-      { v: 'no',    label: 'No',        sub: 'The site brings people in; sales happen in person.' },
-    ],
-  },
-  {
-    id: 'maintain',
-    q: 'Who should be able to maintain it long-term?',
-    options: [
-      { v: 'us',  label: 'Keep it simple',      sub: 'You edit content; we handle everything technical.' },
-      { v: 'any', label: 'Any developer, ever', sub: 'Maximum portability matters to you — even at a premium.' },
-    ],
-  },
-  {
-    id: 'photos',
-    q: 'Do you need product photos?',
-    options: [
-      { v: 'yes', label: 'Yes',  sub: 'Clean listing shots or lifestyle imagery of what you sell.' },
-      { v: 'no',  label: 'No',   sub: 'You have photos, or your business doesn\'t need them.' },
-    ],
-  },
-]
-
-// Answers → one opinionated recommendation.
-function recommend(a) {
-  const plan = PACKAGES.find(p =>
-    p.id === (a.maintain === 'any' ? 'wordpress' : a.kind === 'solo' ? 'freelance' : 'standard'))
-
-  const lines = [{ label: `${plan.name} — first year, all-in`, amount: plan.firstYear }]
-  const notes = []
-
-  if (a.commerce === 'yes') {
-    lines.push({ label: 'External platform integration (checkout / booking)', amount: 400 })
-    notes.push('Your Shopify / Square / booking account stays in your name; the $400 is our one-time integration.')
-  }
-  if (a.kind !== 'solo') {
-    lines.push({ label: 'Google Business Profile setup', amount: 300 })
-    notes.push('For a local business, Maps presence usually matters more than anything on the site itself.')
-  }
-  if (a.photos === 'yes') {
-    // Full listing pack $600, 15% off when bundled with a website build.
-    lines.push({ label: 'Full listing pack (renders) — 15% bundle discount', amount: 510 })
-    notes.push('One product modeled + 6 studio shots + a lifestyle hero. Product lines quote per variant, not per product.')
-  }
-  if (a.commerce === 'later') {
-    notes.push('Ordering can be added anytime later as a $400 integration — nothing to decide today.')
-  }
-
-  const firstYear = lines.reduce((s, l) => s + l.amount, 0)
-  return { plan, lines, notes, firstYear, recurring: plan.recurring }
-}
-
 export default function PlanFinder() {
+  const t = useT()
+  const { PACKAGES } = useContent()
   const [answers, setAnswers] = useState({})
   const [step, setStep] = useState(0)
+
+  const QUESTIONS = [
+    {
+      id: 'kind',
+      q: t('What best describes your business?', '¿Qué describe mejor a tu negocio?'),
+      options: [
+        { v: 'solo',     label: t('Just me', 'Solo yo'),                   sub: t('Freelancer, stylist, tutor, maker — clients hire you.', 'Freelancer, estilista, tutor, artesano — los clientes te contratan a ti.') },
+        { v: 'services', label: t('A local business', 'Un negocio local'), sub: t('Contractor, shop, salon, restaurant — services & hours.', 'Contratista, tienda, salón, restaurante — servicios y horarios.') },
+        { v: 'products', label: t('We sell products', 'Vendemos productos'), sub: t('A catalog, a menu, listings — things people browse.', 'Un catálogo, un menú, listados — cosas que la gente explora.') },
+      ],
+    },
+    {
+      id: 'commerce',
+      q: t('Will customers buy, book, or order online?', '¿Los clientes comprarán, reservarán o pedirán en línea?'),
+      options: [
+        { v: 'yes',   label: t('Yes', 'Sí'),                 sub: t('Checkout, reservations, or online ordering on the site.', 'Checkout, reservas o pedidos en línea en el sitio.') },
+        { v: 'later', label: t('Maybe later', 'Tal vez después'), sub: t('Start with inquiries; add ordering when it makes sense.', 'Empieza con consultas; agrega pedidos cuando tenga sentido.') },
+        { v: 'no',    label: t('No', 'No'),                  sub: t('The site brings people in; sales happen in person.', 'El sitio atrae a la gente; las ventas suceden en persona.') },
+      ],
+    },
+    {
+      id: 'maintain',
+      q: t('Who should be able to maintain it long-term?', '¿Quién debería poder mantenerlo a largo plazo?'),
+      options: [
+        { v: 'us',  label: t('Keep it simple', 'Manténlo simple'),           sub: t('You edit content; we handle everything technical.', 'Tú editas el contenido; nosotros manejamos todo lo técnico.') },
+        { v: 'any', label: t('Any developer, ever', 'Cualquier desarrollador, siempre'), sub: t('Maximum portability matters to you — even at a premium.', 'La máxima portabilidad te importa — aunque cueste más.') },
+      ],
+    },
+    {
+      id: 'photos',
+      q: t('Do you need product photos?', '¿Necesitas fotos de producto?'),
+      options: [
+        { v: 'yes', label: t('Yes', 'Sí'), sub: t('Clean listing shots or lifestyle imagery of what you sell.', 'Tomas de listado limpias o imágenes ambientadas de lo que vendes.') },
+        { v: 'no',  label: t('No', 'No'),  sub: t("You have photos, or your business doesn't need them.", 'Ya tienes fotos, o tu negocio no las necesita.') },
+      ],
+    },
+  ]
+
+  // Answers → one opinionated recommendation.
+  function recommend(a) {
+    const plan = PACKAGES.find(p =>
+      p.id === (a.maintain === 'any' ? 'wordpress' : a.kind === 'solo' ? 'freelance' : 'standard'))
+
+    const lines = [{ label: `${plan.name} — ${t('first year, all-in', 'primer año, todo incluido')}`, amount: plan.firstYear }]
+    const notes = []
+
+    if (a.commerce === 'yes') {
+      lines.push({ label: t('External platform integration (checkout / booking)', 'Integración con plataforma externa (checkout / reservas)'), amount: 400 })
+      notes.push(t('Your Shopify / Square / booking account stays in your name; the $400 is our one-time integration.', 'Tu cuenta de Shopify / Square / reservas queda a tu nombre; los $400 son nuestra integración única.'))
+    }
+    if (a.kind !== 'solo') {
+      lines.push({ label: t('Google Business Profile setup', 'Configuración de Perfil de Empresa de Google'), amount: 300 })
+      notes.push(t('For a local business, Maps presence usually matters more than anything on the site itself.', 'Para un negocio local, la presencia en Maps suele importar más que cualquier cosa del sitio mismo.'))
+    }
+    if (a.photos === 'yes') {
+      // Full listing pack $600, 15% off when bundled with a website build.
+      lines.push({ label: t('Full listing pack (renders) — 15% bundle discount', 'Paquete de listado completo (renders) — 15% de descuento por combo'), amount: 510 })
+      notes.push(t('One product modeled + 6 studio shots + a lifestyle hero. Product lines quote per variant, not per product.', 'Un producto modelado + 6 tomas de estudio + una portada ambientada. Las líneas de producto se cotizan por variante, no por producto.'))
+    }
+    if (a.commerce === 'later') {
+      notes.push(t('Ordering can be added anytime later as a $400 integration — nothing to decide today.', 'Los pedidos se pueden agregar más adelante como una integración de $400 — nada que decidir hoy.'))
+    }
+
+    const firstYear = lines.reduce((s, l) => s + l.amount, 0)
+    return { plan, lines, notes, firstYear, recurring: plan.recurring }
+  }
 
   const done = step >= QUESTIONS.length
   const rec = useMemo(() => (done ? recommend(answers) : null), [done, answers])
@@ -95,7 +98,10 @@ export default function PlanFinder() {
   function restart() { setAnswers({}); setStep(0) }
 
   const summary = rec
-    ? `Plan finder: ${rec.plan.name} + ${rec.lines.length - 1} add-on(s) — ${money(rec.firstYear)} first year`
+    ? t(
+        `Plan finder: ${rec.plan.name} + ${rec.lines.length - 1} add-on(s) — ${money(rec.firstYear)} first year`,
+        `Buscador de plan: ${rec.plan.name} + ${rec.lines.length - 1} complemento(s) — ${money(rec.firstYear)} primer año`,
+      )
     : ''
 
   return (
@@ -117,7 +123,7 @@ export default function PlanFinder() {
             ))}
           </div>
           {step > 0 && (
-            <button type="button" className="gs-finder__back" onClick={() => setStep(s => s - 1)}>← Back</button>
+            <button type="button" className="gs-finder__back" onClick={() => setStep(s => s - 1)}>{t('← Back', '← Atrás')}</button>
           )}
         </div>
       )}
@@ -125,7 +131,7 @@ export default function PlanFinder() {
       {done && rec && (
         <div className="gs-finder__result">
           <div className="gs-finder__card">
-            <p className="gs-finder__rec-eyebrow">Our recommendation</p>
+            <p className="gs-finder__rec-eyebrow">{t('Our recommendation', 'Nuestra recomendación')}</p>
             <h3 className="gs-finder__rec-name">{rec.plan.name}</h3>
             <p className="gs-finder__rec-desc">{rec.plan.description}</p>
             <ul className="gs-finder__lines">
@@ -134,11 +140,11 @@ export default function PlanFinder() {
               ))}
             </ul>
             <div className="gs-finder__total">
-              <span>First year, all-in</span>
+              <span>{t('First year, all-in', 'Primer año, todo incluido')}</span>
               <strong>{money(rec.firstYear)}</strong>
             </div>
             <div className="gs-finder__total gs-finder__total--sub">
-              <span>Then, recurring</span>
+              <span>{t('Then, recurring', 'Luego, recurrente')}</span>
               <strong>{money(rec.recurring)}/yr</strong>
             </div>
             {rec.notes.length > 0 && (
@@ -149,24 +155,26 @@ export default function PlanFinder() {
           </div>
 
           <div className="gs-finder__send">
-            <p className="gs-finder__send-title">Like it? Send it as a request — nothing is charged.</p>
+            <p className="gs-finder__send-title">{t('Like it? Send it as a request — nothing is charged.', '¿Te gusta? Envíalo como solicitud — no se cobra nada.')}</p>
             <InquiryForm
               source="plan-finder"
               summary={summary}
               details={{ answers, lines: rec.lines, firstYear: rec.firstYear, recurring: rec.recurring }}
-              cta="Send this request"
+              cta={t('Send this request', 'Enviar esta solicitud')}
             />
             <div className="gs-finder__alt">
-              <button type="button" onClick={restart}>Start over</button>
-              <a href="#order">or fine-tune every option in the builder below ↓</a>
+              <button type="button" onClick={restart}>{t('Start over', 'Empezar de nuevo')}</button>
+              <a href="#order">{t('or fine-tune every option in the builder below ↓', 'o ajusta cada opción en el configurador de abajo ↓')}</a>
             </div>
           </div>
         </div>
       )}
 
       <p className="gs-finder__meta">
-        This finder is itself a live example of the guided custom forms we build
-        for clients ($250) — scent quizzes, service matchers, intake flows.
+        {t(
+          'This finder is itself a live example of the guided custom forms we build for clients ($250) — scent quizzes, service matchers, intake flows.',
+          'Este buscador es en sí un ejemplo real de los formularios guiados a la medida que construimos para clientes ($250) — quizzes de aromas, emparejadores de servicios, flujos de admisión.',
+        )}
       </p>
     </div>
   )

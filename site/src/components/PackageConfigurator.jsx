@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react'
 import './PackageConfigurator.css'
-import { PACKAGES, ADDONS, ON_DEMAND } from '../data'
+import { useContent } from '../content.js'
+import { useT } from '../i18n.jsx'
 import InquiryForm from './InquiryForm.jsx'
-
-const ALL_ADDONS = [...ADDONS, ...ON_DEMAND]
 
 // ---------------------------------------------------------------------------
 // PackageConfigurator — the "configuration form".
@@ -22,6 +21,10 @@ const Check = () => (
 )
 
 export default function PackageConfigurator() {
+  const t = useT()
+  const { PACKAGES, ADDONS, ON_DEMAND } = useContent()
+  const ALL_ADDONS = [...ADDONS, ...ON_DEMAND]
+
   const [pkgId, setPkgId]   = useState('standard')
   const [addons, setAddons] = useState(() => new Set())
   const [qty, setQty]       = useState({})   // per-unit add-on quantities
@@ -64,16 +67,16 @@ export default function PackageConfigurator() {
   }, [pkg, addons, qty])
 
   function lineAmount(a) {
-    if (a.kind === 'quoted')   return 'quoted'
+    if (a.kind === 'quoted')   return t('quoted', 'cotizado')
     if (a.kind === 'per-unit') return money(a.amount * (qty[a.id] || 1))
-    if (a.kind === 'recurring') return `${a.approx ? 'from ' : ''}${money(a.amount)}/yr`
+    if (a.kind === 'recurring') return `${a.approx ? t('from ', 'desde ') : ''}${money(a.amount)}/${t('yr', 'año')}`
     return money(a.amount)
   }
 
   // One line for the CMS inbox list; the full selection travels as JSON.
   const inquirySummary =
-    `${pkg ? pkg.name : 'No package'}${summary.chosen.length ? ` + ${summary.chosen.length} add-on(s)` : ''}` +
-    ` — ${money(summary.firstYear)}${summary.quoted.length ? '+' : ''} first year`
+    `${pkg ? pkg.name : t('No package', 'Ningún paquete')}${summary.chosen.length ? ` + ${summary.chosen.length} ${t('add-on(s)', 'complemento(s)')}` : ''}` +
+    ` — ${money(summary.firstYear)}${summary.quoted.length ? '+' : ''} ${t('first year', 'primer año')}`
   const inquiryDetails = {
     package: pkg ? { id: pkg.id, name: pkg.name, firstYear: pkg.firstYear, recurring: pkg.recurring } : null,
     addons: summary.chosen.map(a => ({
@@ -91,7 +94,7 @@ export default function PackageConfigurator() {
       {/* ── Choices ─────────────────────────────────────────────────────── */}
       <div className="cfg__choices">
         <fieldset className="cfg__group">
-          <legend className="cfg__legend">1 · Choose a base package</legend>
+          <legend className="cfg__legend">{t('1 · Choose a base package', '1 · Elige un paquete base')}</legend>
           <div className="cfg__pkgs">
             {PACKAGES.map(p => {
               const active = p.id === pkgId
@@ -117,7 +120,7 @@ export default function PackageConfigurator() {
 
       <div className="cfg__extras">
         <fieldset className="cfg__group">
-          <legend className="cfg__legend">2 · Add only what you need</legend>
+          <legend className="cfg__legend">{t('2 · Add only what you need', '2 · Agrega solo lo que necesitas')}</legend>
           <div className="cfg__addons">
             {ADDONS.map(a => {
               const active = addons.has(a.id)
@@ -142,11 +145,11 @@ export default function PackageConfigurator() {
 
                   {active && perUnit && (
                     <div className="cfg-addon__stepper">
-                      <span className="cfg-addon__stepper-label">How many extra {a.unitPlural}?</span>
+                      <span className="cfg-addon__stepper-label">{t(`How many extra ${a.unitPlural}?`, `¿Cuántos ${a.unitPlural} extra?`)}</span>
                       <div className="cfg-stepper">
-                        <button type="button" onClick={() => bumpQty(a.id, -1)} aria-label={`Fewer ${a.unitPlural}`}>−</button>
+                        <button type="button" onClick={() => bumpQty(a.id, -1)} aria-label={t(`Fewer ${a.unitPlural}`, `Menos ${a.unitPlural}`)}>−</button>
                         <span className="cfg-stepper__val">{qty[a.id] || 1}</span>
-                        <button type="button" onClick={() => bumpQty(a.id, 1)} aria-label={`More ${a.unitPlural}`}>+</button>
+                        <button type="button" onClick={() => bumpQty(a.id, 1)} aria-label={t(`More ${a.unitPlural}`, `Más ${a.unitPlural}`)}>+</button>
                       </div>
                       <span className="cfg-addon__linetotal">{money(a.amount * (qty[a.id] || 1))}</span>
                     </div>
@@ -158,7 +161,7 @@ export default function PackageConfigurator() {
         </fieldset>
 
         <fieldset className="cfg__group">
-          <legend className="cfg__legend">3 · On-demand extras — usually added later, all available now</legend>
+          <legend className="cfg__legend">{t('3 · On-demand extras — usually added later, all available now', '3 · Extras a pedido — normalmente se agregan después, todos disponibles ahora')}</legend>
           <div className="cfg__addons">
             {ON_DEMAND.map(a => {
               const active = addons.has(a.id)
@@ -183,11 +186,11 @@ export default function PackageConfigurator() {
 
                   {active && perUnit && (
                     <div className="cfg-addon__stepper">
-                      <span className="cfg-addon__stepper-label">How many {a.unitPlural}?</span>
+                      <span className="cfg-addon__stepper-label">{t(`How many ${a.unitPlural}?`, `¿Cuántos ${a.unitPlural}?`)}</span>
                       <div className="cfg-stepper">
-                        <button type="button" onClick={() => bumpQty(a.id, -1)} aria-label={`Fewer ${a.unitPlural}`}>−</button>
+                        <button type="button" onClick={() => bumpQty(a.id, -1)} aria-label={t(`Fewer ${a.unitPlural}`, `Menos ${a.unitPlural}`)}>−</button>
                         <span className="cfg-stepper__val">{qty[a.id] || 1}</span>
-                        <button type="button" onClick={() => bumpQty(a.id, 1)} aria-label={`More ${a.unitPlural}`}>+</button>
+                        <button type="button" onClick={() => bumpQty(a.id, 1)} aria-label={t(`More ${a.unitPlural}`, `Más ${a.unitPlural}`)}>+</button>
                       </div>
                       <span className="cfg-addon__linetotal">{money(a.amount * (qty[a.id] || 1))}</span>
                     </div>
@@ -202,11 +205,11 @@ export default function PackageConfigurator() {
       {/* ── Live summary ────────────────────────────────────────────────── */}
       <aside className="cfg__summary">
         <div className="cfg-sum">
-          <p className="cfg-sum__title">Your setup</p>
+          <p className="cfg-sum__title">{t('Your setup', 'Tu configuración')}</p>
 
           <ul className="cfg-sum__lines">
             <li className="cfg-sum__line">
-              <span>{pkg ? pkg.name : 'No package selected'}</span>
+              <span>{pkg ? pkg.name : t('No package selected', 'Ningún paquete seleccionado')}</span>
               <span>{pkg ? money(pkg.firstYear) : '—'}</span>
             </li>
             {summary.chosen.map(a => (
@@ -219,18 +222,18 @@ export default function PackageConfigurator() {
 
           <div className="cfg-sum__totals">
             <div className="cfg-sum__total">
-              <span>First year, all-in</span>
-              <strong>{summary.approx ? 'from ' : ''}{money(summary.firstYear)}{summary.quoted.length ? '+' : ''}</strong>
+              <span>{t('First year, all-in', 'Primer año, todo incluido')}</span>
+              <strong>{summary.approx ? t('from ', 'desde ') : ''}{money(summary.firstYear)}{summary.quoted.length ? '+' : ''}</strong>
             </div>
             <div className="cfg-sum__total cfg-sum__total--sub">
-              <span>Then, recurring</span>
-              <strong>{summary.approx ? 'from ' : ''}{money(summary.recurring)}/yr</strong>
+              <span>{t('Then, recurring', 'Luego, recurrente')}</span>
+              <strong>{summary.approx ? t('from ', 'desde ') : ''}{money(summary.recurring)}/{t('yr', 'año')}</strong>
             </div>
           </div>
 
           {summary.quoted.length > 0 && (
             <p className="cfg-sum__quoted">
-              Quoted per business: {summary.quoted.map(a => a.name).join(', ')}.
+              {t('Quoted per business:', 'Cotizado por negocio:')} {summary.quoted.map(a => a.name).join(', ')}.
             </p>
           )}
 
@@ -238,12 +241,14 @@ export default function PackageConfigurator() {
             source="configurator"
             summary={inquirySummary}
             details={inquiryDetails}
-            cta="Request this setup"
+            cta={t('Request this setup', 'Solicitar esta configuración')}
             compact
           />
           <p className="cfg-sum__fine">
-            Just an estimate — nothing is charged. Recurring items are billed yearly,
-            starting in year one. We confirm every number in writing before any work begins.
+            {t(
+              'Just an estimate — nothing is charged. Recurring items are billed yearly, starting in year one. We confirm every number in writing before any work begins.',
+              'Solo un estimado — no se cobra nada. Los artículos recurrentes se facturan anualmente, empezando el primer año. Confirmamos cada número por escrito antes de comenzar cualquier trabajo.',
+            )}
           </p>
         </div>
       </aside>
