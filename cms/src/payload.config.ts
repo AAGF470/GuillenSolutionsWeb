@@ -194,6 +194,60 @@ const Inquiries = {
   ],
 }
 
+// Updates — the public Status Center feed (/status on the site): stack &
+// infrastructure updates, feature launches, business announcements, incidents,
+// and maintenance. Public read; editors author. Newest-first, pinned on top.
+const Updates = {
+  slug: 'updates',
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'category', 'publishedAt', 'pinned'],
+    description: 'Status center feed shown on the site\'s /status page. Post stack updates, feature launches, announcements, and incidents.',
+  },
+  access: { read: () => true, create: editorCanWrite, update: editorCanWrite, delete: isAdmin },
+  fields: [
+    { name: 'title', type: 'text', required: true },
+    {
+      name: 'category',
+      type: 'select',
+      required: true,
+      defaultValue: 'announcement',
+      options: [
+        { label: 'Stack / infrastructure', value: 'stack' },
+        { label: 'New feature', value: 'feature' },
+        { label: 'Business announcement', value: 'announcement' },
+        { label: 'Incident', value: 'incident' },
+        { label: 'Maintenance', value: 'maintenance' },
+      ],
+    },
+    { name: 'body', type: 'textarea', admin: { description: 'Short description shown under the title.' } },
+    { name: 'linkLabel', type: 'text', admin: { description: 'Optional call-to-action label.' } },
+    { name: 'linkHref', type: 'text', admin: { description: 'Optional link URL for the CTA.' } },
+    { name: 'pinned', type: 'checkbox', defaultValue: false, admin: { description: 'Pin to the top — e.g. an active incident or headline announcement.' } },
+    { name: 'publishedAt', type: 'date', required: true, admin: { description: 'Shown on the entry + used for ordering (newest first).' } },
+  ],
+}
+
+// Builds — the Work page's "currently in development" showcase. One entry =
+// one screenshot + a little text. Editors just upload an image and fill a
+// couple fields; the site renders them as browser-framed cards. Public read.
+const Builds = {
+  slug: 'builds',
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'kind', 'url', 'updatedAt'],
+    description: 'Work-page showcase of sites in development. Upload a screenshot + a line of text; newest shows first on /work.',
+  },
+  access: { read: () => true, create: editorCanWrite, update: editorCanWrite, delete: isAdmin },
+  fields: [
+    { name: 'title', type: 'text', required: true },
+    { name: 'image', type: 'upload', relationTo: 'media', required: true, admin: { description: 'Screenshot of the site — drag & drop an image.' } },
+    { name: 'kind', type: 'text', admin: { description: 'Short label under the title, e.g. "Hair salon · in development".' } },
+    { name: 'url', type: 'text', admin: { description: 'Domain shown in the browser bar (optional), e.g. "example.com".' } },
+    { name: 'blurb', type: 'textarea', admin: { description: 'One or two sentences about the build.' } },
+  ],
+}
+
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   secret: process.env.PAYLOAD_SECRET || '',
@@ -212,7 +266,7 @@ export default buildConfig({
     push: false,
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
-  collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any, Inquiries as any],
+  collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any, Inquiries as any, Updates as any, Builds as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
   sharp,

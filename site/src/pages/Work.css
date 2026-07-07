@@ -143,4 +143,19 @@
   display: inline-block; margin-top: 16px;
   font-size: 14px; font-weight: 600; color: var(--color-accent);
 }
+
+/* Screenshot placeholder — shown until a real capture is saved at the path. */
+.work-shot-ph {
+  aspect-ratio: 16 / 10;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  background: repeating-linear-gradient(45deg, #f7f2ea, #f7f2ea 12px, #f2ebe0 12px, #f2ebe0 24px);
+  border-top: 1px dashed var(--color-border-mid);
+  color: var(--color-text-dim);
+  text-align: center; padding: 16px;
+}
+.work-shot-ph__tag {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gs-ember);
+}
+.work-shot-ph small { font-family: monospace; font-size: 11px; color: var(--color-text-dim); word-break: break-all; }
 .work-concept:hover .work-concept__cta { text-decoration: underline; }

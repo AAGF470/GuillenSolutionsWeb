@@ -1,7 +1,12 @@
+import { useState, useEffect } from 'react'
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
 import { useT } from '../i18n.jsx'
 import './Work.css'
+
+const CMS = import.meta.env.VITE_CMS_URL
+// Payload media URLs are relative to the CMS server — make them absolute.
+const mediaUrl = u => (u ? (/^https?:\/\//.test(u) ? u : `${CMS}${u}`) : null)
 
 // ---------------------------------------------------------------------------
 // Work & Library — merged showcase page: what we've built (client work) and
@@ -17,6 +22,36 @@ function BrowserFrame({ url, image, alt }) {
         <span className="work-frame__url">{url}</span>
       </div>
       <img className="work-frame__screen" src={image} alt={alt} loading="lazy" />
+    </div>
+  )
+}
+
+// A browser frame that shows a screenshot once one exists at `image`, and a
+// tidy "drop it here" placeholder until then. Just save the real capture at the
+// given path — no code change needed (the onError fallback swaps automatically).
+function ScreenshotFrame({ url, image, alt }) {
+  const t = useT()
+  const [failed, setFailed] = useState(false)
+  return (
+    <div className="work-frame">
+      <div className="work-frame__bar">
+        <span className="work-frame__dots"><i /><i /><i /></span>
+        <span className="work-frame__url">{url}</span>
+      </div>
+      {failed ? (
+        <div className="work-shot-ph">
+          <span className="work-shot-ph__tag">{t('Screenshot coming soon', 'Captura próximamente')}</span>
+          <small>{image}</small>
+        </div>
+      ) : (
+        <img
+          className="work-frame__screen" src={image} alt={alt} loading="lazy"
+          onError={() => setFailed(true)}
+          // A missing file can still "load" (e.g. a dev-server HTML fallback);
+          // a real image has a non-zero natural width, a broken one doesn't.
+          onLoad={e => { if (!e.currentTarget.naturalWidth) setFailed(true) }}
+        />
+      )}
     </div>
   )
 }
@@ -66,46 +101,28 @@ export default function WorkAndLibrary() {
     { stat: '1', label: t('component system', 'sistema de componentes'), sub: t('behind every one of them', 'detrás de cada uno de ellos') },
   ]
 
-  // Design concepts — spec builds that prove the range (and, for the boutique,
-  // double as a showcase of the CG product renders). Live, scrollable, labeled
-  // as concepts. Add more here as the portfolio grows.
-  const EXAMPLES = [
-    {
-      name: 'Marigold & Ash',
-      kind: t('Hair studio & spa · design concept', 'Estudio de cabello y spa · concepto de diseño'),
-      url: 'marigoldandash.com',
-      href: '/examples/salon/index.html',
-      blurb: t('Warm, editorial, photo-forward — the presentation an aesthetic-driven business lives or dies on. A world away from a template, and from a dark technical brand.', 'Cálido, editorial, con la foto al frente — la presentación de la que depende un negocio guiado por la estética. A un mundo de distancia de una plantilla, y de una marca técnica oscura.'),
-    },
-    {
-      name: 'Ember & Field',
-      kind: t('Candles & ceramics · design concept', 'Velas y cerámica · concepto de diseño'),
-      url: 'emberandfield.com',
-      href: '/examples/boutique/index.html',
-      blurb: t('A product-forward shop for a small-batch maker — clean, tactile, gallery-minimal. The product grid is exactly where our CG renders live: model once, shoot every listing.', 'Una tienda con el producto al frente para un fabricante de lotes pequeños — limpia, táctil, de galería minimalista. La cuadrícula de productos es justo donde viven nuestros renders CG: modela una vez, fotografía cada artículo.'),
-    },
-    {
-      name: 'Copper & Rye',
-      kind: t('Cocktail bar & kitchen · design concept', 'Bar de cócteles y cocina · concepto de diseño'),
-      url: 'copperandrye.com',
-      href: '/examples/bar/index.html',
-      blurb: t('Dark, cinematic, and moody — near-black and copper with a high-contrast serif. The same system can turn the lights way down for a bar or restaurant.', 'Oscuro, cinematográfico y con carácter — casi negro y cobre con una tipografía serif de alto contraste. El mismo sistema puede bajar mucho las luces para un bar o restaurante.'),
-    },
-    {
-      name: 'Kinetic',
-      kind: t('Fitness studio · design concept', 'Estudio de fitness · concepto de diseño'),
-      url: 'kineticstudio.com',
-      href: '/examples/studio/index.html',
-      blurb: t('Loud, bold, color-blocked, high-energy — heavy type and electric coral. Proof the range runs all the way to confident and kinetic, not just calm and premium.', 'Estridente, atrevido, con bloques de color y mucha energía — tipografía gruesa y coral eléctrico. La prueba de que el rango llega hasta lo seguro y dinámico, no solo lo calmado y premium.'),
-    },
-  ]
+  // In-development builds — pulled from the CMS `builds` collection so they're
+  // fully editable without code: in /admin, upload a screenshot + a line of
+  // text and it appears here (newest first). The section hides itself until
+  // there's at least one entry.
+  const [builds, setBuilds] = useState(null) // null = loading, [] = none
+
+  useEffect(() => {
+    if (!CMS) { setBuilds([]); return }
+    let alive = true
+    fetch(`${CMS}/api/builds?sort=-createdAt&depth=1&limit=12`)
+      .then(r => (r.ok ? r.json() : { docs: [] }))
+      .then(d => { if (alive) setBuilds(d?.docs ?? []) })
+      .catch(() => { if (alive) setBuilds([]) })
+    return () => { alive = false }
+  }, [])
 
   return (
     <>
       <HeroSection
         eyebrow={t('Our work', 'Nuestro trabajo')}
         headline={t('Custom sites, built to be owned.', 'Sitios a la medida, hechos para ser tuyos.')}
-        subtext={t('From a boutique salon to a Long Island contractor to a Boston game studio — genuinely different businesses, genuinely different looks, none of them a template. Every one designed to fit the business, and owned by the client outright. Concepts and real client work below.', 'Desde un salón boutique hasta un contratista de Long Island y un estudio de videojuegos en Boston — negocios genuinamente distintos, con looks genuinamente distintos, ninguno una plantilla. Cada uno diseñado a la medida del negocio y propiedad total del cliente. Conceptos y trabajo real de clientes abajo.')}
+        subtext={t('From a Dallas electrician to a Long Island contractor to a Boston game studio — genuinely different businesses, genuinely different looks, none of them a template. Every one designed to fit the business, and owned by the client outright. Real client work and builds in progress below.', 'Desde un electricista en Dallas hasta un contratista de Long Island y un estudio de videojuegos en Boston — negocios genuinamente distintos, con looks genuinamente distintos, ninguno una plantilla. Cada uno diseñado a la medida del negocio y propiedad total del cliente. Trabajo real de clientes y construcciones en curso abajo.')}
         size="compact"
         variant="alt"
         ctas={[]}
@@ -153,42 +170,35 @@ export default function WorkAndLibrary() {
         </div>
       </section>
 
-      {/* Design concepts — live, scrollable spec sites that prove the range */}
-      <section className="section section--default work-examples-sec">
-        <div className="section-container">
-          <p className="section-eyebrow">{t('Design concepts', 'Conceptos de diseño')}</p>
-          <h2 className="section-title">{t('What "custom" actually looks like', 'Cómo se ve realmente lo "a la medida"')}</h2>
-          <p className="section-sub">
-            {t('Everyone says "custom." Here\'s the proof — concept builds for the kind of businesses whose first impression is everything. Different worlds, different looks, none of them a template. They\'re live: open one and scroll.', 'Todos dicen "a la medida." Aquí está la prueba — construcciones conceptuales para el tipo de negocios cuya primera impresión lo es todo. Mundos distintos, looks distintos, ninguno una plantilla. Están en vivo: abre uno y desplázate.')}
-          </p>
-          <div className="work-examples">
-            {EXAMPLES.map(ex => (
-              <a key={ex.href} className="work-concept" href={ex.href} target="_blank" rel="noopener noreferrer">
-                <div className="work-frame">
-                  <div className="work-frame__bar">
-                    <span className="work-frame__dots"><i /><i /><i /></span>
-                    <span className="work-frame__url">{ex.url}</span>
-                  </div>
-                  <div className="work-concept__viewport">
-                    <iframe
-                      className="work-concept__frame"
-                      src={ex.href}
-                      title={`${ex.name} — design concept`}
-                      loading="lazy" tabIndex={-1} aria-hidden="true" scrolling="no"
-                    />
+      {/* In development — CMS-managed (the `builds` collection). Hidden until
+          there's at least one entry, so a fresh site stays clean. */}
+      {builds?.length > 0 && (
+        <section className="section section--default work-examples-sec">
+          <div className="section-container">
+            <p className="section-eyebrow">{t('On the workbench', 'En el taller')}</p>
+            <h2 className="section-title">{t('Currently in development', 'Actualmente en desarrollo')}</h2>
+            <p className="section-sub">
+              {t('Sites we\'re building right now — different businesses, different looks, none of them a template.', 'Sitios que estamos construyendo ahora mismo — negocios distintos, looks distintos, ninguno una plantilla.')}
+            </p>
+            <div className="work-examples">
+              {builds.map(b => (
+                <div key={b.id} className="work-concept">
+                  <ScreenshotFrame
+                    url={b.url || t('in development', 'en desarrollo')}
+                    image={mediaUrl(b.image?.sizes?.card?.url || b.image?.url)}
+                    alt={`${b.title} — screenshot`}
+                  />
+                  <div className="work-concept__cap">
+                    <h3 className="work-concept__name">{b.title}</h3>
+                    {b.kind && <p className="work-concept__kind">{b.kind}</p>}
+                    {b.blurb && <p className="work-concept__blurb">{b.blurb}</p>}
                   </div>
                 </div>
-                <div className="work-concept__cap">
-                  <h3 className="work-concept__name">{ex.name}</h3>
-                  <p className="work-concept__kind">{ex.kind}</p>
-                  <p className="work-concept__blurb">{ex.blurb}</p>
-                  <span className="work-concept__cta">{t('Open the live concept ↗', 'Abrir el concepto en vivo ↗')}</span>
-                </div>
-              </a>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* The system behind the work */}
       <LibraryFacts />

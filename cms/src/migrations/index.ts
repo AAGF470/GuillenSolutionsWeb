@@ -8,6 +8,8 @@ import * as migration_20260703_010853_posts_devlog_upgrade from './20260703_0108
 import * as migration_20260703_031845_add_expressions from './20260703_031845_add_expressions';
 import * as migration_20260703_052823_full_catalog_blocks from './20260703_052823_full_catalog_blocks';
 import * as migration_20260705_180504_add_inquiries from './20260705_180504_add_inquiries';
+import * as migration_20260707_190000_add_updates from './20260707_190000_add_updates';
+import * as migration_20260707_193000_add_builds from './20260707_193000_add_builds';
 
 export const migrations = [
   {
@@ -59,5 +61,15 @@ export const migrations = [
     up: migration_20260705_180504_add_inquiries.up,
     down: migration_20260705_180504_add_inquiries.down,
     name: '20260705_180504_add_inquiries'
+  },
+  {
+    up: migration_20260707_190000_add_updates.up,
+    down: migration_20260707_190000_add_updates.down,
+    name: '20260707_190000_add_updates'
+  },
+  {
+    up: migration_20260707_193000_add_builds.up,
+    down: migration_20260707_193000_add_builds.down,
+    name: '20260707_193000_add_builds'
   },
 ];

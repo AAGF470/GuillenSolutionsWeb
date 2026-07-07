@@ -37,7 +37,7 @@ const NAV = [
   ['/plans/freelance', 'Freelance plan'], ['/plans/standard', 'Standard plan'],
   ['/plans/wordpress', 'WordPress plan'], ['/renders', 'CG product renders'],
   ['/on-demand', 'On-demand services'], ['/pricing', 'Full pricing & order'],
-  ['/guides', 'Guides'],
+  ['/guides', 'Guides'], ['/status', 'Status & updates'],
 ]
 const header = `<header><a href="/">Guillen Solutions</a><nav>${
   NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
@@ -92,6 +92,12 @@ const bodies = {
     list(ON_DEMAND.map(s => `<strong>${esc(s.name)}</strong> — ${esc(s.price)}: ${esc(s.body)}`)),
   ),
   guides: wrap('Guides', 'Plain-English guides to owning your business online.', `<p><a href="/guides">Browse the guides</a>.</p>`),
+  status: wrap(
+    'What we\'re running, and what\'s new.',
+    'Live status of the services we run for you, plus a running log of stack updates, new features, and announcements. Transparency is part of the deal.',
+    `<h2>Service status</h2><p>Live health checks run in your browser for the website and the content/inquiry API. Your content and backups live on separate, protected storage — if a public server fails, we rebuild from clean backups in hours.</p>
+     <h2>Updates &amp; announcements</h2><p>Stack and infrastructure updates, new features, and business news are logged in the open. <a href="/status">See the latest</a>.</p>`,
+  ),
 }
 
 const planBody = p => wrap(
@@ -108,6 +114,7 @@ const ROUTES = [
   { path: '/renders', title: 'CG Product Renders', description: 'Studio-quality 3D product images for e-commerce — model once, render many. Complexity-tiered per product, cheap extra shots, affordable multi-shot packages. Bundle with a website or order standalone.', schema: rendersSchema, body: bodies.renders },
   { path: '/on-demand', title: 'On-Demand Services', description: 'Services you add after launch, whenever you need them — newsletter setup, landing pages, QR menus, seasonal refreshes, translations. Fixed-scope, quoted in writing.', schema: [ORG], body: bodies.ondemand },
   { path: '/guides', title: 'Guides', description: 'Plain-English guides to owning your business online — from Guillen Solutions.', schema: [ORG], body: bodies.guides },
+  { path: '/status', title: 'Status & Updates', description: 'Live service status and a running log of stack updates, new features, and announcements from Guillen Solutions — see us at work.', schema: [ORG], body: bodies.status },
   ...PACKAGES.map(p => ({
     path: `/plans/${p.id}`, title: p.name, description: p.description, schema: [ORG], body: planBody(p),
   })),

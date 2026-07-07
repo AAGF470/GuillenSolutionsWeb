@@ -1,0 +1,101 @@
+/* ── STATUS CENTER (/status) ─────────────────────────────────────────────── */
+/* Fits the site's editorial theme; adds status-specific signal colors.        */
+
+.gs-st__dot {
+  width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none;
+}
+.gs-st__dot--operational { background: #1a9e6a; box-shadow: 0 0 0 3px rgba(26,158,106,0.15); }
+.gs-st__dot--degraded    { background: #d98a1f; box-shadow: 0 0 0 3px rgba(217,138,31,0.15); }
+.gs-st__dot--down        { background: #d1483b; box-shadow: 0 0 0 3px rgba(209,72,59,0.15); }
+.gs-st__dot--checking    { background: var(--color-text-faint); }
+.gs-st__dot--operational { animation: gs-st-pulse 2.4s ease-in-out infinite; }
+
+@keyframes gs-st-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(26,158,106,0.15); }
+  50%      { box-shadow: 0 0 0 6px rgba(26,158,106,0.04); }
+}
+
+/* ── Overall banner ──────────────────────────────────────────────────────── */
+.gs-st__banner {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 18px 22px; border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-low);
+  background: var(--color-surface-high);
+  margin-bottom: 20px;
+}
+.gs-st__banner--operational { border-color: rgba(26,158,106,0.4); background: rgba(26,158,106,0.06); }
+.gs-st__banner--degraded    { border-color: rgba(217,138,31,0.4); background: rgba(217,138,31,0.06); }
+.gs-st__banner--down        { border-color: rgba(209,72,59,0.4);  background: rgba(209,72,59,0.06); }
+.gs-st__banner-text { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--color-text); }
+.gs-st__banner-meta { margin-left: auto; font-size: 12px; color: var(--color-text-dim); font-variant-numeric: tabular-nums; }
+
+/* ── Service rows ────────────────────────────────────────────────────────── */
+.gs-st__services {
+  border: 1px solid var(--color-border-sub); border-radius: var(--radius-lg); overflow: hidden;
+}
+.gs-st__service {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px 22px; background: var(--color-surface);
+  border-top: 1px solid var(--color-border-sub);
+}
+.gs-st__service:first-child { border-top: none; }
+.gs-st__service-main { display: flex; flex-direction: column; gap: 3px; }
+.gs-st__service-name { font-weight: 600; color: var(--color-text); font-size: 15px; }
+.gs-st__service-desc { font-size: 13px; color: var(--color-text-sub); }
+
+.gs-st__pill {
+  display: inline-flex; align-items: center; gap: 8px; flex: none;
+  padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  white-space: nowrap; border: 1px solid transparent;
+}
+.gs-st__pill--operational { color: #157a52; background: rgba(26,158,106,0.10); border-color: rgba(26,158,106,0.22); }
+.gs-st__pill--degraded    { color: #a5691a; background: rgba(217,138,31,0.10); border-color: rgba(217,138,31,0.22); }
+.gs-st__pill--down        { color: #b03a2f; background: rgba(209,72,59,0.10);  border-color: rgba(209,72,59,0.22); }
+.gs-st__pill--checking    { color: var(--color-text-dim); background: var(--color-surface-high); }
+
+.gs-st__note {
+  margin-top: 16px; font-size: 13px; line-height: 1.65; color: var(--color-text-sub);
+  max-width: 74ch;
+}
+
+/* ── Updates feed ────────────────────────────────────────────────────────── */
+.gs-st__feed { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+
+.gs-st__entry {
+  padding: 20px 22px; border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-sub); background: var(--color-surface-high);
+}
+.gs-st__entry.is-pinned { border-color: var(--color-accent); box-shadow: 0 0 0 1px var(--color-accent-dim); }
+.gs-st__entry-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.gs-st__date { font-size: 12px; color: var(--color-text-dim); font-variant-numeric: tabular-nums; }
+.gs-st__pin { color: var(--color-accent); font-size: 13px; margin-left: auto; }
+.gs-st__entry-title { font-size: 17px; margin: 0 0 6px; color: var(--color-text); }
+.gs-st__entry-body { font-size: 14px; line-height: 1.65; color: var(--color-text-sub); margin: 0; }
+.gs-st__entry-link {
+  display: inline-block; margin-top: 12px; font-size: 13.5px; font-weight: 600;
+  color: var(--color-accent); text-decoration: none;
+}
+.gs-st__entry-link:hover { text-decoration: underline; }
+
+/* Category chips */
+.gs-st__cat {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 6px; border: 1px solid transparent;
+}
+.gs-st__cat--stack        { color: #1f6f8b; background: rgba(31,111,139,0.10); border-color: rgba(31,111,139,0.2); }
+.gs-st__cat--feature      { color: #157a52; background: rgba(26,158,106,0.10); border-color: rgba(26,158,106,0.2); }
+.gs-st__cat--announcement { color: var(--gs-ember, #b0562b); background: rgba(176,86,43,0.10); border-color: rgba(176,86,43,0.2); }
+.gs-st__cat--incident     { color: #b03a2f; background: rgba(209,72,59,0.10); border-color: rgba(209,72,59,0.2); }
+.gs-st__cat--maintenance  { color: #a5691a; background: rgba(217,138,31,0.10); border-color: rgba(217,138,31,0.2); }
+
+.gs-st__empty {
+  margin-top: 24px; padding: 36px; text-align: center; border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border-mid); color: var(--color-text-sub); font-size: 14px;
+}
+.gs-st__skel { height: 96px; border-radius: var(--radius-lg); background: var(--color-surface-high); opacity: 0.6;
+  animation: gs-st-shimmer 1.4s ease-in-out infinite; }
+@keyframes gs-st-shimmer { 50% { opacity: 0.3; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .gs-st__dot--operational, .gs-st__skel { animation: none; }
+}

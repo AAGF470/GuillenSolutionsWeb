@@ -11,6 +11,7 @@ import OnDemand from './pages/OnDemand.jsx'
 import CGRenders from './pages/CGRenders.jsx'
 import Guides from './pages/Guides.jsx'
 import GuidePost from './pages/GuidePost.jsx'
+import Status from './pages/Status.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
 import Seo from './components/Seo.jsx'
@@ -157,6 +158,7 @@ function MobileMenu({ open, onClose }) {
             ))}
           </div>
         ))}
+        <Link to="/status" className="gs-mnav__link" onClick={onClose}>{t('Status', 'Estado')}</Link>
         <Link to="/pricing" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>{t('Build your quote', 'Arma tu cotización')}</Link>
         <LangToggle className="gs-lang--mobile" />
       </div>
@@ -178,6 +180,7 @@ function Nav() {
         {navGroups(t).map(g => (
           <NavDropdown key={g.label} label={g.label} active={g.match(pathname)} items={g.items} />
         ))}
+        <NavLink to="/status" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Status', 'Estado')}</NavLink>
       </div>
       <LangToggle className="gs-lang--nav" />
       <Link to="/pricing" className="gs-nav__cta">{t('Build your quote', 'Arma tu cotización')}</Link>
@@ -220,6 +223,7 @@ function Footer() {
           <Link to="/renders">{t('CG product renders', 'Renders de producto 3D')}</Link>
           <Link to="/pricing">{t('Full pricing & order', 'Precios completos y pedido')}</Link>
           <Link to="/guides">{t('Guides', 'Guías')}</Link>
+          <Link to="/status">{t('Status & updates', 'Estado y novedades')}</Link>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">{t('Get in touch', 'Contáctanos')}</span>
@@ -259,6 +263,7 @@ export default function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/guides" element={<Guides />} />
           <Route path="/guides/:slug" element={<GuidePost />} />
+          <Route path="/status" element={<Status />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />

@@ -73,6 +73,8 @@ export interface Config {
     media: Media;
     users: User;
     inquiries: Inquiry;
+    updates: Update;
+    builds: Build;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +88,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
+    updates: UpdatesSelect<false> | UpdatesSelect<true>;
+    builds: BuildsSelect<false> | BuildsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -1371,6 +1375,67 @@ export interface Inquiry {
   createdAt: string;
 }
 /**
+ * Status center feed shown on the site's /status page. Post stack updates, feature launches, announcements, and incidents.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "updates".
+ */
+export interface Update {
+  id: number;
+  title: string;
+  category: 'stack' | 'feature' | 'announcement' | 'incident' | 'maintenance';
+  /**
+   * Short description shown under the title.
+   */
+  body?: string | null;
+  /**
+   * Optional call-to-action label.
+   */
+  linkLabel?: string | null;
+  /**
+   * Optional link URL for the CTA.
+   */
+  linkHref?: string | null;
+  /**
+   * Pin to the top — e.g. an active incident or headline announcement.
+   */
+  pinned?: boolean | null;
+  /**
+   * Shown on the entry + used for ordering (newest first).
+   */
+  publishedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Work-page showcase of sites in development. Upload a screenshot + a line of text; newest shows first on /work.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "builds".
+ */
+export interface Build {
+  id: number;
+  title: string;
+  /**
+   * Screenshot of the site — drag & drop an image.
+   */
+  image: number | Media;
+  /**
+   * Short label under the title, e.g. "Hair salon · in development".
+   */
+  kind?: string | null;
+  /**
+   * Domain shown in the browser bar (optional), e.g. "example.com".
+   */
+  url?: string | null;
+  /**
+   * One or two sentences about the build.
+   */
+  blurb?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1417,6 +1482,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'inquiries';
         value: number | Inquiry;
+      } | null)
+    | ({
+        relationTo: 'updates';
+        value: number | Update;
+      } | null)
+    | ({
+        relationTo: 'builds';
+        value: number | Build;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -2374,6 +2447,34 @@ export interface InquiriesSelect<T extends boolean = true> {
   details?: T;
   status?: T;
   website?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "updates_select".
+ */
+export interface UpdatesSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  body?: T;
+  linkLabel?: T;
+  linkHref?: T;
+  pinned?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "builds_select".
+ */
+export interface BuildsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  kind?: T;
+  url?: T;
+  blurb?: T;
   updatedAt?: T;
   createdAt?: T;
 }
