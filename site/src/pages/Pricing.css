@@ -10,7 +10,7 @@
 .section.gs-seam-top { padding-top: 44px; }
 
 /* "Take the quiz" jump link under the builder intro */
-.section-sub a { color: var(--color-accent); text-decoration: none; white-space: nowrap; }
+.section-sub a { color: var(--color-accent); text-decoration: none; }
 .section-sub a:hover { text-decoration: underline; }
 
 

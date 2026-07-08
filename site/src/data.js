@@ -436,6 +436,39 @@ export const GROWTH_NOTE =
 
 export const REFERRAL_NOTE = null // merged into GROWTH_NOTE
 
+// Primary markets — the areas we focus on, each with the local sub-areas we
+// serve. Place names are the same in every language, so these live here (not
+// in the ES overrides); only the section copy is translated.
+// To add a photo, drop the file in /public/img/markets/ and set `image` to
+// its path, e.g. image: '/img/markets/boston.jpg'. Left null = tidy
+// placeholder block until the image is added.
+export const MARKETS = [
+  {
+    id: 'new-york',
+    name: 'New York, NY',
+    image: null,
+    areas: ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'],
+  },
+  {
+    id: 'boston',
+    name: 'Boston, MA',
+    image: null,
+    areas: ['Roxbury', 'South End', 'Seaport', 'Back Bay', 'Dorchester', 'Jamaica Plain'],
+  },
+  {
+    id: 'north-houston',
+    name: 'North Houston, TX',
+    image: null,
+    areas: ['The Woodlands', 'Klein', 'Spring', 'Tomball'],
+  },
+  {
+    id: 'dallas',
+    name: 'Dallas, TX',
+    image: null,
+    areas: ['Irving', 'Grand Prairie'],
+  },
+]
+
 // Renewal honesty — grandfathering means fair, disclosed pricing, not a rate
 // frozen forever. Never promise "your price never changes."
 export const PRICING_PROMISE =

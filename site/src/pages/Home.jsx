@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
 import Reveal from '../components/Reveal.jsx'
+import Markets from '../components/Markets.jsx'
 import {
   HeroSection,
   FeatureGrid,
@@ -263,6 +264,23 @@ export default function Home() {
             ))}
           </div>
           <p className="gs-refer__fine">{REFERRAL_PROGRAM.fine}</p>
+        </div>
+      </section>
+      </Reveal>
+
+      {/* Primary markets — where we work, with the local areas we serve */}
+      <Reveal>
+      <section className="section section--alt">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('Where we work', 'Dónde trabajamos')}</p>
+          <h2 className="section-title">{t('Our primary markets', 'Nuestros mercados principales')}</h2>
+          <p className="section-sub">
+            {t(
+              'Rooted in a handful of communities across the country — with the local neighborhoods and towns we serve in each.',
+              'Con raíces en un puñado de comunidades por todo el país — con los vecindarios y pueblos que servimos en cada una.',
+            )}
+          </p>
+          <Markets />
         </div>
       </section>
       </Reveal>
