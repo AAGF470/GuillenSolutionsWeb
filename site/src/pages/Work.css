@@ -144,6 +144,61 @@
   font-size: 14px; font-weight: 600; color: var(--color-accent);
 }
 
+/* Clickable build card (a <button>) — reset chrome, keep it a card. */
+.work-concept--btn {
+  appearance: none; background: none; border: none; padding: 0; margin: 0;
+  font: inherit; color: inherit; text-align: left; width: 100%; cursor: pointer;
+  transition: transform 0.25s ease;
+}
+.work-concept--btn:hover { transform: translateY(-3px); }
+.work-concept--btn:hover .work-frame { box-shadow: var(--shadow-lg); }
+.work-concept--btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; border-radius: var(--radius-md); }
+
+/* Status badge */
+.work-status {
+  display: inline-block; margin-bottom: 8px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 6px; border: 1px solid transparent;
+}
+.work-status--published { color: #157a52; background: rgba(26,158,106,0.10); border-color: rgba(26,158,106,0.22); }
+.work-status--in-development { color: var(--gs-ember, #b0562b); background: rgba(176,86,43,0.10); border-color: rgba(176,86,43,0.22); }
+
+/* ── Popup gallery modal ─────────────────────────────────────────────────── */
+.work-modal {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(20, 16, 10, 0.62);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: clamp(16px, 5vh, 64px) 16px; overflow-y: auto;
+  animation: work-modal-in 0.2s ease;
+}
+@keyframes work-modal-in { from { opacity: 0; } to { opacity: 1; } }
+.work-modal__panel {
+  position: relative; width: 100%; max-width: 960px;
+  background: var(--color-bg); border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-modal);
+  padding: clamp(22px, 4vw, 40px);
+}
+.work-modal__close {
+  position: absolute; top: 14px; right: 16px;
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--color-border-low);
+  background: var(--color-surface); color: var(--color-text);
+  font-size: 22px; line-height: 1; cursor: pointer;
+}
+.work-modal__close:hover { background: var(--color-surface-high); }
+.work-modal__head { max-width: 68ch; margin-bottom: 22px; padding-right: 40px; }
+.work-modal__title { font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px); margin: 4px 0 0; color: var(--color-text); }
+.work-modal__kind { margin: 6px 0 0; font-size: 13px; letter-spacing: 0.02em; color: var(--gs-ember); }
+.work-modal__blurb { margin: 12px 0 0; font-size: 15px; line-height: 1.65; color: var(--color-text-sub); }
+.work-modal__link { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 600; color: var(--color-accent); text-decoration: none; }
+.work-modal__link:hover { text-decoration: underline; }
+.work-modal__gallery { display: flex; flex-direction: column; gap: 16px; }
+.work-modal__gallery img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius-md); border: 1px solid var(--color-border-sub);
+}
+.work-modal__empty { color: var(--color-text-dim); font-size: 14px; }
+
 /* Screenshot placeholder — shown until a real capture is saved at the path. */
 .work-shot-ph {
   aspect-ratio: 16 / 10;

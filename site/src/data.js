@@ -288,7 +288,31 @@ export const CG_RENDER_PACKAGES = [
     body: 'One product + 8 shots including 2 lifestyle scenes and color/label variants — a full kit for a launch across your store, ads, and social.',
     includes: ['1 product model (up to complex)', '6 studio renders + variants', '2 lifestyle scenes', 'Sized for store, ads & social'],
   },
+  {
+    id: 'motion-launch',
+    name: 'Motion launch set',
+    price: '$1,100–1,400',
+    body: 'One product + the full still gallery + a turntable + a short product video — a complete launch kit with motion. The premium package for product businesses going all-in on a launch.',
+    includes: ['1 product model (up to complex)', 'Full still gallery', 'Turntable / 360° spin', 'Short product video', 'Sized for store, ads & social'],
+  },
 ]
+
+// ── Product motion / animation ────────────────────────────────────────────────
+// The premium motion tier — same model, now in motion. Positioned on accurate,
+// deterministic, brand-safe motion (the real product, every frame consistent),
+// not on "AI can't do this." Reuses the existing model, so it's incremental.
+export const CG_RENDER_MOTION = {
+  lead:
+    'Motion sells. A product that turns, catches the light, and shows every angle converts better than any still — and because we animate the same 3D model we already built, it\'s the actual product in motion, perfectly consistent, every frame. No reshoots, no drift, yours to keep.',
+  items: [
+    { id: 'turntable', name: 'Turntable / 360° spin', price: '$150–300', per: 'per product', body: 'A smooth looping rotation of your product on the standard studio background — the classic "spin to see all sides." Built from the existing model; delivered as video + a loop-ready file. Lower end for simple products, higher for complex.' },
+    { id: 'video',     name: 'Short product video', price: '$300–600', per: 'per clip', body: 'A composed 5–15s product clip — motion, light sweeps, detail push-ins, feature callouts — for ads, social, and your homepage hero. Priced by length and complexity.' },
+    { id: 'lifestyle-anim', name: 'Premium lifestyle animation', price: '$500–900+', per: 'per scene', body: 'Your product animated within a styled scene — on a counter, a desk, an outdoor set — a hero motion piece for launches and paid campaigns. Quoted by scene and length.' },
+    { id: 'motion-addon', name: 'Animation add-on (model already built)', price: 'from $120', per: 'add-on', body: 'Adding motion to a product we\'ve ALREADY modeled for stills — the cheapest path, since the asset already exists. A reason to come back after a still shoot.' },
+  ],
+  note:
+    'Why motion is priced higher: it\'s more render and composition time than a still, and it\'s a premium deliverable — but it still reuses the model, so it stays far below the cost of a full video production shoot. Complexity/length-tiered or quoted per product, never flat-rate — same as stills.',
+}
 
 // The product-line play: one form, many variants — the single biggest saving
 // for shops with big catalogs of the same physical shape.
@@ -296,7 +320,7 @@ export const CG_RENDER_VARIANT_NOTE =
   'Selling one product in many variants? If your line is 30 scents of the same candle jar, or 12 colorways of the same bottle, we model the form ONCE — then every label, color, or flavor variant is just an additional render, not a new model. A whole product line\'s imagery for a fraction of per-product cost. Tell us about your line and we\'ll quote it that way automatically.'
 
 export const CG_RENDER_NOTES = {
-  bundled: 'Bundled with a website build — 15% off any render work, added to your order.',
+  bundled: 'Bundled with a website build — 15% off any render work (20% for Online Business Enhanced clients), added to your order.',
   standalone: 'Standalone, no website needed — priced exactly as listed. You still own every file at full resolution.',
   market: 'Full-service product-CG studios charge $800–$3,500 per product. Our standardized studio-scene pipeline lets us sit well below that — genuinely accessible — while still tiering by real modeling effort, so complex products are priced fairly and simple ones stay cheap.',
   quote: 'We complexity-tier or quote per product — never flat-rate — because modeling time varies far more than render time. You get a fixed number per product, agreed in writing, before any work starts.',

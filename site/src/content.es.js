@@ -268,13 +268,33 @@ export const CG_RENDER_PACKAGES = [
     body: 'Un producto + 8 tomas incluyendo 2 escenas ambientadas y variantes de color/etiqueta — un kit completo para un lanzamiento en tu tienda, anuncios y redes.',
     includes: ['1 modelo de producto (hasta complejo)', '6 renders de estudio + variantes', '2 escenas ambientadas', 'Ajustadas para tienda, anuncios y redes'],
   },
+  {
+    id: 'motion-launch',
+    name: 'Set de lanzamiento con movimiento',
+    price: '$1,100–1,400',
+    body: 'Un producto + la galería completa de tomas fijas + un giro 360° + un video corto de producto — un kit de lanzamiento completo con movimiento. El paquete premium para negocios de producto que van con todo en un lanzamiento.',
+    includes: ['1 modelo de producto (hasta complejo)', 'Galería completa de tomas fijas', 'Giro / 360°', 'Video corto de producto', 'Ajustado para tienda, anuncios y redes'],
+  },
 ]
+
+export const CG_RENDER_MOTION = {
+  lead:
+    'El movimiento vende. Un producto que gira, atrapa la luz y muestra cada ángulo convierte mejor que cualquier toma fija — y como animamos el mismo modelo 3D que ya construimos, es el producto real en movimiento, perfectamente consistente, cada cuadro. Sin repeticiones, sin distorsión, tuyo para conservar.',
+  items: [
+    { id: 'turntable', name: 'Giro / 360°', price: '$150–300', per: 'por producto', body: 'Una rotación fluida y en bucle de tu producto sobre el fondo de estudio estándar — el clásico "gira para ver todos los lados." Construido a partir del modelo existente; entregado como video + un archivo listo para bucle. Más económico para productos simples, más alto para complejos.' },
+    { id: 'video',     name: 'Video corto de producto', price: '$300–600', per: 'por clip', body: 'Un clip de producto compuesto de 5–15s — movimiento, barridos de luz, acercamientos de detalle, resaltado de funciones — para anuncios, redes y la portada de tu sitio. Con precio según duración y complejidad.' },
+    { id: 'lifestyle-anim', name: 'Animación ambientada premium', price: '$500–900+', per: 'por escena', body: 'Tu producto animado dentro de una escena ambientada — sobre una encimera, un escritorio, un set exterior — una pieza principal en movimiento para lanzamientos y campañas pagadas. Cotizada por escena y duración.' },
+    { id: 'motion-addon', name: 'Complemento de animación (modelo ya construido)', price: 'desde $120', per: 'complemento', body: 'Agregar movimiento a un producto que YA modelamos para tomas fijas — el camino más económico, porque el recurso ya existe. Una razón para volver después de una sesión de tomas fijas.' },
+  ],
+  note:
+    'Por qué el movimiento cuesta más: es más tiempo de render y composición que una toma fija, y es un entregable premium — pero aun así reutiliza el modelo, así que se mantiene muy por debajo del costo de una producción de video completa. Escalonado por complejidad/duración o cotizado por producto, nunca tarifa plana — igual que las tomas fijas.',
+}
 
 export const CG_RENDER_VARIANT_NOTE =
   '¿Vendes un producto en muchas variantes? Si tu línea son 30 aromas del mismo frasco de vela, o 12 colores de la misma botella, modelamos la forma UNA vez — y después cada variante de etiqueta, color o sabor es solo un render adicional, no un modelo nuevo. Las imágenes de toda una línea de productos por una fracción del costo por producto. Cuéntanos sobre tu línea y la cotizamos así automáticamente.'
 
 export const CG_RENDER_NOTES = {
-  bundled: 'Combinado con la construcción de un sitio web — 15% de descuento en cualquier trabajo de render, agregado a tu pedido.',
+  bundled: 'Combinado con la construcción de un sitio web — 15% de descuento en cualquier trabajo de render (20% para clientes de Online Business Enhanced), agregado a tu pedido.',
   standalone: 'Por separado, sin necesidad de un sitio web — con el precio tal cual está listado. Aun así eres dueño de cada archivo en alta resolución.',
   market: 'Los estudios de CG de producto de servicio completo cobran entre $800 y $3,500 por producto. Nuestro proceso de escena de estudio estandarizada nos permite quedarnos muy por debajo de eso — genuinamente accesible — mientras seguimos escalando por el esfuerzo real de modelado, de modo que los productos complejos se cobran de forma justa y los simples siguen siendo económicos.',
   quote: 'Escalamos por complejidad o cotizamos por producto — nunca tarifa plana — porque el tiempo de modelado varía mucho más que el de render. Recibes un monto fijo por producto, acordado por escrito, antes de que empiece cualquier trabajo.',

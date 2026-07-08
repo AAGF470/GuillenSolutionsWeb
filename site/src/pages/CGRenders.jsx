@@ -34,7 +34,7 @@ export default function CGRenders() {
   const t = useT()
   const {
     CG_RENDER_LEAD, CG_RENDER_ADVANTAGE, CG_RENDER_TIERS, CG_RENDER_SHOTS,
-    CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE,
+    CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE, CG_RENDER_MOTION,
   } = useContent()
 
   const quoteHref =
@@ -162,8 +162,32 @@ export default function CGRenders() {
         </div>
       </section>
 
+      {/* ── Product motion / animation ────────────────────────────────── */}
+      <section className="section">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('Product motion · new', 'Movimiento de producto · nuevo')}</p>
+          <h2 className="section-title">{t('Animate the model you already have', 'Anima el modelo que ya tienes')}</h2>
+          <p className="section-sub">{CG_RENDER_MOTION.lead}</p>
+          <div className="gs-cg__shots">
+            {CG_RENDER_MOTION.items.map(m => (
+              <div className="gs-cg__shotrow" key={m.id}>
+                <div className="gs-cg__shotrow-head">
+                  <h3>{m.name}</h3>
+                  <span className="gs-cg__shotrow-price">{m.price}<small>{m.per}</small></span>
+                </div>
+                <p>{m.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="gs-cg__variant">
+            <span className="gs-cg__note-tag">{t('Why motion costs more', 'Por qué el movimiento cuesta más')}</span>
+            <p>{CG_RENDER_MOTION.note}</p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Packages ──────────────────────────────────────────────────── */}
-      <section className="section" id="packages">
+      <section className="section section--alt" id="packages">
         <div className="section-container">
           <p className="section-eyebrow">{t('The small-business sweet spot', 'El punto ideal para el pequeño negocio')}</p>
           <h2 className="section-title">{t('Multi-shot packages', 'Paquetes de varias tomas')}</h2>
@@ -191,7 +215,7 @@ export default function CGRenders() {
       </section>
 
       {/* ── Notes: bundle / standalone / market / quote ───────────────── */}
-      <section className="section section--alt">
+      <section className="section">
         <div className="section-container">
           <div className="gs-cg__notes">
             <div className="gs-cg__note gs-cg__note--accent">
@@ -217,7 +241,7 @@ export default function CGRenders() {
       <CtaBanner
         eyebrow={t('Send us your product', 'Envíanos tu producto')}
         headline={t('Get a per-product quote — free, in writing.', 'Obtén una cotización por producto — gratis, por escrito.')}
-        subtext={t("Share a link or a few photos and rough shot count. We'll tier the complexity and send a fixed number before any work starts. Bundling with a website? Ask about the 15% discount.", 'Comparte un enlace o unas fotos y un conteo aproximado de tomas. Ubicamos la complejidad y te enviamos un número fijo antes de empezar cualquier trabajo. ¿Lo combinas con un sitio web? Pregunta por el 15% de descuento.')}
+        subtext={t("Share a link or a few photos and a rough shot (or motion) count. We'll tier the complexity and send a fixed number before any work starts. Bundling with a website? Ask about the discount.", 'Comparte un enlace o unas fotos y un conteo aproximado de tomas (o de movimiento). Ubicamos la complejidad y te enviamos un número fijo antes de empezar cualquier trabajo. ¿Lo combinas con un sitio web? Pregunta por el descuento.')}
         cta={{ label: t('Get a quote', 'Pide una cotización'), href: quoteHref }}
         variant="accent"
       />

@@ -51,10 +51,11 @@ export default function PlanFinder() {
     },
     {
       id: 'photos',
-      q: t('Do you need product photos?', '¿Necesitas fotos de producto?'),
+      q: t('Do you need product images or video?', '¿Necesitas imágenes o video de producto?'),
       options: [
-        { v: 'yes', label: t('Yes', 'Sí'), sub: t('Clean listing shots or lifestyle imagery of what you sell.', 'Tomas de listado limpias o imágenes ambientadas de lo que vendes.') },
-        { v: 'no',  label: t('No', 'No'),  sub: t("You have photos, or your business doesn't need them.", 'Ya tienes fotos, o tu negocio no las necesita.') },
+        { v: 'photos', label: t('Photos', 'Fotos'), sub: t('Clean listing shots and lifestyle imagery of what you sell.', 'Tomas de listado limpias e imágenes ambientadas de lo que vendes.') },
+        { v: 'motion', label: t('Photos + motion', 'Fotos + movimiento'), sub: t('Images plus a spin or short video — motion converts better than a still.', 'Imágenes más un giro o video corto — el movimiento convierte mejor que una toma fija.') },
+        { v: 'no',     label: t('No', 'No'), sub: t("You have them, or your business doesn't need them.", 'Ya los tienes, o tu negocio no los necesita.') },
       ],
     },
   ]
@@ -75,10 +76,15 @@ export default function PlanFinder() {
       lines.push({ label: t('Google Business Profile setup', 'Configuración de Perfil de Empresa de Google'), amount: 300 })
       notes.push(t('For a local business, Maps presence usually matters more than anything on the site itself.', 'Para un negocio local, la presencia en Maps suele importar más que cualquier cosa del sitio mismo.'))
     }
-    if (a.photos === 'yes') {
+    if (a.photos === 'photos') {
       // Full listing pack $600, 15% off when bundled with a website build.
       lines.push({ label: t('Full listing pack (renders) — 15% bundle discount', 'Paquete de listado completo (renders) — 15% de descuento por combo'), amount: 510 })
       notes.push(t('One product modeled + 6 studio shots + a lifestyle hero. Product lines quote per variant, not per product.', 'Un producto modelado + 6 tomas de estudio + una portada ambientada. Las líneas de producto se cotizan por variante, no por producto.'))
+    }
+    if (a.photos === 'motion') {
+      // Motion launch set ($1,100–1,400); ~$1,200 midpoint, 15% bundle ≈ $1,020.
+      lines.push({ label: t('Motion launch set (renders + video) — 15% bundle discount', 'Set de lanzamiento con movimiento (renders + video) — 15% de descuento por combo'), amount: 1020 })
+      notes.push(t('Full still gallery + a turntable + a short product video, all from one 3D model — the actual product in motion, every frame consistent. Estimate; final motion pricing is quoted to your product.', 'Galería completa de tomas fijas + un giro 360° + un video corto de producto, todo a partir de un modelo 3D — el producto real en movimiento, cada cuadro consistente. Es un estimado; el precio final del movimiento se cotiza según tu producto.'))
     }
     if (a.commerce === 'later') {
       notes.push(t('Ordering can be added anytime later as a $400 integration — nothing to decide today.', 'Los pedidos se pueden agregar más adelante como una integración de $400 — nada que decidir hoy.'))

@@ -8,7 +8,7 @@
 // ---------------------------------------------------------------------------
 import {
   PACKAGES, ADDONS, ON_DEMAND, FAQS, CONTACT_EMAIL,
-  CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES,
+  CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CG_RENDER_MOTION,
 } from './data.js'
 
 const SITE = 'https://guillensolutions.com'
@@ -139,6 +139,10 @@ export const RENDERS_SERVICE = {
       ...CG_RENDER_SHOTS.map(s => {
         const { min, max } = range(s.price)
         return offer({ name: s.name, description: s.body, min, max, url: `${SITE}/renders` })
+      }),
+      ...CG_RENDER_MOTION.items.map(m => {
+        const { min, max } = range(m.price)
+        return offer({ name: m.name, description: m.body, min, max, url: `${SITE}/renders` })
       }),
       ...CG_RENDER_PACKAGES.map(p => {
         const { min } = range(p.price)

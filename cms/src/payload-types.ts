@@ -1416,16 +1416,26 @@ export interface Update {
 export interface Build {
   id: number;
   title: string;
+  status: 'in-development' | 'published';
   /**
-   * Screenshot of the site — drag & drop an image.
+   * Cover screenshot — the thumbnail shown on the card.
    */
   image: number | Media;
   /**
-   * Short label under the title, e.g. "Hair salon · in development".
+   * More screenshots — shown in the popup gallery when the card is clicked. Add as many as you like.
+   */
+  images?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Short label under the title, e.g. "Hair salon" or "Restaurant".
    */
   kind?: string | null;
   /**
-   * Domain shown in the browser bar (optional), e.g. "example.com".
+   * Live site link — OPTIONAL. Leave blank for private clients.
    */
   url?: string | null;
   /**
@@ -2471,7 +2481,14 @@ export interface UpdatesSelect<T extends boolean = true> {
  */
 export interface BuildsSelect<T extends boolean = true> {
   title?: T;
+  status?: T;
   image?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   kind?: T;
   url?: T;
   blurb?: T;

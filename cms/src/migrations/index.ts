@@ -10,6 +10,7 @@ import * as migration_20260703_052823_full_catalog_blocks from './20260703_05282
 import * as migration_20260705_180504_add_inquiries from './20260705_180504_add_inquiries';
 import * as migration_20260707_190000_add_updates from './20260707_190000_add_updates';
 import * as migration_20260707_193000_add_builds from './20260707_193000_add_builds';
+import * as migration_20260707_210000_builds_gallery_status from './20260707_210000_builds_gallery_status';
 
 export const migrations = [
   {
@@ -71,5 +72,10 @@ export const migrations = [
     up: migration_20260707_193000_add_builds.up,
     down: migration_20260707_193000_add_builds.down,
     name: '20260707_193000_add_builds'
+  },
+  {
+    up: migration_20260707_210000_builds_gallery_status.up,
+    down: migration_20260707_210000_builds_gallery_status.down,
+    name: '20260707_210000_builds_gallery_status'
   },
 ];

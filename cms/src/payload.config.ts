@@ -241,9 +241,25 @@ const Builds = {
   access: { read: () => true, create: editorCanWrite, update: editorCanWrite, delete: isAdmin },
   fields: [
     { name: 'title', type: 'text', required: true },
-    { name: 'image', type: 'upload', relationTo: 'media', required: true, admin: { description: 'Screenshot of the site — drag & drop an image.' } },
-    { name: 'kind', type: 'text', admin: { description: 'Short label under the title, e.g. "Hair salon · in development".' } },
-    { name: 'url', type: 'text', admin: { description: 'Domain shown in the browser bar (optional), e.g. "example.com".' } },
+    {
+      name: 'status',
+      type: 'select',
+      required: true,
+      defaultValue: 'in-development',
+      options: [
+        { label: 'In development', value: 'in-development' },
+        { label: 'Published', value: 'published' },
+      ],
+    },
+    { name: 'image', type: 'upload', relationTo: 'media', required: true, admin: { description: 'Cover screenshot — the thumbnail shown on the card.' } },
+    {
+      name: 'images',
+      type: 'array',
+      admin: { description: 'More screenshots — shown in the popup gallery when the card is clicked. Add as many as you like.' },
+      fields: [{ name: 'image', type: 'upload', relationTo: 'media', required: true }],
+    },
+    { name: 'kind', type: 'text', admin: { description: 'Short label under the title, e.g. "Hair salon" or "Restaurant".' } },
+    { name: 'url', type: 'text', admin: { description: 'Live site link — OPTIONAL. Leave blank for private clients.' } },
     { name: 'blurb', type: 'textarea', admin: { description: 'One or two sentences about the build.' } },
   ],
 }

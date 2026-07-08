@@ -4,31 +4,21 @@ import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
 import { useT } from '../i18n.jsx'
 import './Work.css'
 
+// ---------------------------------------------------------------------------
+// Work & Library — the proof (real builds, CMS-managed) + the machine behind
+// it (the live component system). The build showcase reads from the CMS
+// `builds` collection: each card is a cover screenshot; clicking opens a popup
+// gallery of all its images. Status = "in development" or "published"; the
+// live link is optional (client privacy).
+// ---------------------------------------------------------------------------
+
 const CMS = import.meta.env.VITE_CMS_URL
 // Payload media URLs are relative to the CMS server — make them absolute.
 const mediaUrl = u => (u ? (/^https?:\/\//.test(u) ? u : `${CMS}${u}`) : null)
+// Prefix a bare domain with https:// so the optional link works either way.
+const asHref = u => (u ? (/^https?:\/\//.test(u) ? u : `https://${u}`) : null)
 
-// ---------------------------------------------------------------------------
-// Work & Library — merged showcase page: what we've built (client work) and
-// what we build with (the live component system). One narrative: the proof,
-// then the machine behind it.
-// ---------------------------------------------------------------------------
-
-function BrowserFrame({ url, image, alt }) {
-  return (
-    <div className="work-frame">
-      <div className="work-frame__bar">
-        <span className="work-frame__dots"><i /><i /><i /></span>
-        <span className="work-frame__url">{url}</span>
-      </div>
-      <img className="work-frame__screen" src={image} alt={alt} loading="lazy" />
-    </div>
-  )
-}
-
-// A browser frame that shows a screenshot once one exists at `image`, and a
-// tidy "drop it here" placeholder until then. Just save the real capture at the
-// given path — no code change needed (the onError fallback swaps automatically).
+// A browser frame showing a screenshot, with a tidy placeholder if it's absent.
 function ScreenshotFrame({ url, image, alt }) {
   const t = useT()
   const [failed, setFailed] = useState(false)
@@ -38,17 +28,14 @@ function ScreenshotFrame({ url, image, alt }) {
         <span className="work-frame__dots"><i /><i /><i /></span>
         <span className="work-frame__url">{url}</span>
       </div>
-      {failed ? (
+      {failed || !image ? (
         <div className="work-shot-ph">
           <span className="work-shot-ph__tag">{t('Screenshot coming soon', 'Captura próximamente')}</span>
-          <small>{image}</small>
         </div>
       ) : (
         <img
           className="work-frame__screen" src={image} alt={alt} loading="lazy"
           onError={() => setFailed(true)}
-          // A missing file can still "load" (e.g. a dev-server HTML fallback);
-          // a real image has a non-zero natural width, a broken one doesn't.
           onLoad={e => { if (!e.currentTarget.naturalWidth) setFailed(true) }}
         />
       )}
@@ -56,61 +43,61 @@ function ScreenshotFrame({ url, image, alt }) {
   )
 }
 
+function StatusBadge({ status }) {
+  const t = useT()
+  const label = status === 'published' ? t('Published', 'Publicado') : t('In development', 'En desarrollo')
+  return <span className={`work-status work-status--${status || 'in-development'}`}>{label}</span>
+}
+
+// Popup gallery — all of a build's images, its details, and the optional link.
+function BuildModal({ build, onClose }) {
+  const t = useT()
+  useEffect(() => {
+    const onKey = e => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+  }, [onClose])
+
+  const imgs = [build.image, ...(build.images || []).map(r => r.image)].filter(Boolean)
+  const href = asHref(build.url)
+
+  return (
+    <div className="work-modal" role="dialog" aria-modal="true" aria-label={build.title} onClick={onClose}>
+      <div className="work-modal__panel" onClick={e => e.stopPropagation()}>
+        <button type="button" className="work-modal__close" onClick={onClose} aria-label={t('Close', 'Cerrar')}>×</button>
+        <div className="work-modal__head">
+          <StatusBadge status={build.status} />
+          <h3 className="work-modal__title">{build.title}</h3>
+          {build.kind && <p className="work-modal__kind">{build.kind}</p>}
+          {build.blurb && <p className="work-modal__blurb">{build.blurb}</p>}
+          {href && (
+            <a className="work-modal__link" href={href} target="_blank" rel="noopener noreferrer">
+              {t('Visit the live site', 'Visitar el sitio')} ↗
+            </a>
+          )}
+        </div>
+        <div className="work-modal__gallery">
+          {imgs.length === 0 && <p className="work-modal__empty">{t('Images coming soon.', 'Imágenes próximamente.')}</p>}
+          {imgs.map((im, i) => (
+            <img key={i} src={mediaUrl(im?.sizes?.hero?.url || im?.url)} alt={`${build.title} — ${i + 1}`} loading="lazy" />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function WorkAndLibrary() {
   const t = useT()
-
-  const CLIENTS = [
-    {
-      name: 'Angel Electrical Services',
-      location: 'Dallas, Texas',
-      industry: t('Licensed Electrician', 'Electricista con licencia'),
-      url: 'angelelectrical.com',
-      image: '/img/work/angel-electrical.svg',
-      blurb: t('A trust-first site for a residential & commercial electrician — clear service list, service-area coverage, and a quote form that routes straight to the owner.', 'Un sitio que genera confianza para un electricista residencial y comercial — lista de servicios clara, cobertura por zona y un formulario de cotización que llega directo al dueño.'),
-      quote: t('Booked three new commercial jobs the first month. The site finally looks as professional as the work we do.', 'Conseguimos tres trabajos comerciales nuevos el primer mes. Por fin el sitio se ve tan profesional como el trabajo que hacemos.'),
-      author: 'Angel R.',
-      role: t('Owner', 'Dueño'),
-    },
-    {
-      name: 'FencingPatrol',
-      location: 'Long Island, New York',
-      industry: t('General Contractor', 'Contratista general'),
-      url: 'fencingpatrol.com',
-      image: '/img/work/fencingpatrol.svg',
-      blurb: t('A bold, bilingual site for a family contractor — roofing, fencing, and paving, with a project gallery and a call-first layout in English and Español.', 'Un sitio llamativo y bilingüe para un contratista familiar — techos, cercas y pavimentación, con una galería de proyectos y un diseño enfocado en la llamada, en English y Español.'),
-      quote: t('Sending people one link that shows everything we do — in both languages — changed how we win jobs.', 'Mandar a la gente un solo enlace que muestra todo lo que hacemos — en los dos idiomas — cambió la forma en que ganamos trabajos.'),
-      author: 'FencingPatrol',
-      role: t('Family crew', 'Equipo familiar'),
-    },
-    {
-      name: 'Cryark Inc',
-      location: 'Boston, Massachusetts',
-      industry: t('Game Development Studio', 'Estudio de desarrollo de videojuegos'),
-      url: 'cryark.net',
-      image: '/img/work/cryark.svg',
-      blurb: t('A cinematic, dark-mode studio site for a game & tools developer — product showcases, a devlog, and a component-driven docs system.', 'Un sitio de estudio cinematográfico en modo oscuro para un desarrollador de juegos y herramientas — vitrinas de productos, un devlog y un sistema de documentación basado en componentes.'),
-      quote: t('It carries the mood of what we make. The same system that built a contractor site scaled to a full studio presence.', 'Transmite el ambiente de lo que creamos. El mismo sistema que construyó el sitio de un contratista escaló hasta la presencia completa de un estudio.'),
-      author: 'Cryark',
-      role: t('Studio team', 'Equipo del estudio'),
-    },
-  ]
-
-  const REACH = [
-    { stat: '3', label: t('states', 'estados'), sub: 'Texas · New York · Massachusetts' },
-    { stat: '3', label: t('industries', 'industrias'), sub: t('Electrical · Construction · Games', 'Electricidad · Construcción · Videojuegos') },
-    { stat: '1', label: t('component system', 'sistema de componentes'), sub: t('behind every one of them', 'detrás de cada uno de ellos') },
-  ]
-
-  // In-development builds — pulled from the CMS `builds` collection so they're
-  // fully editable without code: in /admin, upload a screenshot + a line of
-  // text and it appears here (newest first). The section hides itself until
-  // there's at least one entry.
   const [builds, setBuilds] = useState(null) // null = loading, [] = none
+  const [active, setActive] = useState(null) // the build shown in the popup
 
   useEffect(() => {
     if (!CMS) { setBuilds([]); return }
     let alive = true
-    fetch(`${CMS}/api/builds?sort=-createdAt&depth=1&limit=12`)
+    // depth=2 populates the nested gallery uploads (images[].image).
+    fetch(`${CMS}/api/builds?sort=-createdAt&depth=2&limit=24`)
       .then(r => (r.ok ? r.json() : { docs: [] }))
       .then(d => { if (alive) setBuilds(d?.docs ?? []) })
       .catch(() => { if (alive) setBuilds([]) })
@@ -122,78 +109,41 @@ export default function WorkAndLibrary() {
       <HeroSection
         eyebrow={t('Our work', 'Nuestro trabajo')}
         headline={t('Custom sites, built to be owned.', 'Sitios a la medida, hechos para ser tuyos.')}
-        subtext={t('From a Dallas electrician to a Long Island contractor to a Boston game studio — genuinely different businesses, genuinely different looks, none of them a template. Every one designed to fit the business, and owned by the client outright. Real client work and builds in progress below.', 'Desde un electricista en Dallas hasta un contratista de Long Island y un estudio de videojuegos en Boston — negocios genuinamente distintos, con looks genuinamente distintos, ninguno una plantilla. Cada uno diseñado a la medida del negocio y propiedad total del cliente. Trabajo real de clientes y construcciones en curso abajo.')}
+        subtext={t(
+          'Real builds — in development and shipped — genuinely different businesses with genuinely different looks, none of them a template. Every one designed to fit the business and owned by the client outright.',
+          'Construcciones reales — en desarrollo y publicadas — negocios genuinamente distintos con looks genuinamente distintos, ninguno una plantilla. Cada uno diseñado a la medida del negocio y propiedad total del cliente.',
+        )}
         size="compact"
         variant="alt"
         ctas={[]}
       />
 
-      {/* Reach / versatility stats */}
-      <section className="section section--default work-reach-sec">
-        <div className="section-container">
-          <div className="work-reach">
-            {REACH.map(r => (
-              <div key={r.label} className="work-reach__item">
-                <span className="work-reach__stat">{r.stat}</span>
-                <span className="work-reach__label">{r.label}</span>
-                <span className="work-reach__sub">{r.sub}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Client showcases */}
-      <section className="section section--alt work-list-sec">
-        <div className="section-container">
-          {CLIENTS.map((c, i) => (
-            <article key={c.name} className={`work-item${i % 2 ? ' work-item--reverse' : ''}`}>
-              <div className="work-item__media">
-                <a href={`https://${c.url}`} target="_blank" rel="noopener noreferrer"
-                  className="work-item__link" aria-label={`Visit ${c.name} (opens in a new tab)`}>
-                  <BrowserFrame url={c.url} image={c.image} alt={`${c.name} website`} />
-                </a>
-              </div>
-              <div className="work-item__info">
-                <span className="work-item__badge">{c.location}</span>
-                <h2 className="work-item__name">{c.name}</h2>
-                <p className="work-item__industry">{c.industry}</p>
-                <p className="work-item__blurb">{c.blurb}</p>
-                <blockquote className="work-quote">
-                  <p>“{c.quote}”</p>
-                  <footer><strong>{c.author}</strong> · {c.role}</footer>
-                </blockquote>
-                <span className="work-item__note">{t('Site view is a design placeholder', 'La vista del sitio es un marcador de diseño')}</span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* In development — CMS-managed (the `builds` collection). Hidden until
-          there's at least one entry, so a fresh site stays clean. */}
+      {/* Build showcase — CMS-managed (`builds`). Click a card → popup gallery.
+          Hidden until there's at least one entry. */}
       {builds?.length > 0 && (
         <section className="section section--default work-examples-sec">
           <div className="section-container">
-            <p className="section-eyebrow">{t('On the workbench', 'En el taller')}</p>
-            <h2 className="section-title">{t('Currently in development', 'Actualmente en desarrollo')}</h2>
+            <p className="section-eyebrow">{t('The work', 'El trabajo')}</p>
+            <h2 className="section-title">{t('In development & published', 'En desarrollo y publicados')}</h2>
             <p className="section-sub">
-              {t('Sites we\'re building right now — different businesses, different looks, none of them a template.', 'Sitios que estamos construyendo ahora mismo — negocios distintos, looks distintos, ninguno una plantilla.')}
+              {t('Sites we\'re building and shipping. Click any one to open its gallery.', 'Sitios que estamos construyendo y lanzando. Haz clic en cualquiera para abrir su galería.')}
             </p>
             <div className="work-examples">
               {builds.map(b => (
-                <div key={b.id} className="work-concept">
+                <button key={b.id} type="button" className="work-concept work-concept--btn" onClick={() => setActive(b)}>
                   <ScreenshotFrame
                     url={b.url || t('in development', 'en desarrollo')}
                     image={mediaUrl(b.image?.sizes?.card?.url || b.image?.url)}
                     alt={`${b.title} — screenshot`}
                   />
                   <div className="work-concept__cap">
+                    <StatusBadge status={b.status} />
                     <h3 className="work-concept__name">{b.title}</h3>
                     {b.kind && <p className="work-concept__kind">{b.kind}</p>}
                     {b.blurb && <p className="work-concept__blurb">{b.blurb}</p>}
+                    <span className="work-concept__cta">{t('View gallery ↗', 'Ver galería ↗')}</span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -222,6 +172,8 @@ export default function WorkAndLibrary() {
         cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order' }}
         variant="accent"
       />
+
+      {active && <BuildModal build={active} onClose={() => setActive(null)} />}
     </>
   )
 }
