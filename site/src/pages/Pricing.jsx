@@ -12,51 +12,12 @@ import './OnDemand.css'
 import './Pricing.css'
 
 // ---------------------------------------------------------------------------
-// Pricing & order — the working page, not another brochure. Visitors arrive
-// here having seen the plans elsewhere, so this page is just the two tools
-// with a compact explainer rail beside them. Configurator = new orders
-// (plan + launch add-ons); estimator = on-demand work for live sites.
+// Pricing & order — the working page, not another brochure. The order builder
+// leads (it's the thing people came to do): pick a plan, add what you need,
+// watch the total on a sticky calculator + request form. Everything below the
+// builder is reference — the shared baseline, the four plans in full, how
+// integrations work, and an on-demand estimator for sites already live.
 // ---------------------------------------------------------------------------
-
-function Rail() {
-  const t = useT()
-  return (
-    <aside className="gs-rail">
-      <div className="gs-rail__card">
-        <h3>{t('Included vs. add-ons', 'Incluido vs. complementos')}</h3>
-        <p>
-          {t(
-            'Every plan already covers design, hosting, SSL, backups, your domain, and your own editor. Add-ons are optional launch extras: phone line, email, logo, forms, rush delivery. Plan details:',
-            'Cada plan ya incluye diseño, hosting, SSL, copias de seguridad, tu dominio y tu propio editor. Los complementos son extras opcionales de lanzamiento: línea telefónica, correo, logo, formularios, entrega urgente. Detalles de los planes:',
-          )}{' '}
-          <Link to="/plans/freelance">Freelance</Link> ·{' '}
-          <Link to="/plans/standard">{t('Standard', 'Estándar')}</Link> ·{' '}
-          <Link to="/plans/enhanced">{t('Enhanced', 'Enhanced')}</Link> ·{' '}
-          <Link to="/plans/private-hosting">{t('Private Hosting', 'Hosting Privado')}</Link>
-        </p>
-      </div>
-      <div className="gs-rail__card">
-        <h3>{t('Pages vs. items', 'Páginas vs. artículos')}</h3>
-        <p>
-          {t(
-            'Pages are the layouts: 6 designed by us, plus up to 4 you assemble yourself from the component library, free (10 total). Items are the things they list — products, dishes, listings — all sharing one design (25 imported, then unlimited self-serve, free). A 40-product catalog is 1 page plus 40 items, not 40 pages.',
-            'Las páginas son los diseños: 6 diseñadas por nosotros, más hasta 4 que armas tú mismo desde la biblioteca de componentes, gratis (10 en total). Los artículos son las cosas que listan — productos, platillos, anuncios — todos compartiendo un mismo diseño (25 importados, luego ilimitados de autoservicio, gratis). Un catálogo de 40 productos es 1 página más 40 artículos, no 40 páginas.',
-          )}
-        </p>
-      </div>
-      <div className="gs-rail__card">
-        <h3>{t('On-demand, later', 'A pedido, después')}</h3>
-        <p>
-          {t(
-            'Newsletters, landing pages, QR menus, seasonal swaps, translations — added after launch, whenever you need them. Nothing to decide today; estimate below or see',
-            'Boletines, páginas de aterrizaje, menús QR, cambios de temporada, traducciones — se agregan después del lanzamiento, cuando los necesites. Nada que decidir hoy; estima abajo o mira',
-          )}{' '}
-          <Link to="/on-demand">{t('the full menu', 'el menú completo')}</Link>.
-        </p>
-      </div>
-    </aside>
-  )
-}
 
 export default function Pricing() {
   const t = useT()
@@ -65,10 +26,7 @@ export default function Pricing() {
     FAQS,
     PACKAGES,
     BASELINE_INCLUDES,
-    ADDONS,
-    ON_DEMAND,
   } = useContent()
-  const catalog = [...ADDONS, ...ON_DEMAND]
   return (
     <>
       <Seo
@@ -84,30 +42,47 @@ export default function Pricing() {
         eyebrow={t('Pricing & order', 'Precios y pedido')}
         headline={t('Price it yourself, right here.', 'Ponle precio tú mismo, aquí mismo.')}
         subtext={`${t(
-          "Pick a plan and any add-ons for a transparent, all-in number, or estimate on-demand work for a site that's already live.",
-          'Elige un plan y los complementos que quieras para un número transparente, todo incluido, o estima trabajo a pedido para un sitio que ya está en vivo.',
+          'Pick a plan, add only what you need, and watch the all-in number update as you go. Full plan details and everything included are just below.',
+          'Elige un plan, agrega solo lo que necesitas y observa cómo se actualiza el número todo incluido. Los detalles completos de cada plan están justo abajo.',
         )} ${PRICING_PROMISE}`}
         size="compact"
         variant="alt"
         ctas={[]}
       />
 
+      {/* The order builder leads — plan + add-ons on the left, a sticky
+          calculator + request form on the right, always in view. */}
+      <section id="order" className="section section--default gs-seam-bottom">
+        <div className="section-container gs-wide">
+          <p className="section-eyebrow">{t('Build your order', 'Arma tu pedido')}</p>
+          <h2 className="section-title">{t('Build your order', 'Arma tu pedido')}</h2>
+          <p className="section-sub">
+            {t(
+              'Choose a plan, add only the extras you want, and your all-in total updates live on the right — then send the exact setup as a request. Not sure which plan fits?',
+              'Elige un plan, agrega solo los extras que quieras y tu total todo incluido se actualiza en vivo a la derecha — luego envía la configuración exacta como solicitud. ¿No sabes cuál plan te queda?',
+            )}{' '}
+            <a href="#finder">{t('Take the 60-second quiz ↓', 'Haz el test de 60 segundos ↓')}</a>
+          </p>
+          <PackageConfigurator />
+        </div>
+      </section>
+
       {/* Not sure where to start: the 60-second plan finder */}
-      <section id="finder" className="section section--alt gs-seam-bottom">
+      <section id="finder" className="section section--alt gs-seam-top gs-seam-bottom">
         <div className="section-container">
           <p className="section-eyebrow">{t('Not sure where to start?', '¿No sabes por dónde empezar?')}</p>
           <h2 className="section-title">{t('Find your plan in 60 seconds', 'Encuentra tu plan en 60 segundos')}</h2>
           <p className="section-sub">
             {t(
-              'Four quick questions, one clear recommendation — a full package with a real number, sent as a request in one click. Prefer full control? The complete builder is right below.',
-              'Cuatro preguntas rápidas, una recomendación clara — un paquete completo con un número real, enviado como solicitud en un clic. ¿Prefieres control total? El configurador completo está justo abajo.',
+              'Four quick questions, one clear recommendation — a full package with a real number, sent as a request in one click.',
+              'Cuatro preguntas rápidas, una recomendación clara — un paquete completo con un número real, enviado como solicitud en un clic.',
             )}
           </p>
           <PlanFinder />
         </div>
       </section>
 
-      {/* What every plan includes — the shared baseline, before any tier */}
+      {/* What every plan includes — the shared baseline */}
       <section className="section section--default gs-seam-bottom">
         <div className="section-container">
           <p className="section-eyebrow">{t('In every plan', 'En cada plan')}</p>
@@ -124,13 +99,13 @@ export default function Pricing() {
 
       {/* The four plans — full detail cards with every feature listed */}
       <section id="plans" className="section section--alt gs-seam-top gs-seam-bottom">
-        <div className="section-container">
-          <p className="section-eyebrow">{t('Pick a starting point', 'Elige un punto de partida')}</p>
+        <div className="section-container gs-wide">
+          <p className="section-eyebrow">{t('Every plan in full', 'Cada plan en detalle')}</p>
           <h2 className="section-title">{t('The four plans', 'Los cuatro planes')}</h2>
           <p className="section-sub">
             {t(
-              'Every plan is a real, all-in number — everything above is already inside. Add optional extras below, or build your full quote in the configurator.',
-              'Cada plan es un número real, todo incluido — todo lo de arriba ya está adentro. Agrega extras opcionales abajo, o arma tu cotización completa en el configurador.',
+              'Every plan is a real, all-in number, with everything above already inside. Here is exactly what each one carries — pick your starting point up in the builder.',
+              'Cada plan es un número real, todo incluido, con todo lo de arriba ya adentro. Esto es exactamente lo que lleva cada uno — elige tu punto de partida arriba en el configurador.',
             )}
           </p>
           <div className="gs-plans">
@@ -168,34 +143,8 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Add-on library — the full optional catalog, scannable */}
-      <section id="addons" className="section section--default gs-seam-bottom">
-        <div className="section-container">
-          <p className="section-eyebrow">{t('Optional extras', 'Extras opcionales')}</p>
-          <h2 className="section-title">{t('Add-on library', 'Biblioteca de complementos')}</h2>
-          <p className="section-sub">
-            {t(
-              'Everything you can add — at launch or any time after. Prices are identical on every plan; nothing here is required to get started.',
-              'Todo lo que puedes agregar — al lanzar o en cualquier momento después. Los precios son idénticos en cada plan; nada de esto es obligatorio para empezar.',
-            )}
-          </p>
-          <div className="gs-addons">
-            {catalog.map((a) => (
-              <div key={a.id} className="gs-addon">
-                <div className="gs-addon__head">
-                  <span className="gs-addon__name">{a.name}</span>
-                  <span className="gs-addon__price">{a.price}</span>
-                </div>
-                <p className="gs-addon__cadence">{a.cadence}</p>
-                <p className="gs-addon__body">{a.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Integrations — the two sizes, explained plainly */}
-      <section id="integrations" className="section section--alt gs-seam-top gs-seam-bottom">
+      <section id="integrations" className="section section--default gs-seam-bottom">
         <div className="section-container">
           <p className="section-eyebrow">{t('Connecting outside services', 'Conectando servicios externos')}</p>
           <h2 className="section-title">{t('Integrations, two sizes', 'Integraciones, dos tamaños')}</h2>
@@ -232,22 +181,8 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* New orders: configurator with the explainer rail beside it */}
-      <section id="order" className="section section--default gs-seam-bottom">
-        <div className="section-container">
-          <p className="section-eyebrow">{t('New site', 'Sitio nuevo')}</p>
-          <h2 className="section-title">{t('Build your order', 'Arma tu pedido')}</h2>
-          <div className="gs-order">
-            <div className="gs-order__main">
-              <PackageConfigurator />
-            </div>
-            <Rail />
-          </div>
-        </div>
-      </section>
-
       {/* Existing sites: on-demand estimator */}
-      <section id="estimate" className="section section--alt gs-seam-top">
+      <section id="estimate" className="section section--alt gs-seam-top gs-seam-bottom">
         <div className="section-container">
           <p className="section-eyebrow">{t('Already launched?', '¿Ya lanzaste?')}</p>
           <h2 className="section-title">{t('Estimate on-demand work', 'Estima trabajo a pedido')}</h2>

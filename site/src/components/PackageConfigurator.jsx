@@ -94,7 +94,7 @@ export default function PackageConfigurator() {
       {/* ── Choices ─────────────────────────────────────────────────────── */}
       <div className="cfg__choices">
         <fieldset className="cfg__group">
-          <legend className="cfg__legend">{t('1 · Choose a base package', '1 · Elige un paquete base')}</legend>
+          <legend className="cfg__legend">{t('1 · Select your plan', '1 · Selecciona tu plan')}</legend>
           <div className="cfg__pkgs">
             {PACKAGES.filter(p => !p.tbd).map(p => {
               const active = p.id === pkgId

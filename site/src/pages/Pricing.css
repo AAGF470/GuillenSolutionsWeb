@@ -1,54 +1,17 @@
-/* ── PRICING & ORDER — configurator with explainer rail ─────────────────── */
+/* ── PRICING & ORDER ────────────────────────────────────────────────────── */
 
-.gs-order {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 28px;
-  align-items: start;
-  margin-top: 32px;
-}
+/* The order builder and the four-plan cards need more room than the 1200px
+   reading container. This widens just those sections; everything else keeps
+   the calmer default measure. */
+.section-container.gs-wide { max-width: min(1440px, 100%); }
 
-.gs-order__main { min-width: 0; }
-
-.gs-rail {
-  position: sticky;
-  top: 90px;
-  display: grid;
-  gap: 14px;
-}
-
-.gs-rail__card {
-  background: var(--color-surface-high);
-  border: 1px solid var(--color-border-low);
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
-}
-
-.gs-rail__card h3 {
-  margin: 0 0 6px;
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 16px;
-  color: var(--color-text);
-}
-
-.gs-rail__card p {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--color-text-sub);
-}
-
-.gs-rail__card a { color: var(--color-accent); }
-
-@media (max-width: 1000px) {
-  .gs-order { grid-template-columns: 1fr; }
-  .gs-rail { position: static; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-}
-
-
-/* Tighter seam between the order builder and the on-demand estimator */
+/* Tighter seams between stacked pricing sections */
 .section.gs-seam-bottom { padding-bottom: 40px; }
 .section.gs-seam-top { padding-top: 44px; }
+
+/* "Take the quiz" jump link under the builder intro */
+.section-sub a { color: var(--color-accent); text-decoration: none; white-space: nowrap; }
+.section-sub a:hover { text-decoration: underline; }
 
 
 /* ── THE FOUR PLANS — detailed cards ────────────────────────────────────── */
@@ -200,63 +163,6 @@
 
 @media (max-width: 560px) {
   .gs-plans { grid-template-columns: 1fr; }
-}
-
-
-/* ── ADD-ON LIBRARY — scannable catalog ─────────────────────────────────── */
-
-.gs-addons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.gs-addon {
-  background: var(--color-surface-high);
-  border: 1px solid var(--color-border-low);
-  border-radius: var(--radius-lg);
-  padding: 18px 20px;
-}
-
-.gs-addon__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.gs-addon__name {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 16px;
-  color: var(--color-text);
-}
-
-.gs-addon__price {
-  flex: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-accent);
-  white-space: nowrap;
-}
-
-.gs-addon__cadence {
-  margin: 4px 0 8px;
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-text-faint);
-}
-
-.gs-addon__body {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--color-text-sub);
-}
-
-@media (max-width: 760px) {
-  .gs-addons { grid-template-columns: 1fr; }
 }
 
 
