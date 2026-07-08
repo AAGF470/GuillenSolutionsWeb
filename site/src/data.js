@@ -416,6 +416,21 @@ export const FOUND = {
   ],
 }
 
+// ── Where we are now — honest about being a new, owner-run studio ─────────────
+// Closes the gap between an ambitious site and an early-stage business by
+// turning "new and small" into the real advantages it is: direct access,
+// low prices, personal accountability. Never claims a track record we lack.
+export const WHERE_WE_ARE = {
+  eyebrow: 'Where we are now',
+  headline: 'A new studio — and honest about it.',
+  lead: "Guillen Solutions is young and owner-run, and that's exactly why the deal is this fair. You work directly with the person building your site, prices are low because there's no agency overhead, and every promise on this page is one we can personally stand behind. We'd rather earn your trust with honest work than impress you with inflated claims.",
+  points: [
+    { icon: 'users',  title: 'You work with the builder',        body: 'No sales team, no account managers, no hand-offs — a direct line to the person actually designing and building your site.' },
+    { icon: 'zap',    title: 'Early-client pricing',             body: "Today's rates are introductory. Start now and you lock in fair, gradual pricing as we grow — put in writing before you sign." },
+    { icon: 'shield', title: 'Every claim, personally backed',   body: 'Small enough to stand behind each promise by name — ownership, exit terms, the number you were quoted. No fine-print games.' },
+  ],
+}
+
 // ── Referral commission program ──────────────────────────────────────────────
 // Open to ANYONE (clients, other business owners, friends) — a network
 // incentive, not a client perk. Commission on the package a referral pays for.

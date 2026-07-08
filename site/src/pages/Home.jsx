@@ -18,7 +18,7 @@ export default function Home() {
   const t = useT()
   const {
     PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
-    CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND,
+    CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE,
   } = useContent()
 
   // Map shared pricing data → PricingPlans plan shape
@@ -246,6 +246,18 @@ export default function Home() {
         items={OWNERSHIP}
         variant="alt"
       />
+
+      {/* Where we are now — honest about being a new, owner-run studio */}
+      <Reveal>
+        <FeatureGrid
+          eyebrow={WHERE_WE_ARE.eyebrow}
+          headline={WHERE_WE_ARE.headline}
+          subtext={WHERE_WE_ARE.lead}
+          items={WHERE_WE_ARE.points}
+          columns={3}
+          variant="default"
+        />
+      </Reveal>
 
       {/* Referral commission — open to anyone, not just clients */}
       <Reveal>
