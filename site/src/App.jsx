@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Routes, Route, NavLink, Link, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, NavLink, Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import './App.css'
 import { CONTACT_EMAIL } from './data'
+import { useContent } from './content.js'
 import { useLang, useT } from './i18n.jsx'
 import Home from './pages/Home.jsx'
 import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
@@ -11,6 +12,7 @@ import OnDemand from './pages/OnDemand.jsx'
 import CGRenders from './pages/CGRenders.jsx'
 import Guides from './pages/Guides.jsx'
 import GuidePost from './pages/GuidePost.jsx'
+import MarketGuide from './pages/MarketGuide.jsx'
 import Status from './pages/Status.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
@@ -159,6 +161,7 @@ function MobileMenu({ open, onClose }) {
             ))}
           </div>
         ))}
+        <Link to="/guides" className="gs-mnav__link" onClick={onClose}>{t('Guides', 'Guías')}</Link>
         <Link to="/status" className="gs-mnav__link" onClick={onClose}>{t('Status', 'Estado')}</Link>
         <Link to="/pricing" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>{t('Build your quote', 'Arma tu cotización')}</Link>
         <LangToggle className="gs-lang--mobile" />
@@ -172,19 +175,34 @@ function Nav() {
   const { pathname } = useLocation()
   const t = useT()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   useEffect(() => { setMenuOpen(false) }, [pathname]) // close on navigation
+  // Subtle elevation once the page scrolls under the bar.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  const guidesActive = pathname === '/guides' || pathname.startsWith('/guides/')
   return (
-    <nav className="gs-nav" aria-label="Main">
-      <Link to="/" className="gs-nav__logo">Guillen <span>Solutions</span></Link>
+    <nav className={`gs-nav${scrolled ? ' is-scrolled' : ''}`} aria-label="Main">
+      <Link to="/" className="gs-nav__logo">
+        <span className="gs-nav__logo-mark" aria-hidden="true">G</span>
+        <span className="gs-nav__logo-text">Guillen <span>Solutions</span></span>
+      </Link>
       <div className="gs-nav__links">
         <NavLink to="/" end className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Home', 'Inicio')}</NavLink>
         {navGroups(t).map(g => (
           <NavDropdown key={g.label} label={g.label} active={g.match(pathname)} items={g.items} />
         ))}
+        <NavLink to="/guides" className={`gs-nav__link${guidesActive ? ' is-active' : ''}`}>{t('Guides', 'Guías')}</NavLink>
         <NavLink to="/status" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Status', 'Estado')}</NavLink>
       </div>
-      <LangToggle className="gs-lang--nav" />
-      <Link to="/pricing" className="gs-nav__cta">{t('Build your quote', 'Arma tu cotización')}</Link>
+      <div className="gs-nav__actions">
+        <LangToggle className="gs-lang--nav" />
+        <Link to="/pricing" className="gs-nav__cta">{t('Build your quote', 'Arma tu cotización')}</Link>
+      </div>
       <button
         type="button"
         className={`gs-nav__burger${menuOpen ? ' is-open' : ''}`}
@@ -242,6 +260,15 @@ function Footer() {
   )
 }
 
+// /guides/:slug dispatcher — a static local-market guide if the slug is one of
+// ours, otherwise the CMS-backed devlog post. Slugs are language-independent.
+function GuideRoute() {
+  const { slug } = useParams()
+  const { LOCATION_GUIDES } = useContent()
+  const guide = LOCATION_GUIDES.find(g => g.slug === slug)
+  return guide ? <MarketGuide guide={guide} /> : <GuidePost />
+}
+
 export default function App() {
   return (
     <div className="gs-app">
@@ -264,7 +291,9 @@ export default function App() {
           <Route path="/renders" element={<CGRenders />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/guides" element={<Guides />} />
-          <Route path="/guides/:slug" element={<GuidePost />} />
+          {/* Known local-market slugs render the static MarketGuide; anything
+              else falls through to the CMS-backed devlog post. */}
+          <Route path="/guides/:slug" element={<GuideRoute />} />
           <Route path="/status" element={<Status />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />

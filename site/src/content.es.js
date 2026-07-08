@@ -535,3 +535,102 @@ export const FAQS = [
   },
 ]
 
+// ---------------------------------------------------------------------------
+// LOCATION_GUIDES — Spanish overrides. slug, marketId y state se mantienen
+// idénticos al inglés (son claves / abreviatura de estado de EE. UU.).
+// ---------------------------------------------------------------------------
+export const LOCATION_GUIDES = [
+  {
+    slug: 'web-design-new-york',
+    marketId: 'new-york',
+    city: 'Nueva York', state: 'NY',
+    metaTitle: 'Diseño web para pequeños negocios en la Ciudad de Nueva York',
+    metaDescription: 'Sitios web a la medida, renders de producto y configuración de negocio para empresas de Nueva York en los cinco condados — precio fijo, y tú eres dueño de todo. English & Español.',
+    lead: 'Sitios web a la medida y visuales de producto para pequeños negocios de Nueva York — creados para destacar en el mercado más competitivo del país, y de tu propiedad por completo.',
+    intro: [
+      'En una ciudad donde cada cuadra tiene competencia, un sitio de plantilla genérica desaparece. Les construimos a los pequeños negocios de Nueva York un sitio diseñado a la medida sobre nuestro propio sistema de componentes — el pulido de una construcción hecha a la medida por una fracción del costo de una agencia — para que te veas tan establecido en línea como lo eres en tu vecindario.',
+      'Desde locales en Manhattan hasta estudios en Brooklyn y negocios de servicios en Queens, trabajamos con dueños en los cinco condados. Conservas tu dominio, tu contenido y cada acceso — sin ataduras, en inglés o español.',
+    ],
+    whyTitle: 'Por qué importa en Nueva York',
+    why: [
+      'La búsqueda es hiperlocal: las búsquedas de "cerca de mí" y por nombre de condado deciden a quién le llaman. Configuramos tu sitio y tu Perfil de Empresa de Google para que aparezcas en los vecindarios correctos.',
+      'La vara está alta. Los clientes de Nueva York juzgan en segundos — un sitio limpio, rápido y a la medida transmite que eres de verdad.',
+      'Bilingüe por defecto: conecta con los clientes hispanohablantes de Nueva York con un sitio totalmente traducido, sin recargo de diseño.',
+    ],
+    faq: [
+      { q: '¿Se reúnen en persona con clientes en Nueva York?', a: 'Trabajamos con los clientes de Nueva York de forma remota — llamadas, correo y pantalla compartida — lo que mantiene bajos los costos y ágiles los tiempos. Las visitas en persona están reservadas para el área de Boston.' },
+      { q: '¿Pueden ayudar a que mi negocio aparezca en Google Maps en mi condado?', a: 'Sí. La configuración del Perfil de Empresa de Google ($300) es uno de nuestros complementos más populares para los negocios locales de NYC — muchas veces importa más que cualquier cosa dentro del sitio en sí.' },
+      { q: '¿Construyen tiendas en línea para comercios de NYC?', a: 'Construimos un escaparate limpio revestido sobre Square o Shopify, para que los clientes vean producto y disponibilidad en vivo — mientras el checkout, los pagos y los datos del cliente se quedan con la seguridad de nivel bancario de la plataforma.' },
+    ],
+  },
+  {
+    slug: 'web-design-boston',
+    marketId: 'boston',
+    city: 'Boston', state: 'MA',
+    metaTitle: 'Diseño web para pequeños negocios en Boston, MA',
+    metaDescription: 'Sitios web a la medida, renders de producto y configuración de negocio para empresas del área de Boston — desde Roxbury hasta el Seaport. Precio fijo, propiedad total, en persona en Boston.',
+    lead: 'Sitios web a la medida y visuales de producto para pequeños negocios de Boston — el único mercado donde trabajamos en persona, desde Roxbury hasta el Seaport.',
+    intro: [
+      'Boston es nuestra base. Es el único mercado donde nos reunimos con los clientes cara a cara — conociendo tu espacio, entendiendo a tus clientes y construyendo un sitio que encaje con el vecindario, ya sea una boutique en el South End o un negocio familiar en Dorchester.',
+      'Cada sitio se diseña a la medida sobre nuestra propia biblioteca de componentes, así que obtienes un look hecho a la medida sin la factura de agencia. Eres dueño total de tu dominio, tu contenido y tus accesos — y todo se entrega en inglés, español o ambos.',
+    ],
+    whyTitle: 'Por qué importa en Boston',
+    why: [
+      'Somos locales: los clientes de Boston tienen reuniones en persona — el único mercado donde eso está sobre la mesa.',
+      'La búsqueda por vecindario gana: desde Back Bay hasta Jamaica Plain, ajustamos tu sitio y tu presencia en Maps a las zonas que realmente atiendes.',
+      'La velocidad cuenta: el público concurrido y mobile-first de Boston no va a esperar por un sitio lento — los nuestros puntúan alto en velocidad y son legibles por asistentes de IA de fábrica.',
+    ],
+    faq: [
+      { q: '¿Podemos reunirnos en persona?', a: 'Sí — Boston es el único mercado donde las reuniones en persona son lo estándar. Podemos ir a ti en cualquier punto del área metropolitana, de Charlestown a Dorchester.' },
+      { q: '¿Con qué vecindarios de Boston trabajan?', a: 'Con todos — Roxbury, el South End, Seaport, Back Bay, Dorchester, Jamaica Plain y más allá. Ajustamos tu SEO local a las zonas que atiendes.' },
+      { q: '¿Trabajan con negocios bilingües de Boston?', a: 'Por completo. Los sitios totalmente en inglés/español vienen integrados sin recargo de diseño — una ventaja real en los diversos vecindarios de Boston.' },
+    ],
+  },
+  {
+    slug: 'web-design-north-houston',
+    marketId: 'north-houston',
+    city: 'Norte de Houston', state: 'TX',
+    metaTitle: 'Diseño web para pequeños negocios en el Norte de Houston, TX',
+    metaDescription: 'Sitios web a la medida, renders de producto y configuración de negocio para The Woodlands, Klein, Spring y Tomball — precio fijo, propiedad total, English & Español.',
+    lead: 'Sitios web a la medida y visuales de producto para pequeños negocios por todo el Norte de Houston — The Woodlands, Klein, Spring y Tomball.',
+    intro: [
+      'El Norte de Houston está en pleno auge, y cada día nuevos clientes buscan negocios locales. Les construimos a los dueños en The Woodlands, Klein, Spring y Tomball un sitio a la medida sobre nuestro propio sistema de componentes — para que un negocio en crecimiento luzca a la altura sin un presupuesto de agencia.',
+      'Trabajamos con los clientes del Norte de Houston de forma remota, en inglés o español, y tú eres dueño de todo: tu dominio, tu contenido y cada acceso. Sin ataduras, sin sorpresas.',
+    ],
+    whyTitle: 'Por qué importa en el Norte de Houston',
+    why: [
+      'Suburbios de rápido crecimiento significan competencia de rápido crecimiento — un sitio a la medida y rápido te ayuda a destacar a medida que la zona se llena.',
+      'La búsqueda local lo es todo: configuramos tu sitio y tu Perfil de Empresa de Google para que los clientes de Woodlands y Spring te encuentren primero.',
+      'Alcance bilingüe: un sitio totalmente traducido al español te conecta con la gran comunidad hispana del Norte de Houston, sin recargo de diseño.',
+    ],
+    faq: [
+      { q: '¿Se reúnen en persona con clientes en Houston?', a: 'Trabajamos con los clientes del Norte de Houston de forma remota, lo que mantiene los tiempos ágiles y los costos bajos. Las reuniones en persona están reservadas para el área de Boston, pero las llamadas y la pantalla compartida cubren todo lo que necesitamos.' },
+      { q: '¿Qué zonas del Norte de Houston cubren?', a: 'The Woodlands, Klein, Spring y Tomball, además de las comunidades circundantes del Norte de Houston.' },
+      { q: '¿Pueden ayudarme a posicionar específicamente en mi ciudad?', a: 'Sí — optimizamos tu sitio y tu Perfil de Empresa de Google para las ciudades específicas que atiendes, para que no te pierdas entre los resultados del gran Houston.' },
+    ],
+  },
+  {
+    slug: 'web-design-dallas',
+    marketId: 'dallas',
+    city: 'Dallas', state: 'TX',
+    metaTitle: 'Diseño web para pequeños negocios en Dallas, TX',
+    metaDescription: 'Sitios web a la medida, renders de producto y configuración de negocio para Dallas, Irving y Grand Prairie — precio fijo, propiedad total, English & Español.',
+    lead: 'Sitios web a la medida y visuales de producto para pequeños negocios por todo el área metropolitana de Dallas — incluyendo Irving y Grand Prairie.',
+    intro: [
+      'Nuestro primerísimo sitio de cliente fue para un electricista de Dallas — así que el área metropolitana nos queda cerca del corazón. Les construimos a los negocios del área de Dallas sitios a la medida sobre nuestro propio sistema de componentes: enfocados en la confianza, rápidos, con formularios de cotización que llegan directo al dueño.',
+      'Atendemos Dallas, Irving y Grand Prairie de forma remota, en inglés o español. Eres dueño total de tu dominio, tu contenido y cada acceso — sin ataduras, nunca.',
+    ],
+    whyTitle: 'Por qué importa en Dallas',
+    why: [
+      'Los negocios de servicios viven o mueren por la llamada: construimos sitios enfocados en la confianza con formularios de cotización que te llegan al instante.',
+      'La búsqueda en el área metropolitana es competitiva: ajustamos tu sitio y tu Perfil de Empresa de Google a Irving, Grand Prairie y tu rincón del DFW.',
+      'Bilingüe por defecto: conecta con el gran mercado hispanohablante de Dallas con un sitio totalmente traducido, sin recargo de diseño.',
+    ],
+    faq: [
+      { q: '¿Han construido antes para negocios de Dallas?', a: 'Sí — nuestro primer sitio de cliente fue Angel Electrical Services, un electricista con licencia en Dallas: diseño enfocado en la confianza con un formulario de cotización que llega al dueño.' },
+      { q: '¿Qué zonas de Dallas atienden?', a: 'Dallas propiamente, además de Irving, Grand Prairie y el área metropolitana circundante.' },
+      { q: '¿Se reúnen en persona en Dallas?', a: 'Trabajamos con los clientes de Dallas de forma remota, lo que mantiene todo ágil y accesible. Las reuniones en persona son una oferta exclusiva de Boston, pero las llamadas y la pantalla compartida se encargan de todo.' },
+    ],
+  },
+]
+

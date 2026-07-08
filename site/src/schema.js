@@ -9,6 +9,7 @@
 import {
   PACKAGES, ADDONS, ON_DEMAND, FAQS, CONTACT_EMAIL,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CG_RENDER_MOTION,
+  MARKETS,
 } from './data.js'
 
 const SITE = 'https://guillensolutions.com'
@@ -48,6 +49,9 @@ export const ORG = {
     'Digital business solutions for small businesses — websites, CG product renders, and business setup. Flat all-in pricing, and the client owns everything: domain, content, images, and every login. No lock-in.',
   areaServed: [
     { '@type': 'City', name: 'Boston' },
+    { '@type': 'City', name: 'New York' },
+    { '@type': 'City', name: 'Dallas' },
+    { '@type': 'City', name: 'Houston' },
     { '@type': 'Country', name: 'United States' },
   ],
   knowsLanguage: ['en', 'es'],
@@ -156,3 +160,46 @@ export const RENDERS_SERVICE = {
 export const homeSchema = [ORG, WEBSITE]
 export const pricingSchema = [ORG, ADDON_CATALOG, FAQ_SCHEMA]
 export const rendersSchema = [RENDERS_SERVICE]
+
+// ── Local-market guides — per-market service-area graph ──────────────────────
+// Service (with areaServed = city + served neighborhoods) + FAQPage + a
+// Guides→City breadcrumb. Lets search/AI read each market page as a real,
+// geo-scoped service offering rather than inferring it from prose.
+export function locationGuideSchema(guide) {
+  const market = MARKETS.find(m => m.id === guide.marketId)
+  const areas = market?.areas ?? []
+  const url = `${SITE}/guides/${guide.slug}`
+  const service = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    serviceType: 'Web design & digital business services',
+    provider: { '@id': ORG_ID },
+    name: guide.metaTitle,
+    description: guide.metaDescription,
+    url,
+    areaServed: [
+      { '@type': 'City', name: `${guide.city}, ${guide.state}` },
+      ...areas.map(a => ({ '@type': 'Place', name: a })),
+    ],
+  }
+  const faqPage = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    mainEntity: guide.faq.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Guides', item: `${SITE}/guides` },
+      { '@type': 'ListItem', position: 2, name: `${guide.city}, ${guide.state}`, item: url },
+    ],
+  }
+  return [service, faqPage, breadcrumb]
+}

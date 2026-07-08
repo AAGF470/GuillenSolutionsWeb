@@ -1,0 +1,117 @@
+/* ── LOCAL MARKET GUIDE ──────────────────────────────────────────────────── */
+
+.section.gs-seam-bottom { padding-bottom: 44px; }
+.section.gs-seam-top { padding-top: 48px; }
+
+/* Intro + served-areas rail */
+.gs-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 40px;
+  align-items: start;
+}
+
+.gs-guide__back { margin: 0 0 18px; font-size: 13px; }
+.gs-guide__back a { color: var(--color-accent); text-decoration: none; }
+.gs-guide__back a:hover { text-decoration: underline; }
+
+.gs-guide__lead {
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-sub);
+}
+.gs-guide__lead:last-child { margin-bottom: 0; }
+
+.gs-guide__areas {
+  position: sticky;
+  top: 88px;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+}
+
+.gs-guide__photo {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--color-border-low);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.gs-guide__pin {
+  display: flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: var(--radius-pill);
+  color: var(--color-accent); background: var(--color-accent-sub);
+}
+.gs-guide__pin svg { width: 24px; height: 24px; }
+
+.gs-guide__areas-label {
+  margin: 0 0 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--color-text-faint);
+}
+.gs-guide__pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; }
+.gs-guide__pills li {
+  font-size: 12.5px; color: var(--color-text-sub);
+  background: var(--color-bg); border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-pill); padding: 4px 11px;
+}
+
+/* Why it matters — numbered */
+.gs-guide__why {
+  list-style: none; margin: 28px 0 0; padding: 0;
+  display: grid; gap: 16px; max-width: 820px;
+}
+.gs-guide__why li {
+  display: flex; gap: 16px; align-items: flex-start;
+  font-size: 15.5px; line-height: 1.6; color: var(--color-text);
+}
+.gs-guide__why-num {
+  flex: none;
+  width: 30px; height: 30px; border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-accent); color: var(--color-on-accent);
+  font-size: 14px; font-weight: 700;
+}
+
+/* Services grid */
+.gs-guide__services {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 18px; margin-top: 32px;
+}
+.gs-guide__service {
+  display: flex; flex-direction: column;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.gs-guide__service:hover { border-color: var(--color-accent); transform: translateY(-3px); }
+.gs-guide__service-tag {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-accent); margin-bottom: 8px;
+}
+.gs-guide__service-name {
+  margin: 0 0 4px; font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px; color: var(--color-text);
+}
+.gs-guide__service-price { margin: 0 0 10px; font-size: 13px; font-weight: 600; color: var(--color-text-sub); }
+.gs-guide__service-body { margin: 0 0 14px; font-size: 13.5px; line-height: 1.55; color: var(--color-text-sub); }
+.gs-guide__service-link { margin-top: auto; font-size: 13px; font-weight: 600; color: var(--color-accent); }
+
+@media (max-width: 1000px) {
+  .gs-guide { grid-template-columns: 1fr; }
+  .gs-guide__areas { position: static; }
+  .gs-guide__services { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .gs-guide__services { grid-template-columns: 1fr; }
+}

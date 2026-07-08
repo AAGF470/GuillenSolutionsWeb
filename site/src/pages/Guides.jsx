@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HeroSection } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
+import { useContent } from '../content.js'
 import { useT } from '../i18n.jsx'
 import './Guides.css'
 
@@ -45,6 +46,41 @@ function GuideCard({ post, locale }) {
   )
 }
 
+// Local-market guides — always present, static, SEO-first. Rendered above the
+// CMS devlog feed so /guides has real content even before the first post.
+function LocalGuides() {
+  const t = useT()
+  const { LOCATION_GUIDES, MARKETS } = useContent()
+  if (!LOCATION_GUIDES?.length) return null
+  return (
+    <section className="section section--alt gs-lguides-section">
+      <div className="section-container">
+        <p className="section-eyebrow">{t('By location', 'Por ubicación')}</p>
+        <h2 className="section-title">{t('Guides for your area', 'Guías para tu zona')}</h2>
+        <p className="section-sub">
+          {t(
+            'Where we work, who we serve, and how a local business gets found online — one guide per market.',
+            'Dónde trabajamos, a quién servimos y cómo un negocio local se hace encontrar en línea — una guía por mercado.',
+          )}
+        </p>
+        <div className="gs-lguides">
+          {LOCATION_GUIDES.map(g => {
+            const areas = MARKETS.find(m => m.id === g.marketId)?.areas ?? []
+            return (
+              <Link key={g.slug} to={`/guides/${g.slug}`} className="gs-lguide">
+                <span className="gs-lguide__place">{g.city}, {g.state}</span>
+                <span className="gs-lguide__title">{t('Web design in', 'Diseño web en')} {g.city}</span>
+                <span className="gs-lguide__areas">{areas.slice(0, 4).join(' · ')}{areas.length > 4 ? ' …' : ''}</span>
+                <span className="gs-lguide__link">{t('Read the guide', 'Leer la guía')} →</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Guides() {
   const t = useT()
   const locale = t('en-US', 'es-ES')
@@ -75,8 +111,11 @@ export default function Guides() {
         ctas={[]}
       />
 
+      <LocalGuides />
+
       <section className="section">
         <div className="section-container">
+          <p className="section-eyebrow">{t('Devlogs & case studies', 'Devlogs y casos de estudio')}</p>
           {posts === null && <div className="gs-guides__grid" aria-busy="true" />}
           {posts?.length === 0 && (
             <div className="gs-guides__empty">

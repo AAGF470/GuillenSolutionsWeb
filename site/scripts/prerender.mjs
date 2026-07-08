@@ -20,8 +20,9 @@ import { fileURLToPath } from 'node:url'
 import {
   PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS, FOUND,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CONTACT_EMAIL,
+  LOCATION_GUIDES, MARKETS,
 } from '../src/data.js'
-import { ORG, homeSchema, pricingSchema, rendersSchema } from '../src/schema.js'
+import { ORG, homeSchema, pricingSchema, rendersSchema, locationGuideSchema } from '../src/schema.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, '..', 'dist')
@@ -92,7 +93,11 @@ const bodies = {
     'Services businesses add after launch, whenever they need them — fixed-scope, priced upfront.',
     list(ON_DEMAND.map(s => `<strong>${esc(s.name)}</strong> — ${esc(s.price)}: ${esc(s.body)}`)),
   ),
-  guides: wrap('Guides', 'Plain-English guides to owning your business online.', `<p><a href="/guides">Browse the guides</a>.</p>`),
+  guides: wrap(
+    'Guides',
+    'Plain-English guides to owning your business online — including web design guides for the local markets we serve.',
+    `<h2>Guides by location</h2>${list(LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}"><strong>Web design in ${esc(g.city)}, ${esc(g.state)}</strong></a> — ${esc(g.lead)}`))}`,
+  ),
   status: wrap(
     'What we\'re running, and what\'s new.',
     'Live status of the services we run for you, plus a running log of stack updates, new features, and announcements. Transparency is part of the deal.',
@@ -109,6 +114,21 @@ const planBody = p => wrap(
     : `then $${p.recurring}/yr for hosting + domain renewal, agreed in writing.`}</p>${list(p.features.map(esc))}<p><a href="/pricing#order">Build your quote</a></p>`,
 )
 
+// Local-market guide — real, indexable service-area content per market.
+const guideBody = g => {
+  const areas = MARKETS.find(m => m.id === g.marketId)?.areas ?? []
+  return wrap(
+    g.metaTitle,
+    g.lead,
+    `${g.intro.map(p => `<p>${esc(p)}</p>`).join('')}
+     <h2>Areas we serve in ${esc(g.city)}</h2>${list(areas.map(esc))}
+     <h2>${esc(g.whyTitle)}</h2>${list(g.why.map(esc))}
+     <h2>What we build for ${esc(g.city)} businesses</h2>${list(SERVICES.map(s => `<strong>${esc(s.title)}</strong> (${esc(s.price)}) — ${esc(s.body)} <a href="${s.to}">${esc(s.linkLabel)}</a>`))}
+     <h2>Questions · ${esc(g.city)}</h2>${list(g.faq.map(f => `<strong>${esc(f.q)}</strong> ${esc(f.a)}`))}
+     <p><a href="/pricing#order">Build your quote</a></p>`,
+  )
+}
+
 // ── route manifest ───────────────────────────────────────────────────────────
 const ROUTES = [
   { path: '/', title: 'Digital Business Solutions You Own', description: 'Websites, CG product renders, and business setup for small businesses — flat all-in pricing, and you own everything: domain, content, images, every login. English & Español.', schema: homeSchema, body: bodies.home },
@@ -120,6 +140,10 @@ const ROUTES = [
   { path: '/status', title: 'Status & Updates', description: 'Live service status and a running log of stack updates, new features, and announcements from Guillen Solutions — see us at work.', schema: [ORG], body: bodies.status },
   ...PACKAGES.map(p => ({
     path: `/plans/${p.id}`, title: p.name, description: p.description, schema: [ORG], body: planBody(p),
+  })),
+  ...LOCATION_GUIDES.map(g => ({
+    path: `/guides/${g.slug}`, title: g.metaTitle, description: g.metaDescription,
+    schema: locationGuideSchema(g), body: guideBody(g),
   })),
 ]
 
@@ -159,4 +183,23 @@ for (const r of ROUTES) {
   writeFileSync(outPath, html)
 }
 
-console.log(`✓ prerendered ${ROUTES.length} routes (head + JSON-LD + content baked into static HTML)`)
+// ── sitemap ────────────────────────────────────────────────────────────────
+// Generated from the same ROUTES manifest so it can never drift from what
+// actually ships (the old hand-maintained sitemap still listed retired plans).
+const priorityFor = path =>
+  path === '/' ? '1.0'
+    : path.startsWith('/plans/') ? '0.9'
+    : path.startsWith('/guides/') ? '0.7'
+    : path === '/guides' ? '0.6'
+    : '0.7'
+const changefreqFor = path => (path === '/guides' || path === '/status' ? 'weekly' : 'monthly')
+const sitemap =
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+  ROUTES.map(r => {
+    const loc = `${SITE}${r.path === '/' ? '' : r.path}`
+    return `  <url><loc>${loc}</loc><changefreq>${changefreqFor(r.path)}</changefreq><priority>${priorityFor(r.path)}</priority></url>`
+  }).join('\n') +
+  `\n</urlset>\n`
+writeFileSync(join(DIST, 'sitemap.xml'), sitemap)
+
+console.log(`✓ prerendered ${ROUTES.length} routes + sitemap (head + JSON-LD + content baked into static HTML)`)

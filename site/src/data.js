@@ -469,6 +469,105 @@ export const MARKETS = [
   },
 ]
 
+// Local-market SEO guides — one indexable, prerendered page per market. Each
+// is a real service-area page (distinct copy, local FAQ, geo schema), not a
+// doorway clone. `marketId` links to MARKETS so the served neighborhoods stay
+// in one place. Spanish prose lives in content.es.js under the same key.
+export const LOCATION_GUIDES = [
+  {
+    slug: 'web-design-new-york',
+    marketId: 'new-york',
+    city: 'New York', state: 'NY',
+    metaTitle: 'Web Design for Small Businesses in New York City',
+    metaDescription: 'Custom small-business websites, product renders, and business setup for New York businesses across all five boroughs — flat pricing, and you own everything. English & Español.',
+    lead: 'Custom websites and product visuals for New York small businesses — built to stand out in the most competitive market in the country, and owned entirely by you.',
+    intro: [
+      'In a city where every block has competition, a generic template site disappears. We build New York small businesses a custom-designed site on our own component system — the polish of a bespoke build at a fraction of agency cost — so you look as established online as you are in your neighborhood.',
+      'From Manhattan storefronts to Brooklyn studios and Queens service businesses, we work with owners across the five boroughs. You keep your domain, your content, and every login — no lock-in, in English or Spanish.',
+    ],
+    whyTitle: 'Why it matters in New York',
+    why: [
+      'Search is hyper-local: "near me" and borough-name searches decide who gets the call. We set up your site and Google Business Profile so you surface in the right neighborhoods.',
+      'The bar is high. New York customers judge in seconds — a clean, fast, custom site signals you are the real thing.',
+      "Bilingual by default: reach New York's Spanish-speaking customers with a fully translated site at no design premium.",
+    ],
+    faq: [
+      { q: 'Do you meet clients in person in New York?', a: 'We work with New York clients remotely — calls, email, and screen-share — which keeps costs down and timelines fast. In-person visits are reserved for the Boston area.' },
+      { q: 'Can you help my business show up on Google Maps in my borough?', a: 'Yes. Google Business Profile setup ($300) is one of our most popular add-ons for local NYC businesses — it often matters more than anything on the site itself.' },
+      { q: 'Do you build online stores for NYC shops?', a: "We build a clean storefront skinned over Square or Shopify, so customers get live product and availability — while checkout, payments, and customer data stay with the platform's bank-grade security." },
+    ],
+  },
+  {
+    slug: 'web-design-boston',
+    marketId: 'boston',
+    city: 'Boston', state: 'MA',
+    metaTitle: 'Web Design for Small Businesses in Boston, MA',
+    metaDescription: 'Custom small-business websites, product renders, and business setup for Boston-area businesses — from Roxbury to the Seaport. Flat pricing, full ownership, in-person in Boston.',
+    lead: 'Custom websites and product visuals for Boston small businesses — the one market where we work in person, from Roxbury to the Seaport.',
+    intro: [
+      "Boston is home base. It's the one market where we meet clients face to face — seeing your space, understanding your customers, and building a site that fits the neighborhood, whether that's a South End boutique or a Dorchester family business.",
+      'Every site is custom-designed on our own component library, so you get a bespoke look without the agency invoice. You own your domain, content, and logins outright — and everything ships in English, Spanish, or both.',
+    ],
+    whyTitle: 'Why it matters in Boston',
+    why: [
+      "We're local: Boston clients get in-person meetings — the only market where that's on the table.",
+      'Neighborhood search wins: from Back Bay to Jamaica Plain, we tune your site and Maps presence to the areas you actually serve.',
+      "Speed counts: Boston's crowded, mobile-first audience won't wait for a slow site — ours score high on speed and are readable by AI assistants out of the box.",
+    ],
+    faq: [
+      { q: 'Can we meet in person?', a: 'Yes — Boston is the one market where in-person meetings are standard. We can come to you anywhere in the metro, from Charlestown to Dorchester.' },
+      { q: 'Which Boston neighborhoods do you work with?', a: 'All of them — Roxbury, the South End, Seaport, Back Bay, Dorchester, Jamaica Plain, and beyond. We tune your local SEO to the areas you serve.' },
+      { q: 'Do you work with bilingual Boston businesses?', a: "Absolutely. Full English/Spanish sites are built in at no design premium — a real advantage in Boston's diverse neighborhoods." },
+    ],
+  },
+  {
+    slug: 'web-design-north-houston',
+    marketId: 'north-houston',
+    city: 'North Houston', state: 'TX',
+    metaTitle: 'Web Design for Small Businesses in North Houston, TX',
+    metaDescription: 'Custom small-business websites, product renders, and business setup for The Woodlands, Klein, Spring, and Tomball — flat pricing, full ownership, English & Español.',
+    lead: 'Custom websites and product visuals for small businesses across North Houston — The Woodlands, Klein, Spring, and Tomball.',
+    intro: [
+      'North Houston is booming, and new customers search for local businesses every day. We build owners in The Woodlands, Klein, Spring, and Tomball a custom site on our own component system — so a growing business looks the part without an agency budget.',
+      'We work with North Houston clients remotely, in English or Spanish, and you own everything: your domain, your content, and every login. No lock-in, no surprises.',
+    ],
+    whyTitle: 'Why it matters in North Houston',
+    why: [
+      'Fast-growing suburbs mean fast-growing competition — a custom, fast site helps you stand out as the area fills in.',
+      'Local search is everything: we set up your site and Google Business Profile so Woodlands and Spring customers find you first.',
+      "Bilingual reach: a fully Spanish-translated site connects you with North Houston's large Hispanic community at no design premium.",
+    ],
+    faq: [
+      { q: 'Do you meet clients in person in Houston?', a: 'We work with North Houston clients remotely, which keeps timelines fast and costs low. In-person meetings are reserved for the Boston area, but calls and screen-share cover everything we need.' },
+      { q: 'Which North Houston areas do you cover?', a: 'The Woodlands, Klein, Spring, and Tomball, plus the surrounding North Houston communities.' },
+      { q: 'Can you help me rank for my town specifically?', a: "Yes — we optimize your site and Google Business Profile for the specific towns you serve, so you're not lost in greater-Houston results." },
+    ],
+  },
+  {
+    slug: 'web-design-dallas',
+    marketId: 'dallas',
+    city: 'Dallas', state: 'TX',
+    metaTitle: 'Web Design for Small Businesses in Dallas, TX',
+    metaDescription: 'Custom small-business websites, product renders, and business setup for Dallas, Irving, and Grand Prairie — flat pricing, full ownership, English & Español.',
+    lead: 'Custom websites and product visuals for small businesses across the Dallas metroplex — including Irving and Grand Prairie.',
+    intro: [
+      'Our very first client site was a Dallas electrician — so the metroplex is close to home. We build Dallas-area businesses custom sites on our own component system: trust-first, fast, with quote forms that route straight to the owner.',
+      'Serving Dallas, Irving, and Grand Prairie remotely, in English or Spanish. You own your domain, your content, and every login outright — no lock-in, ever.',
+    ],
+    whyTitle: 'Why it matters in Dallas',
+    why: [
+      'Service businesses live or die by the call: we build trust-first sites with quote forms that reach you instantly.',
+      'Metroplex search is competitive: we tune your site and Google Business Profile to Irving, Grand Prairie, and your corner of DFW.',
+      "Bilingual by default: reach Dallas's large Spanish-speaking market with a fully translated site, no design premium.",
+    ],
+    faq: [
+      { q: 'Have you built for Dallas businesses before?', a: 'Yes — our first client site was Angel Electrical Services, a licensed Dallas electrician: trust-first design with a quote form that routes to the owner.' },
+      { q: 'Which Dallas areas do you serve?', a: 'Dallas proper, plus Irving, Grand Prairie, and the surrounding metroplex.' },
+      { q: 'Do you meet in person in Dallas?', a: 'We work with Dallas clients remotely, which keeps things fast and affordable. In-person meetings are a Boston-only offering, but calls and screen-share handle everything.' },
+    ],
+  },
+]
+
 // Renewal honesty — grandfathering means fair, disclosed pricing, not a rate
 // frozen forever. Never promise "your price never changes."
 export const PRICING_PROMISE =
