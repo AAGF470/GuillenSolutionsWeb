@@ -22,7 +22,7 @@ export const PLAN_PAGES = {
       { icon: 'check',  title: 'Accountant',           body: 'Services, seasons, and trust signals — plus a secure way for new clients to start a conversation.' },
       { icon: 'users',  title: 'Model / talent',       body: 'A fast portfolio with your comp card, measurements, and representation contact — shareable as one link.' },
       { icon: 'wrench', title: 'Potter / maker',       body: 'A gallery that does your work justice, your story, and where to buy — market-stall charm, professional finish.' },
-      { icon: 'home',   title: 'Dog breeder',          body: 'Your program, health testing, available litters as self-serve updates, and a waitlist form.' },
+      { icon: 'home',   title: 'Music teacher',        body: 'Your lessons, rates, and studio, plus a sign-up form for new students and a waitlist when you\'re full.' },
       { icon: 'globe',  title: '…and any solo pro',    body: 'Tutor, photographer, trainer, notary, translator — if it fits on five focused pages, this plan was built for it.' },
     ],
     getTitle: 'What the $600 actually includes',
@@ -115,7 +115,7 @@ export const PLAN_PAGES = {
     ],
     getTitle: 'What the ~$1,900 actually includes',
     get: [
-      'Everything in Standard — then bigger: up to 12 pages (8 designed by us + 4 you assemble), 4 CMS post styles, 50 items imported, 30 GB storage.',
+      'Everything in Standard — then bigger: up to 12 pages (8 designed by us + 4 you assemble), 4 CMS post formats, 50 items imported, 30 GB storage.',
       'Active management: monthly SEO upkeep and 2 seasonal changes a year, handled for you.',
       'A custom inquiry form and a small integration set up as part of the plan — no separate add-on fees.',
       'Full Spanish translation of your site, hand-done by a native speaker — both languages, first-class.',
@@ -131,7 +131,7 @@ export const PLAN_PAGES = {
     ],
     faq: [
       { q: 'What does "active management" actually cover?', a: 'Monthly SEO upkeep, two seasonal content changes a year, a custom inquiry form, a small integration, full Spanish translation, two page redesigns a year (then 50% off further ones), and a QR menu — all included, not billed as separate add-ons. It\'s the ongoing work of keeping a site current, done for you.' },
-      { q: 'How is this different from Standard?', a: 'Standard is the same great site, self-managed: you make the changes, free, in your CMS. Enhanced is bigger (12 pages vs. 10, 50 imports vs. 30, 4 post styles vs. 2) and adds a team that runs the updates for you. If you\'d rather not log in, this is the plan.' },
+      { q: 'How is this different from Standard?', a: 'Standard is the same great site, self-managed: you make the changes, free, in your CMS. Enhanced is bigger (12 pages vs. 10, 50 imports vs. 30, 4 post formats vs. 2) and adds a team that runs the updates for you. If you\'d rather not log in, this is the plan.' },
       { q: 'Why is the recurring ~$650 instead of ~$350?', a: 'Because active management is real, ongoing work — monthly SEO, seasonal swaps, and included redesigns are labor every year, not just hosting. Standard\'s $350 is hosting and domain; Enhanced\'s ~$650 is that plus the management. Both are agreed in writing before you sign.' },
     ],
     cta: { eyebrow: 'A site that grows without the busywork', headline: 'Let\'s build the bigger site — and keep it current for you.', subtext: 'Build a quote in a minute — or reach out and we\'ll talk it through.' },

@@ -273,11 +273,11 @@ export default function Home() {
       <section className="section section--alt">
         <div className="section-container">
           <p className="section-eyebrow">{t('Where we work', 'Dónde trabajamos')}</p>
-          <h2 className="section-title">{t('Our primary markets', 'Nuestros mercados principales')}</h2>
+          <h2 className="section-title">{t('Markets we serve', 'Mercados que servimos')}</h2>
           <p className="section-sub">
             {t(
-              'Rooted in a handful of communities across the country — with the local neighborhoods and towns we serve in each.',
-              'Con raíces en un puñado de comunidades por todo el país — con los vecindarios y pueblos que servimos en cada una.',
+              'The areas we focus on, with the local neighborhoods and towns covered in each. Boston in person; everywhere else, remotely — in English or Español.',
+              'Las zonas en las que nos enfocamos, con los vecindarios y pueblos que cubrimos en cada una. Boston en persona; todo lo demás, de forma remota — en inglés o español.',
             )}
           </p>
           <Markets />

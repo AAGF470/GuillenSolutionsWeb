@@ -23,7 +23,7 @@ export const PLAN_PAGES = {
       { icon: 'check',  title: 'Contador',           body: 'Servicios, temporadas y señales de confianza — más una forma segura para que los clientes nuevos inicien una conversación.' },
       { icon: 'users',  title: 'Modelo / talento',       body: 'Un portafolio rápido con tu comp card, medidas y contacto de representación — compartible como un solo enlace.' },
       { icon: 'wrench', title: 'Ceramista / artesano',          body: 'Una galería que le hace justicia a tu trabajo, tu historia y dónde comprar — encanto de puesto de mercado, acabado profesional.' },
-      { icon: 'home',   title: 'Criador de perros',          body: 'Tu programa, pruebas de salud, camadas disponibles como actualizaciones autogestionables y un formulario de lista de espera.' },
+      { icon: 'home',   title: 'Profesor de música',        body: 'Tus clases, tarifas y estudio, más un formulario de inscripción para nuevos alumnos y una lista de espera cuando estés lleno.' },
       { icon: 'globe',  title: '…y cualquier profesional individual',    body: 'Tutor, fotógrafo, entrenador, notario, traductor — si cabe en cinco páginas enfocadas, este plan se hizo para ello.' },
     ],
     getTitle: 'Qué incluye realmente los $600',
@@ -116,7 +116,7 @@ export const PLAN_PAGES = {
     ],
     getTitle: 'Qué incluye realmente los ~$1,900',
     get: [
-      'Todo lo del plan Estándar — pero más grande: hasta 12 páginas (8 diseñadas por nosotros + 4 que armas tú), 4 estilos de publicación en el CMS, 50 artículos importados, 30 GB de almacenamiento.',
+      'Todo lo del plan Estándar — pero más grande: hasta 12 páginas (8 diseñadas por nosotros + 4 que armas tú), 4 formatos de publicación en el CMS, 50 artículos importados, 30 GB de almacenamiento.',
       'Gestión activa: mantenimiento mensual de SEO y 2 cambios de temporada al año, hechos por ti.',
       'Un formulario de contacto personalizado y una integración pequeña configurados como parte del plan — sin tarifas de complemento aparte.',
       'Traducción completa al español de tu sitio, hecha a mano por un hablante nativo — ambos idiomas, de primera.',
@@ -132,7 +132,7 @@ export const PLAN_PAGES = {
     ],
     faq: [
       { q: '¿Qué cubre exactamente la "gestión activa"?', a: 'Mantenimiento mensual de SEO, dos cambios de contenido de temporada al año, un formulario de contacto personalizado, una integración pequeña, traducción completa al español, dos rediseños de página al año (luego 50% de descuento en los siguientes) y un menú QR — todo incluido, no facturado como complementos aparte. Es el trabajo continuo de mantener un sitio al día, hecho por ti.' },
-      { q: '¿En qué se diferencia esto del plan Estándar?', a: 'Estándar es el mismo gran sitio, autogestionado: tú haces los cambios, gratis, en tu CMS. Enhanced es más grande (12 páginas vs. 10, 50 importaciones vs. 30, 4 estilos de publicación vs. 2) y agrega un equipo que hace las actualizaciones por ti. Si preferirías no iniciar sesión, este es el plan.' },
+      { q: '¿En qué se diferencia esto del plan Estándar?', a: 'Estándar es el mismo gran sitio, autogestionado: tú haces los cambios, gratis, en tu CMS. Enhanced es más grande (12 páginas vs. 10, 50 importaciones vs. 30, 4 formatos de publicación vs. 2) y agrega un equipo que hace las actualizaciones por ti. Si preferirías no iniciar sesión, este es el plan.' },
       { q: '¿Por qué la tarifa recurrente es ~$650 en vez de ~$350?', a: 'Porque la gestión activa es trabajo real y continuo — el SEO mensual, los cambios de temporada y los rediseños incluidos son labor cada año, no solo hosting. Los $350 de Estándar son hosting y dominio; los ~$650 de Enhanced son eso más la gestión. Ambos se acuerdan por escrito antes de que firmes.' },
     ],
     cta: { eyebrow: 'Un sitio que crece sin el trabajo repetitivo', headline: 'Construyamos el sitio más grande — y lo mantenemos al día por ti.', subtext: 'Arma una cotización en un minuto — o contáctanos y lo conversamos.' },

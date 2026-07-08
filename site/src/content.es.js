@@ -59,7 +59,7 @@ export const PACKAGES = [
     note: 'Después del primer año: ~$650/año — la gestión activa es trabajo continuo.',
     features: [
       'Hasta 12 páginas — 8 diseñadas por nosotros + 4 que armas tú',
-      '4 estilos de publicación en el CMS — categorías y entradas ilimitadas',
+      '4 formatos de publicación en el CMS — categorías y entradas ilimitadas',
       '50 importaciones al CMS incluidas, luego $7/artículo',
       '30 GB de almacenamiento',
       'Gestión activa: mantenimiento mensual de SEO, 2 cambios de temporada al año, un formulario de contacto personalizado, una integración pequeña, traducción completa al español, 2 rediseños de página al año (luego 50% de descuento), un menú QR',
@@ -388,17 +388,17 @@ export const FOUND = {
 export const REFERRAL_PROGRAM = {
   eyebrow: 'Programa de referidos',
   headline: '¿Conoces un negocio que nos necesita? Gana hasta un 10%.',
-  lead: 'Cualquiera puede referir — no tienes que ser cliente. Cuando alguien que nos envías firma y paga un paquete, ganas una comisión: 10% en paquetes menores a $600, 5% en paquetes de $600 en adelante. Refiere a cuantas personas quieras.',
+  lead: 'Cualquiera puede referir — no tienes que ser cliente. Cuando alguien que nos envías firma y paga un paquete, ganas una comisión: 10% de los primeros $600, más 5% de lo que exceda esa cantidad. Refiere a cuantas personas quieras.',
   steps: [
     { title: 'Envíalos con nosotros',      body: 'Que mencionen tu nombre cuando nos contacten — o cuéntanos tú de ellos. Cualquier orden sirve: a quien nos llegue primero, simplemente lo confirmamos con el otro. Sin registro, sin panel, sin formularios.' },
     { title: 'Firman y pagan',        body: 'Tu referido elige cualquier paquete — un plan de sitio web o un paquete de renders de producto — y lo paga.' },
-    { title: 'Pagado el mismo día, por Zelle', body: 'Una vez que ambas partes se nombran entre sí y el paquete está pagado por completo, te enviamos tu comisión por Zelle el mismo día. 10% por debajo de $600, 5% de $600 en adelante.' },
+    { title: 'Pagado el mismo día, por Zelle', body: 'Una vez que ambas partes se nombran entre sí y el paquete está pagado por completo, te enviamos tu comisión por Zelle el mismo día. 10% de los primeros $600, más 5% de lo que exceda.' },
   ],
   fine: 'La comisión aplica al primer paquete que un cliente nuevo firma y paga. La atribución es de dos lados: el cliente te nombra y tú nombras al cliente — en cualquier orden — y las respuestas coincidentes activan el pago el mismo día. Sin ciclos de pago, sin mínimos.',
 }
 
 export const GROWTH_NOTE =
-  'A medida que tu sitio crece, las páginas extra o rediseños cuestan entre $75 y $200 cada uno, cotizados según la profundidad. Y los referidos pagan: envíanos un cliente que firme y recibe el 10% de paquetes menores a $600 (5% de $600 en adelante) por Zelle, el mismo día — seas cliente o no.'
+  'A medida que tu sitio crece, las páginas extra o rediseños cuestan entre $75 y $200 cada uno, cotizados según la profundidad. Y los referidos pagan: envíanos un cliente que firme y recibe el 10% de los primeros $600 (más 5% de lo que exceda) por Zelle, el mismo día — seas cliente o no.'
 
 export const PRICING_PROMISE =
   'Las tarifas de renovación se acuerdan por escrito antes de que firmes, así que no hay sorpresas. Los precios de hoy son tarifas iniciales; los clientes existentes conservan precios justos y graduales.'
@@ -414,18 +414,18 @@ export const CMS_NOTE =
   'Como es tuyo, puedes agregar o quitar productos y ajustar el diseño de las páginas tú mismo, cuando quieras — sin programar, y sin costo. Las tarifas de los complementos son solo para cuando prefieras que nosotros nos encarguemos.'
 
 export const CMS_LEAD =
-  'Un CMS es simplemente la pantalla donde inicias sesión para actualizar tu propio sitio — cambiar tus palabras, precios y fotos, sin código de por medio. La mayoría son abrumadores y confusos. El tuyo es hecho a la medida: muestra solo el puñado de cosas que de verdad cambias (precios, fotos, productos, horarios) y esconde todo lo demás. Un lugar simple y seguro para manejar tu propio sitio — imposible de romper, y tuyo para conservar.'
+  'Un CMS es simplemente la pantalla donde inicias sesión para actualizar tu propio sitio — cambiar tus palabras, precios y fotos, sin código de por medio. La mayoría son abrumadores y confusos. El tuyo es hecho a la medida: muestra solo el puñado de cosas que de verdad cambias (precios, fotos, productos, horarios) y esconde todo lo demás. Un lugar simple y seguro para manejar tu propio sitio — tus ediciones no pueden romper el diseño, y es tuyo para conservar.'
 
 export const CMS_POINTS = [
   { icon: 'layers', title: 'Solo lo que necesitas',        body: 'Mostramos los controles exactos que usa tu negocio y ocultamos el resto — sin un panel abrumador, sin campos que nunca abrirás.' },
   { icon: 'wrench', title: 'Hecho a la medida de tu negocio', body: 'Productos, menú, listados, horarios — el CMS se moldea alrededor de lo que realmente gestionas, como una plantilla personalizada hecha solo para ti.' },
-  { icon: 'shield', title: 'Imposible de romper',       body: 'El diseño y la maquetación están fijados en los componentes, así que editar contenido nunca puede dañar cómo se ve tu sitio. Seguro para entregar a cualquiera de tu equipo.' },
+  { icon: 'shield', title: 'Tus ediciones no pueden romperlo',       body: 'El diseño y la maquetación están fijados en los componentes, así que editar contenido nunca puede dañar cómo se ve tu sitio. Seguro para entregar a cualquiera de tu equipo.' },
   { icon: 'check',  title: 'Edítalo tú mismo — gratis',   body: 'Agrega, cambia y elimina contenido cuando quieras sin costo. Nuestras tarifas solo aplican cuando prefieras que nosotros hagamos el cambio por ti.' },
 ]
 
 export const RUN_SAFE_POINTS = [
   { icon: 'layers', title: 'Solo lo que necesitas',      body: 'Tu editor muestra las cosas exactas que tu negocio cambia: precios, fotos, productos, horarios. Nada más.' },
-  { icon: 'shield', title: 'Imposible de romper',     body: 'El diseño y la maquetación están fijados en los componentes. Cualquiera de tu equipo puede editar contenido sin romper el sitio.' },
+  { icon: 'shield', title: 'Tus ediciones no pueden romperlo',     body: 'El diseño y la maquetación están fijados en los componentes. Cualquiera de tu equipo puede editar contenido sin romper el sitio.' },
   { icon: 'check',  title: 'Editar siempre es gratis',  body: 'Agrega, cambia y elimina contenido cuando quieras sin costo. Las tarifas solo aplican cuando quieres que lo hagamos por ti.' },
   { icon: 'zap',    title: 'A prueba de desastres por diseño', body: 'Tu contenido vive en almacenamiento separado y respaldado. Si el servidor público llegara a fallar, reconstruimos desde copias limpias en horas.' },
 ]
@@ -454,7 +454,7 @@ export const PAGES_ITEMS = {
 export const OWNERSHIP = [
   'Eres dueño de todo: tu dominio, sitio web, contenido, correo, número de teléfono y cada acceso.',
   'Te entregamos las llaves — toma tus recursos y vete cuando quieras. Sin ataduras, sin rescates.',
-  'Si te vas, recibes una copia ejecutable de todo el sitio — un contenedor del sitio, la biblioteca de componentes (integrada y como código fuente) y tu exportación completa de contenido — con hasta 120 días para recogerlo. La salida está diseñada, no castigada.',
+  'Si te vas, recibes una copia ejecutable de todo el sitio — un contenedor del sitio, la biblioteca de componentes (integrada y como código fuente) y tu exportación completa de contenido — con 30 días para recogerlo, extensibles a pedido hasta un tope máximo de 120. La salida está diseñada, no castigada.',
   'Nunca gestionamos ni autorizamos tu gasto en anuncios, ni manejamos tu dinero.',
   'Precios transparentes, incluyendo cualquier costo de terceros (Google, dominio) facturado a ti directamente.',
   'Cada servicio es un entregable definido y de alcance fijo. Las combinaciones a la medida se cotizan por negocio.',
@@ -531,7 +531,7 @@ export const FAQS = [
   },
   {
     q: '¿Cómo funciona el programa de referidos? ¿Puedo referir a una organización sin fines de lucro o al negocio de un amigo?',
-    a: 'Cualquiera puede referir a cualquiera — clientes, amigos, otros dueños de negocio, organizaciones sin fines de lucro incluidas. Cuando alguien que envías firma y paga un paquete, ganas 10% en paquetes menores a $600 y 5% en paquetes de $600 en adelante, pagado por Zelle el mismo día en que ambas partes se confirman entre sí. Sin registro, sin formularios: mencionan tu nombre, lo confirmamos contigo, listo.',
+    a: 'Cualquiera puede referir a cualquiera — clientes, amigos, otros dueños de negocio, organizaciones sin fines de lucro incluidas. Cuando alguien que envías firma y paga un paquete, ganas 10% de los primeros $600 y 5% de lo que exceda, pagado por Zelle el mismo día en que ambas partes se confirman entre sí. Sin registro, sin formularios: mencionan tu nombre, lo confirmamos contigo, listo.',
   },
 ]
 
@@ -549,7 +549,7 @@ export const LOCATION_GUIDES = [
     lead: 'Sitios web a la medida y visuales de producto para pequeños negocios de Nueva York — creados para destacar en el mercado más competitivo del país, y de tu propiedad por completo.',
     intro: [
       'En una ciudad donde cada cuadra tiene competencia, un sitio de plantilla genérica desaparece. Les construimos a los pequeños negocios de Nueva York un sitio diseñado a la medida sobre nuestro propio sistema de componentes — el pulido de una construcción hecha a la medida por una fracción del costo de una agencia — para que te veas tan establecido en línea como lo eres en tu vecindario.',
-      'Desde locales en Manhattan hasta estudios en Brooklyn y negocios de servicios en Queens, trabajamos con dueños en los cinco condados. Conservas tu dominio, tu contenido y cada acceso — sin ataduras, en inglés o español.',
+      'Desde locales en Manhattan hasta estudios en Brooklyn y negocios de servicios en Queens, estamos listos para trabajar con dueños en los cinco condados, de forma remota. Conservas tu dominio, tu contenido y cada acceso — sin ataduras, en inglés o español.',
     ],
     whyTitle: 'Por qué importa en Nueva York',
     why: [

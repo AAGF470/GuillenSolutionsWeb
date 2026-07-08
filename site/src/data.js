@@ -17,7 +17,7 @@ export const PACKAGES = [
     note: 'After year one: $200/yr hosting + domain renewal.',
     features: [
       '5 pages — 3 designed for you + 2 you assemble yourself',
-      '1 CMS post style — unlimited categories & posts',
+      '1 CMS post format — unlimited categories & posts',
       'CMS imports: none included ($7/item if you\'d like us to import)',
       '10 GB storage',
       'Standard add-on rates',
@@ -36,7 +36,7 @@ export const PACKAGES = [
     note: 'After year one: $350/yr hosting + domain renewal.',
     features: [
       'Up to 10 pages — 6 designed by us + 4 you assemble yourself',
-      '2 CMS post styles — unlimited categories & posts',
+      '2 CMS post formats — unlimited categories & posts',
       '30 CMS imports included, then $7/item',
       '20 GB storage',
       '15% off CG render work when bundled',
@@ -55,7 +55,7 @@ export const PACKAGES = [
     note: 'After year one: ~$650/yr — active management is ongoing work.',
     features: [
       'Up to 12 pages — 8 designed by us + 4 you assemble yourself',
-      '4 CMS post styles — unlimited categories & posts',
+      '4 CMS post formats — unlimited categories & posts',
       '50 CMS imports included, then $7/item',
       '30 GB storage',
       'Active management: monthly SEO upkeep, 2 seasonal changes/yr, a custom inquiry form, a small integration, full Spanish translation, 2 page redesigns/yr (then 50% off), a QR menu',
@@ -422,17 +422,17 @@ export const FOUND = {
 export const REFERRAL_PROGRAM = {
   eyebrow: 'Referral program',
   headline: 'Know a business that needs us? Earn up to 10%.',
-  lead: 'Anyone can refer — you don\'t have to be a client. When someone you send our way signs and pays for a package, you earn a commission: 10% on packages under $600, 5% on packages $600 and up. Refer as many people as you like.',
+  lead: 'Anyone can refer — you don\'t have to be a client. When someone you send our way signs and pays for a package, you earn a commission: 10% of the first $600, plus 5% of anything above that. Refer as many people as you like.',
   steps: [
     { title: 'Send them our way',      body: 'Have them mention your name when they reach out — or tell us about them yourself. Either order works: whoever reaches us first, we simply confirm with the other. No sign-up, no dashboard, no forms.' },
     { title: 'They sign & pay',        body: 'Your referral picks any package — a website plan or a product-render package — and pays for it.' },
-    { title: 'Paid same day, by Zelle', body: 'Once both sides name each other and the package is paid in full, we send your commission by Zelle the same day. 10% under $600, 5% at $600 and up.' },
+    { title: 'Paid same day, by Zelle', body: 'Once both sides name each other and the package is paid in full, we send your commission by Zelle the same day. 10% of the first $600, plus 5% of anything above.' },
   ],
   fine: 'Commission applies to the first package a new customer signs and pays for. Attribution is two-sided: the client names you and you name the client — in either order — and matching answers trigger same-day payment. No payout cycles, no minimums.',
 }
 
 export const GROWTH_NOTE =
-  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And referrals pay: send us a customer who signs and get 10% of packages under $600 (5% at $600 and up) by Zelle, same day — client or not.'
+  'As your site grows, extra pages or redesigns run $75–200 each, quoted by depth. And referrals pay: send us a customer who signs and get 10% of the first $600 (plus 5% of anything above) by Zelle, same day — client or not.'
 
 export const REFERRAL_NOTE = null // merged into GROWTH_NOTE
 
@@ -483,7 +483,7 @@ export const LOCATION_GUIDES = [
     lead: 'Custom websites and product visuals for New York small businesses — built to stand out in the most competitive market in the country, and owned entirely by you.',
     intro: [
       'In a city where every block has competition, a generic template site disappears. We build New York small businesses a custom-designed site on our own component system — the polish of a bespoke build at a fraction of agency cost — so you look as established online as you are in your neighborhood.',
-      'From Manhattan storefronts to Brooklyn studios and Queens service businesses, we work with owners across the five boroughs. You keep your domain, your content, and every login — no lock-in, in English or Spanish.',
+      'From Manhattan storefronts to Brooklyn studios and Queens service businesses, we\'re set up to work with owners across the five boroughs, remotely. You keep your domain, your content, and every login — no lock-in, in English or Spanish.',
     ],
     whyTitle: 'Why it matters in New York',
     why: [
@@ -586,19 +586,19 @@ export const CMS_NOTE =
   'Because you own it, you can add or remove products and adjust page layouts yourself, anytime — no coding required, and no charge. The add-on fees are only for when you\'d rather we handle it for you.'
 
 export const CMS_LEAD =
-  'A CMS is just the screen where you log in to update your own site — change your words, prices, and photos, no code involved. Most are bloated and confusing. Yours is custom-built: it shows only the handful of things you actually change (prices, photos, products, hours) and hides everything else. A simple, safe place to run your own site — impossible to break, and yours to keep.'
+  'A CMS is just the screen where you log in to update your own site — change your words, prices, and photos, no code involved. Most are bloated and confusing. Yours is custom-built: it shows only the handful of things you actually change (prices, photos, products, hours) and hides everything else. A simple, safe place to run your own site — your edits can\'t break the design, and it\'s yours to keep.'
 
 export const CMS_POINTS = [
   { icon: 'layers', title: 'Only what you need',        body: 'We expose the exact controls your business uses and hide the rest — no overwhelming admin, no fields you\'ll never open.' },
   { icon: 'wrench', title: 'Tailored to your business', body: 'Products, menu, listings, hours — the CMS is shaped around what you actually manage, like a custom template built just for you.' },
-  { icon: 'shield', title: 'Impossible to break',       body: 'Design and layout are locked into the components, so editing content can never break how your site looks. Safe to hand to anyone on your team.' },
+  { icon: 'shield', title: 'Your edits can\'t break it',       body: 'Design and layout are locked into the components, so editing content can never break how your site looks. Safe to hand to anyone on your team.' },
   { icon: 'check',  title: 'Edit it yourself — free',   body: 'Add, change, and remove content anytime at no charge. Our fees only apply when you\'d rather we make the change for you.' },
 ]
 
 // Home: one combined grid replaces the old separate CMS + security sections.
 export const RUN_SAFE_POINTS = [
   { icon: 'layers', title: 'Only what you need',      body: 'Your editor shows the exact things your business changes: prices, photos, products, hours. Nothing else.' },
-  { icon: 'shield', title: 'Impossible to break',     body: 'Design and layout are locked into the components. Anyone on your team can edit content without breaking the site.' },
+  { icon: 'shield', title: 'Your edits can\'t break it',     body: 'Design and layout are locked into the components. Anyone on your team can edit content without breaking the site.' },
   { icon: 'check',  title: 'Editing is always free',  body: 'Add, change, and remove content anytime at no charge. Fees only apply when you want us to do it for you.' },
   { icon: 'zap',    title: 'Disaster-proof by design', body: 'Your content lives on separate, backed-up storage. If the public server ever fails, we rebuild from clean backups in hours.' },
 ]
@@ -628,7 +628,7 @@ export const PAGES_ITEMS = {
 export const OWNERSHIP = [
   'You own everything: your domain, website, content, email, phone number, and every login.',
   'We hand you the keys — take your assets and leave anytime. No lock-in, no ransom.',
-  'If you leave, you get a runnable copy of the whole site — a container of the site, the component library (built in and as source), and your full content export — with up to 120 days to collect it. Leaving is designed for, not punished.',
+  'If you leave, you get a runnable copy of the whole site — a container of the site, the component library (built in and as source), and your full content export — with 30 days to collect it, extendable on request up to a hard cap of 120. Leaving is designed for, not punished.',
   'We never manage or authorize your ad spend, or handle your money.',
   'Transparent pricing, including any third-party costs (Google, domain) billed to you directly.',
   'Every service is a defined, fixed-scope deliverable. Tailored combinations are quoted per business.',
@@ -707,6 +707,6 @@ export const FAQS = [
   },
   {
     q: 'How does the referral program work? Can I refer a non-profit or a friend\'s business?',
-    a: 'Anyone can refer anyone — clients, friends, other business owners, non-profits included. When someone you send signs and pays for a package, you earn 10% on packages under $600 and 5% on packages $600 and up, paid by Zelle the same day both sides confirm each other. No sign-up, no forms: they mention your name, we confirm with you, done.',
+    a: 'Anyone can refer anyone — clients, friends, other business owners, non-profits included. When someone you send signs and pays for a package, you earn 10% of the first $600 and 5% of anything above, paid by Zelle the same day both sides confirm each other. No sign-up, no forms: they mention your name, we confirm with you, done.',
   },
 ]
