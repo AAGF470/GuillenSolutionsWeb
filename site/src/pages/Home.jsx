@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
+import Reveal from '../components/Reveal.jsx'
 import {
   HeroSection,
   FeatureGrid,
@@ -71,6 +72,7 @@ export default function Home() {
       />
 
       {/* The service lines — websites are the core, no longer the whole story */}
+      <Reveal>
       <section className="section section--alt gs-svc" id="services">
         <div className="section-container">
           <p className="section-eyebrow">{t('What we do', 'Qué hacemos')}</p>
@@ -96,6 +98,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       <FeatureGrid
         eyebrow={t('How websites work here', 'Cómo funcionan los sitios web aquí')}
@@ -130,12 +133,14 @@ export default function Home() {
         variant="default"
       />
 
-      <Steps
-        eyebrow={t('How it works', 'Cómo funciona')}
-        headline={t('From package to keys in four steps', 'Del paquete a las llaves en cuatro pasos')}
-        items={STEPS}
-        variant="alt"
-      />
+      <Reveal>
+        <Steps
+          eyebrow={t('How it works', 'Cómo funciona')}
+          headline={t('From package to keys in four steps', 'Del paquete a las llaves en cuatro pasos')}
+          items={STEPS}
+          variant="alt"
+        />
+      </Reveal>
 
       <div id="packages">
         <PricingPlans
@@ -153,7 +158,8 @@ export default function Home() {
             {t('Each plan has its own deep dive', 'Cada plan tiene su propio recorrido a fondo')} ({' '}
             <Link to="/plans/freelance">Freelance</Link> ·{' '}
             <Link to="/plans/standard">{t('Standard', 'Estándar')}</Link> ·{' '}
-            <Link to="/plans/wordpress">WordPress</Link>{' '}
+            <Link to="/plans/enhanced">{t('Enhanced', 'Enhanced')}</Link> ·{' '}
+            <Link to="/plans/private-hosting">{t('Private Hosting', 'Hosting Privado')}</Link>{' '}
             ) {t('and every option lives on one page at', 'y todas las opciones viven en una página en')} <Link to="/pricing">{t('full pricing & order', 'precios completos y pedido')}</Link>.
           </p>
           <p className="gs-note">{GROWTH_NOTE}</p>
@@ -176,24 +182,28 @@ export default function Home() {
       />
 
       {/* Your custom CMS + security, one section — the run-it-yourself promise */}
-      <FeatureGrid
-        eyebrow={t('Run it yourself', 'Manéjalo tú mismo')}
-        headline={t('Your own control panel, built around your business', 'Tu propio panel de control, hecho alrededor de tu negocio')}
-        subtext={CMS_LEAD}
-        items={RUN_SAFE_POINTS}
-        columns={4}
-        variant="alt"
-      />
+      <Reveal>
+        <FeatureGrid
+          eyebrow={t('Run it yourself', 'Manéjalo tú mismo')}
+          headline={t('Your own control panel, built around your business', 'Tu propio panel de control, hecho alrededor de tu negocio')}
+          subtext={CMS_LEAD}
+          items={RUN_SAFE_POINTS}
+          columns={4}
+          variant="alt"
+        />
+      </Reveal>
 
       {/* Found by search & AI — how we build for discoverability, honestly */}
-      <FeatureGrid
-        eyebrow={FOUND.eyebrow}
-        headline={FOUND.headline}
-        subtext={FOUND.lead}
-        items={FOUND.points}
-        columns={4}
-        variant="default"
-      />
+      <Reveal>
+        <FeatureGrid
+          eyebrow={FOUND.eyebrow}
+          headline={FOUND.headline}
+          subtext={FOUND.lead}
+          items={FOUND.points}
+          columns={4}
+          variant="default"
+        />
+      </Reveal>
 
       {/* Component library snippet */}
       <section className="section section--default gs-libpeek">
@@ -237,6 +247,7 @@ export default function Home() {
       />
 
       {/* Referral commission — open to anyone, not just clients */}
+      <Reveal>
       <section className="section section--default gs-refer">
         <div className="section-container">
           <p className="section-eyebrow">{REFERRAL_PROGRAM.eyebrow}</p>
@@ -254,6 +265,7 @@ export default function Home() {
           <p className="gs-refer__fine">{REFERRAL_PROGRAM.fine}</p>
         </div>
       </section>
+      </Reveal>
 
       <section className="section section--accent gs-home-cta">
         <div className="section-container">

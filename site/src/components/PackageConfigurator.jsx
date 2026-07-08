@@ -96,7 +96,7 @@ export default function PackageConfigurator() {
         <fieldset className="cfg__group">
           <legend className="cfg__legend">{t('1 · Choose a base package', '1 · Elige un paquete base')}</legend>
           <div className="cfg__pkgs">
-            {PACKAGES.map(p => {
+            {PACKAGES.filter(p => !p.tbd).map(p => {
               const active = p.id === pkgId
               return (
                 <label key={p.id} className={`cfg-pkg${active ? ' is-active' : ''}`}>
@@ -109,7 +109,7 @@ export default function PackageConfigurator() {
                     <span className="cfg-pkg__name">{p.name}</span>
                     {p.badge && <span className="cfg-pkg__badge">{p.badge}</span>}
                   </span>
-                  <span className="cfg-pkg__price">{p.price}<em> {p.period}</em></span>
+                  <span className="cfg-pkg__price">{p.approxPrice ? t('from ', 'desde ') : ''}{p.price}<em> {p.period}</em></span>
                   <span className="cfg-pkg__desc">{p.description}</span>
                 </label>
               )

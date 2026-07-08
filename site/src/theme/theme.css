@@ -194,3 +194,94 @@
 .gs-cms-richtext__inner :where(p,ul,ol) { margin: 0 0 1em; }
 .gs-cms-richtext__inner a { color: var(--color-accent); }
 .gs-cms-richtext--accent .gs-cms-richtext__inner a { color: var(--color-on-accent); text-decoration: underline; }
+
+/* ── MOTION ────────────────────────────────────────────────────────────────
+   Tasteful, warm, editorial motion. Everything here is opacity/transform only
+   (no layout properties), so nothing shifts the page. All of it is disabled
+   under prefers-reduced-motion.                                              */
+
+/* (a) HERO — a soft warm glow that slowly drifts, plus a staged fade-up of the
+   eyebrow → headline → subtext on load. The library already renders a
+   `.hero-section__glow` element (a blurred accent circle); we keep its look and
+   just give it a slow, gentle drift + a warm ember tint so it feels alive
+   without being flashy. */
+.hero-section__glow {
+  /* Warm the petrol glow toward ember so it reads as paper-light, not neon. */
+  background:
+    radial-gradient(closest-side,
+      rgba(176, 86, 43, 0.14),
+      var(--color-accent-dim) 55%,
+      transparent);
+  animation: gs-hero-glow-drift 22s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes gs-hero-glow-drift {
+  from { transform: translate3d(0, 0, 0) scale(1);        opacity: 0.85; }
+  50%  { transform: translate3d(-3%, 3%, 0) scale(1.06);  opacity: 1; }
+  to   { transform: translate3d(2%, -2%, 0) scale(0.97);  opacity: 0.8; }
+}
+
+/* Staged entrance — each piece fades up in sequence once, on load. */
+.hero-section .section-eyebrow,
+.hero-section__headline,
+.hero-section__sub,
+.hero-section__actions {
+  animation: gs-hero-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-section .section-eyebrow { animation-delay: 0.05s; }
+.hero-section__headline        { animation-delay: 0.18s; }
+.hero-section__sub             { animation-delay: 0.34s; }
+.hero-section__actions         { animation-delay: 0.5s;  }
+
+@keyframes gs-hero-rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* (b) REVEAL — scroll-in polish for content sections (see Reveal.jsx).
+   Hidden state: nudged down + transparent; .is-visible transitions back.
+   Only opacity/transform animate, so there is zero layout shift. */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* (c) Gentle hover-lift utility for cards that don't already define one.
+   Opt-in via .gs-lift so we never override existing card behavior. */
+.gs-lift {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gs-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Respect the user's motion preference: no entrance animation, no drift, and
+   revealed content shows immediately with no transform. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section__glow,
+  .hero-section .section-eyebrow,
+  .hero-section__headline,
+  .hero-section__sub,
+  .hero-section__actions {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .gs-lift { transition: none; }
+  .gs-lift:hover { transform: none; }
+}

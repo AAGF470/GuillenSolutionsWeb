@@ -35,7 +35,8 @@ const ldjson = obj => `<script type="application/ld+json">${JSON.stringify(obj).
 const NAV = [
   ['/', 'Home'], ['/work', 'Work & Library'],
   ['/plans/freelance', 'Freelance plan'], ['/plans/standard', 'Standard plan'],
-  ['/plans/wordpress', 'WordPress plan'], ['/renders', 'CG product renders'],
+  ['/plans/enhanced', 'Online Business Enhanced'], ['/plans/private-hosting', 'Private Hosting plan'],
+  ['/renders', 'CG product renders'],
   ['/on-demand', 'On-demand services'], ['/pricing', 'Full pricing & order'],
   ['/guides', 'Guides'], ['/status', 'Status & updates'],
 ]
@@ -51,7 +52,7 @@ const wrap = (h1, sub, inner) =>
   `${header}<main><h1>${esc(h1)}</h1><p>${esc(sub)}</p>${inner}</main>${footer}`
 
 // ── per-route bodies (real content, derived from data) ───────────────────────
-const planLine = p => `<strong>${esc(p.name)}</strong> — ${esc(p.price)} ${esc(p.period)} (then $${p.recurring}/yr). ${esc(p.description)} <a href="/plans/${p.id}">Details</a>`
+const planLine = p => `<strong>${esc(p.name)}</strong> — ${esc(p.price)} ${esc(p.period)}${p.tbd ? ' (in development)' : ` (then $${p.recurring}/yr)`}. ${esc(p.description)} <a href="/plans/${p.id}">Details</a>`
 
 const bodies = {
   home: wrap(
@@ -103,7 +104,9 @@ const bodies = {
 const planBody = p => wrap(
   p.name,
   p.description,
-  `<p>${esc(p.price)} ${esc(p.period)} — then $${p.recurring}/yr for hosting + domain renewal, agreed in writing.</p>${list(p.features.map(esc))}<p><a href="/pricing#order">Build your quote</a></p>`,
+  `<p>${esc(p.price)} ${esc(p.period)} — ${p.tbd
+    ? 'pricing is being finalized; reach out if this is what you need.'
+    : `then $${p.recurring}/yr for hosting + domain renewal, agreed in writing.`}</p>${list(p.features.map(esc))}<p><a href="/pricing#order">Build your quote</a></p>`,
 )
 
 // ── route manifest ───────────────────────────────────────────────────────────

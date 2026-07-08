@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
-import { HeroSection, CtaBanner, Faq } from '@aagf470/ui'
+import { HeroSection, CtaBanner, Faq, FeatureGrid } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import PlanFinder from '../components/PlanFinder.jsx'
 import { Estimator } from './OnDemand.jsx'
 import { pricingSchema } from '../schema'
 import { useContent } from '../content.js'
+import { CONTACT_EMAIL } from '../data.js'
 import { useT } from '../i18n.jsx'
 import './OnDemand.css'
 import './Pricing.css'
@@ -30,7 +31,8 @@ function Rail() {
           )}{' '}
           <Link to="/plans/freelance">Freelance</Link> ·{' '}
           <Link to="/plans/standard">{t('Standard', 'Estándar')}</Link> ·{' '}
-          <Link to="/plans/wordpress">WordPress</Link>
+          <Link to="/plans/enhanced">{t('Enhanced', 'Enhanced')}</Link> ·{' '}
+          <Link to="/plans/private-hosting">{t('Private Hosting', 'Hosting Privado')}</Link>
         </p>
       </div>
       <div className="gs-rail__card">
@@ -58,7 +60,15 @@ function Rail() {
 
 export default function Pricing() {
   const t = useT()
-  const { PRICING_PROMISE, FAQS } = useContent()
+  const {
+    PRICING_PROMISE,
+    FAQS,
+    PACKAGES,
+    BASELINE_INCLUDES,
+    ADDONS,
+    ON_DEMAND,
+  } = useContent()
+  const catalog = [...ADDONS, ...ON_DEMAND]
   return (
     <>
       <Seo
@@ -94,6 +104,131 @@ export default function Pricing() {
             )}
           </p>
           <PlanFinder />
+        </div>
+      </section>
+
+      {/* What every plan includes — the shared baseline, before any tier */}
+      <section className="section section--default gs-seam-bottom">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('In every plan', 'En cada plan')}</p>
+          <h2 className="section-title">{t('What every plan includes', 'Lo que incluye cada plan')}</h2>
+          <p className="section-sub">
+            {t(
+              'No tier is charged more for the essentials. These come with every plan on this page — from the smallest to the largest.',
+              'Ningún nivel paga más por lo esencial. Esto viene con cada plan de esta página — del más pequeño al más grande.',
+            )}
+          </p>
+          <FeatureGrid items={BASELINE_INCLUDES} columns={4} />
+        </div>
+      </section>
+
+      {/* The four plans — full detail cards with every feature listed */}
+      <section id="plans" className="section section--alt gs-seam-top gs-seam-bottom">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('Pick a starting point', 'Elige un punto de partida')}</p>
+          <h2 className="section-title">{t('The four plans', 'Los cuatro planes')}</h2>
+          <p className="section-sub">
+            {t(
+              'Every plan is a real, all-in number — everything above is already inside. Add optional extras below, or build your full quote in the configurator.',
+              'Cada plan es un número real, todo incluido — todo lo de arriba ya está adentro. Agrega extras opcionales abajo, o arma tu cotización completa en el configurador.',
+            )}
+          </p>
+          <div className="gs-plans">
+            {PACKAGES.map((pkg) => (
+              <article
+                key={pkg.id}
+                className={`gs-plan${pkg.featured ? ' gs-plan--featured' : ''}${pkg.tbd ? ' gs-plan--tbd' : ''}`}
+              >
+                {pkg.badge && <span className="gs-plan__badge">{pkg.badge}</span>}
+                <p className="gs-plan__tag">{pkg.tag}</p>
+                <h3 className="gs-plan__name">{pkg.name}</h3>
+                <p className="gs-plan__price">
+                  <span className="gs-plan__amount">{pkg.price}</span>
+                  {pkg.period && <span className="gs-plan__period">{pkg.period}</span>}
+                </p>
+                <p className="gs-plan__desc">{pkg.description}</p>
+                <ul className="gs-plan__features">
+                  {pkg.features.map((f, i) => (
+                    <li key={i}>{f}</li>
+                  ))}
+                </ul>
+                {pkg.note && <p className="gs-plan__note">{pkg.note}</p>}
+                {pkg.tbd ? (
+                  <a className="gs-plan__cta gs-plan__cta--ghost" href={`mailto:${CONTACT_EMAIL}`}>
+                    {t('Talk to us', 'Habla con nosotros')}
+                  </a>
+                ) : (
+                  <Link className="gs-plan__cta" to="/pricing#order">
+                    {t('Build your quote', 'Arma tu cotización')}
+                  </Link>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Add-on library — the full optional catalog, scannable */}
+      <section id="addons" className="section section--default gs-seam-bottom">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('Optional extras', 'Extras opcionales')}</p>
+          <h2 className="section-title">{t('Add-on library', 'Biblioteca de complementos')}</h2>
+          <p className="section-sub">
+            {t(
+              'Everything you can add — at launch or any time after. Prices are identical on every plan; nothing here is required to get started.',
+              'Todo lo que puedes agregar — al lanzar o en cualquier momento después. Los precios son idénticos en cada plan; nada de esto es obligatorio para empezar.',
+            )}
+          </p>
+          <div className="gs-addons">
+            {catalog.map((a) => (
+              <div key={a.id} className="gs-addon">
+                <div className="gs-addon__head">
+                  <span className="gs-addon__name">{a.name}</span>
+                  <span className="gs-addon__price">{a.price}</span>
+                </div>
+                <p className="gs-addon__cadence">{a.cadence}</p>
+                <p className="gs-addon__body">{a.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Integrations — the two sizes, explained plainly */}
+      <section id="integrations" className="section section--alt gs-seam-top gs-seam-bottom">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('Connecting outside services', 'Conectando servicios externos')}</p>
+          <h2 className="section-title">{t('Integrations, two sizes', 'Integraciones, dos tamaños')}</h2>
+          <p className="section-sub">
+            {t(
+              'When your site needs to talk to something outside it, we build a clean visual layer over that service — no messy embeds.',
+              'Cuando tu sitio necesita comunicarse con algo externo, construimos una capa visual limpia sobre ese servicio — sin incrustaciones desordenadas.',
+            )}
+          </p>
+          <div className="gs-integrations">
+            <div className="gs-integration">
+              <p className="gs-integration__size">{t('Small integration', 'Integración pequeña')}</p>
+              <p className="gs-integration__price">
+                {t('Included in Enhanced · add-on otherwise', 'Incluida en Enhanced · complemento en los demás')}
+              </p>
+              <p className="gs-integration__body">
+                {t(
+                  'A simple visual skin over one outside service — a newsletter signup, a donation display, and the like. It looks native to your site instead of a bolted-on widget. Comes free with the Online Business Enhanced plan; a small add-on on any other plan.',
+                  'Una capa visual sencilla sobre un servicio externo — un registro a boletín, un contador de donaciones y similares. Se ve nativa de tu sitio en lugar de un widget pegado. Gratis con el plan Online Business Enhanced; un pequeño complemento en cualquier otro plan.',
+                )}
+              </p>
+            </div>
+            <div className="gs-integration gs-integration--large">
+              <p className="gs-integration__size">{t('Large integration', 'Integración grande')}</p>
+              <p className="gs-integration__price">{t('from $400', 'desde $400')}</p>
+              <p className="gs-integration__body">
+                {t(
+                  'A Square or Shopify product CMS as the visual skin, with your CMS reading live product and availability counts so the site stays accurate — "know before you go." We do NOT handle carts, checkout, payments, or customer data — those stay with the platform and its bank-grade security. Fully transferable. $400 is the starting point for services with clean APIs; quoted higher after we assess yours.',
+                  'Un CMS de productos de Square o Shopify como capa visual, con tu CMS leyendo conteos de productos y disponibilidad en vivo para que el sitio siga siendo preciso — "sabe antes de ir." NO manejamos carritos, pago, cobros ni datos de clientes — eso se queda con la plataforma y su seguridad de grado bancario. Totalmente transferible. $400 es el punto de partida para servicios con APIs limpias; se cotiza más alto tras evaluar el tuyo.',
+                )}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

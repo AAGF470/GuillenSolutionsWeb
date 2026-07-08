@@ -113,7 +113,8 @@ function navGroups(t) {
       items: [
         { to: '/plans/freelance', label: t('Freelance / Solo website', 'Sitio Freelance / Individual'),  sub: t('$600 first year · independent professionals', '$600 el primer año · profesionales independientes') },
         { to: '/plans/standard',  label: t('Standard Business website', 'Sitio Negocio Estándar'), sub: t('$950 first year · most popular', '$950 el primer año · el más popular') },
-        { to: '/plans/wordpress', label: t('WordPress Business website', 'Sitio Negocio WordPress'), sub: t('$1,350 first year · maximum portability', '$1,350 el primer año · máxima portabilidad') },
+        { to: '/plans/enhanced',  label: t('Online Business Enhanced', 'Negocio en Línea Enhanced'), sub: t('~$1,900 first year · actively managed', '~$1,900 el primer año · gestión activa') },
+        { to: '/plans/private-hosting', label: t('Private Hosting Plan', 'Plan de Hosting Privado'), sub: t('WordPress or dedicated · in development', 'WordPress o dedicado · en desarrollo') },
         { to: '/renders',         label: t('CG product renders', 'Renders de producto 3D'),        sub: t('Model once, render many · from $150', 'Modela una vez, renderiza muchas · desde $150') },
         { to: '/on-demand',       label: t('On-demand services', 'Servicios a pedido'),        sub: t('Add later, whenever you need them', 'Agrégalos después, cuando los necesites') },
         { to: '/pricing',         label: t('Full pricing & order', 'Precios completos y pedido'),      sub: t('Every option on one page', 'Todas las opciones en una página') },
@@ -218,7 +219,8 @@ function Footer() {
           <Link to="/work">{t('Work & Library', 'Trabajo y biblioteca')}</Link>
           <Link to="/plans/freelance">{t('Freelance plan', 'Plan Freelance')}</Link>
           <Link to="/plans/standard">{t('Standard plan', 'Plan Estándar')}</Link>
-          <Link to="/plans/wordpress">{t('WordPress plan', 'Plan WordPress')}</Link>
+          <Link to="/plans/enhanced">{t('Online Business Enhanced', 'Negocio en Línea Enhanced')}</Link>
+          <Link to="/plans/private-hosting">{t('Private Hosting plan', 'Plan de Hosting Privado')}</Link>
           <Link to="/on-demand">{t('On-demand services', 'Servicios a pedido')}</Link>
           <Link to="/renders">{t('CG product renders', 'Renders de producto 3D')}</Link>
           <Link to="/pricing">{t('Full pricing & order', 'Precios completos y pedido')}</Link>

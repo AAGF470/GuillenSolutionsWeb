@@ -1,5 +1,6 @@
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
+import RenderFinder from '../components/RenderFinder.jsx'
 import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
 import { useT } from '../i18n.jsx'
@@ -211,6 +212,21 @@ export default function CGRenders() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Render finder quiz ────────────────────────────────────────── */}
+      <section className="section" id="render-finder">
+        <div className="section-container">
+          <p className="section-eyebrow">{t('Not sure what you need?', '¿No sabes qué necesitas?')}</p>
+          <h2 className="section-title">{t('Find your render package in 60 seconds', 'Encuentra tu paquete de renders en 60 segundos')}</h2>
+          <p className="section-sub">
+            {t(
+              'Four quick questions and we\'ll point you at a starting package and a rough estimate — then send it as a free request in one click.',
+              'Cuatro preguntas rápidas y te apuntamos a un paquete inicial y un estimado aproximado — luego envíalo como solicitud gratuita con un clic.',
+            )}
+          </p>
+          <RenderFinder />
         </div>
       </section>
 

@@ -49,3 +49,259 @@
 /* Tighter seam between the order builder and the on-demand estimator */
 .section.gs-seam-bottom { padding-bottom: 40px; }
 .section.gs-seam-top { padding-top: 44px; }
+
+
+/* ── THE FOUR PLANS — detailed cards ────────────────────────────────────── */
+
+.gs-plans {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+  align-items: stretch;
+}
+
+.gs-plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px;
+}
+
+.gs-plan--featured {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.gs-plan--tbd {
+  border-style: dashed;
+  border-color: var(--color-border-mid);
+}
+
+.gs-plan__badge {
+  position: absolute;
+  top: -11px;
+  left: 22px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.gs-plan__tag {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.gs-plan__name {
+  margin: 0 0 12px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.gs-plan__price {
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gs-plan__amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.gs-plan__period {
+  font-size: 12.5px;
+  color: var(--color-text-sub);
+}
+
+.gs-plan__desc {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-sub);
+}
+
+.gs-plan__features {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.gs-plan__features li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.gs-plan__features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+
+.gs-plan__note {
+  margin: 0 0 18px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--color-text-faint);
+}
+
+.gs-plan__cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.gs-plan__cta:hover { opacity: 0.9; }
+
+.gs-plan__cta--ghost {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border-mid);
+}
+
+@media (max-width: 1100px) {
+  .gs-plans { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .gs-plans { grid-template-columns: 1fr; }
+}
+
+
+/* ── ADD-ON LIBRARY — scannable catalog ─────────────────────────────────── */
+
+.gs-addons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.gs-addon {
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+
+.gs-addon__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.gs-addon__name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.gs-addon__price {
+  flex: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.gs-addon__cadence {
+  margin: 4px 0 8px;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.gs-addon__body {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-text-sub);
+}
+
+@media (max-width: 760px) {
+  .gs-addons { grid-template-columns: 1fr; }
+}
+
+
+/* ── INTEGRATIONS — two sizes ───────────────────────────────────────────── */
+
+.gs-integrations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 32px;
+  align-items: stretch;
+}
+
+.gs-integration {
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+  padding: 24px 22px;
+}
+
+.gs-integration--large {
+  border-color: var(--color-accent);
+}
+
+.gs-integration__size {
+  margin: 0 0 6px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  color: var(--color-text);
+}
+
+.gs-integration__price {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.gs-integration__body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-sub);
+}
+
+@media (max-width: 760px) {
+  .gs-integrations { grid-template-columns: 1fr; }
+}

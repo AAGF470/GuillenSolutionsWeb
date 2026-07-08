@@ -51,12 +51,12 @@ export const ORG = {
     { '@type': 'Country', name: 'United States' },
   ],
   knowsLanguage: ['en', 'es'],
-  priceRange: '$600–$1,350 first year',
+  priceRange: '$600–$1,900 first year',
   sameAs: ['https://guillen.studio'],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Website plans',
-    itemListElement: PACKAGES.map(p => ({
+    itemListElement: PACKAGES.filter(p => !p.tbd).map(p => ({
       '@type': 'Offer',
       name: p.name,
       description: p.description,

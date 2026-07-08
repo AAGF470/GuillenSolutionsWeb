@@ -43,10 +43,11 @@ export default function PlanFinder() {
     },
     {
       id: 'maintain',
-      q: t('Who should be able to maintain it long-term?', '¿Quién debería poder mantenerlo a largo plazo?'),
+      q: t('How hands-on do you want to be?', '¿Qué tan involucrado quieres estar?'),
       options: [
-        { v: 'us',  label: t('Keep it simple', 'Manténlo simple'),           sub: t('You edit content; we handle everything technical.', 'Tú editas el contenido; nosotros manejamos todo lo técnico.') },
-        { v: 'any', label: t('Any developer, ever', 'Cualquier desarrollador, siempre'), sub: t('Maximum portability matters to you — even at a premium.', 'La máxima portabilidad te importa — aunque cueste más.') },
+        { v: 'self',    label: t('I\'ll edit it myself', 'Lo edito yo mismo'),        sub: t('You update content in your own editor; we handle everything technical.', 'Tú actualizas el contenido en tu propio editor; nosotros manejamos todo lo técnico.') },
+        { v: 'managed', label: t('Handle it for me', 'Manéjenlo por mí'),             sub: t('Hands-off — we actively manage updates, SEO, and seasonal changes for you.', 'Sin complicaciones — gestionamos activamente las actualizaciones, el SEO y los cambios de temporada por ti.') },
+        { v: 'portable', label: t('WordPress or my own server', 'WordPress o mi propio servidor'), sub: t('Maximum portability — any developer can take it over.', 'Máxima portabilidad — cualquier desarrollador puede tomar el control.') },
       ],
     },
     {
@@ -62,11 +63,18 @@ export default function PlanFinder() {
 
   // Answers → one opinionated recommendation.
   function recommend(a) {
-    const plan = PACKAGES.find(p =>
-      p.id === (a.maintain === 'any' ? 'wordpress' : a.kind === 'solo' ? 'freelance' : 'standard'))
+    // Managed/hands-off → Enhanced; solo → Freelance; otherwise Standard.
+    // Never recommend the tbd 'private-hosting' as a priced result — instead,
+    // when the user wants WordPress / their own server, we add a note below.
+    const planId = a.maintain === 'managed' ? 'enhanced' : a.kind === 'solo' ? 'freelance' : 'standard'
+    const plan = PACKAGES.find(p => p.id === planId)
 
     const lines = [{ label: `${plan.name} — ${t('first year, all-in', 'primer año, todo incluido')}`, amount: plan.firstYear }]
     const notes = []
+
+    if (a.maintain === 'portable') {
+      notes.push(t('Ask about our Private Hosting Plan — WordPress or a dedicated server, in development.', 'Pregunta por nuestro Plan de Hosting Privado — WordPress o un servidor dedicado, en desarrollo.'))
+    }
 
     if (a.commerce === 'yes') {
       lines.push({ label: t('External platform integration (checkout / booking)', 'Integración con plataforma externa (checkout / reservas)'), amount: 400 })

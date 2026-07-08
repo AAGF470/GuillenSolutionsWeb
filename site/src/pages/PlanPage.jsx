@@ -6,6 +6,7 @@ import Seo from '../components/Seo.jsx'
 import PayloadPage from '../PayloadPage.jsx'
 import { useContent } from '../content.js'
 import { useT } from '../i18n.jsx'
+import { CONTACT_EMAIL } from '../data.js'
 
 // ---------------------------------------------------------------------------
 // PlanPage — one config-driven sales page per package (/plans/:planId).
@@ -34,6 +35,12 @@ function PlanPageContent({ planId }) {
   const data = PACKAGES.find(p => p.id === planId)
   if (!plan || !data) return <NotFound />
 
+  // A tbd plan (e.g. private-hosting) has no computable price, so it can't run
+  // the configurator flow. Its CTAs invite a conversation by email instead.
+  const cta = data.tbd
+    ? { label: t('Get in touch', 'Contáctanos'), href: `mailto:${CONTACT_EMAIL}`, variant: 'solid' }
+    : { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' }
+
   return (
     <>
       <HeroSection
@@ -42,7 +49,7 @@ function PlanPageContent({ planId }) {
         subtext={plan.hero.subtext}
         size="compact"
         variant="alt"
-        ctas={[{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' }]}
+        ctas={[cta]}
       />
       <FeatureGrid
         eyebrow={t("Who it's for", 'Para quién es')}
@@ -82,7 +89,7 @@ function PlanPageContent({ planId }) {
           badge: data.badge, tag: data.tag, name: data.name, price: data.price,
           period: data.period, description: data.description, note: data.note,
           features: data.features, featured: true,
-          cta: { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' },
+          cta,
         }]}
         variant="alt"
       />
@@ -96,7 +103,7 @@ function PlanPageContent({ planId }) {
         eyebrow={plan.cta.eyebrow}
         headline={plan.cta.headline}
         subtext={plan.cta.subtext}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' }}
+        cta={cta}
         variant="accent"
       />
     </>
