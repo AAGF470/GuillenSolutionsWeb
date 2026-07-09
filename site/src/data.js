@@ -111,11 +111,11 @@ export const BASELINE_INCLUDES = [
 export const ADDONS = [
   {
     id: 'phone',
-    name: 'Business Phone Line',
-    price: 'from $180/yr',
-    cadence: 'Recurring',
-    body: 'A dedicated business number that forwards to your phone, with voicemail and call history. Yours and portable.',
-    amount: 180, kind: 'recurring', approx: true,
+    name: 'AI Phone Menu',
+    price: '$200 setup + subscription',
+    cadence: 'One-time setup',
+    body: 'A natural-sounding AI voice answers your line and routes callers — "press 1 for sales, 2 for support" — so you never miss a call or sound small. We script and produce the voice menu; the phone number and voice service then run on a low-cost subscription in your own name, paid by you directly.',
+    amount: 200, kind: 'onetime',
   },
   {
     id: 'email',
@@ -394,7 +394,7 @@ export const SERVICES = [
     tag: 'Set up in your name',
     title: 'Get set up & found',
     price: 'add-ons',
-    body: 'Google Business Profile so locals find you on Maps, plus email at your domain, a business phone line, and logo & cards — the essentials that get you discovered, all owned by you.',
+    body: 'Google Business Profile so locals find you on Maps, plus email at your domain, an AI phone menu that routes callers, and logo & cards — the essentials that get you discovered, all owned by you.',
     to: '/pricing',
     linkLabel: 'Browse add-ons',
   },
@@ -670,7 +670,7 @@ export const FAQS = [
   },
   {
     q: 'Do I have to use your accounts? Who pays Shopify, my domain, email?',
-    a: 'Your accounts are yours, and you pay those providers directly at their rates — no markup from us, and we never sit between you and a vendor. Your domain, your Shopify (or Square/Toast/Clover) plan and its transaction fees, your email — all in your name. The only things we bill are the two we actively run for you if you choose them: a business phone line and Google Workspace email. Everything else, you own and pay for directly, so you\'re never locked to us by a bill.',
+    a: 'Your accounts are yours, and you pay those providers directly at their rates — no markup from us, and we never sit between you and a vendor. Your domain, your Shopify (or Square/Toast/Clover) plan and its transaction fees, your email — all in your name. The only thing we actively run and bill you for beyond your plan is Google Workspace email, if you choose it. Even your AI phone menu is just a one-time setup from us, then a low-cost subscription in your own name. Everything else, you own and pay for directly, so you\'re never locked to us by a bill.',
   },
   {
     q: 'Can you build me an online store with checkout?',

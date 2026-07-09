@@ -58,8 +58,8 @@ export default function PackageConfigurator() {
     for (const a of chosen) {
       if (a.kind === 'quoted')    { quoted.push(a); continue }
       if (a.kind === 'onetime')   firstYear += a.amount
-      // Recurring items (e.g. the phone line) are billed yearly — including
-      // year one — so they count toward BOTH the first-year and recurring totals.
+      // Recurring items are billed yearly — including year one — so they count
+      // toward BOTH the first-year and recurring totals.
       if (a.kind === 'recurring') { firstYear += a.amount; recurring += a.amount; if (a.approx) approx = true }
       if (a.kind === 'per-unit')  firstYear += a.amount * (qty[a.id] || 1)
     }

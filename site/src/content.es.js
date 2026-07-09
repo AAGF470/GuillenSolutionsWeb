@@ -101,11 +101,11 @@ export const BASELINE_INCLUDES = [
 export const ADDONS = [
   {
     id: 'phone',
-    name: 'Línea telefónica de negocio',
-    price: 'desde $180/año',
-    cadence: 'Recurrente',
-    body: 'Un número de negocio dedicado que reenvía a tu teléfono, con buzón de voz e historial de llamadas. Tuyo y portable.',
-    amount: 180, kind: 'recurring', approx: true,
+    name: 'Menú Telefónico con IA',
+    price: '$200 de instalación + suscripción',
+    cadence: 'Instalación única',
+    body: 'Una voz de IA con sonido natural contesta tu línea y dirige a quien llama — "marca 1 para ventas, 2 para soporte" — para que nunca pierdas una llamada ni suenes pequeño. Nosotros redactamos y producimos el menú de voz; el número y el servicio de voz luego corren en una suscripción de bajo costo a tu nombre, pagada por ti directamente.',
+    amount: 200, kind: 'onetime',
   },
   {
     id: 'email',
@@ -358,7 +358,7 @@ export const SERVICES = [
     tag: 'Configurado a tu nombre',
     title: 'Prepárate y hazte visible',
     price: 'complementos',
-    body: 'Perfil de Empresa de Google para que los locales te encuentren en Maps, además de correo en tu dominio, una línea telefónica de negocio y logo y tarjetas — lo esencial para que te descubran, todo tuyo.',
+    body: 'Perfil de Empresa de Google para que los locales te encuentren en Maps, además de correo en tu dominio, un menú telefónico con IA que dirige las llamadas y logo y tarjetas — lo esencial para que te descubran, todo tuyo.',
     to: '/pricing',
     linkLabel: 'Ver complementos',
   },
@@ -486,7 +486,7 @@ export const FAQS = [
   },
   {
     q: '¿Tengo que usar sus cuentas? ¿Quién paga Shopify, mi dominio, el correo?',
-    a: 'Tus cuentas son tuyas, y les pagas a esos proveedores directamente a sus tarifas — sin recargo de nuestra parte, y nunca nos ponemos entre tú y un proveedor. Tu dominio, tu plan de Shopify (o Square/Toast/Clover) y sus comisiones por transacción, tu correo — todo a tu nombre. Las únicas cosas que facturamos son las dos que operamos activamente para ti si las eliges: una línea telefónica de negocio y el correo de Google Workspace. Todo lo demás, tú lo posees y lo pagas directamente, así que nunca quedas atado a nosotros por una factura.',
+    a: 'Tus cuentas son tuyas, y les pagas a esos proveedores directamente a sus tarifas — sin recargo de nuestra parte, y nunca nos ponemos entre tú y un proveedor. Tu dominio, tu plan de Shopify (o Square/Toast/Clover) y sus comisiones por transacción, tu correo — todo a tu nombre. La única cosa que operamos activamente y te facturamos más allá de tu plan es el correo de Google Workspace, si lo eliges. Incluso tu menú telefónico con IA es solo una instalación única de nuestra parte, y luego una suscripción de bajo costo a tu nombre. Todo lo demás, tú lo posees y lo pagas directamente, así que nunca quedas atado a nosotros por una factura.',
   },
   {
     q: '¿Pueden construirme una tienda en línea con checkout?',

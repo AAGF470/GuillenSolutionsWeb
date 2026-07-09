@@ -80,8 +80,8 @@ export default function Home() {
           <h2 className="section-title">{t('One team for your digital presence', 'Un solo equipo para tu presencia digital')}</h2>
           <p className="section-sub">
             {t(
-              'Most clients start with a website. But everything a small business needs to look established — the site, the product photos, the email, the phone line — comes from the same system, the same team, and the same promise: you own it.',
-              'La mayoría de los clientes empiezan con un sitio web. Pero todo lo que un pequeño negocio necesita para verse establecido — el sitio, las fotos de producto, el correo, la línea telefónica — viene del mismo sistema, el mismo equipo y la misma promesa: es tuyo.',
+              'Most clients start with a website. But everything a small business needs to look established — the site, the product photos, the email, the AI phone menu — comes from the same system, the same team, and the same promise: you own it.',
+              'La mayoría de los clientes empiezan con un sitio web. Pero todo lo que un pequeño negocio necesita para verse establecido — el sitio, las fotos de producto, el correo, el menú telefónico con IA — viene del mismo sistema, el mismo equipo y la misma promesa: es tuyo.',
             )}
           </p>
           <div className="gs-svc__grid">
