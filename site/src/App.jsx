@@ -14,6 +14,7 @@ import Guides from './pages/Guides.jsx'
 import GuidePost from './pages/GuidePost.jsx'
 import MarketGuide from './pages/MarketGuide.jsx'
 import Status from './pages/Status.jsx'
+import Contact from './pages/Contact.jsx'
 import CmsPage from './pages/CmsPage.jsx'
 import PayloadPage from './PayloadPage.jsx'
 import Seo from './components/Seo.jsx'
@@ -163,6 +164,7 @@ function MobileMenu({ open, onClose }) {
         ))}
         <Link to="/guides" className="gs-mnav__link" onClick={onClose}>{t('Guides', 'Guías')}</Link>
         <Link to="/status" className="gs-mnav__link" onClick={onClose}>{t('Status', 'Estado')}</Link>
+        <Link to="/contact" className="gs-mnav__link" onClick={onClose}>{t('Contact', 'Contacto')}</Link>
         <Link to="/pricing" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>{t('Build your quote', 'Arma tu cotización')}</Link>
         <LangToggle className="gs-lang--mobile" />
       </div>
@@ -198,6 +200,7 @@ function Nav() {
         ))}
         <NavLink to="/guides" className={`gs-nav__link${guidesActive ? ' is-active' : ''}`}>{t('Guides', 'Guías')}</NavLink>
         <NavLink to="/status" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Status', 'Estado')}</NavLink>
+        <NavLink to="/contact" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Contact', 'Contacto')}</NavLink>
       </div>
       <div className="gs-nav__actions">
         <LangToggle className="gs-lang--nav" />
@@ -247,6 +250,7 @@ function Footer() {
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">{t('Get in touch', 'Contáctanos')}</span>
+          <Link to="/contact">{t('Contact us', 'Contáctanos')}</Link>
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           <Link to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
           <span className="gs-footer__muted">English &amp; Español</span>
@@ -295,6 +299,7 @@ export default function App() {
               else falls through to the CMS-backed devlog post. */}
           <Route path="/guides/:slug" element={<GuideRoute />} />
           <Route path="/status" element={<Status />} />
+          <Route path="/contact" element={<Contact />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />

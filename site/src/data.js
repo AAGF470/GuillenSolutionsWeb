@@ -6,6 +6,14 @@
 
 export const CONTACT_EMAIL = 'contact@guillensolutions.com'
 
+// Text-only contact lines — no voice calls on either. Display strings plus the
+// raw values used to build sms: and wa.me links.
+export const CONTACT = {
+  email: 'contact@guillensolutions.com',
+  textLine: { display: '(617) 528-0733', sms: '+16175280733' },       // Google Voice, text only
+  whatsapp: { display: '(346) 332-6885', link: 'https://wa.me/13463326885' }, // WhatsApp, text only
+}
+
 export const PACKAGES = [
   {
     id: 'freelance',

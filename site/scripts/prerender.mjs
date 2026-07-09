@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url'
 import {
   PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS, FOUND,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CONTACT_EMAIL,
-  LOCATION_GUIDES, MARKETS,
+  LOCATION_GUIDES, MARKETS, CONTACT,
 } from '../src/data.js'
 import { ORG, homeSchema, pricingSchema, rendersSchema, locationGuideSchema } from '../src/schema.js'
 
@@ -39,7 +39,7 @@ const NAV = [
   ['/plans/enhanced', 'Online Business Enhanced'], ['/plans/private-hosting', 'Private Hosting plan'],
   ['/renders', 'CG product renders'],
   ['/on-demand', 'On-demand services'], ['/pricing', 'Full pricing & order'],
-  ['/guides', 'Guides'], ['/status', 'Status & updates'],
+  ['/guides', 'Guides'], ['/status', 'Status & updates'], ['/contact', 'Contact'],
 ]
 const header = `<header><a href="/">Guillen Solutions</a><nav>${
   NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
@@ -98,6 +98,15 @@ const bodies = {
     'Plain-English guides to owning your business online — including web design guides for the local markets we serve.',
     `<h2>Guides by location</h2>${list(LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}"><strong>Web design in ${esc(g.city)}, ${esc(g.state)}</strong></a> — ${esc(g.lead)}`))}`,
   ),
+  contact: wrap(
+    'Text us — we\'ll text right back.',
+    'The fastest way to reach us is a text or a message. Boston in person, everywhere else remote — in English or Español.',
+    `${list([
+      `<strong>Text line</strong> — ${esc(CONTACT.textLine.display)} (text only, no calls; Google Voice)`,
+      `<strong>WhatsApp</strong> — ${esc(CONTACT.whatsapp.display)} (text only, no calls)`,
+      `<strong>Email</strong> — <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>`,
+    ])}<p>Both phone lines are text only — we don't take voice calls.</p>`,
+  ),
   status: wrap(
     'What we\'re running, and what\'s new.',
     'Live status of the services we run for you, plus a running log of stack updates, new features, and announcements. Transparency is part of the deal.',
@@ -138,6 +147,7 @@ const ROUTES = [
   { path: '/on-demand', title: 'On-Demand Services', description: 'Services you add after launch, whenever you need them — newsletter setup, landing pages, QR menus, seasonal refreshes, translations. Fixed-scope, quoted in writing.', schema: [ORG], body: bodies.ondemand },
   { path: '/guides', title: 'Guides', description: 'Plain-English guides to owning your business online — from Guillen Solutions.', schema: [ORG], body: bodies.guides },
   { path: '/status', title: 'Status & Updates', description: 'Live service status and a running log of stack updates, new features, and announcements from Guillen Solutions — see us at work.', schema: [ORG], body: bodies.status },
+  { path: '/contact', title: 'Contact', description: 'Reach Guillen Solutions — text us (text only, no calls), message us on WhatsApp, or email. Boston in person, everywhere else remote. English or Español.', schema: [ORG], body: bodies.contact },
   ...PACKAGES.map(p => ({
     path: `/plans/${p.id}`, title: p.name, description: p.description, schema: [ORG], body: planBody(p),
   })),
