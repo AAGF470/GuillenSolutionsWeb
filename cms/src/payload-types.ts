@@ -99,8 +99,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    voiceDemo: VoiceDemo;
+  };
+  globalsSelect: {
+    voiceDemo: VoiceDemoSelect<false> | VoiceDemoSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -2698,6 +2702,51 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * AI phone-menu voice samples for the pricing page. Add a clip and upload its audio to make it play on the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "voiceDemo".
+ */
+export interface VoiceDemo {
+  id: number;
+  clips?:
+    | {
+        /**
+         * e.g. "Main greeting", "Press 1 — Sales".
+         */
+        label: string;
+        /**
+         * Optional small line under the label.
+         */
+        sub?: string | null;
+        /**
+         * The voice clip (mp3/wav). Leave empty to show "sample coming soon".
+         */
+        audio?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "voiceDemo_select".
+ */
+export interface VoiceDemoSelect<T extends boolean = true> {
+  clips?:
+    | T
+    | {
+        label?: T;
+        sub?: T;
+        audio?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

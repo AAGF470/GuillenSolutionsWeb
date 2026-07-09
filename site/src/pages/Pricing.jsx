@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { HeroSection, CtaBanner, Faq, FeatureGrid, VoiceSample } from '@aagf470/ui'
+import { HeroSection, CtaBanner, Faq, FeatureGrid } from '@aagf470/ui'
+import VoiceDemo from '../components/VoiceDemo.jsx'
 import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import PlanFinder from '../components/PlanFinder.jsx'
@@ -181,24 +182,10 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* AI phone menu voice preview — clip audio is CMS-uploaded; shows a
-          "sample coming soon" state until the voice clips are added. */}
-      <VoiceSample
-        eyebrow={t('The AI phone menu, out loud', 'El menú telefónico con IA, en voz alta')}
-        headline={t('Hear what your callers would hear', 'Escucha lo que escucharían quienes llaman')}
-        subtext={t(
-          'A natural AI voice answers your line and routes every call. This is the actual quality that greets your customers — tap a sample to listen.',
-          'Una voz de IA con sonido natural contesta tu línea y dirige cada llamada. Esta es la calidad real que recibe a tus clientes — toca una muestra para escuchar.',
-        )}
-        callerName={t('AI phone menu · demo', 'Menú telefónico con IA · demo')}
-        clips={[
-          { label: t('Main greeting', 'Saludo principal'), sub: t('“Thank you for calling…”', '“Gracias por llamar…”') },
-          { label: t('Press 1 — Sales', 'Marca 1 — Ventas') },
-          { label: t('Press 2 — Support', 'Marca 2 — Soporte') },
-          { label: t('After-hours message', 'Mensaje fuera de horario') },
-        ]}
-        variant="default"
-      />
+      {/* AI phone menu voice preview — clips + audio come from the CMS
+          `voiceDemo` global; shows a "sample coming soon" placeholder until a
+          clip is uploaded, then plays it. */}
+      <VoiceDemo />
 
       {/* Existing sites: on-demand estimator */}
       <section id="estimate" className="section section--alt gs-seam-top gs-seam-bottom">

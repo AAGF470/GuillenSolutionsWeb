@@ -13,6 +13,7 @@ import * as migration_20260707_193000_add_builds from './20260707_193000_add_bui
 import * as migration_20260707_210000_builds_gallery_status from './20260707_210000_builds_gallery_status';
 import * as migration_20260709_155659_add_location_contact_blocks from './20260709_155659_add_location_contact_blocks';
 import * as migration_20260709_184344_add_voice_sample_block from './20260709_184344_add_voice_sample_block';
+import * as migration_20260709_230527_add_voice_demo_global from './20260709_230527_add_voice_demo_global';
 
 export const migrations = [
   {
@@ -88,6 +89,11 @@ export const migrations = [
   {
     up: migration_20260709_184344_add_voice_sample_block.up,
     down: migration_20260709_184344_add_voice_sample_block.down,
-    name: '20260709_184344_add_voice_sample_block'
+    name: '20260709_184344_add_voice_sample_block',
+  },
+  {
+    up: migration_20260709_230527_add_voice_demo_global.up,
+    down: migration_20260709_230527_add_voice_demo_global.down,
+    name: '20260709_230527_add_voice_demo_global'
   },
 ];

@@ -264,6 +264,23 @@ const Builds = {
   ],
 }
 
+// Voice demo — AI phone-menu sample clips shown on the pricing page. A single
+// global the public site fetches; upload a clip's audio here (Media) and it
+// becomes playable on the site. Empty = the site shows a "sample coming soon"
+// placeholder.
+const VoiceDemo = {
+  slug: 'voiceDemo',
+  access: { read: () => true, update: editorCanWrite },
+  admin: { description: 'AI phone-menu voice samples for the pricing page. Add a clip and upload its audio to make it play on the site.' },
+  fields: [
+    { name: 'clips', type: 'array', labels: { singular: 'Clip', plural: 'Clips' }, fields: [
+      { name: 'label', type: 'text', required: true, admin: { description: 'e.g. "Main greeting", "Press 1 — Sales".' } },
+      { name: 'sub', type: 'text', admin: { description: 'Optional small line under the label.' } },
+      { name: 'audio', type: 'upload', relationTo: 'media', admin: { description: 'The voice clip (mp3/wav). Leave empty to show "sample coming soon".' } },
+    ] },
+  ],
+}
+
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   secret: process.env.PAYLOAD_SECRET || '',
@@ -283,6 +300,7 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any, Inquiries as any, Updates as any, Builds as any],
+  globals: [VoiceDemo as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
   sharp,
