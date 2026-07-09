@@ -45,7 +45,9 @@ export default function Contact() {
     },
     {
       icon: <MailIcon />, name: t('Email', 'Correo'),
-      value: CONTACT.email, href: `mailto:${CONTACT.email}`,
+      // Break opportunity after "@" so the address wraps cleanly (never mid-word).
+      value: (() => { const [u, d] = CONTACT.email.split('@'); return <>{u}@<wbr />{d}</> })(),
+      href: `mailto:${CONTACT.email}`,
       note: t('We reply within a business day', 'Respondemos dentro de un día hábil'), cta: t('Send an email', 'Enviar un correo'),
     },
   ]
