@@ -6,6 +6,7 @@ import {
   VideoPlayer, SideBySide, ContentCards, FeatureSpotlight, CinematicBanner,
   CinematicHero, LabHero, RoadmapBlock, ChangelogBlock, SystemRequirements,
   AssetGrid, HierarchyBlock, ArchitectureBlock, EmbeddedApp, PricingCTA, Spacer,
+  LocationGrid, ContactMethods,
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
 import Seo from './components/Seo.jsx'
@@ -36,6 +37,7 @@ const MAP = {
   assetGrid: AssetGrid, hierarchyBlock: HierarchyBlock,
   architectureBlock: ArchitectureBlock, embeddedApp: EmbeddedApp,
   pricingCTA: PricingCTA, spacer: Spacer,
+  locationGrid: LocationGrid, contactMethods: ContactMethods,
 }
 
 const API = import.meta.env.VITE_CMS_URL
@@ -70,6 +72,8 @@ function adapt(block) {
     o.cards = o.cards.map(c => ({ ...c, image_src: url(c.image_src) }))
   if (Array.isArray(o.assets))                                         // assetGrid preview uploads → src
     o.assets = o.assets.map(a => ({ ...a, preview_src: url(a.preview_src) }))
+  if (Array.isArray(o.locations))                                      // locationGrid: image upload → src, areas [{text}] → [string]
+    o.locations = o.locations.map(l => ({ ...l, image: url(l.image), areas: (l.areas || []).map(a => a?.text ?? a) }))
   if (Array.isArray(o.nodes))                                          // Payload reserves `id` in arrays
     o.nodes = o.nodes.map(n => ({ ...n, id: n.node_id ?? n.id }))      // → node_id back to the `id` prop
   if (o.blockType === 'sideBySide') {                                  // one nested block per column

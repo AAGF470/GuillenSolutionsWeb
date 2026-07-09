@@ -18,7 +18,7 @@ import { lexicalHTML } from '@payloadcms/richtext-lexical'
 const adminOnly = ({ req }: any) => req?.user?.role === 'admin'
 
 const ICONS = ['check', 'star', 'shield', 'zap', 'clock', 'users', 'wrench', 'mail',
-  'globe', 'layers', 'home', 'fence', 'map', 'phone', 'droplet', 'wind']
+  'globe', 'layers', 'home', 'fence', 'map', 'phone', 'droplet', 'wind', 'message', 'whatsapp']
   .map(v => ({ label: v, value: v }))
 
 const cta = (name = 'cta') => ({
@@ -792,11 +792,53 @@ export const spacer: Block = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 // The full curated set a client can add to a page.
+// Location grid → @aagf470/ui LocationGrid (markets / service areas with photos)
+export const locationGrid: Block = {
+  slug: 'locationGrid',
+  labels: { singular: 'Location grid', plural: 'Location grids' },
+  fields: [
+    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
+    { name: 'subtext', type: 'textarea' },
+    { name: 'columns', type: 'select', defaultValue: '4', options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
+    { name: 'serveLabel', type: 'text', admin: { description: 'Small label above each card\'s areas, e.g. "Areas we serve".' } },
+    { name: 'locations', type: 'array', fields: [
+      { name: 'name', type: 'text', required: true },
+      { name: 'image', type: 'upload', relationTo: 'media' },
+      { name: 'label', type: 'text' },
+      { name: 'areas', type: 'array', fields: [{ name: 'text', type: 'text' }] },
+    ] },
+    variant,
+  ],
+}
+
+// Contact methods → @aagf470/ui ContactMethods (tappable text/WhatsApp/email cards)
+export const contactMethods: Block = {
+  slug: 'contactMethods',
+  labels: { singular: 'Contact methods', plural: 'Contact methods' },
+  fields: [
+    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
+    { name: 'subtext', type: 'textarea' },
+    { name: 'columns', type: 'select', defaultValue: '3', options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
+    { name: 'callout', type: 'textarea' },
+    { name: 'methods', type: 'array', fields: [
+      { name: 'icon', type: 'select', options: ICONS },
+      { name: 'name', type: 'text' },
+      { name: 'value', type: 'text', required: true },
+      { name: 'href', type: 'text', required: true },
+      { name: 'note', type: 'text' },
+      { name: 'cta', type: 'text' },
+      { name: 'external', type: 'checkbox', label: 'Open in a new tab' },
+    ] },
+    variant,
+  ],
+}
+
 export const SECTION_BLOCKS: Block[] = [
   // Business-site sections
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
   checklist, newsletterSignup, richText, customHtml, configurator,
+  locationGrid, contactMethods,
   // Studio / showcase catalog
   titleBlock, callout, codeBlock, imageBlock, factGrid, screenshotGallery,
   videoPlayer, sideBySide, contentCards, featureSpotlight, cinematicBanner,

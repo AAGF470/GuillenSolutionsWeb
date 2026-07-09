@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
 import Reveal from '../components/Reveal.jsx'
-import Markets from '../components/Markets.jsx'
 import {
   HeroSection,
   FeatureGrid,
@@ -9,6 +8,7 @@ import {
   Steps,
   PricingPlans,
   Checklist,
+  LocationGrid,
 } from '@aagf470/ui'
 import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
@@ -18,7 +18,7 @@ export default function Home() {
   const t = useT()
   const {
     PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
-    CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE,
+    CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE, MARKETS,
   } = useContent()
 
   // Map shared pricing data → PricingPlans plan shape
@@ -280,21 +280,21 @@ export default function Home() {
       </section>
       </Reveal>
 
-      {/* Primary markets — where we work, with the local areas we serve */}
+      {/* Primary markets — LocationGrid from the shared library; images are
+          CMS-owned (uploaded via a locationGrid block), not hardcoded here. */}
       <Reveal>
-      <section className="section section--alt">
-        <div className="section-container">
-          <p className="section-eyebrow">{t('Where we work', 'Dónde trabajamos')}</p>
-          <h2 className="section-title">{t('Markets we serve', 'Mercados que servimos')}</h2>
-          <p className="section-sub">
-            {t(
-              'The areas we focus on, with the local neighborhoods and towns covered in each. Boston in person; everywhere else, remotely — in English or Español.',
-              'Las zonas en las que nos enfocamos, con los vecindarios y pueblos que cubrimos en cada una. Boston en persona; todo lo demás, de forma remota — en inglés o español.',
-            )}
-          </p>
-          <Markets />
-        </div>
-      </section>
+        <LocationGrid
+          eyebrow={t('Where we work', 'Dónde trabajamos')}
+          headline={t('Markets we serve', 'Mercados que servimos')}
+          subtext={t(
+            'The areas we focus on, with the local neighborhoods and towns covered in each. Boston in person; everywhere else, remotely — in English or Español.',
+            'Las zonas en las que nos enfocamos, con los vecindarios y pueblos que cubrimos en cada una. Boston en persona; todo lo demás, de forma remota — en inglés o español.',
+          )}
+          serveLabel={t('Areas we serve', 'Áreas que servimos')}
+          columns={4}
+          variant="alt"
+          locations={MARKETS}
+        />
       </Reveal>
 
       <section className="section section--accent gs-home-cta">

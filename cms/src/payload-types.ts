@@ -193,6 +193,8 @@ export interface Page {
                         | 'phone'
                         | 'droplet'
                         | 'wind'
+                        | 'message'
+                        | 'whatsapp'
                       )
                     | null;
                   title: string;
@@ -478,6 +480,78 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'configurator';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            columns?: ('2' | '3' | '4') | null;
+            /**
+             * Small label above each card's areas, e.g. "Areas we serve".
+             */
+            serveLabel?: string | null;
+            locations?:
+              | {
+                  name: string;
+                  image?: (number | null) | Media;
+                  label?: string | null;
+                  areas?:
+                    | {
+                        text?: string | null;
+                        id?: string | null;
+                      }[]
+                    | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'locationGrid';
+          }
+        | {
+            eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            columns?: ('2' | '3' | '4') | null;
+            callout?: string | null;
+            methods?:
+              | {
+                  icon?:
+                    | (
+                        | 'check'
+                        | 'star'
+                        | 'shield'
+                        | 'zap'
+                        | 'clock'
+                        | 'users'
+                        | 'wrench'
+                        | 'mail'
+                        | 'globe'
+                        | 'layers'
+                        | 'home'
+                        | 'fence'
+                        | 'map'
+                        | 'phone'
+                        | 'droplet'
+                        | 'wind'
+                        | 'message'
+                        | 'whatsapp'
+                      )
+                    | null;
+                  name?: string | null;
+                  value: string;
+                  href: string;
+                  note?: string | null;
+                  cta?: string | null;
+                  external?: boolean | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactMethods';
           }
         | {
             eyebrow?: string | null;
@@ -1854,6 +1928,56 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               headline?: T;
               subtext?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        locationGrid?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              columns?: T;
+              serveLabel?: T;
+              locations?:
+                | T
+                | {
+                    name?: T;
+                    image?: T;
+                    label?: T;
+                    areas?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactMethods?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              columns?: T;
+              callout?: T;
+              methods?:
+                | T
+                | {
+                    icon?: T;
+                    name?: T;
+                    value?: T;
+                    href?: T;
+                    note?: T;
+                    cta?: T;
+                    external?: T;
+                    id?: T;
+                  };
               variant?: T;
               id?: T;
               blockName?: T;
