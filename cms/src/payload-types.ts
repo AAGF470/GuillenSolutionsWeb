@@ -555,6 +555,27 @@ export interface Page {
           }
         | {
             eyebrow?: string | null;
+            headline?: string | null;
+            subtext?: string | null;
+            /**
+             * Label on the call header, e.g. "Guillen Solutions demo".
+             */
+            callerName?: string | null;
+            clips?:
+              | {
+                  label: string;
+                  sub?: string | null;
+                  audio?: (number | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('default' | 'alt' | 'accent') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'voiceSample';
+          }
+        | {
+            eyebrow?: string | null;
             heading: string;
             description?: string | null;
             align?: ('left' | 'center') | null;
@@ -1976,6 +1997,25 @@ export interface PagesSelect<T extends boolean = true> {
                     note?: T;
                     cta?: T;
                     external?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        voiceSample?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              subtext?: T;
+              callerName?: T;
+              clips?:
+                | T
+                | {
+                    label?: T;
+                    sub?: T;
+                    audio?: T;
                     id?: T;
                   };
               variant?: T;

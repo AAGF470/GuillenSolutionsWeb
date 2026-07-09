@@ -833,12 +833,29 @@ export const contactMethods: Block = {
   ],
 }
 
+// Voice sample → @aagf470/ui VoiceSample (phone-styled AI-voice call preview)
+export const voiceSample: Block = {
+  slug: 'voiceSample',
+  labels: { singular: 'Voice sample', plural: 'Voice samples' },
+  fields: [
+    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
+    { name: 'subtext', type: 'textarea' },
+    { name: 'callerName', type: 'text', admin: { description: 'Label on the call header, e.g. "Guillen Solutions demo".' } },
+    { name: 'clips', type: 'array', fields: [
+      { name: 'label', type: 'text', required: true },
+      { name: 'sub', type: 'text' },
+      { name: 'audio', type: 'upload', relationTo: 'media' },
+    ] },
+    variant,
+  ],
+}
+
 export const SECTION_BLOCKS: Block[] = [
   // Business-site sections
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
   checklist, newsletterSignup, richText, customHtml, configurator,
-  locationGrid, contactMethods,
+  locationGrid, contactMethods, voiceSample,
   // Studio / showcase catalog
   titleBlock, callout, codeBlock, imageBlock, factGrid, screenshotGallery,
   videoPlayer, sideBySide, contentCards, featureSpotlight, cinematicBanner,
