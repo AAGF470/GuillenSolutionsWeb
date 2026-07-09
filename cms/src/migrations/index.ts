@@ -11,6 +11,7 @@ import * as migration_20260705_180504_add_inquiries from './20260705_180504_add_
 import * as migration_20260707_190000_add_updates from './20260707_190000_add_updates';
 import * as migration_20260707_193000_add_builds from './20260707_193000_add_builds';
 import * as migration_20260707_210000_builds_gallery_status from './20260707_210000_builds_gallery_status';
+import * as migration_20260709_155659_add_location_contact_blocks from './20260709_155659_add_location_contact_blocks';
 
 export const migrations = [
   {
@@ -61,21 +62,26 @@ export const migrations = [
   {
     up: migration_20260705_180504_add_inquiries.up,
     down: migration_20260705_180504_add_inquiries.down,
-    name: '20260705_180504_add_inquiries'
+    name: '20260705_180504_add_inquiries',
   },
   {
     up: migration_20260707_190000_add_updates.up,
     down: migration_20260707_190000_add_updates.down,
-    name: '20260707_190000_add_updates'
+    name: '20260707_190000_add_updates',
   },
   {
     up: migration_20260707_193000_add_builds.up,
     down: migration_20260707_193000_add_builds.down,
-    name: '20260707_193000_add_builds'
+    name: '20260707_193000_add_builds',
   },
   {
     up: migration_20260707_210000_builds_gallery_status.up,
     down: migration_20260707_210000_builds_gallery_status.down,
-    name: '20260707_210000_builds_gallery_status'
+    name: '20260707_210000_builds_gallery_status',
+  },
+  {
+    up: migration_20260709_155659_add_location_contact_blocks.up,
+    down: migration_20260709_155659_add_location_contact_blocks.down,
+    name: '20260709_155659_add_location_contact_blocks'
   },
 ];
