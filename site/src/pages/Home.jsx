@@ -44,7 +44,7 @@ export default function Home() {
 
   const STEPS = [
     { title: t('Choose a package', 'Elige un paquete'), body: t('Pick a base package and add only the pieces you need. The configurator gives you a transparent, all-in number.', 'Elige un paquete base y agrega solo las piezas que necesitas. El configurador te da un número transparente y todo incluido.') },
-    { title: t('We design & build', 'Diseñamos y construimos'), body: t('We build your site on our component system (or WordPress), sized to your business and ready for your content.', 'Construimos tu sitio sobre nuestro sistema de componentes (o WordPress), a la medida de tu negocio y listo para tu contenido.') },
+    { title: t('We design & build', 'Diseñamos y construimos'), body: t('We build your site on our component system, sized to your business and ready for your content.', 'Construimos tu sitio sobre nuestro sistema de componentes, a la medida de tu negocio y listo para tu contenido.') },
     { title: t('We set it up & explain it', 'Lo configuramos y te lo explicamos'), body: t('Hosting, domain, SSL, and accounts — all configured in your name. Then we walk you through how everything works.', 'Hosting, dominio, SSL y cuentas — todo configurado a tu nombre. Luego te guiamos por cómo funciona todo.') },
     { title: t('We hand you the keys', 'Te entregamos las llaves'), body: t('You own the domain, content, logins, and every asset. No lock-in, and we never touch your ad spend or your money.', 'Eres dueño del dominio, contenido, accesos y cada recurso. Sin ataduras, y nunca tocamos tu gasto en anuncios ni tu dinero.') },
   ]
