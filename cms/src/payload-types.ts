@@ -219,6 +219,10 @@ export interface Page {
             eyebrow?: string | null;
             headline?: string | null;
             subtext?: string | null;
+            /**
+             * Steps per row at desktop. 1 = the classic vertical flow.
+             */
+            columns?: ('1' | '2' | '3') | null;
             items?:
               | {
                   title: string;
@@ -251,6 +255,10 @@ export interface Page {
         | {
             eyebrow?: string | null;
             headline?: string | null;
+            /**
+             * Quotes per row at desktop. Leave empty for automatic (fills the row).
+             */
+            columns?: ('1' | '2' | '3' | '4') | null;
             items?:
               | {
                   quote: string;
@@ -305,6 +313,10 @@ export interface Page {
             eyebrow?: string | null;
             headline?: string | null;
             subtext?: string | null;
+            /**
+             * Plans per row at desktop. Leave empty for automatic (one column per plan).
+             */
+            columns?: ('2' | '3' | '4') | null;
             plans?:
               | {
                   badge?: string | null;
@@ -345,7 +357,7 @@ export interface Page {
             eyebrow?: string | null;
             headline?: string | null;
             subtext?: string | null;
-            columns?: ('1' | '2') | null;
+            columns?: ('1' | '2' | '3') | null;
             services?:
               | {
                   name: string;
@@ -565,6 +577,10 @@ export interface Page {
              * Label on the call header, e.g. "Guillen Solutions demo".
              */
             callerName?: string | null;
+            /**
+             * Phone chrome with a call header, or a plain bordered card of clips.
+             */
+            layout?: ('phone' | 'plain') | null;
             clips?:
               | {
                   label: string;
@@ -1699,6 +1715,7 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               headline?: T;
               subtext?: T;
+              columns?: T;
               items?:
                 | T
                 | {
@@ -1735,6 +1752,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               eyebrow?: T;
               headline?: T;
+              columns?: T;
               items?:
                 | T
                 | {
@@ -1792,6 +1810,7 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               headline?: T;
               subtext?: T;
+              columns?: T;
               plans?:
                 | T
                 | {
@@ -2014,6 +2033,7 @@ export interface PagesSelect<T extends boolean = true> {
               headline?: T;
               subtext?: T;
               callerName?: T;
+              layout?: T;
               clips?:
                 | T
                 | {

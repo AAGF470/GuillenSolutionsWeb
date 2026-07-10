@@ -118,6 +118,9 @@ export const steps: Block = {
   labels: { singular: 'Steps', plural: 'Steps' },
   fields: [
     { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
+    { name: 'columns', type: 'select', defaultValue: '1',
+      admin: { description: 'Steps per row at desktop. 1 = the classic vertical flow.' },
+      options: ['1', '2', '3'].map(v => ({ label: v, value: v })) },
     { name: 'items', type: 'array', localized: true, fields: [
       { name: 'title', type: 'text', required: true }, { name: 'body', type: 'textarea' },
     ] },
@@ -145,6 +148,9 @@ export const testimonials: Block = {
   labels: { singular: 'Testimonials', plural: 'Testimonials' },
   fields: [
     { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
+    { name: 'columns', type: 'select',
+      admin: { description: 'Quotes per row at desktop. Leave empty for automatic (fills the row).' },
+      options: ['1', '2', '3', '4'].map(v => ({ label: v, value: v })) },
     { name: 'items', type: 'array', localized: true, fields: [
       { name: 'quote', type: 'textarea', required: true },
       { name: 'author', type: 'text', required: true },
@@ -191,6 +197,9 @@ export const pricingPlans: Block = {
   labels: { singular: 'Pricing', plural: 'Pricing' },
   fields: [
     { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
+    { name: 'columns', type: 'select',
+      admin: { description: 'Plans per row at desktop. Leave empty for automatic (one column per plan).' },
+      options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
     { name: 'plans', type: 'array', localized: true, fields: [
       { name: 'badge', type: 'text' }, { name: 'tag', type: 'text' }, { name: 'name', type: 'text' },
       { name: 'price', type: 'text', required: true }, { name: 'period', type: 'text' },
@@ -212,7 +221,7 @@ export const serviceList: Block = {
   labels: { singular: 'Service list', plural: 'Service lists' },
   fields: [
     { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
-    { name: 'columns', type: 'select', defaultValue: '2', options: ['1', '2'].map(v => ({ label: v, value: v })) },
+    { name: 'columns', type: 'select', defaultValue: '2', options: ['1', '2', '3'].map(v => ({ label: v, value: v })) },
     { name: 'services', type: 'array', fields: [
       { name: 'name', type: 'text', required: true }, { name: 'description', type: 'text' },
       { name: 'price', type: 'text' }, { name: 'from', type: 'checkbox', label: 'Show "from"' },
@@ -841,6 +850,9 @@ export const voiceSample: Block = {
     { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
     { name: 'subtext', type: 'textarea', localized: true },
     { name: 'callerName', type: 'text', admin: { description: 'Label on the call header, e.g. "Guillen Solutions demo".' } },
+    { name: 'layout', type: 'select', defaultValue: 'phone',
+      admin: { description: 'Phone chrome with a call header, or a plain bordered card of clips.' },
+      options: [{ label: 'Phone', value: 'phone' }, { label: 'Plain card', value: 'plain' }] },
     { name: 'clips', type: 'array', fields: [
       { name: 'label', type: 'text', required: true },
       { name: 'sub', type: 'text' },
