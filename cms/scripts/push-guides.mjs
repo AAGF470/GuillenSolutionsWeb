@@ -174,6 +174,57 @@ const ARTICLES = [
       ['p', 'The platform under your site matters far less than most agencies imply. What moves the needle for a local shop is your Google Business Profile, your reviews, and content that says plainly what you do and where. A good website makes all of that easier to convert — but it\'s the foundation, not a magic ranking machine. If you want the foundation done right, that\'s exactly what we build; see [our plans](/pricing) or the [Google Business Profile setup](/pricing) add-on.'],
     ],
   },
+  {
+    title: 'Squarespace vs. a website you own: an honest comparison',
+    slug: 'squarespace-vs-owning-your-website',
+    excerpt: 'Squarespace is genuinely good at what it does. Here\'s the fair comparison nobody gives you — including the five-year math and what happens the day you stop paying.',
+    tags: ['Compare', 'Small business'],
+    publishedAt: '2026-07-10T14:00:00.000Z',
+    body: [
+      ['p', 'Let\'s start where most agency comparisons won\'t: Squarespace is good. The templates are genuinely polished, everything is in one place, and at $16–$39 a month (as of mid-2026) it\'s one of the cheapest ways to look respectable online. If it were bad, this article would be easy. It\'s not bad — it\'s a rental. The comparison worth making is what renting actually means for a business.'],
+      ['h2', 'Where Squarespace genuinely wins'],
+      ['ul', [
+        '**Day-one speed.** You can have a decent site live this weekend, yourself, for the price of lunch.',
+        '**All-in-one simplicity.** Hosting, templates, email campaigns, scheduling — one login, nothing to maintain.',
+        '**Low cash cost.** Around $276/yr on the Core plan (annual billing) is less cash than any custom build. If your time is free and a template fits, it\'s the budget winner.',
+      ]],
+      ['h2', 'What renting actually means'],
+      ['ul', [
+        '**Stop paying and the site goes dark.** A lapsed Squarespace subscription shows visitors a "website expired" page — invisible to customers and to Google until you resubscribe. You\'re not pausing a service; you\'re turning off your business\'s front door.',
+        '**You can\'t take it with you.** The export is a limited WordPress file: basic pages and one blog. Your store pages, products, galleries, custom styling, and design don\'t come out. Years of work stay behind.',
+        '**The design ceiling is the template.** Custom code injection needs the mid tier or higher, and even then you\'re decorating their structure, not building yours.',
+        '**Selling costs extra.** The entry plan adds its own fee on top of card processing for physical products; removing it means a higher tier.',
+        '**Spanish costs extra, too.** There\'s no built-in multilingual — the official path is a paid third-party service, or maintaining duplicate pages by hand. For a bilingual business, that\'s a real gap.',
+      ]],
+      ['h2', 'The honest five-year math'],
+      ['p', 'Squarespace Core, billed annually, runs about $1,400 over five years — plus every hour you spend building and maintaining it yourself. Our Standard plan runs about $2,350 over the same five years ($950 first year, then $350/yr). So yes: in pure cash, DIY is cheaper. What the difference buys is a site custom-designed around your business by someone else\'s hours, full English/Español at no premium, and — the part we care most about — **ownership**: your domain, your content, your logins, and a written exit path with a runnable copy of your site if you ever leave. Rent never converts to equity; a build does.'],
+      ['h2', 'Who should still pick Squarespace'],
+      ['p', 'Honestly: a solo owner with more time than budget, whose business fits a template, who doesn\'t sell in two languages, and who\'s comfortable doing their own updates forever. That\'s a real profile and Squarespace serves it well. If that\'s you today, take the $16 plan with our blessing — and keep the [ownership checklist](/guides/do-you-own-your-website) for the day you outgrow it.'],
+      ['p', 'If you\'d rather own the asset than rent the template, that\'s the exact gap we built for: [see the plans](/pricing) — every number flat, all-in, and confirmed in writing.'],
+    ],
+  },
+  {
+    title: 'Wix vs. a website you own: an honest comparison',
+    slug: 'wix-vs-owning-your-website',
+    excerpt: 'Wix has the biggest app market in DIY and no sales commission. It also exports nothing — your site can never leave. Here\'s the fair trade-off, spelled out.',
+    tags: ['Compare', 'Small business'],
+    publishedAt: '2026-07-10T13:00:00.000Z',
+    body: [
+      ['p', 'Wix deserves a fair shake: it has the biggest app market of any site builder, drag-anywhere freedom, real multilingual support, strong booking and restaurant tools, and — credit where due — it takes no commission on your sales (you pay standard card processing, around 2.9% + 30¢ with Wix Payments as of mid-2026). For feature-heavy DIY on a budget, it\'s arguably the strongest platform. So here\'s the one sentence that should still give a business owner pause: **a Wix site can never leave Wix.**'],
+      ['h2', 'The lock-in, precisely'],
+      ['ul', [
+        '**No export, period.** This isn\'t a limitation buried in fine print — Wix\'s own help pages say the site can\'t be transferred or hosted elsewhere. You can export your products, contacts, and orders as spreadsheets. The site itself — pages, design, layout, years of tweaks — stays, forever.',
+        '**Rebuilds, not redesigns.** On the classic editor you still can\'t switch templates on an existing site; the official path is building a new site and copying content over by hand.',
+        '**Lapsed payment = ads on your business.** Stop paying and your site stays up, but with Wix advertising on it and your custom domain disconnected — and a Wix-registered domain that lapses too long can take the whole site down with it.',
+        '**The real plan costs more than the ad.** The advertised entry price doesn\'t take payments; selling anything means the mid tier, around $350/yr billed annually — and noticeably more if you pay monthly.',
+      ]],
+      ['h2', 'What "owning it" looks like instead'],
+      ['p', 'A site you own is a thing that exists outside any platform: your domain at your registrar, your content in a portable database, your site as real code that any developer — or any future you — can host anywhere. That\'s how we build: if you leave us, you get a runnable copy of the whole site and a clean content export, in writing, before you ever sign. The test works on anyone, us included: ask "what exactly do I walk away with?" Wix\'s honest answer is spreadsheets. Ours is the site.'],
+      ['h2', 'Who should still pick Wix'],
+      ['p', 'If you need a specific Wix app, love tinkering, sell in one language or are happy with its multilingual tool, and accept that the site lives there for good — Wix will treat you fine, and cheaper than we can in cash. Plenty of businesses thrive on it. Just make the lock-in a decision you made on purpose, not a surprise you find out at moving time.'],
+      ['p', 'And if ownership is the point: our plans start at $600 all-in for the first year, custom-designed, bilingual at no premium, with the exit path in writing. [Price it yourself](/pricing) — it takes about a minute.'],
+    ],
+  },
 ]
 
 // ── compile ──────────────────────────────────────────────────────────────────
