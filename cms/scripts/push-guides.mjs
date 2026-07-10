@@ -225,6 +225,51 @@ const ARTICLES = [
       ['p', 'And if ownership is the point: our plans start at $600 all-in for the first year, custom-designed, bilingual at no premium, with the exit path in writing. [Price it yourself](/pricing) — it takes about a minute.'],
     ],
   },
+  {
+    title: 'An affordable website for your non-profit — without giving up ownership',
+    slug: 'nonprofit-website-guide',
+    excerpt: 'What a small non-profit actually needs online, what it should cost, and the ownership trap that hits mission-driven organizations hardest.',
+    tags: ['Non-profits', 'Guides'],
+    publishedAt: '2026-07-10T16:00:00.000Z',
+    body: [
+      ['p', 'Small non-profits get squeezed from two directions online: agencies quote them like corporations, and "free" tools slowly sprawl into a mess of half-finished pages nobody can update. This is the plain guide we\'d give any organization — what you actually need, what it should cost, and the one risk that hits non-profits harder than any business.'],
+      ['h2', 'What a small non-profit actually needs'],
+      ['ul', [
+        '**A clear mission page** — what you do, who it helps, and proof (photos, numbers, stories).',
+        '**A donate path that goes straight to you.** Your donation provider, your account, funds flowing directly — never through a middleman, us included. We connect whichever provider you choose at no integration charge.',
+        '**A way to update it without a developer** — events, programs, and announcements change monthly; the site should be editable by whoever runs the desk.',
+        '**Volunteer & contact routes** that land in the org\'s inbox, not a vendor\'s.',
+        '**Both languages, if your community speaks both.** For a lot of the communities we serve, English/Español isn\'t a nice-to-have.',
+      ]],
+      ['h2', 'The ownership trap — worse for non-profits'],
+      ['p', 'Here\'s the failure mode we\'ve seen more than any other: the site was set up years ago by a volunteer, a board member\'s nephew, or a long-gone staffer — and the domain, hosting, and logins live in **their** personal accounts. People rotate through non-profits constantly. When that person moves on, the organization discovers it doesn\'t control its own website, sometimes not even its own domain. Whatever you build and whoever builds it, insist on this: **domain, hosting, and every login registered to the organization**, documented where the board can find them. (Our full [ownership checklist](/guides/do-you-own-your-website) applies doubly here.)'],
+      ['h2', 'What it should cost'],
+      ['p', 'Honestly? If a volunteer has the time and a free builder tier fits, that\'s a legitimate start — just do it in the org\'s accounts. For a professional build, we don\'t have a rigid non-profit discount; we price mission-driven work **case by case**, and we\'ve waived build costs entirely for causes we believe in. Every arrangement goes in writing, the organization owns everything from day one, and donations never touch our hands. If that sounds fair, [tell us about your organization](/contact) — no pitch, just a conversation.'],
+    ],
+  },
+  {
+    title: 'What an AI phone menu is — and why a small business might want one',
+    slug: 'ai-phone-menu-explained',
+    excerpt: 'A natural-sounding AI voice answers your line and routes every call — "press 1 for sales, 2 for support." What it is, what it costs, and who actually needs it.',
+    tags: ['AI phone menu', 'How it works'],
+    publishedAt: '2026-07-10T15:00:00.000Z',
+    body: [
+      ['p', 'When a customer calls a business and a clear, professional voice answers — "Thanks for calling. For sales, press 1. For support, press 2." — that business instantly sounds established. It used to take a receptionist or an expensive phone system to get there. Now it takes a studio-produced AI voice and a phone menu, and it\'s within reach of a one-person shop.'],
+      ['h2', 'What it is (and isn\'t)'],
+      ['p', 'An AI phone menu is a recorded, natural-sounding AI voice on your business line that greets callers and routes them — to you, to a voicemail box, to an after-hours message. It\'s **not** a bot pretending to be a human on the phone: callers hear an obviously professional menu, exactly like calling a bigger company. The "AI" part is how the voice is produced — studio quality, any script, updated in days instead of re-booking a voice actor.'],
+      ['h2', 'Why it\'s worth it for a small business'],
+      ['ul', [
+        '**You stop sounding small.** A bare cell number that rings out is the phone equivalent of no website.',
+        '**Calls get sorted before they interrupt you.** Sales inquiries, existing customers, and wrong numbers route differently — you answer what matters.',
+        '**After-hours stops costing you customers.** A clear message with hours and options beats a dead ring at 9pm.',
+        '**It can greet in two languages.** A bilingual menu ("para español, marca 2") serves your whole community from the first second — few small businesses do it, and it shows.',
+      ]],
+      ['h2', 'How we price it — and who owns it'],
+      ['p', 'Ours is a **$200 one-time setup**: we script your menu with you, produce the AI voice, and configure the routing. The phone number and voice service then run on a **low-cost subscription in your own name, paid by you directly** — consistent with how we do everything: no middleman bills, no lock-in, and if you ever leave us, your number and menu keep working because they were never ours. You can hear what the voice quality sounds like on [our pricing page](/pricing), and the [plans](/pricing) page has the full add-on list.'],
+      ['h2', 'Who doesn\'t need one'],
+      ['p', 'If you answer every call yourself and like it that way, or your customers only ever text or DM — skip it. A phone menu earns its keep when missed or misrouted calls are actually costing you business. If that\'s where you are, [talk to us](/contact) and we\'ll set it up in a week.'],
+    ],
+  },
 ]
 
 // ── compile ──────────────────────────────────────────────────────────────────
