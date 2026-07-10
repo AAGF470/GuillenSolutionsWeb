@@ -14,9 +14,9 @@
 // drift from the pages. nginx (try_files $uri $uri/ /index.html) serves the
 // per-route index.html files this writes.
 // ---------------------------------------------------------------------------
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { prerender, esc, list } from './prerender-core.mjs'
 import {
   PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS, FOUND,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CONTACT_EMAIL,
@@ -28,9 +28,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, '..', 'dist')
 const SITE = 'https://guillensolutions.com'
 const NAME = 'Guillen Solutions'
-
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-const ldjson = obj => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`
 
 // ── shared chrome (crawlable link graph) ─────────────────────────────────────
 const NAV = [
@@ -48,7 +45,6 @@ const footer = `<footer><p>Honest, upfront digital services for small businesses
   NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
 }</nav><p>Get in touch: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
 
-const list = items => `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`
 const wrap = (h1, sub, inner) =>
   `${header}<main><h1>${esc(h1)}</h1><p>${esc(sub)}</p>${inner}</main>${footer}`
 
@@ -157,59 +153,17 @@ const ROUTES = [
   })),
 ]
 
-// ── render ───────────────────────────────────────────────────────────────────
-const template = readFileSync(join(DIST, 'index.html'), 'utf8')
-
-for (const r of ROUTES) {
-  const full = r.title ? `${r.title} — ${NAME}` : NAME
-  const url = `${SITE}${r.path === '/' ? '' : r.path}`
-  const head = [
-    `<meta name="description" content="${esc(r.description)}" />`,
-    `<meta name="robots" content="index,follow" />`,
-    `<link rel="canonical" href="${url}" />`,
-    `<meta property="og:type" content="website" />`,
-    `<meta property="og:site_name" content="${NAME}" />`,
-    `<meta property="og:title" content="${esc(full)}" />`,
-    `<meta property="og:description" content="${esc(r.description)}" />`,
-    `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:locale" content="en_US" />`,
-    `<meta property="og:locale:alternate" content="es_ES" />`,
-    `<meta name="twitter:card" content="summary" />`,
-    `<meta name="twitter:title" content="${esc(full)}" />`,
-    `<meta name="twitter:description" content="${esc(r.description)}" />`,
-    ...(r.schema || []).map(ldjson),
-  ].join('\n    ')
-
-  const html = template
-    .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(full)}</title>`)
-    .replace('</head>', `    ${head}\n  </head>`)
-    // createRoot() replaces this fallback with the live app in a real browser.
-    .replace('<div id="root"></div>', `<div id="root">${r.body}</div>`)
-
-  const outPath = r.path === '/'
-    ? join(DIST, 'index.html')
-    : join(DIST, r.path.slice(1), 'index.html')
-  mkdirSync(dirname(outPath), { recursive: true })
-  writeFileSync(outPath, html)
-}
-
-// ── sitemap ────────────────────────────────────────────────────────────────
-// Generated from the same ROUTES manifest so it can never drift from what
-// actually ships (the old hand-maintained sitemap still listed retired plans).
-const priorityFor = path =>
-  path === '/' ? '1.0'
-    : path.startsWith('/plans/') ? '0.9'
-    : path.startsWith('/guides/') ? '0.7'
-    : path === '/guides' ? '0.6'
-    : '0.7'
-const changefreqFor = path => (path === '/guides' || path === '/status' ? 'weekly' : 'monthly')
-const sitemap =
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  ROUTES.map(r => {
-    const loc = `${SITE}${r.path === '/' ? '' : r.path}`
-    return `  <url><loc>${loc}</loc><changefreq>${changefreqFor(r.path)}</changefreq><priority>${priorityFor(r.path)}</priority></url>`
-  }).join('\n') +
-  `\n</urlset>\n`
-writeFileSync(join(DIST, 'sitemap.xml'), sitemap)
-
-console.log(`✓ prerendered ${ROUTES.length} routes + sitemap (head + JSON-LD + content baked into static HTML)`)
+// ── render + sitemap via the generic harness ─────────────────────────────────
+prerender({
+  dist: DIST,
+  site: SITE,
+  name: NAME,
+  routes: ROUTES,
+  priorityFor: path =>
+    path === '/' ? '1.0'
+      : path.startsWith('/plans/') ? '0.9'
+      : path.startsWith('/guides/') ? '0.7'
+      : path === '/guides' ? '0.6'
+      : '0.7',
+  changefreqFor: path => (path === '/guides' || path === '/status' ? 'weekly' : 'monthly'),
+})
