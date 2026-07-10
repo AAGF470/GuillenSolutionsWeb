@@ -389,7 +389,10 @@ footer.gs-footer { border-top: 3px double var(--color-border-mid); }
    duotone (accent + luminosity blend) applies only when an image is set;
    placeholders keep the plain frame. */
 
-.location-card__photo,
+.location-card__photo {
+  outline: 1px solid var(--gs-gold);
+  outline-offset: 4px;
+}
 .gs-guide__photo {
   border-radius: 160px 160px var(--radius-lg) var(--radius-lg);
   outline: 1px solid var(--gs-gold);

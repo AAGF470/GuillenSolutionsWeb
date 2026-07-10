@@ -123,6 +123,7 @@ export default function Home() {
       </Reveal>
 
       <FeatureGrid
+        expression="list"
         eyebrow={t('How websites work here', 'Cómo funcionan los sitios web aquí')}
         headline={t('Honest digital services, start to finish', 'Servicios digitales honestos, de principio a fin')}
         subtext={t('Design, hosting, security, and guidance — with one promise underneath all of it: everything we build is yours.', 'Diseño, hosting, seguridad y orientación — con una promesa debajo de todo: todo lo que construimos es tuyo.')}
@@ -147,6 +148,7 @@ export default function Home() {
 
       {/* Where we fit — the honest comparison against every alternative */}
       <FeatureGrid
+        expression="columns"
         eyebrow={t('Where we fit', 'Dónde encajamos')}
         headline={t('Between doing it yourself and paying an agency', 'Entre hacerlo tú mismo y pagarle a una agencia')}
         subtext={t('Tailored, long-term, content-managed websites that you own — the gap the alternatives leave open.', 'Sitios web a la medida, de largo plazo y gestionables que son tuyos — el hueco que las alternativas dejan abierto.')}
@@ -218,6 +220,7 @@ export default function Home() {
       {/* Found by search & AI — how we build for discoverability, honestly */}
       <Reveal>
         <FeatureGrid
+          expression="list"
           eyebrow={FOUND.eyebrow}
           headline={FOUND.headline}
           subtext={FOUND.lead}
@@ -284,6 +287,7 @@ export default function Home() {
       {/* Where we are now — honest about being a new, owner-run studio */}
       <Reveal>
         <FeatureGrid
+          expression="columns"
           eyebrow={WHERE_WE_ARE.eyebrow}
           headline={WHERE_WE_ARE.headline}
           subtext={WHERE_WE_ARE.lead}
