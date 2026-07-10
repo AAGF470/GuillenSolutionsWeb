@@ -20,4 +20,11 @@ jobs:
           CMS_URL: ${{ vars.CMS_URL || 'https://cms.guillensolutions.com' }}
           ADMIN_EMAIL: ${{ secrets.CMS_ADMIN_EMAIL }}
           ADMIN_PASSWORD: ${{ secrets.CMS_ADMIN_PASSWORD }}
-        run: node scripts/push-guides.mjs
+        # Retry: a CMS deploy restarts the container, and a run started in that
+        # window hits a connect timeout. Back off and try again.
+        run: |
+          for i in 1 2 3 4; do
+            node scripts/push-guides.mjs && exit 0
+            echo "attempt $i failed; retrying in 30s…"; sleep 30
+          done
+          echo "failed after 4 attempts"; exit 1
