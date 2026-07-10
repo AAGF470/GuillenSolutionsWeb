@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HeroSection, CtaBanner, Faq, FeatureGrid } from '@aagf470/ui'
 import VoiceDemo from '../components/VoiceDemo.jsx'
+import { Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import PackageConfigurator from '../components/PackageConfigurator.jsx'
 import PlanFinder from '../components/PlanFinder.jsx'
@@ -109,7 +110,7 @@ export default function Pricing() {
               'Cada plan es un número real, todo incluido, con todo lo de arriba ya adentro. Esto es exactamente lo que lleva cada uno — elige tu punto de partida arriba en el configurador.',
             )}
           </p>
-          <div className="gs-plans">
+          <Reveal stagger className="gs-plans">
             {PACKAGES.map((pkg) => (
               <article
                 key={pkg.id}
@@ -140,7 +141,7 @@ export default function Pricing() {
                 )}
               </article>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -155,7 +156,7 @@ export default function Pricing() {
               'Cuando tu sitio necesita comunicarse con algo externo, construimos una capa visual limpia sobre ese servicio — sin incrustaciones desordenadas.',
             )}
           </p>
-          <div className="gs-integrations">
+          <Reveal stagger className="gs-integrations">
             <div className="gs-integration">
               <p className="gs-integration__size">{t('Small integration', 'Integración pequeña')}</p>
               <p className="gs-integration__price">
@@ -178,7 +179,7 @@ export default function Pricing() {
                 )}
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 

@@ -338,3 +338,47 @@
 /* Hero CTAs: pill-shaped, solid gets a green lift shadow */
 .hero-section__actions .btn { border-radius: 999px; padding: 14px 26px; }
 .hero-section__actions .btn--solid { box-shadow: 0 10px 24px -12px var(--color-accent); }
+
+/* ── DEPTH PASS — brass details spread across the remaining pages ─────────── */
+
+/* Brass hairline on marquee cards (services, plans, local guides, contact,
+   market-guide services) — the concept's card signature, symbols-free. */
+.gs-svc__card::before,
+.gs-plan::before,
+.gs-lguide::before,
+.contact-method::before,
+.gs-guide__service::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gs-gold);
+  opacity: 0.65;
+  margin-bottom: 14px;
+}
+
+/* Footer: the contract double-rule */
+footer.gs-footer { border-top: 3px double var(--color-border-mid); }
+
+/* Accent sections (CTA banners) echo the brass ring motif from hero/promise */
+.section--accent { position: relative; overflow: hidden; }
+.section--accent::before {
+  content: '';
+  position: absolute;
+  right: -140px; top: -170px;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  border: 1px solid var(--gs-gold);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.section--accent .section-container { position: relative; }
+
+/* Pill primary CTAs sitewide (nav + hero already are; unify the rest) */
+.btn.btn { border-radius: 999px; }
+.gs-plan__cta.gs-plan__cta,
+.gs-inq__send.gs-inq__send,
+.cfg-sum__cta.cfg-sum__cta,
+.gs-btn-solid.gs-btn-solid,
+.gs-btn-ghost.gs-btn-ghost { border-radius: 999px; }

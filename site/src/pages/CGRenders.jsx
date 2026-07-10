@@ -1,4 +1,4 @@
-import { HeroSection, CtaBanner } from '@aagf470/ui'
+import { HeroSection, CtaBanner , Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import RenderFinder from '../components/RenderFinder.jsx'
 import { CONTACT_EMAIL } from '../data'
@@ -80,7 +80,7 @@ export default function CGRenders() {
           <p className="section-eyebrow">{t("Why it's affordable", 'Por qué es accesible')}</p>
           <h2 className="section-title">{t('One model. Every shot you need.', 'Un modelo. Cada toma que necesitas.')}</h2>
           <p className="section-sub">{CG_RENDER_LEAD}</p>
-          <div className="gs-cg__adv">
+          <Reveal stagger className="gs-cg__adv">
             {CG_RENDER_ADVANTAGE.map((a, i) => (
               <div className="gs-cg__adv-card" key={a.title}>
                 <span className="gs-cg__adv-num">{String(i + 1).padStart(2, '0')}</span>
@@ -88,7 +88,7 @@ export default function CGRenders() {
                 <p>{a.body}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 

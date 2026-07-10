@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HeroSection } from '@aagf470/ui'
+import { Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import { useContent } from '../content.js'
 import { useT } from '../i18n.jsx'
@@ -63,7 +64,7 @@ function LocalGuides() {
             'Dónde trabajamos, a quién servimos y cómo un negocio local se hace encontrar en línea — una guía por mercado.',
           )}
         </p>
-        <div className="gs-lguides">
+        <Reveal stagger className="gs-lguides">
           {LOCATION_GUIDES.map(g => {
             const areas = MARKETS.find(m => m.id === g.marketId)?.areas ?? []
             return (
@@ -75,7 +76,7 @@ function LocalGuides() {
               </Link>
             )
           })}
-        </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -127,9 +128,9 @@ export default function Guides() {
             </div>
           )}
           {posts?.length > 0 && (
-            <div className="gs-guides__grid">
+            <Reveal stagger className="gs-guides__grid">
               {posts.map(p => <GuideCard key={p.id} post={p} locale={locale} />)}
-            </div>
+            </Reveal>
           )}
         </div>
       </section>

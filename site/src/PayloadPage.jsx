@@ -6,7 +6,7 @@ import {
   VideoPlayer, SideBySide, ContentCards, FeatureSpotlight, CinematicBanner,
   CinematicHero, LabHero, RoadmapBlock, ChangelogBlock, SystemRequirements,
   AssetGrid, HierarchyBlock, ArchitectureBlock, EmbeddedApp, PricingCTA, Spacer,
-  LocationGrid, ContactMethods, VoiceSample, PromiseContract,
+  LocationGrid, ContactMethods, VoiceSample, PromiseContract, Reveal,
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
 import Seo from './components/Seo.jsx'
@@ -132,7 +132,8 @@ function renderBlock(block) {
   // Payload's built-in "Block Name" doubles as an anchor: name a block
   // "packages" and links to #packages scroll to it (matches the bespoke pages'
   // <div id="..."> wrappers).
-  const el = <C key={block.id} {...adapt(block)} />
+  // Every CMS block reveals on scroll — CMS-authored pages get motion for free.
+  const el = <Reveal key={block.id}><C {...adapt(block)} /></Reveal>
   return block.blockName
     ? <div key={block.id} id={block.blockName.toLowerCase().replace(/\s+/g, '-')}>{el}</div>
     : el

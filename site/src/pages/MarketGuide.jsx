@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { HeroSection, Faq, CtaBanner } from '@aagf470/ui'
+import { Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import { useContent } from '../content.js'
 import { CONTACT_EMAIL } from '../data.js'
@@ -81,11 +82,11 @@ export default function MarketGuide({ guide }) {
         <div className="section-container">
           <p className="section-eyebrow">{t('The local advantage', 'La ventaja local')}</p>
           <h2 className="section-title">{guide.whyTitle}</h2>
-          <ul className="gs-guide__why">
+          <Reveal stagger as="ul" className="gs-guide__why">
             {guide.why.map((w, i) => (
               <li key={i}><span className="gs-guide__why-num">{i + 1}</span><span>{w}</span></li>
             ))}
-          </ul>
+          </Reveal>
         </div>
       </section>
 
@@ -96,7 +97,7 @@ export default function MarketGuide({ guide }) {
           <h2 className="section-title">
             {t(`What we build for ${guide.city} businesses`, `Lo que construimos para negocios en ${guide.city}`)}
           </h2>
-          <div className="gs-guide__services">
+          <Reveal stagger className="gs-guide__services">
             {SERVICES.map(s => (
               <Link key={s.id} to={s.to} className="gs-guide__service">
                 <span className="gs-guide__service-tag">{s.tag}</span>
@@ -106,7 +107,7 @@ export default function MarketGuide({ guide }) {
                 <span className="gs-guide__service-link">{s.linkLabel} →</span>
               </Link>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 

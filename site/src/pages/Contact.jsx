@@ -1,4 +1,4 @@
-import { HeroSection, ContactMethods } from '@aagf470/ui'
+import { HeroSection, ContactMethods, Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import InquiryForm from '../components/InquiryForm.jsx'
 import { CONTACT } from '../data.js'
@@ -58,6 +58,7 @@ export default function Contact() {
         ctas={[]}
       />
 
+      <Reveal>
       <ContactMethods
         methods={methods}
         columns={3}
@@ -67,6 +68,7 @@ export default function Contact() {
           'Ambas líneas telefónicas son solo texto — no tomamos llamadas de voz. Mantiene todo claro, por escrito y fácil de atender en dos idiomas.',
         )}
       />
+      </Reveal>
 
       <section className="section section--alt gs-seam-top">
         <div className="section-container gs-contact__form-wrap">
