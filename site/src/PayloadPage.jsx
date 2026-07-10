@@ -10,6 +10,8 @@ import {
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
 import Seo from './components/Seo.jsx'
+import { useLang } from './i18n.jsx'
+import { sendInquiry } from './lib/inquiries'
 
 // ---------------------------------------------------------------------------
 // PayloadPage — renders a CMS `pages` doc's block layout with @aagf470/ui.
@@ -129,6 +131,29 @@ function renderBlock(block) {
     )
   const C = MAP[block.blockType]
   if (!C) return null
+  // The contact-form block posts to the CMS inquiries inbox (same pipe as the
+  // coded forms) instead of falling back to mailto.
+  if (block.blockType === 'contactSection') {
+    const el = (
+      <ContactSection
+        key={block.id}
+        {...adapt(block)}
+        onSubmit={({ name, contact, message }) => {
+          const isEmail = /@/.test(contact || '')
+          return sendInquiry({
+            source: 'contact',
+            summary: 'Contact form message',
+            name,
+            email: isEmail ? contact : undefined,
+            message: isEmail ? message : `${message}\n\nContact: ${contact}`,
+          })
+        }}
+      />
+    )
+    return block.blockName
+      ? <div key={block.id} id={block.blockName.toLowerCase().replace(/\s+/g, '-')}>{el}</div>
+      : el
+  }
   // Payload's built-in "Block Name" doubles as an anchor: name a block
   // "packages" and links to #packages scroll to it (matches the bespoke pages'
   // <div id="..."> wrappers).
@@ -143,6 +168,7 @@ function renderBlock(block) {
 // truth, rendered no matter which source (CMS or bespoke fallback) wins.
 // Without it (dynamic /:slug pages), the CMS doc's own title is used.
 export default function PayloadPage({ slug, fallback = null, fallbackWhileLoading = false, seo = null }) {
+  const { lang } = useLang()
   const [page, setPage] = useState(null) // { layout, title }
   const [status, setStatus] = useState('loading') // 'loading' | 'cms' | 'none'
 
@@ -150,7 +176,7 @@ export default function PayloadPage({ slug, fallback = null, fallbackWhileLoadin
     if (!slug) { setStatus('none'); return }
     let alive = true
     setStatus('loading')
-    fetch(`${API}/api/pages?where[slug][equals]=${encodeURIComponent(slug)}&depth=2`)
+    fetch(`${API}/api/pages?where[slug][equals]=${encodeURIComponent(slug)}&depth=2&locale=${lang}&fallback-locale=en`)
       .then(r => r.json())
       .then(d => {
         if (!alive) return
@@ -160,7 +186,7 @@ export default function PayloadPage({ slug, fallback = null, fallbackWhileLoadin
       })
       .catch(() => { if (alive) setStatus('none') })
     return () => { alive = false }
-  }, [slug])
+  }, [slug, lang])
 
   const meta = seo
     ? <Seo {...seo} />

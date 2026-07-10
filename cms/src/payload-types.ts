@@ -102,10 +102,12 @@ export interface Config {
   globals: {
     voiceDemo: VoiceDemo;
     markets: Market;
+    siteImages: SiteImage;
   };
   globalsSelect: {
     voiceDemo: VoiceDemoSelect<false> | VoiceDemoSelect<true>;
     markets: MarketsSelect<false> | MarketsSelect<true>;
+    siteImages: SiteImagesSelect<false> | SiteImagesSelect<true>;
   };
   locale: 'en' | 'es';
   widgets: {
@@ -1502,7 +1504,7 @@ export interface Inquiry {
    */
   summary?: string | null;
   name?: string | null;
-  email: string;
+  email?: string | null;
   business?: string | null;
   message?: string | null;
   source: 'plan-finder' | 'configurator' | 'estimator' | 'contact';
@@ -2830,6 +2832,27 @@ export interface Market {
   createdAt?: string | null;
 }
 /**
+ * Keyed image slots for the coded pages. Slot ids: home-story-1, home-story-2, renders-lifestyle-hero, renders-studio-front, renders-studio-34, renders-detail, renders-variant, renders-lifestyle-2. Each empty slot shows its id on the site placeholder.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteImages".
+ */
+export interface SiteImage {
+  id: number;
+  items?:
+    | {
+        /**
+         * Slot id (see list above).
+         */
+        slot: string;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "voiceDemo_select".
  */
@@ -2855,6 +2878,22 @@ export interface MarketsSelect<T extends boolean = true> {
     | T
     | {
         marketId?: T;
+        image?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteImages_select".
+ */
+export interface SiteImagesSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        slot?: T;
         image?: T;
         id?: T;
       };

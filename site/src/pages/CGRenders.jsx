@@ -4,6 +4,7 @@ import RenderFinder from '../components/RenderFinder.jsx'
 import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
 import { useT } from '../i18n.jsx'
+import { useSiteImages } from '../lib/siteImages.js'
 import { rendersSchema } from '../schema'
 import './CGRenders.css'
 
@@ -17,15 +18,20 @@ import './CGRenders.css'
 // with <img className="gs-cg__img" src="/img/renders/your-file.jpg" alt="…" />.
 // ---------------------------------------------------------------------------
 
-// A swappable image slot. Replace with <img> when the real render exists.
-function Shot({ label, file, wide }) {
+// A CMS-fed image slot (Globals → Site images). Shows the slot id until the
+// image is keyed in, so it's obvious what to enter in the CMS.
+function Shot({ label, slot, img, wide }) {
   const t = useT()
   return (
     <figure className={`gs-cg__shot${wide ? ' gs-cg__shot--wide' : ''}`}>
-      <div className="gs-cg__ph">
-        <span className="gs-cg__ph-tag">{t('Add image', 'Agregar imagen')}</span>
-        <small>/img/renders/{file}</small>
-      </div>
+      {img ? (
+        <img className="gs-cg__ph" src={img} alt={label} loading="lazy" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+      ) : (
+        <div className="gs-cg__ph">
+          <span className="gs-cg__ph-tag">{t('Add image in CMS', 'Agregar imagen en el CMS')}</span>
+          <small>{slot}</small>
+        </div>
+      )}
       <figcaption>{label}</figcaption>
     </figure>
   )
@@ -33,6 +39,7 @@ function Shot({ label, file, wide }) {
 
 export default function CGRenders() {
   const t = useT()
+  const siteImages = useSiteImages()
   const {
     CG_RENDER_LEAD, CG_RENDER_ADVANTAGE, CG_RENDER_TIERS, CG_RENDER_SHOTS,
     CG_RENDER_PACKAGES, CG_RENDER_NOTES, CG_RENDER_VARIANT_NOTE, CG_RENDER_MOTION,
@@ -104,12 +111,12 @@ export default function CGRenders() {
             )}
           </p>
           <div className="gs-cg__gallery">
-            <Shot wide label={t('Lifestyle hero — product staged in a real scene', 'Toma principal ambientada — producto montado en una escena real')} file="lifestyle-hero.jpg" />
-            <Shot label={t('White-background listing shot', 'Toma de listado con fondo blanco')} file="studio-front.jpg" />
-            <Shot label={t('Three-quarter angle', 'Ángulo de tres cuartos')} file="studio-34.jpg" />
-            <Shot label={t('Detail crop — materials & finish', 'Acercamiento de detalle — materiales y acabado')} file="detail.jpg" />
-            <Shot label={t('Color / label variant', 'Variante de color / etiqueta')} file="variant.jpg" />
-            <Shot wide label={t('Second lifestyle scene — ad / banner ready', 'Segunda escena ambientada — lista para anuncio / banner')} file="lifestyle-2.jpg" />
+            <Shot wide label={t('Lifestyle hero — product staged in a real scene', 'Toma principal ambientada — producto montado en una escena real')} slot="renders-lifestyle-hero" img={siteImages['renders-lifestyle-hero']} />
+            <Shot label={t('White-background listing shot', 'Toma de listado con fondo blanco')} slot="renders-studio-front" img={siteImages['renders-studio-front']} />
+            <Shot label={t('Three-quarter angle', 'Ángulo de tres cuartos')} slot="renders-studio-34" img={siteImages['renders-studio-34']} />
+            <Shot label={t('Detail crop — materials & finish', 'Acercamiento de detalle — materiales y acabado')} slot="renders-detail" img={siteImages['renders-detail']} />
+            <Shot label={t('Color / label variant', 'Variante de color / etiqueta')} slot="renders-variant" img={siteImages['renders-variant']} />
+            <Shot wide label={t('Second lifestyle scene — ad / banner ready', 'Segunda escena ambientada — lista para anuncio / banner')} slot="renders-lifestyle-2" img={siteImages['renders-lifestyle-2']} />
           </div>
         </div>
       </section>

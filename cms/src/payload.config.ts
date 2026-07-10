@@ -164,7 +164,7 @@ const Inquiries = {
   fields: [
     { name: 'summary', type: 'text', admin: { description: 'One line — what they asked for.' } },
     { name: 'name', type: 'text' },
-    { name: 'email', type: 'email', required: true },
+    { name: 'email', type: 'email' },
     { name: 'business', type: 'text' },
     { name: 'message', type: 'textarea' },
     {
@@ -288,6 +288,23 @@ const Markets = {
   ],
 }
 
+// Site image slots — keyed images that the coded pages' placeholders read.
+// Add an item with a slot id + image and it appears on the site. Known slots:
+//   home-story-1, home-story-2            (Home "why we do it" images)
+//   renders-lifestyle-hero, renders-studio-front, renders-studio-34,
+//   renders-detail, renders-variant, renders-lifestyle-2   (/renders gallery)
+const SiteImages = {
+  slug: 'siteImages',
+  access: { read: () => true, update: editorCanWrite },
+  admin: { description: 'Keyed image slots for the coded pages. Slot ids: home-story-1, home-story-2, renders-lifestyle-hero, renders-studio-front, renders-studio-34, renders-detail, renders-variant, renders-lifestyle-2. Each empty slot shows its id on the site placeholder.' },
+  fields: [
+    { name: 'items', type: 'array', labels: { singular: 'Image slot', plural: 'Image slots' }, fields: [
+      { name: 'slot', type: 'text', required: true, admin: { description: 'Slot id (see list above).' } },
+      { name: 'image', type: 'upload', relationTo: 'media' },
+    ] },
+  ],
+}
+
 const VoiceDemo = {
   slug: 'voiceDemo',
   access: { read: () => true, update: editorCanWrite },
@@ -331,7 +348,7 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any, Inquiries as any, Updates as any, Builds as any],
-  globals: [VoiceDemo as any, Markets as any],
+  globals: [VoiceDemo as any, Markets as any, SiteImages as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
   sharp,

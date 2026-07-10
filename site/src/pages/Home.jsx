@@ -13,6 +13,7 @@ import {
 import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
 import { useMarketImages } from '../lib/marketImages.js'
+import { useSiteImages } from '../lib/siteImages.js'
 import { useT } from '../i18n.jsx'
 
 export default function Home() {
@@ -23,6 +24,8 @@ export default function Home() {
   } = useContent()
   // Market photos come from the CMS `markets` global (upload → appears here).
   const marketImages = useMarketImages()
+  // Keyed image slots (CMS Globals → Site images): home-story-1 / home-story-2
+  const siteImages = useSiteImages()
 
   // Map shared pricing data → PricingPlans plan shape
   const PLANS = PACKAGES.map(p => ({
@@ -139,7 +142,7 @@ export default function Home() {
           'A business we know was charged $2,800 for a website they never actually owned — their leads were siphoned to competitors who paid more, and their domain, content, and profiles were held hostage. We started Guillen Solutions to do the exact opposite: honest, upfront, and yours to keep.',
           'A un negocio que conocemos le cobraron $2,800 por un sitio web que nunca fue suyo — sus clientes potenciales se desviaban a competidores que pagaban más, y su dominio, contenido y perfiles quedaron secuestrados. Empezamos Guillen Solutions para hacer exactamente lo opuesto: honesto, transparente y tuyo para conservar.',
         )}
-        image="/img/sample-1.svg"
+        image={siteImages['home-story-1'] || '/img/sample-1.svg'}
         imageAlt="Guillen Solutions"
         layout="image-right"
         cta={{ label: t('See what we build', 'Ver lo que construimos'), href: '/work', variant: 'ghost-bordered' }}
@@ -198,7 +201,7 @@ export default function Home() {
           'We build a 3D model of your product once, then render every shot you need from it — clean white-background listing images, detail crops, and staged lifestyle scenes. No samples shipped, no reshoot fees, and every extra shot is cheap because the model already exists. From $150 per product, with multi-shot packages made for small businesses — and 15% off when bundled with a website.',
           'Construimos un modelo 3D de tu producto una vez, y luego renderizamos cada toma que necesites a partir de él — imágenes de listado con fondo blanco limpio, acercamientos de detalle y escenas ambientadas. Sin enviar muestras, sin costos de repetición, y cada toma extra es económica porque el modelo ya existe. Desde $150 por producto, con paquetes de varias tomas hechos para pequeños negocios — y 15% de descuento al combinarlo con un sitio web.',
         )}
-        image="/img/sample-2.svg"
+        image={siteImages['home-story-2'] || '/img/sample-2.svg'}
         imageAlt="CG product render examples"
         layout="image-left"
         cta={{ label: t('Explore product renders', 'Explorar renders de producto'), href: '/renders', variant: 'solid' }}

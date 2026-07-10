@@ -302,7 +302,9 @@ export default function App() {
               else falls through to the CMS-backed devlog post. */}
           <Route path="/guides/:slug" element={<GuideRoute />} />
           <Route path="/status" element={<Status />} />
-          <Route path="/contact" element={<Contact />} />
+          {/* Contact is CMS-takeover-capable: author a 'contact' page with blocks
+              in /admin and it replaces the coded fallback (both locales). */}
+          <Route path="/contact" element={<PayloadPage slug="contact" fallback={<Contact />} fallbackWhileLoading />} />
           {/* Old routes → merged destinations. */}
           <Route path="/components" element={<Navigate to="/work" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />
