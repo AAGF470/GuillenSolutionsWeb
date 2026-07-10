@@ -186,10 +186,15 @@ const PAGES = [
 const planLayout = (id) => {
   const plan = PLAN_PAGES[id]
   const data = PACKAGES.find(p => p.id === id)
+  // TBD plans (no fixed price) get a talk-to-us CTA instead of the
+  // configurator, matching the React fallback's behavior.
+  const cta = data?.tbd
+    ? { label: 'Get in touch', href: `mailto:${CONTACT_EMAIL}`, variant: 'solid' }
+    : { label: 'Build your quote', href: '/pricing#order', variant: 'solid' }
   const layout = [
     { blockType: 'hero', layout: 'left', size: 'compact', variant: 'alt',
       eyebrow: plan.hero.eyebrow, headline: plan.hero.headline, subtext: plan.hero.subtext,
-      ctas: [{ label: 'Build your quote', href: '/pricing#order', variant: 'solid' }] },
+      ctas: [cta] },
     { blockType: 'featureGrid', columns: '4', variant: 'default',
       eyebrow: "Who it's for", headline: plan.whoTitle, subtext: plan.whoSub, items: plan.who },
     { blockType: 'checklist', variant: 'alt',
@@ -205,15 +210,17 @@ const planLayout = (id) => {
       plans: [{ badge: data.badge, tag: data.tag, name: data.name, price: data.price,
         period: data.period, description: data.description, note: data.note, featured: true,
         features: data.features.map(text => ({ text })),
-        cta: { label: 'Build your quote', href: '/pricing#order', variant: 'solid' } }] },
+        cta }] },
     { blockType: 'faq', variant: 'default', eyebrow: 'Good to know', headline: 'Common questions', items: plan.faq },
     { blockType: 'ctaBanner', variant: 'accent', eyebrow: plan.cta.eyebrow,
       headline: plan.cta.headline, subtext: plan.cta.subtext,
-      cta: { label: 'Build your quote', href: '/pricing#order', variant: 'solid' } },
+      cta },
   )
   return layout
 }
-for (const id of ['freelance', 'standard', 'wordpress']) {
+// Derive the ids from PLAN_PAGES itself so this can never drift from the
+// actual plan lineup again (the old hardcoded list still had 'wordpress').
+for (const id of Object.keys(PLAN_PAGES)) {
   PAGES.push({ title: PLAN_PAGES[id].seo.title, slug: `plans-${id}`, layout: planLayout(id) })
 }
 
