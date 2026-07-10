@@ -11,7 +11,7 @@ export const CONTACT_EMAIL = 'contact@guillensolutions.com'
 export const CONTACT = {
   email: 'contact@guillensolutions.com',
   textLine: { display: '(508) 794-9751', sms: '+15087949751' },       // text only
-  whatsapp: { display: '(346) 332-6885', link: 'https://wa.me/13463326885' }, // WhatsApp, text only
+  whatsapp: { display: '(508) 794-9751', link: 'https://wa.me/15087949751' }, // WhatsApp Business (same number as the text line)
 }
 
 export const PACKAGES = [
