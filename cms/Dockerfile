@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # Payload/Next CMS image for guillensolutions.com.
 #
 # NOT the size-optimized Next "standalone" image: Payload needs the payload CLI,
@@ -14,11 +15,15 @@ WORKDIR /app
 # Install deps. .npmrc carries legacy-peer-deps=true; the lock was generated
 # with it, so `npm ci` needs it present or it rejects the lock.
 COPY package.json package-lock.json* .npmrc* ./
-RUN npm ci
+# BuildKit cache mount keeps the npm download cache across rebuilds, so a
+# dependency bump doesn't re-download the world.
+RUN --mount=type=cache,target=/root/.npm npm ci
 
-# Build the app (needs dev deps, which npm ci installed).
+# Build the app (needs dev deps, which npm ci installed). The .next/cache
+# mount persists Next's incremental compiler cache across image rebuilds —
+# this is the big one: source-only changes rebuild in a fraction of the time.
 COPY . .
-RUN npm run build
+RUN --mount=type=cache,target=/app/.next/cache npm run build
 
 ENV NODE_ENV=production
 ENV PORT=3000

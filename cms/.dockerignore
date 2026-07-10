@@ -1,0 +1,12 @@
+# Keep the build context small and the deps layer cacheable.
+node_modules
+.next
+dist
+media
+*.log
+.env
+.env.*
+!.env.example
+.git
+.claude
+README.md
