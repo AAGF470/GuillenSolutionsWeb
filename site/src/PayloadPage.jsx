@@ -6,7 +6,7 @@ import {
   VideoPlayer, SideBySide, ContentCards, FeatureSpotlight, CinematicBanner,
   CinematicHero, LabHero, RoadmapBlock, ChangelogBlock, SystemRequirements,
   AssetGrid, HierarchyBlock, ArchitectureBlock, EmbeddedApp, PricingCTA, Spacer,
-  LocationGrid, ContactMethods, VoiceSample,
+  LocationGrid, ContactMethods, VoiceSample, PromiseContract,
 } from '@aagf470/ui'
 import PackageConfigurator from './components/PackageConfigurator.jsx'
 import Seo from './components/Seo.jsx'
@@ -38,6 +38,7 @@ const MAP = {
   architectureBlock: ArchitectureBlock, embeddedApp: EmbeddedApp,
   pricingCTA: PricingCTA, spacer: Spacer,
   locationGrid: LocationGrid, contactMethods: ContactMethods, voiceSample: VoiceSample,
+  promiseContract: PromiseContract,
 }
 
 const API = import.meta.env.VITE_CMS_URL
@@ -76,6 +77,10 @@ function adapt(block) {
     o.locations = o.locations.map(l => ({ ...l, image: url(l.image), areas: (l.areas || []).map(a => a?.text ?? a) }))
   if (Array.isArray(o.clips))                                          // voiceSample: audio upload → src
     o.clips = o.clips.map(c => ({ label: c.label, sub: c.sub, src: url(c.audio) }))
+  if (o.blockType === 'promiseContract') {                             // flat CMS fields → signature object
+    if (o.signatureName) o.signature = { name: o.signatureName, sub: o.signatureSub }
+    delete o.signatureName; delete o.signatureSub
+  }
   if (Array.isArray(o.nodes))                                          // Payload reserves `id` in arrays
     o.nodes = o.nodes.map(n => ({ ...n, id: n.node_id ?? n.id }))      // → node_id back to the `id` prop
   if (o.blockType === 'sideBySide') {                                  // one nested block per column

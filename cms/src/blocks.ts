@@ -862,12 +862,32 @@ export const voiceSample: Block = {
   ],
 }
 
+// Promise contract → @aagf470/ui PromiseContract (written-promise band)
+export const promiseContract: Block = {
+  slug: 'promiseContract',
+  labels: { singular: 'Promise contract', plural: 'Promise contracts' },
+  fields: [
+    { name: 'eyebrow', type: 'text', localized: true },
+    { name: 'headline', type: 'text', localized: true },
+    { name: 'frameLabel', type: 'text', localized: true,
+      admin: { description: 'Small label breaking the frame, e.g. "In writing — before you sign".' } },
+    { name: 'clauses', type: 'array', localized: true, fields: [
+      { name: 'text', type: 'textarea', required: true },
+      { name: 'href', type: 'text', admin: { description: 'Optional link — the clause becomes clickable.' } },
+    ] },
+    { name: 'signatureName', type: 'text' },
+    { name: 'signatureSub', type: 'text', localized: true },
+    { name: 'stamp', type: 'text', localized: true, admin: { description: 'Round stamp text, e.g. "NO LOCK-IN". Leave empty to hide.' } },
+    cta(),
+  ],
+}
+
 export const SECTION_BLOCKS: Block[] = [
   // Business-site sections
   hero, featureGrid, steps, imageText, testimonials, gallery, faq,
   pricingPlans, serviceList, hoursLocation, ctaBanner, contactSection,
   checklist, newsletterSignup, richText, customHtml, configurator,
-  locationGrid, contactMethods, voiceSample,
+  locationGrid, contactMethods, voiceSample, promiseContract,
   // Studio / showcase catalog
   titleBlock, callout, codeBlock, imageBlock, factGrid, screenshotGallery,
   videoPlayer, sideBySide, contentCards, featureSpotlight, cinematicBanner,

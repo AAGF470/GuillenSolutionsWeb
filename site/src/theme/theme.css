@@ -239,21 +239,9 @@
   to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* (b) REVEAL — scroll-in polish for content sections (see Reveal.jsx).
-   Hidden state: nudged down + transparent; .is-visible transitions back.
-   Only opacity/transform animate, so there is zero layout shift. */
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 22px, 0);
-  transition:
-    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+/* (b) REVEAL — now the library's motion system (@aagf470/ui Reveal + motion
+   presets, .rv/.rv-stagger classes). The old site-local .reveal styles were
+   removed with the local component. */
 
 /* (c) Gentle hover-lift utility for cards that don't already define one.
    Opt-in via .gs-lift so we never override existing card behavior. */

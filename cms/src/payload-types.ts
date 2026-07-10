@@ -596,6 +596,38 @@ export interface Page {
           }
         | {
             eyebrow?: string | null;
+            headline?: string | null;
+            /**
+             * Small label breaking the frame, e.g. "In writing — before you sign".
+             */
+            frameLabel?: string | null;
+            clauses?:
+              | {
+                  text: string;
+                  /**
+                   * Optional link — the clause becomes clickable.
+                   */
+                  href?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            signatureName?: string | null;
+            signatureSub?: string | null;
+            /**
+             * Round stamp text, e.g. "NO LOCK-IN". Leave empty to hide.
+             */
+            stamp?: string | null;
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+              variant?: ('solid' | 'ghost' | 'ghost-bordered') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'promiseContract';
+          }
+        | {
+            eyebrow?: string | null;
             heading: string;
             description?: string | null;
             align?: ('left' | 'center') | null;
@@ -2043,6 +2075,32 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        promiseContract?:
+          | T
+          | {
+              eyebrow?: T;
+              headline?: T;
+              frameLabel?: T;
+              clauses?:
+                | T
+                | {
+                    text?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              signatureName?: T;
+              signatureSub?: T;
+              stamp?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    variant?: T;
+                  };
               id?: T;
               blockName?: T;
             };

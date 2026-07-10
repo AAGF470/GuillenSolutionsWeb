@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
-import Reveal from '../components/Reveal.jsx'
 import {
   HeroSection,
   FeatureGrid,
   ImageText,
   Steps,
   PricingPlans,
-  Checklist,
   LocationGrid,
+  PromiseContract,
+  Reveal,
 } from '@aagf470/ui'
 import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
@@ -94,7 +94,7 @@ export default function Home() {
               'La mayoría de los clientes empiezan con un sitio web. Pero todo lo que un pequeño negocio necesita para verse establecido — el sitio, las fotos de producto, el correo, el menú telefónico con IA — viene del mismo sistema, el mismo equipo y la misma promesa: es tuyo. Hecho especialmente para boutiques, artesanos, restaurantes y los negocios que la gente elige con los ojos.',
             )}
           </p>
-          <div className="gs-svc__grid">
+          <Reveal stagger className="gs-svc__grid">
             {SERVICES.map(s => (
               <Link key={s.id} to={s.to} className="gs-svc__card">
                 <span className="gs-svc__tag">{s.tag}</span>
@@ -106,7 +106,7 @@ export default function Home() {
                 </span>
               </Link>
             ))}
-          </div>
+          </Reveal>
           {/* Mission-driven builds — nonprofits are an explicit early focus */}
           <p className="gs-note">
             {t(
@@ -244,25 +244,38 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="gs-libpeek__grid">
+          <Reveal stagger className="gs-libpeek__grid">
             {LIBRARY_PEEK.map(item => (
               <div key={item.title} className="gs-libpeek__card">
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
           <Link to="/work#library" className="gs-libpeek__cta">{t('Explore the full component library →', 'Explora la biblioteca de componentes completa →')}</Link>
         </div>
       </section>
 
-      {/* What you own / what we don't do — same Checklist component the CMS
-          version renders, so both sources are pixel-identical. */}
-      <Checklist
+      {/* The promise — the written-contract band (interactive: hoverable
+          clauses stagger in, the exit clause links to the ownership guide). */}
+      <PromiseContract
         eyebrow={t('The promise', 'La promesa')}
-        headline={t("What you own — and what we don't do", 'Qué es tuyo — y qué no hacemos')}
-        items={OWNERSHIP}
-        variant="alt"
+        headline={t(
+          <>Ownership isn't a feature you pay extra for. <em>It's the default.</em></>,
+          <>Ser dueño no es una función por la que pagas extra. <em>Es lo predeterminado.</em></>,
+        )}
+        frameLabel={t('In writing — before you sign', 'Por escrito — antes de firmar')}
+        clauses={[
+          ...OWNERSHIP.slice(0, 2).map(text => ({ text })),
+          { text: OWNERSHIP[2], href: '/guides/do-you-own-your-website' },
+          ...OWNERSHIP.slice(3).map(text => ({ text })),
+        ]}
+        signature={{
+          name: 'Guillen Solutions',
+          sub: t('Every number confirmed in writing · English & Español', 'Cada número confirmado por escrito · English & Español'),
+        }}
+        stamp={t('NO LOCK-IN', 'SIN ATADURAS')}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order' }}
       />
 
       {/* Where we are now — honest about being a new, owner-run studio */}
@@ -284,7 +297,7 @@ export default function Home() {
           <p className="section-eyebrow">{REFERRAL_PROGRAM.eyebrow}</p>
           <h2 className="section-title">{REFERRAL_PROGRAM.headline}</h2>
           <p className="section-sub">{REFERRAL_PROGRAM.lead}</p>
-          <div className="gs-refer__steps">
+          <Reveal stagger className="gs-refer__steps">
             {REFERRAL_PROGRAM.steps.map((s, i) => (
               <div key={s.title} className="gs-refer__step">
                 <span className="gs-refer__num">{i + 1}</span>
@@ -292,7 +305,7 @@ export default function Home() {
                 <p>{s.body}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
           <p className="gs-refer__fine">{REFERRAL_PROGRAM.fine}</p>
         </div>
       </section>
