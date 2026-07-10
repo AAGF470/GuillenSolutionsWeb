@@ -289,6 +289,17 @@ export default buildConfig({
     importMap: { baseDir: path.resolve(dirname) },
   },
   editor: lexicalEditor({}),
+  // Bilingual content. Fields marked `localized: true` (block text, arrays)
+  // store a value per locale; the site fetches with ?locale=en|es. Un-localized
+  // fields (slugs, selects, uploads) stay shared across locales.
+  localization: {
+    locales: [
+      { label: 'English', code: 'en' },
+      { label: 'Español', code: 'es' },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

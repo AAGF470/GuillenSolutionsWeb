@@ -42,9 +42,9 @@ export const hero: Block = {
   slug: 'hero',
   labels: { singular: 'Hero', plural: 'Heroes' },
   fields: [
-    { name: 'eyebrow', type: 'text' },
-    { name: 'headline', type: 'text', required: true },
-    { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true },
+    { name: 'headline', type: 'text', required: true, localized: true },
+    { name: 'subtext', type: 'textarea', localized: true },
     { name: 'layout', type: 'select', defaultValue: 'left',
       options: [{ label: 'Left', value: 'left' }, { label: 'Centered', value: 'centered' }] },
     { name: 'size', type: 'select', defaultValue: 'full',
@@ -68,7 +68,7 @@ export const newsletterSignup: Block = {
   slug: 'newsletterSignup',
   labels: { singular: 'Newsletter signup', plural: 'Newsletter signups' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
     { name: 'action', type: 'text', required: true,
       admin: { description: "The newsletter vendor's form URL (Brevo/MailerLite/Buttondown). The vendor account is in the client's name." } },
     { name: 'emailField', type: 'text', defaultValue: 'email',
@@ -83,8 +83,8 @@ export const checklist: Block = {
   slug: 'checklist',
   labels: { singular: 'Checklist', plural: 'Checklists' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
-    { name: 'items', type: 'array', fields: [{ name: 'text', type: 'text', required: true }] },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
+    { name: 'items', type: 'array', localized: true, fields: [{ name: 'text', type: 'text', required: true }] },
     { name: 'note', type: 'textarea', admin: { description: 'Optional muted footnote card under the list.' } },
     variant,
   ],
@@ -94,10 +94,10 @@ export const featureGrid: Block = {
   slug: 'featureGrid',
   labels: { singular: 'Feature grid', plural: 'Feature grids' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
-    { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
+    { name: 'subtext', type: 'textarea', localized: true },
     { name: 'columns', type: 'select', defaultValue: '3', options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
-    { name: 'items', type: 'array', fields: [
+    { name: 'items', type: 'array', localized: true, fields: [
       { name: 'icon', type: 'select', options: ICONS },
       { name: 'title', type: 'text', required: true },
       { name: 'body', type: 'textarea' },
@@ -117,8 +117,8 @@ export const steps: Block = {
   slug: 'steps',
   labels: { singular: 'Steps', plural: 'Steps' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
-    { name: 'items', type: 'array', fields: [
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
+    { name: 'items', type: 'array', localized: true, fields: [
       { name: 'title', type: 'text', required: true }, { name: 'body', type: 'textarea' },
     ] },
     variant,
@@ -129,7 +129,7 @@ export const imageText: Block = {
   slug: 'imageText',
   labels: { singular: 'Image + text', plural: 'Image + text' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
     { name: 'body', type: 'textarea' },
     { name: 'image', type: 'upload', relationTo: 'media' },
     { name: 'imageAlt', type: 'text' },
@@ -144,8 +144,8 @@ export const testimonials: Block = {
   slug: 'testimonials',
   labels: { singular: 'Testimonials', plural: 'Testimonials' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
-    { name: 'items', type: 'array', fields: [
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
+    { name: 'items', type: 'array', localized: true, fields: [
       { name: 'quote', type: 'textarea', required: true },
       { name: 'author', type: 'text', required: true },
       { name: 'role', type: 'text' }, { name: 'company', type: 'text' },
@@ -158,7 +158,7 @@ export const gallery: Block = {
   slug: 'gallery',
   labels: { singular: 'Gallery', plural: 'Galleries' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
     { name: 'columns', type: 'select', defaultValue: '3', options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
     { name: 'aspect', type: 'select', defaultValue: '1 / 1',
       options: [
@@ -177,9 +177,9 @@ export const faq: Block = {
   slug: 'faq',
   labels: { singular: 'FAQ', plural: 'FAQs' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
     { name: 'single', type: 'checkbox', label: 'Only one answer open at a time' },
-    { name: 'items', type: 'array', fields: [
+    { name: 'items', type: 'array', localized: true, fields: [
       { name: 'q', type: 'text', required: true }, { name: 'a', type: 'textarea', required: true },
     ] },
     variant,
@@ -190,8 +190,8 @@ export const pricingPlans: Block = {
   slug: 'pricingPlans',
   labels: { singular: 'Pricing', plural: 'Pricing' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
-    { name: 'plans', type: 'array', fields: [
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
+    { name: 'plans', type: 'array', localized: true, fields: [
       { name: 'badge', type: 'text' }, { name: 'tag', type: 'text' }, { name: 'name', type: 'text' },
       { name: 'price', type: 'text', required: true }, { name: 'period', type: 'text' },
       { name: 'description', type: 'textarea' }, { name: 'note', type: 'text' },
@@ -211,7 +211,7 @@ export const serviceList: Block = {
   slug: 'serviceList',
   labels: { singular: 'Service list', plural: 'Service lists' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
     { name: 'columns', type: 'select', defaultValue: '2', options: ['1', '2'].map(v => ({ label: v, value: v })) },
     { name: 'services', type: 'array', fields: [
       { name: 'name', type: 'text', required: true }, { name: 'description', type: 'text' },
@@ -225,7 +225,7 @@ export const hoursLocation: Block = {
   slug: 'hoursLocation',
   labels: { singular: 'Hours + location', plural: 'Hours + location' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
     { name: 'hours', type: 'array', fields: [
       { name: 'day', type: 'text', required: true }, { name: 'time', type: 'text' },
       { name: 'closed', type: 'checkbox' },
@@ -240,8 +240,8 @@ export const ctaBanner: Block = {
   slug: 'ctaBanner',
   labels: { singular: 'CTA banner', plural: 'CTA banners' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text', required: true },
-    { name: 'subtext', type: 'textarea' }, cta(),
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', required: true, localized: true },
+    { name: 'subtext', type: 'textarea', localized: true }, cta(),
     // Banners default to the accent treatment (matches the component + Sanity).
     { ...variant, defaultValue: 'accent' },
   ],
@@ -251,7 +251,7 @@ export const contactSection: Block = {
   slug: 'contactSection',
   labels: { singular: 'Contact', plural: 'Contact' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' }, { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true }, { name: 'subtext', type: 'textarea', localized: true },
     { name: 'email', type: 'text' }, { name: 'phone', type: 'text' },
     { name: 'showForm', type: 'checkbox', defaultValue: true },
     variant,
@@ -297,9 +297,9 @@ export const configurator: Block = {
   slug: 'configurator',
   labels: { singular: 'Quote builder (configurator)', plural: 'Quote builders' },
   fields: [
-    { name: 'eyebrow', type: 'text' },
-    { name: 'headline', type: 'text' },
-    { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true },
+    { name: 'headline', type: 'text', localized: true },
+    { name: 'subtext', type: 'textarea', localized: true },
     variant,
   ],
 }
@@ -411,7 +411,7 @@ export const videoPlayer: Block = {
   slug: 'videoPlayer',
   labels: { singular: 'Video', plural: 'Videos' },
   fields: [
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'title', type: 'text' },
     { name: 'video_mp4', label: 'MP4 URL', type: 'text', required: true,
       admin: { description: 'URL to the .mp4 file (H.264).' } },
@@ -474,7 +474,7 @@ export const titleBlock: Block = {
   slug: 'titleBlock',
   labels: { singular: 'Title block', plural: 'Title blocks' },
   fields: [
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'heading', type: 'text', required: true },
     { name: 'description', type: 'textarea' },
     { name: 'align', type: 'select', defaultValue: 'left',
@@ -511,7 +511,7 @@ export const featureSpotlight: Block = {
     { name: 'image_src', label: 'Image', type: 'upload', relationTo: 'media' },
     { name: 'video_src', label: 'Video URL', type: 'text',
       admin: { description: 'Optional .mp4 URL — plays autoplay/muted/loop instead of the image.' } },
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'textarea' },
     { name: 'platforms', type: 'array', fields: [
@@ -532,7 +532,7 @@ export const cinematicBanner: Block = {
   labels: { singular: 'Cinematic banner', plural: 'Cinematic banners' },
   fields: [
     { name: 'image_src', label: 'Background image', type: 'upload', relationTo: 'media', required: true },
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'heading', type: 'text', required: true },
     { name: 'body', type: 'textarea' },
     { name: 'align', type: 'select', defaultValue: 'left',
@@ -553,7 +553,7 @@ export const cinematicHero: Block = {
       admin: { description: 'Optional .mp4 URL — plays autoplay/muted/loop.' } },
     { name: 'image_src', label: 'Image', type: 'upload', relationTo: 'media',
       admin: { description: 'Video poster, or standalone background if no video.' } },
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'title', type: 'text', required: true },
     { name: 'subtitle', type: 'textarea' },
     { name: 'actions', type: 'array', maxRows: 2, fields: actionFieldsWithLava },
@@ -571,7 +571,7 @@ export const labHero: Block = {
   fields: [
     { name: 'back_href', type: 'text', defaultValue: '/lab' },
     { name: 'back_label', type: 'text', defaultValue: 'Lab' },
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'title', type: 'text', required: true },
     { name: 'subtitle', type: 'text',
       admin: { description: 'Expanded full name below the title.' } },
@@ -593,7 +593,7 @@ export const roadmapBlock: Block = {
   slug: 'roadmapBlock',
   labels: { singular: 'Roadmap', plural: 'Roadmaps' },
   fields: [
-    { name: 'eyebrow', type: 'text' },
+    { name: 'eyebrow', type: 'text', localized: true },
     { name: 'heading', type: 'text' },
     { name: 'milestones', type: 'array', fields: [
       { name: 'label', type: 'text', required: true },
@@ -797,8 +797,8 @@ export const locationGrid: Block = {
   slug: 'locationGrid',
   labels: { singular: 'Location grid', plural: 'Location grids' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
-    { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
+    { name: 'subtext', type: 'textarea', localized: true },
     { name: 'columns', type: 'select', defaultValue: '4', options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
     { name: 'serveLabel', type: 'text', admin: { description: 'Small label above each card\'s areas, e.g. "Areas we serve".' } },
     { name: 'locations', type: 'array', fields: [
@@ -816,8 +816,8 @@ export const contactMethods: Block = {
   slug: 'contactMethods',
   labels: { singular: 'Contact methods', plural: 'Contact methods' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
-    { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
+    { name: 'subtext', type: 'textarea', localized: true },
     { name: 'columns', type: 'select', defaultValue: '3', options: ['2', '3', '4'].map(v => ({ label: v, value: v })) },
     { name: 'callout', type: 'textarea' },
     { name: 'methods', type: 'array', fields: [
@@ -838,8 +838,8 @@ export const voiceSample: Block = {
   slug: 'voiceSample',
   labels: { singular: 'Voice sample', plural: 'Voice samples' },
   fields: [
-    { name: 'eyebrow', type: 'text' }, { name: 'headline', type: 'text' },
-    { name: 'subtext', type: 'textarea' },
+    { name: 'eyebrow', type: 'text', localized: true }, { name: 'headline', type: 'text', localized: true },
+    { name: 'subtext', type: 'textarea', localized: true },
     { name: 'callerName', type: 'text', admin: { description: 'Label on the call header, e.g. "Guillen Solutions demo".' } },
     { name: 'clips', type: 'array', fields: [
       { name: 'label', type: 'text', required: true },

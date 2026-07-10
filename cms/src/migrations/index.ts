@@ -14,6 +14,7 @@ import * as migration_20260707_210000_builds_gallery_status from './20260707_210
 import * as migration_20260709_155659_add_location_contact_blocks from './20260709_155659_add_location_contact_blocks';
 import * as migration_20260709_184344_add_voice_sample_block from './20260709_184344_add_voice_sample_block';
 import * as migration_20260709_230527_add_voice_demo_global from './20260709_230527_add_voice_demo_global';
+import * as migration_20260710_031902_add_localization from './20260710_031902_add_localization';
 
 export const migrations = [
   {
@@ -94,6 +95,11 @@ export const migrations = [
   {
     up: migration_20260709_230527_add_voice_demo_global.up,
     down: migration_20260709_230527_add_voice_demo_global.down,
-    name: '20260709_230527_add_voice_demo_global'
+    name: '20260709_230527_add_voice_demo_global',
+  },
+  {
+    up: migration_20260710_031902_add_localization.up,
+    down: migration_20260710_031902_add_localization.down,
+    name: '20260710_031902_add_localization'
   },
 ];
