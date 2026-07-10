@@ -80,8 +80,8 @@ export default function Home() {
           <h2 className="section-title">{t('One team for your digital presence', 'Un solo equipo para tu presencia digital')}</h2>
           <p className="section-sub">
             {t(
-              'Most clients start with a website. But everything a small business needs to look established — the site, the product photos, the email, the AI phone menu — comes from the same system, the same team, and the same promise: you own it.',
-              'La mayoría de los clientes empiezan con un sitio web. Pero todo lo que un pequeño negocio necesita para verse establecido — el sitio, las fotos de producto, el correo, el menú telefónico con IA — viene del mismo sistema, el mismo equipo y la misma promesa: es tuyo.',
+              'Most clients start with a website. But everything a small business needs to look established — the site, the product photos, the email, the AI phone menu — comes from the same system, the same team, and the same promise: you own it. Especially built for boutiques, makers, restaurants, and the businesses people choose with their eyes.',
+              'La mayoría de los clientes empiezan con un sitio web. Pero todo lo que un pequeño negocio necesita para verse establecido — el sitio, las fotos de producto, el correo, el menú telefónico con IA — viene del mismo sistema, el mismo equipo y la misma promesa: es tuyo. Hecho especialmente para boutiques, artesanos, restaurantes y los negocios que la gente elige con los ojos.',
             )}
           </p>
           <div className="gs-svc__grid">
@@ -97,6 +97,14 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          {/* Mission-driven builds — nonprofits are an explicit early focus */}
+          <p className="gs-note">
+            {t(
+              'Run a non-profit? We price mission-driven builds case by case — we\'ve waived build costs for causes we believe in, and donations always flow straight to you, never through us. ',
+              '¿Diriges una organización sin fines de lucro? Los proyectos con causa los cotizamos caso por caso — hemos exonerado costos de construcción por causas en las que creemos, y las donaciones siempre fluyen directo a ti, nunca a través de nosotros. ',
+            )}
+            <Link to="/contact">{t('Talk to us →', 'Habla con nosotros →')}</Link>
+          </p>
         </div>
       </section>
       </Reveal>

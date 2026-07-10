@@ -233,6 +233,9 @@ function Footer() {
               'Servicios digitales honestos y transparentes para pequeños negocios — sitios web, renders de producto y toda la preparación alrededor. Tú eres dueño de tu dominio, tu contenido, tus cuentas y cada acceso — sin ataduras, nunca.',
             )}
           </p>
+          <p className="gs-footer__identity">
+            {t('Proudly LGBTQ+ & Latino-owned · English & Español', 'Con orgullo, propiedad LGBTQ+ y latina · English & Español')}
+          </p>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">{t('Explore', 'Explora')}</span>

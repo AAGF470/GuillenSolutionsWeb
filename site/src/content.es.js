@@ -211,7 +211,7 @@ export const ON_DEMAND = [
     name: 'Integración grande',
     price: 'desde $400',
     cadence: 'Único, por integración',
-    body: 'Conectamos tu sitio a un motor externo — un CMS de productos de Square o Shopify, por ejemplo — con nuestros componentes como la capa visual y tu CMS leyendo de él. Mostramos productos o conteos en vivo de tienda/disponibilidad para que tu sitio se mantenga preciso ("saber antes de ir"). NO manejamos carritos, checkout, pagos ni datos privados de clientes — esos se quedan con la plataforma (su seguridad de nivel bancario, no la de un estudio pequeño). Transferible, y preciso hasta la última sincronización. Los $400 son el punto de partida para sistemas con APIs limpias; se confirma o se cotiza más alto después de investigar tu sistema.',
+    body: 'Construimos una experiencia de tienda completa sobre un motor externo — Shopify o Square — con nuestros componentes como la capa rápida y diseñada a la medida: navegación de productos, disponibilidad en vivo, incluso el carrito, todo leyendo de tu cuenta en la plataforma ("saber antes de ir"). El checkout, los pagos y los datos privados de clientes se quedan con la plataforma — su seguridad de nivel bancario, no la de un estudio pequeño. Transferible, y preciso hasta la última sincronización. Los $400 son el punto de partida para sistemas con APIs limpias; se confirma o se cotiza más alto después de investigar tu sistema.',
     amount: 400, kind: 'onetime', approx: true,
   },
   {
@@ -376,7 +376,7 @@ export const SERVICES = [
 export const WHERE_WE_ARE = {
   eyebrow: 'Dónde estamos ahora',
   headline: 'Un estudio nuevo — y honestos al respecto.',
-  lead: 'Guillen Solutions es joven y manejado por su propio dueño, y por eso mismo el trato es así de justo. Trabajas directamente con la persona que construye tu sitio, los precios son bajos porque no hay sobrecostos de agencia, y cada promesa en esta página es una que podemos respaldar personalmente. Preferimos ganarnos tu confianza con trabajo honesto que impresionarte con afirmaciones infladas.',
+  lead: 'Guillen Solutions es joven y manejado por su propio dueño, y por eso mismo el trato es así de justo. Trabajas directamente con la persona que construye tu sitio, los precios son bajos porque no hay sobrecostos de agencia, y cada promesa en esta página es una que podemos respaldar personalmente. Preferimos ganarnos tu confianza con trabajo honesto que impresionarte con afirmaciones infladas. Y somos, con orgullo, un negocio LGBTQ+ y latino — te atendemos en inglés y español, ambos de primera.',
   points: [
     { icon: 'users',  title: 'Trabajas con quien lo construye',       body: 'Sin equipo de ventas, sin gerentes de cuenta, sin traspasos — una línea directa con la persona que de verdad diseña y construye tu sitio.' },
     { icon: 'zap',    title: 'Precios de cliente temprano',           body: 'Las tarifas de hoy son iniciales. Empieza ahora y aseguras precios justos y graduales a medida que crecemos — por escrito, antes de firmar.' },
@@ -490,7 +490,7 @@ export const FAQS = [
   },
   {
     q: '¿Pueden construirme una tienda en línea con checkout?',
-    a: 'Sí — a través de una integración con plataforma externa ($400, único por integración). Conectamos tu sitio a un motor como Shopify: nuestros componentes son la tienda rápida y diseñada a la medida que ven tus clientes, y la plataforma por debajo maneja carritos, pagos, reembolsos y la sincronización del inventario con su seguridad de nivel bancario. Esa separación es intencional — los datos de tu tarjeta pertenecen a una empresa de pagos, no a ningún estudio pequeño — y mantiene todo el conjunto transferible. Los pedidos y reembolsos se manejan en el panel de la plataforma; el contenido de tu sitio se queda en tu CMS. (Los $400 son nuestra tarifa única de integración; el plan mensual propio de la plataforma y sus comisiones por transacción son aparte y los pagas tú directamente.)',
+    a: 'Sí — a través de una integración con plataforma externa ($400, único por integración). Conectamos tu sitio a un motor como Shopify: nuestros componentes son la tienda rápida y diseñada a la medida que ven tus clientes — la navegación e incluso el carrito viven en tu propio sitio — y la plataforma por debajo maneja el checkout, los pagos, los reembolsos y la sincronización del inventario con su seguridad de nivel bancario. Esa separación es intencional — los datos de tu tarjeta pertenecen a una empresa de pagos, no a ningún estudio pequeño — y mantiene todo el conjunto transferible. Los pedidos y reembolsos se manejan en el panel de la plataforma; el contenido de tu sitio se queda en tu CMS. (Los $400 son nuestra tarifa única de integración; el plan mensual propio de la plataforma y sus comisiones por transacción son aparte y los pagas tú directamente.)',
   },
   {
     q: '¿Cómo funcionan las páginas? ¿Puedo agregar las mías?',

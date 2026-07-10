@@ -225,7 +225,7 @@ export const ON_DEMAND = [
     name: 'Large integration',
     price: 'from $400',
     cadence: 'One-time, per integration',
-    body: 'We connect your site to an outside engine — a Square or Shopify product CMS, for example — with our components as the visual skin and your CMS reading from it. We display products or live store/availability counts so your site stays accurate ("know before you go"). We do NOT handle carts, checkout, payments, or private customer data — those stay with the platform (their bank-grade security, not a boutique\'s). Transferable, and accurate as of the last sync. $400 is the starting point for systems with clean APIs; confirmed or quoted higher after we research your system.',
+    body: 'We build a full storefront experience on an outside engine — Shopify or Square — with our components as the fast, custom-designed skin: product browsing, live availability, even the cart, all reading from your platform account ("know before you go"). Checkout, payments, and private customer data stay with the platform — their bank-grade security, not a boutique\'s. Transferable, and accurate as of the last sync. $400 is the starting point for systems with clean APIs; confirmed or quoted higher after we research your system.',
     amount: 400, kind: 'onetime', approx: true,
   },
   {
@@ -431,7 +431,7 @@ export const FOUND = {
 export const WHERE_WE_ARE = {
   eyebrow: 'Where we are now',
   headline: 'A new studio — and honest about it.',
-  lead: "Guillen Solutions is young and owner-run, and that's exactly why the deal is this fair. You work directly with the person building your site, prices are low because there's no agency overhead, and every promise on this page is one we can personally stand behind. We'd rather earn your trust with honest work than impress you with inflated claims.",
+  lead: "Guillen Solutions is young and owner-run, and that's exactly why the deal is this fair. You work directly with the person building your site, prices are low because there's no agency overhead, and every promise on this page is one we can personally stand behind. We'd rather earn your trust with honest work than impress you with inflated claims. And we're proudly LGBTQ+ and Latino-owned — serving you in English and Español, both first-class.",
   points: [
     { icon: 'users',  title: 'You work with the builder',        body: 'No sales team, no account managers, no hand-offs — a direct line to the person actually designing and building your site.' },
     { icon: 'zap',    title: 'Early-client pricing',             body: "Today's rates are introductory. Start now and you lock in fair, gradual pricing as we grow — put in writing before you sign." },
@@ -674,7 +674,7 @@ export const FAQS = [
   },
   {
     q: 'Can you build me an online store with checkout?',
-    a: 'Yes — through an external platform integration ($400, one-time per integration). We connect your site to an engine like Shopify: our components are the fast, custom-designed storefront your customers see, and the platform underneath handles carts, payments, refunds, and inventory syncing with its bank-grade security. That split is deliberate — your card data belongs with a payments company, not any boutique — and it keeps the whole setup transferable. Orders and refunds are managed in the platform\'s dashboard; your site content stays in your CMS. (The $400 is our one-time integration fee; the platform\'s own monthly plan and transaction fees are separate and paid by you directly.)',
+    a: 'Yes — through an external platform integration ($400, one-time per integration). We connect your site to an engine like Shopify: our components are the fast, custom-designed storefront your customers see — browsing and even the cart happen right on your site — and the platform underneath handles checkout, payments, refunds, and inventory syncing with its bank-grade security. That split is deliberate — your card data belongs with a payments company, not any boutique — and it keeps the whole setup transferable. Orders and refunds are managed in the platform\'s dashboard; your site content stays in your CMS. (The $400 is our one-time integration fee; the platform\'s own monthly plan and transaction fees are separate and paid by you directly.)',
   },
   {
     q: 'How do pages work? Can I add my own?',
