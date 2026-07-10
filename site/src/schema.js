@@ -56,7 +56,7 @@ export const ORG = {
   ],
   knowsLanguage: ['en', 'es'],
   priceRange: '$600–$1,900 first year',
-  sameAs: ['https://guillen.studio'],
+  sameAs: ['https://guillen.studio', 'https://www.facebook.com/profile.php?id=61591594841523'],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Website plans',

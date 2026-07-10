@@ -43,7 +43,7 @@ const header = `<header><a href="/">Guillen Solutions</a><nav>${
 }</nav><a href="/pricing">Build your quote</a></header>`
 const footer = `<footer><p>Honest, upfront digital services for small businesses — websites, product renders, and the setup around them. You own your domain, your content, your accounts, and every login — no lock-in, ever.</p><nav>${
   NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
-}</nav><p>Get in touch: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
+}</nav><p>Get in touch: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
 
 const wrap = (h1, sub, inner) =>
   `${header}<main><h1>${esc(h1)}</h1><p>${esc(sub)}</p>${inner}</main>${footer}`
