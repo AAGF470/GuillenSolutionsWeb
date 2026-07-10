@@ -60,7 +60,10 @@ export default function Home() {
     <>
       <HeroSection
         eyebrow={t('Digital business solutions · English & Español', 'Soluciones digitales para tu negocio · English & Español')}
-        headline={t('Everything your business needs to look real online — and you own all of it.', 'Todo lo que tu negocio necesita para verse real en línea — y todo es tuyo.')}
+        headline={t(
+          <>Everything your business needs to look real online — <span className="gs-hl-em">and you own</span> <span className="gs-hl-gold">all of it.</span></>,
+          <>Todo lo que tu negocio necesita para verse real en línea — <span className="gs-hl-em">y todo</span> <span className="gs-hl-gold">es tuyo.</span></>,
+        )}
         subtext={t(
           'Websites, studio-quality product images, and the business setup around them — email, phone, profiles — built for small businesses, priced flat, and put in your name. If you ever leave, you take every piece with you.',
           'Sitios web, imágenes de producto con calidad de estudio y toda la preparación del negocio alrededor — correo, teléfono, perfiles — hechos para pequeños negocios, con precio plano y puestos a tu nombre. Si algún día te vas, te llevas cada pieza contigo.',
@@ -71,6 +74,13 @@ export default function Home() {
         ]}
         layout="left"
       />
+
+      {/* Contract-style fact strip under the hero (double rule + three facts) */}
+      <div className="section-container gs-hero-facts">
+        <span><b>Boston</b> {t('in person · everywhere else remote', 'en persona · todo lo demás remoto')}</span>
+        <span><b>{t('Flat pricing,', 'Precios planos,')}</b> {t('confirmed in writing', 'confirmados por escrito')}</span>
+        <span><b>{t('Proudly', 'Con orgullo,')}</b> {t('LGBTQ+ & Latino-owned', 'propiedad LGBTQ+ y latina')}</span>
+      </div>
 
       {/* The service lines — websites are the core, no longer the whole story */}
       <Reveal>

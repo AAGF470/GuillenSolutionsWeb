@@ -285,3 +285,68 @@
   .gs-lift { transition: none; }
   .gs-lift:hover { transform: none; }
 }
+
+/* ── "EDITORIAL PAPER, ELEVATED" — nav + hero integration (2026-07) ─────────
+   Brass accent + contract-style details from the approved design concept.
+   Site-level overrides only; the library stays untouched. */
+
+:root { --gs-gold: #C9A24B; }
+
+/* Nav: gold hairline signature under the bar */
+.gs-nav::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gs-gold) 30%, var(--gs-gold) 70%, transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+/* Nav: active pill goes solid green (was tinted) */
+.gs-nav .gs-nav__link.is-active {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Eyebrows: leading dash, sitewide (the "kicker" treatment) */
+.section-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+}
+
+/* Hero (full-size only): bigger display scale */
+.hero-section:not(.hero-section--compact) .hero-section__headline {
+  font-size: clamp(38px, 6.2vw, 66px);
+  max-width: 860px;
+}
+
+/* Hero headline emphasis: italic serif + brass underline highlight */
+.gs-hl-em { font-style: italic; font-weight: 500; color: var(--color-accent); }
+.gs-hl-gold { position: relative; z-index: 0; white-space: nowrap; }
+.gs-hl-gold::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0.08em;
+  height: 0.22em;
+  background: var(--gs-gold);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+/* Hero glow → two thin concentric brass rings (border + inset outline) */
+.hero-section__glow {
+  background: transparent;
+  filter: none;
+  border: 1px solid var(--gs-gold);
+  outline: 1px solid var(--gs-gold);
+  outline-offset: -50px;
+  opacity: 0.35;
+  animation: none;
+}
+
+/* Hero CTAs: pill-shaped, solid gets a green lift shadow */
+.hero-section__actions .btn { border-radius: 999px; padding: 14px 26px; }
+.hero-section__actions .btn--solid { box-shadow: 0 10px 24px -12px var(--color-accent); }
