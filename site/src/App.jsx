@@ -256,6 +256,7 @@ function Footer() {
           <Link to="/contact">{t('Contact us', 'Contáctanos')}</Link>
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           <a href="https://www.facebook.com/profile.php?id=61591594841523" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.instagram.com/guillensolutions/" target="_blank" rel="noopener noreferrer">Instagram</a>
           <Link to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
           <span className="gs-footer__muted">English &amp; Español</span>
         </div>

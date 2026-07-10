@@ -14,7 +14,7 @@ import './Contact.css'
 
 export default function Contact() {
   const t = useT()
-  const textOnly = t('Text only — no calls', 'Solo texto — sin llamadas')
+  const textOnly = t('Text only for new inquiries', 'Solo texto para consultas nuevas')
   const methods = [
     {
       icon: 'message', name: t('Text line', 'Línea de texto'),
@@ -40,8 +40,8 @@ export default function Contact() {
       <Seo
         title={t('Contact', 'Contacto')}
         description={t(
-          'Reach Guillen Solutions — text us (text only, no calls), message us on WhatsApp, or email. Boston in person, everywhere else remote. English or Español.',
-          'Contacta a Guillen Solutions — envíanos un texto (solo texto, sin llamadas), escríbenos por WhatsApp o por correo. Boston en persona, todo lo demás remoto. En inglés o español.',
+          'Reach Guillen Solutions — text us, message us on WhatsApp, or email (new inquiries by text; current clients get calls and visits). Boston in person, everywhere else remote. English or Español.',
+          'Contacta a Guillen Solutions — envíanos un texto, escríbenos por WhatsApp o por correo (consultas nuevas por texto; los clientes actuales reciben llamadas y visitas). Boston en persona, todo lo demás remoto. En inglés o español.',
         )}
         path="/contact"
       />
@@ -64,8 +64,8 @@ export default function Contact() {
         columns={3}
         variant="default"
         callout={t(
-          'Both phone lines are text only — we don\'t take voice calls. It keeps things clear, in writing, and easy to pick up in two languages.',
-          'Ambas líneas telefónicas son solo texto — no tomamos llamadas de voz. Mantiene todo claro, por escrito y fácil de atender en dos idiomas.',
+          'New inquiries are text only — it keeps everything clear and in writing, in either language. Current clients get more than text: calls, and in-person visits around Boston, are part of working together.',
+          'Las consultas nuevas son solo por texto — mantiene todo claro y por escrito, en cualquiera de los dos idiomas. Los clientes actuales reciben más que texto: llamadas, y visitas en persona por Boston, son parte de trabajar juntos.',
         )}
       />
       </Reveal>
