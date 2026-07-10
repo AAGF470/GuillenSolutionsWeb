@@ -129,7 +129,16 @@ const HTML_REFERRAL = `
 // ── Page definitions ─────────────────────────────────────────────────────────
 const grid = (props) => ({ blockType: 'featureGrid', columns: '4', variant: 'default', ...props })
 
-const PAGES = [
+const PAGES = []
+
+// DO NOT AUTHOR 'home' (yet). A CMS page with blocks TAKES OVER from the coded
+// React page on that route, and this layout is a stale early-July snapshot —
+// it's missing the markets LocationGrid, "Where we are now" (identity), the
+// nonprofit callout, and it's English-only (the coded Home is bilingual via
+// t()). Authoring it hid those sections on the live homepage. Re-enable only
+// after this layout reaches full EN+ES parity with site/src/pages/Home.jsx
+// (the planned CMS-first Home conversion).
+const HOME_PAGE_DISABLED = [
   {
     title: 'Home',
     slug: 'home',
@@ -179,8 +188,8 @@ const PAGES = [
         cta: { label: 'Build your quote', href: '/pricing', variant: 'solid' } },
     ],
   },
-
 ]
+void HOME_PAGE_DISABLED // parked until EN+ES parity (see note above)
 
 // ── Plan pages: same PLAN_PAGES config the React fallback renders ────────────
 const planLayout = (id) => {
