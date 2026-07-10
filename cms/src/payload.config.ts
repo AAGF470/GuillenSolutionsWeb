@@ -268,6 +268,26 @@ const Builds = {
 // global the public site fetches; upload a clip's audio here (Media) and it
 // becomes playable on the site. Empty = the site shows a "sample coming soon"
 // placeholder.
+// Market photos — one image per market, shown on the Home markets grid and
+// each local guide's photo rail. Upload here (Media) and the coded pages pick
+// them up; no image paths live in code. marketId must match site data.js.
+const Markets = {
+  slug: 'markets',
+  access: { read: () => true, update: editorCanWrite },
+  admin: { description: 'One photo per market. Shown on the Home markets section and the local guide pages.' },
+  fields: [
+    { name: 'items', type: 'array', labels: { singular: 'Market', plural: 'Markets' }, fields: [
+      { name: 'marketId', type: 'select', required: true, options: [
+        { label: 'New York, NY', value: 'new-york' },
+        { label: 'Boston, MA', value: 'boston' },
+        { label: 'North Houston, TX', value: 'north-houston' },
+        { label: 'Dallas, TX', value: 'dallas' },
+      ] },
+      { name: 'image', type: 'upload', relationTo: 'media' },
+    ] },
+  ],
+}
+
 const VoiceDemo = {
   slug: 'voiceDemo',
   access: { read: () => true, update: editorCanWrite },
@@ -311,7 +331,7 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   collections: [Pages as any, Posts as any, Projects as any, Media as any, Users as any, Inquiries as any, Updates as any, Builds as any],
-  globals: [VoiceDemo as any],
+  globals: [VoiceDemo as any, Markets as any],
   cors: [process.env.SITE_URL || ''].filter(Boolean), // allow the site to fetch the API
   csrf: [process.env.SITE_URL || ''].filter(Boolean),
   sharp,

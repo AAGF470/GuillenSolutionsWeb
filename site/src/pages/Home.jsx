@@ -12,6 +12,7 @@ import {
 } from '@aagf470/ui'
 import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
+import { useMarketImages } from '../lib/marketImages.js'
 import { useT } from '../i18n.jsx'
 
 export default function Home() {
@@ -20,6 +21,8 @@ export default function Home() {
     PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
     CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE, MARKETS,
   } = useContent()
+  // Market photos come from the CMS `markets` global (upload → appears here).
+  const marketImages = useMarketImages()
 
   // Map shared pricing data → PricingPlans plan shape
   const PLANS = PACKAGES.map(p => ({
@@ -324,7 +327,7 @@ export default function Home() {
           serveLabel={t('Areas we serve', 'Áreas que servimos')}
           columns={4}
           variant="alt"
-          locations={MARKETS}
+          locations={MARKETS.map(m => ({ ...m, image: marketImages[m.id] }))}
         />
       </Reveal>
 

@@ -3,6 +3,7 @@ import { HeroSection, Faq, CtaBanner } from '@aagf470/ui'
 import { Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
 import { useContent } from '../content.js'
+import { useMarketImages } from '../lib/marketImages.js'
 import { CONTACT_EMAIL } from '../data.js'
 import { locationGuideSchema } from '../schema.js'
 import { useT } from '../i18n.jsx'
@@ -29,6 +30,8 @@ export default function MarketGuide({ guide }) {
   const { MARKETS, SERVICES } = useContent()
   const market = MARKETS.find(m => m.id === guide.marketId)
   const areas = market?.areas ?? []
+  const marketImages = useMarketImages()
+  const photo = marketImages[guide.marketId]
 
   return (
     <>
@@ -63,11 +66,11 @@ export default function MarketGuide({ guide }) {
           <aside className="gs-guide__areas">
             <div
               className="gs-guide__photo"
-              style={market?.image ? { backgroundImage: `url(${market.image})` } : undefined}
+              style={photo ? { backgroundImage: `url(${photo})` } : undefined}
               role="img"
               aria-label={`${guide.city}, ${guide.state}`}
             >
-              {!market?.image && <span className="gs-guide__pin"><Pin /></span>}
+              {!photo && <span className="gs-guide__pin"><Pin /></span>}
             </div>
             <p className="gs-guide__areas-label">{t('Areas we serve', 'Áreas que servimos')}</p>
             <ul className="gs-guide__pills">

@@ -101,9 +101,11 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'es') | ('en' | 'es')[];
   globals: {
     voiceDemo: VoiceDemo;
+    markets: Market;
   };
   globalsSelect: {
     voiceDemo: VoiceDemoSelect<false> | VoiceDemoSelect<true>;
+    markets: MarketsSelect<false> | MarketsSelect<true>;
   };
   locale: 'en' | 'es';
   widgets: {
@@ -2810,6 +2812,24 @@ export interface VoiceDemo {
   createdAt?: string | null;
 }
 /**
+ * One photo per market. Shown on the Home markets section and the local guide pages.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "markets".
+ */
+export interface Market {
+  id: number;
+  items?:
+    | {
+        marketId: 'new-york' | 'boston' | 'north-houston' | 'dallas';
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "voiceDemo_select".
  */
@@ -2820,6 +2840,22 @@ export interface VoiceDemoSelect<T extends boolean = true> {
         label?: T;
         sub?: T;
         audio?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "markets_select".
+ */
+export interface MarketsSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        marketId?: T;
+        image?: T;
         id?: T;
       };
   updatedAt?: T;

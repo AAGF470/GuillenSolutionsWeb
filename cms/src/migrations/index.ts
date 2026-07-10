@@ -17,6 +17,7 @@ import * as migration_20260709_230527_add_voice_demo_global from './20260709_230
 import * as migration_20260710_031902_add_localization from './20260710_031902_add_localization';
 import * as migration_20260710_043010_add_section_variability from './20260710_043010_add_section_variability';
 import * as migration_20260710_190250_add_promise_contract_block from './20260710_190250_add_promise_contract_block';
+import * as migration_20260710_195237_add_markets_global from './20260710_195237_add_markets_global';
 
 export const migrations = [
   {
@@ -112,6 +113,11 @@ export const migrations = [
   {
     up: migration_20260710_190250_add_promise_contract_block.up,
     down: migration_20260710_190250_add_promise_contract_block.down,
-    name: '20260710_190250_add_promise_contract_block'
+    name: '20260710_190250_add_promise_contract_block',
+  },
+  {
+    up: migration_20260710_195237_add_markets_global.up,
+    down: migration_20260710_195237_add_markets_global.down,
+    name: '20260710_195237_add_markets_global'
   },
 ];

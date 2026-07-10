@@ -382,3 +382,23 @@ footer.gs-footer { border-top: 3px double var(--color-border-mid); }
 .cfg-sum__cta.cfg-sum__cta,
 .gs-btn-solid.gs-btn-solid,
 .gs-btn-ghost.gs-btn-ghost { border-radius: 999px; }
+
+/* ── ARCHED DUOTONE IMAGE TREATMENT ────────────────────────────────────────
+   Market/city photos render as arch-topped, green-duotone frames with a thin
+   brass outline — one art-directed family regardless of source photo. The
+   duotone (accent + luminosity blend) applies only when an image is set;
+   placeholders keep the plain frame. */
+
+.location-card__photo,
+.gs-guide__photo {
+  border-radius: 160px 160px var(--radius-lg) var(--radius-lg);
+  outline: 1px solid var(--gs-gold);
+  outline-offset: 4px;
+}
+
+.location-card__photo[style*="background-image"],
+.gs-guide__photo[style*="background-image"] {
+  background-color: var(--color-accent);
+  background-blend-mode: luminosity;
+  border-color: transparent;
+}
