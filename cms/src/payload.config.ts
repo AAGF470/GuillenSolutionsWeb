@@ -50,8 +50,10 @@ const Media = {
   upload: {
     staticDir: path.resolve(dirname, '../media'),
     imageSizes: [
-      { name: 'card', width: 768 },
-      { name: 'hero', width: 1600 },
+      // WebP renditions — dramatically smaller than the source JPEG/PNG.
+      // Applies to uploads from now on; re-upload older images to convert.
+      { name: 'card', width: 768, formatOptions: { format: 'webp', options: { quality: 78 } } },
+      { name: 'hero', width: 1600, formatOptions: { format: 'webp', options: { quality: 80 } } },
     ],
   },
   access: { read: () => true },

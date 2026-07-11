@@ -57,7 +57,7 @@
   --color-on-accent-sub: rgba(253, 249, 240, 0.75);
 
   /* Site-local secondary: ember, for eyebrows + small warm pops */
-  --gs-ember: #b0562b;
+  --gs-ember: #9a4a20;   /* darkened for WCAG AA on cream + alt */
 
   /* Display face — first-class token (library consumes it natively) */
   --font-display: 'Fraunces', 'Fraunces Fallback', Georgia, 'Times New Roman', serif;
@@ -176,6 +176,7 @@
 /* Eyebrows get the ember pop — a small warm signal above every section. */
 .section-eyebrow {
   color: var(--gs-ember);
+  opacity: 1;             /* the library's 0.8 pushed contrast below AA */
 }
 
 /* ── CMS escape-hatch blocks (richText / customHtml) ─────────────────────────
@@ -405,3 +406,13 @@ footer.gs-footer { border-top: 3px double var(--color-border-mid); }
   background-blend-mode: luminosity;
   border-color: transparent;
 }
+
+
+/* ── ACCESSIBILITY: contrast floor ──────────────────────────────────────────
+   text-dim (2.9:1) and text-faint (2.1:1) fail WCAG AA where they carry real
+   copy. These usages step up to text-sub (5.3:1); decorative faint stays. */
+.plan__period,
+.plan__note,
+.gs-footer .gs-footer__muted,
+.gs-footer .gs-footer__bottom { color: var(--color-text-sub); }
+.gs-footer .gs-footer__bottom a { text-decoration: underline; text-underline-offset: 2px; }
