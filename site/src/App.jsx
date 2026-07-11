@@ -1,21 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Routes, Route, NavLink, Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import './App.css'
 import { CONTACT_EMAIL } from './data'
 import { useContent } from './content.js'
 import { useLang, useT } from './i18n.jsx'
 import Home from './pages/Home.jsx'
-import WorkAndLibrary from './pages/WorkAndLibrary.jsx'
-import PlanPage from './pages/PlanPage.jsx'
-import Pricing from './pages/Pricing.jsx'
-import OnDemand from './pages/OnDemand.jsx'
-import CGRenders from './pages/CGRenders.jsx'
-import Guides from './pages/Guides.jsx'
-import GuidePost from './pages/GuidePost.jsx'
-import MarketGuide from './pages/MarketGuide.jsx'
-import Status from './pages/Status.jsx'
-import Contact from './pages/Contact.jsx'
-import CmsPage from './pages/CmsPage.jsx'
+const WorkAndLibrary = lazy(() => import('./pages/WorkAndLibrary.jsx'))
+const PlanPage = lazy(() => import('./pages/PlanPage.jsx'))
+const Pricing = lazy(() => import('./pages/Pricing.jsx'))
+const OnDemand = lazy(() => import('./pages/OnDemand.jsx'))
+const CGRenders = lazy(() => import('./pages/CGRenders.jsx'))
+const Guides = lazy(() => import('./pages/Guides.jsx'))
+const GuidePost = lazy(() => import('./pages/GuidePost.jsx'))
+const MarketGuide = lazy(() => import('./pages/MarketGuide.jsx'))
+const Status = lazy(() => import('./pages/Status.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
+const CmsPage = lazy(() => import('./pages/CmsPage.jsx'))
 import PayloadPage from './PayloadPage.jsx'
 import Seo from './components/Seo.jsx'
 import { homeSchema } from './schema'
@@ -284,6 +284,7 @@ export default function App() {
       <ScrollManager />
       <Nav />
       <main>
+        <Suspense fallback={null}>
         <Routes>
           {/* Main pages render from the CMS if a page exists at that slug with
               blocks; otherwise they fall back to the bespoke React page (shown
@@ -313,6 +314,7 @@ export default function App() {
           {/* Any other CMS-authored page is live at its slug. */}
           <Route path="/:slug" element={<CmsPage />} />
         </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

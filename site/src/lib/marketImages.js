@@ -18,7 +18,10 @@ export function useMarketImages() {
         if (!alive) return
         const map = {}
         for (const item of d?.items || []) {
-          const url = item.image?.sizes?.hero?.url || item.image?.url
+          // Phones get the 768w rendition; desktop gets the 1600w hero.
+          const small = typeof window !== 'undefined' && window.innerWidth < 768
+          const sizes = item.image?.sizes
+          const url = (small ? sizes?.card?.url : sizes?.hero?.url) || sizes?.hero?.url || item.image?.url
           if (item.marketId && url) map[item.marketId] = url
         }
         setImages(map)
