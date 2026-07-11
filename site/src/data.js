@@ -95,7 +95,7 @@ export const PACKAGES = [
 // as the "what every plan includes" section above the plan cards.
 export const BASELINE_INCLUDES = [
   { icon: 'star',   title: 'Custom design', body: 'Built on our in-house component library — a tailored look, never a template.' },
-  { icon: 'zap',    title: 'SEO with AI crawlability', body: 'Verified on our own site (3/3 AI-readability, 97 desktop performance). Fast, technically optimized, structured for search and AI.' },
+  { icon: 'zap',    title: 'SEO with AI crawlability', body: 'Verified on our own site: 3/3 AI-readability, 98 mobile performance, 100 SEO. Fast, technically optimized, structured for search and AI.' },
   { icon: 'map',    title: 'Google indexing (free)', body: 'We verify your site and submit it to Google Search Console so it\'s indexed and findable. (Google Maps is a separate add-on.)' },
   { icon: 'layers', title: 'Your own CMS', body: 'A simple editor showing only what you change — unlimited categories and posts on every plan.' },
   { icon: 'shield', title: 'Managed hosting', body: 'SSL, backups, uptime — you never think about servers.' },

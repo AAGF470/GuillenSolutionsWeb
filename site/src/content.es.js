@@ -89,7 +89,7 @@ export const PACKAGES = [
 
 export const BASELINE_INCLUDES = [
   { icon: 'star',   title: 'Diseño personalizado', body: 'Construido sobre nuestra biblioteca de componentes interna — un aspecto a la medida, nunca una plantilla.' },
-  { icon: 'zap',    title: 'SEO con rastreabilidad por IA', body: 'Verificado en nuestro propio sitio (3/3 en legibilidad para IA, 97 de rendimiento en escritorio). Rápido, optimizado técnicamente y estructurado para las búsquedas y la IA.' },
+  { icon: 'zap',    title: 'SEO con rastreabilidad por IA', body: 'Verificado en nuestro propio sitio: 3/3 en lectura por IA, 98 de rendimiento móvil, 100 en SEO. Rápido, optimizado técnicamente y estructurado para las búsquedas y la IA.' },
   { icon: 'map',    title: 'Indexación en Google (gratis)', body: 'Verificamos tu sitio y lo enviamos a Google Search Console para que quede indexado y se pueda encontrar. (Google Maps es un complemento aparte.)' },
   { icon: 'layers', title: 'Tu propio CMS', body: 'Un editor simple que muestra solo lo que cambias — categorías y entradas ilimitadas en todos los planes.' },
   { icon: 'shield', title: 'Hosting administrado', body: 'SSL, copias de seguridad, disponibilidad — nunca piensas en servidores.' },
