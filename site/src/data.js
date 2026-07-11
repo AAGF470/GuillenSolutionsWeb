@@ -431,7 +431,7 @@ export const FOUND = {
 export const WHERE_WE_ARE = {
   eyebrow: 'Where we are now',
   headline: 'A new studio — and honest about it.',
-  lead: "Guillen Solutions is young and owner-run, and that's exactly why the deal is this fair. You work directly with the person building your site, prices are low because there's no agency overhead, and every promise on this page is one we can personally stand behind. We'd rather earn your trust with honest work than impress you with inflated claims. And we're proudly LGBTQ+ and Latino-owned — serving you in English and Español, both first-class.",
+  lead: "Guillen Solutions is young and owner-run, and that's exactly why the deal is this fair. You work directly with the person building your site, prices are low because there's no agency overhead, and every promise on this page is one we can personally stand behind. We'd rather earn your trust with honest work than impress you with inflated claims. And we're proudly Latino-owned — serving you in English and Español, both first-class. Ours is a studio where everyone is welcome.",
   points: [
     { icon: 'users',  title: 'You work with the builder',        body: 'No sales team, no account managers, no hand-offs — a direct line to the person actually designing and building your site.' },
     { icon: 'zap',    title: 'Early-client pricing',             body: "Today's rates are introductory. Start now and you lock in fair, gradual pricing as we grow — put in writing before you sign." },

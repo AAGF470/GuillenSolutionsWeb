@@ -376,7 +376,7 @@ export const SERVICES = [
 export const WHERE_WE_ARE = {
   eyebrow: 'Dónde estamos ahora',
   headline: 'Un estudio nuevo — y honestos al respecto.',
-  lead: 'Guillen Solutions es joven y manejado por su propio dueño, y por eso mismo el trato es así de justo. Trabajas directamente con la persona que construye tu sitio, los precios son bajos porque no hay sobrecostos de agencia, y cada promesa en esta página es una que podemos respaldar personalmente. Preferimos ganarnos tu confianza con trabajo honesto que impresionarte con afirmaciones infladas. Y somos, con orgullo, un negocio LGBTQ+ y latino — te atendemos en inglés y español, ambos de primera.',
+  lead: 'Guillen Solutions es joven y manejado por su propio dueño, y por eso mismo el trato es así de justo. Trabajas directamente con la persona que construye tu sitio, los precios son bajos porque no hay sobrecostos de agencia, y cada promesa en esta página es una que podemos respaldar personalmente. Preferimos ganarnos tu confianza con trabajo honesto que impresionarte con afirmaciones infladas. Y somos, con orgullo, un negocio latino — te atendemos en inglés y español, ambos de primera. El nuestro es un estudio donde todos son bienvenidos.',
   points: [
     { icon: 'users',  title: 'Trabajas con quien lo construye',       body: 'Sin equipo de ventas, sin gerentes de cuenta, sin traspasos — una línea directa con la persona que de verdad diseña y construye tu sitio.' },
     { icon: 'zap',    title: 'Precios de cliente temprano',           body: 'Las tarifas de hoy son iniciales. Empieza ahora y aseguras precios justos y graduales a medida que crecemos — por escrito, antes de firmar.' },

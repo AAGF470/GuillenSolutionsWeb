@@ -85,7 +85,7 @@ export default function Home() {
       <div className="section-container gs-hero-facts">
         <span><b>Boston</b> {t('in person · everywhere else remote', 'en persona · todo lo demás remoto')}</span>
         <span><b>{t('Flat pricing,', 'Precios planos,')}</b> {t('confirmed in writing', 'confirmados por escrito')}</span>
-        <span><b>{t('Proudly', 'Con orgullo,')}</b> {t('LGBTQ+ & Latino-owned', 'propiedad LGBTQ+ y latina')}</span>
+        <span><b>{t('Proudly', 'Con orgullo,')}</b> {t('Latino-owned', 'propiedad latina')}</span>
       </div>
 
       {/* The service lines — websites are the core, no longer the whole story */}

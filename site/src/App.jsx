@@ -234,7 +234,7 @@ function Footer() {
             )}
           </p>
           <p className="gs-footer__identity">
-            {t('Proudly LGBTQ+ & Latino-owned · English & Español', 'Con orgullo, propiedad LGBTQ+ y latina · English & Español')}
+            {t('Proudly Latino-owned · English & Español', 'Con orgullo, propiedad latina · English & Español')}
           </p>
         </div>
         <div className="gs-footer__col">
