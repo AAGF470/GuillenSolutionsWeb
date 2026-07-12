@@ -557,7 +557,7 @@ export const LOCATION_GUIDES = [
       "Bilingual reach: a fully Spanish-translated site connects you with North Houston's large Hispanic community at no design premium.",
     ],
     faq: [
-      { q: 'Do you meet clients in person in Houston?', a: 'Yes — North Houston is home ground for us (we're from the Klein/Spring area), so in-person meetings are available here just like in Boston. Calls and screen-share keep everything fast between visits.' },
+      { q: 'Do you meet clients in person in Houston?', a: 'Yes — North Houston is home ground for us (we\'re from the Klein/Spring area), so in-person meetings are available here just like in Boston. Calls and screen-share keep everything fast between visits.' },
       { q: 'Which North Houston areas do you cover?', a: 'The Woodlands, Klein, Spring, and Tomball, plus the surrounding North Houston communities.' },
       { q: 'Can you help me rank for my town specifically?', a: "Yes — we optimize your site and Google Business Profile for the specific towns you serve, so you're not lost in greater-Houston results." },
     ],
