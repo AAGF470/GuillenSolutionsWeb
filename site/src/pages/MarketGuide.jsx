@@ -25,6 +25,29 @@ const Pin = () => (
   </svg>
 )
 
+function AreaLinks({ guide }) {
+  const t = useT()
+  const { LOCATION_GUIDES } = useContent()
+  const related = guide.isArea
+    ? LOCATION_GUIDES.filter(g => g.marketId === guide.marketId && g.slug !== guide.slug)
+    : LOCATION_GUIDES.filter(g => g.isArea && g.marketId === guide.marketId)
+  if (!related.length) return null
+  return (
+    <section className="section section--default gs-seam-bottom">
+      <div className="section-container">
+        <p className="section-eyebrow">{t('Nearby areas we serve', 'Zonas cercanas que servimos')}</p>
+        <div className="gs-guide__arealinks">
+          {related.map(g => (
+            <Link key={g.slug} to={`/guides/${g.slug}`} className="gs-lguide__chip">
+              {g.isArea ? g.city : `${t('All of', 'Todo')} ${g.city}`}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function MarketGuide({ guide }) {
   const t = useT()
   const { MARKETS, SERVICES } = useContent()
@@ -113,6 +136,10 @@ export default function MarketGuide({ guide }) {
           </Reveal>
         </div>
       </section>
+
+      {/* Hyperlocal interlinking: market pages list their area guides; area
+          pages link the parent market + sibling areas. */}
+      <AreaLinks guide={guide} />
 
       <Faq
         eyebrow={`${t('Questions', 'Preguntas')} · ${guide.city}`}

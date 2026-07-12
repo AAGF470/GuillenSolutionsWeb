@@ -65,15 +65,25 @@ function LocalGuides() {
           )}
         </p>
         <Reveal stagger className="gs-lguides">
-          {LOCATION_GUIDES.map(g => {
+          {LOCATION_GUIDES.filter(g => !g.isArea).map(g => {
             const areas = MARKETS.find(m => m.id === g.marketId)?.areas ?? []
+            const areaGuides = LOCATION_GUIDES.filter(x => x.isArea && x.marketId === g.marketId)
             return (
-              <Link key={g.slug} to={`/guides/${g.slug}`} className="gs-lguide">
-                <span className="gs-lguide__place">{g.city}, {g.state}</span>
-                <span className="gs-lguide__title">{t('Web design in', 'Diseño web en')} {g.city}</span>
-                <span className="gs-lguide__areas">{areas.slice(0, 4).join(' · ')}{areas.length > 4 ? ' …' : ''}</span>
-                <span className="gs-lguide__link">{t('Read the guide', 'Leer la guía')} →</span>
-              </Link>
+              <div key={g.slug} className="gs-lguide">
+                <Link to={`/guides/${g.slug}`} className="gs-lguide__main">
+                  <span className="gs-lguide__place">{g.city}, {g.state}</span>
+                  <span className="gs-lguide__title">{t('Web design in', 'Diseño web en')} {g.city}</span>
+                  <span className="gs-lguide__areas">{areas.slice(0, 4).join(' · ')}{areas.length > 4 ? ' …' : ''}</span>
+                  <span className="gs-lguide__link">{t('Read the guide', 'Leer la guía')} →</span>
+                </Link>
+                {areaGuides.length > 0 && (
+                  <div className="gs-lguide__chips">
+                    {areaGuides.map(a => (
+                      <Link key={a.slug} to={`/guides/${a.slug}`} className="gs-lguide__chip">{a.city}</Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             )
           })}
         </Reveal>

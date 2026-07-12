@@ -4,6 +4,8 @@
 // Keeping it here means the numbers live in exactly one place.
 // ---------------------------------------------------------------------------
 
+import { buildAreaGuides } from './areaPages.js'
+
 export const CONTACT_EMAIL = 'contact@guillensolutions.com'
 
 // Text-only contact lines — no voice calls on either. Display strings plus the
@@ -729,3 +731,9 @@ export const FAQS = [
     a: 'Anyone can refer anyone — clients, friends, other business owners, non-profits included. When someone you send signs and pays for a package, you earn 10% of the first $600 and 5% of anything above, paid by Zelle the same day both sides confirm each other. No sign-up, no forms: they mention your name, we confirm with you, done.',
   },
 ]
+
+// Hyperlocal area guides (Tomball, Spring, Klein, Woodlands, Conroe; Roxbury,
+// South End, Seaport, West Roxbury, Downtown, Cambridge) — generated from
+// areaPages.js so every consumer (routing, prerender, sitemap, schema)
+// inherits them automatically.
+LOCATION_GUIDES.push(...buildAreaGuides('en'))

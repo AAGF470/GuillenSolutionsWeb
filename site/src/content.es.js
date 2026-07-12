@@ -1,3 +1,4 @@
+import { buildAreaGuides } from './areaPages.js'
 // ---------------------------------------------------------------------------
 // content.es.js — Spanish overrides for data.js, hand-written (never machine-
 // translated). Structures mirror data.js exactly: same ids, prices, amounts,
@@ -645,3 +646,5 @@ export const LOCATION_GUIDES = [
   },
 ]
 
+
+LOCATION_GUIDES.push(...buildAreaGuides('es'))
