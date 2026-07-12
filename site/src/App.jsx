@@ -223,6 +223,7 @@ function Nav() {
 
 function Footer() {
   const t = useT()
+  const { LOCATION_GUIDES } = useContent()
   return (
     <footer className="gs-footer">
       <div className="gs-footer__inner">
@@ -260,6 +261,13 @@ function Footer() {
           <Link to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
           <span className="gs-footer__muted">English &amp; Español</span>
         </div>
+      </div>
+      {/* Crawl-depth-1 links to every area guide — indexing + internal equity */}
+      <div className="gs-footer__serving">
+        <span>{t('Serving', 'Sirviendo')}:</span>
+        {LOCATION_GUIDES.map(g => (
+          <Link key={g.slug} to={`/guides/${g.slug}`}>{g.city}</Link>
+        ))}
       </div>
       <div className="gs-footer__bottom">
         <span>© {new Date().getFullYear()} Guillen Solutions</span>
