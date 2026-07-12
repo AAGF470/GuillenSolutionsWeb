@@ -18,6 +18,7 @@ const Contact = lazy(() => import('./pages/Contact.jsx'))
 const CmsPage = lazy(() => import('./pages/CmsPage.jsx'))
 import PayloadPage from './PayloadPage.jsx'
 import Seo from './components/Seo.jsx'
+import SocialLinks from './components/SocialLinks.jsx'
 import { homeSchema } from './schema'
 
 // Per-route SEO — one source of truth regardless of whether the CMS layout
@@ -255,8 +256,7 @@ function Footer() {
           <span className="gs-footer__col-title">{t('Get in touch', 'Contáctanos')}</span>
           <Link to="/contact">{t('Contact us', 'Contáctanos')}</Link>
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          <a href="https://www.facebook.com/profile.php?id=61591594841523" target="_blank" rel="noopener noreferrer">Facebook</a>
-          <a href="https://www.instagram.com/guillensolutions/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <SocialLinks />
           <Link to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
           <span className="gs-footer__muted">English &amp; Español</span>
         </div>

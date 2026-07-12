@@ -425,3 +425,20 @@
   letter-spacing: 0.04em;
   color: var(--color-accent);
 }
+
+/* ── SOCIAL ICON LINKS (footer + contact) ─────────────────────────────────── */
+.gs-socials { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.gs-socials__label { font-size: 13px; font-weight: 600; color: var(--color-text-sub); margin-right: 4px; }
+.gs-socials__link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 999px;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border-mid);
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+.gs-socials__link svg { width: 17px; height: 17px; }
+.gs-socials__link:hover {
+  background: var(--color-accent); color: var(--color-on-accent);
+  border-color: var(--color-accent); transform: translateY(-2px);
+}
+.gs-contact-socials { display: flex; justify-content: center; padding-bottom: 40px; }

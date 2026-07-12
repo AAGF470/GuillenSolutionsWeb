@@ -1,5 +1,6 @@
 import { HeroSection, ContactMethods, Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
+import SocialLinks from '../components/SocialLinks.jsx'
 import InquiryForm from '../components/InquiryForm.jsx'
 import { CONTACT } from '../data.js'
 import { useT } from '../i18n.jsx'
@@ -69,6 +70,11 @@ export default function Contact() {
         )}
       />
       </Reveal>
+
+      {/* Official profiles — same URLs as ORG.sameAs */}
+      <div className="section-container gs-contact-socials">
+        <SocialLinks withLabel />
+      </div>
 
       <section className="section section--alt gs-seam-top">
         <div className="section-container gs-contact__form-wrap">
