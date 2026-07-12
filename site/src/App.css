@@ -437,8 +437,13 @@
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
 .gs-socials__link svg { width: 17px; height: 17px; }
-.gs-socials__link:hover {
+.gs-socials__link:hover,
+.gs-footer__col a.gs-socials__link:hover {
   background: var(--color-accent); color: var(--color-on-accent);
   border-color: var(--color-accent); transform: translateY(-2px);
 }
+/* The icon color is set on the svg itself, so no ancestor link-hover rule
+   (e.g. .gs-footer__col a:hover, which is what made icons vanish green-on-
+   green) can override it. */
+.gs-socials__link:hover svg { color: var(--color-on-accent); }
 .gs-contact-socials { display: flex; justify-content: center; padding-bottom: 40px; }
