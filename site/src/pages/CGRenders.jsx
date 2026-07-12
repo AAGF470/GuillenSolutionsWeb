@@ -18,20 +18,13 @@ import './CGRenders.css'
 // with <img className="gs-cg__img" src="/img/renders/your-file.jpg" alt="…" />.
 // ---------------------------------------------------------------------------
 
-// A CMS-fed image slot (Globals → Site images). Shows the slot id until the
-// image is keyed in, so it's obvious what to enter in the CMS.
-function Shot({ label, slot, img, wide }) {
-  const t = useT()
+// A CMS-fed image slot (Globals → Site images). Unfilled slots render
+// nothing — keying an image into the slot in the CMS makes the shot appear.
+function Shot({ label, img, wide }) {
+  if (!img) return null
   return (
     <figure className={`gs-cg__shot${wide ? ' gs-cg__shot--wide' : ''}`}>
-      {img ? (
-        <img className="gs-cg__ph" src={img} alt={label} loading="lazy" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-      ) : (
-        <div className="gs-cg__ph">
-          <span className="gs-cg__ph-tag">{t('Add image in CMS', 'Agregar imagen en el CMS')}</span>
-          <small>{slot}</small>
-        </div>
-      )}
+      <img className="gs-cg__ph" src={img} alt={label} loading="lazy" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
       <figcaption>{label}</figcaption>
     </figure>
   )
