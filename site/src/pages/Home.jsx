@@ -83,7 +83,7 @@ export default function Home() {
 
       {/* Contract-style fact strip under the hero (double rule + three facts) */}
       <div className="section-container gs-hero-facts">
-        <span><b>Boston</b> {t('in person · everywhere else remote', 'en persona · todo lo demás remoto')}</span>
+        <span><b>{t('Boston & North Houston', 'Boston y North Houston')}</b> {t('· our two home bases', '· nuestras dos bases')}</span>
         <span><b>{t('Flat pricing,', 'Precios planos,')}</b> {t('confirmed in writing', 'confirmados por escrito')}</span>
         <span><b>{t('Proudly', 'Con orgullo,')}</b> {t('Latino-owned', 'propiedad latina')}</span>
       </div>
@@ -328,8 +328,8 @@ export default function Home() {
           eyebrow={t('Where we work', 'Dónde trabajamos')}
           headline={t('Markets we serve', 'Mercados que servimos')}
           subtext={t(
-            'The areas we focus on, with the local neighborhoods and towns covered in each. Boston in person; everywhere else, remotely — in English or Español.',
-            'Las zonas en las que nos enfocamos, con los vecindarios y pueblos que cubrimos en cada una. Boston en persona; todo lo demás, de forma remota — en inglés o español.',
+            'The areas we focus on, with the local neighborhoods and towns covered in each. Based in Boston and North Houston; everywhere else, remotely — in English or Español.',
+            'Las zonas en las que nos enfocamos, con los vecindarios y pueblos que cubrimos en cada una. Con base en Boston y el norte de Houston; todo lo demás, de forma remota — en inglés o español.',
           )}
           serveLabel={t('Areas we serve', 'Áreas que servimos')}
           columns={4}
@@ -344,8 +344,8 @@ export default function Home() {
           <h2 className="section-title">{t("Let's get your business online — the honest way.", 'Pongamos tu negocio en línea — de la forma honesta.')}</h2>
           <p className="section-sub">
             {t(
-              "Build a quote in a minute, or reach out and we'll talk it through. Boston in person, everywhere else remote. English or Español.",
-              'Arma una cotización en un minuto, o contáctanos y lo conversamos. Boston en persona, todo lo demás remoto. En inglés o español.',
+              "Build a quote in a minute, or reach out and we'll talk it through. Based in Boston and North Houston, remote everywhere else. English or Español.",
+              'Arma una cotización en un minuto, o contáctanos y lo conversamos. Con base en Boston y el norte de Houston, todo lo demás remoto. En inglés o español.',
             )}
           </p>
           <div className="gs-home-cta__actions">

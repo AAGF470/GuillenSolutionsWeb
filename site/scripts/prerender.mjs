@@ -96,12 +96,12 @@ const bodies = {
   ),
   contact: wrap(
     'Text us — we\'ll text right back.',
-    'The fastest way to reach us is a text or a message. Boston in person, everywhere else remote — in English or Español.',
+    'The fastest way to reach us is a text or a message. Based in Boston and North Houston, remote everywhere else — in English or Español.',
     `${list([
       `<strong>Text line</strong> — ${esc(CONTACT.textLine.display)} (text-first — new inquiries by text)`,
       `<strong>WhatsApp</strong> — ${esc(CONTACT.whatsapp.display)} (text-first — new inquiries by text)`,
       `<strong>Email</strong> — <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>`,
-    ])}<p>New inquiries are text only — current clients get calls, and in-person visits around Boston.</p>`,
+    ])}<p>New inquiries are text only — current clients get calls, and in-person visits around Boston and North Houston.</p>`,
   ),
   status: wrap(
     'What we\'re running, and what\'s new.',
@@ -143,7 +143,7 @@ const ROUTES = [
   { path: '/on-demand', title: 'On-Demand Services', description: 'Services you add after launch, whenever you need them — newsletter setup, landing pages, QR menus, seasonal refreshes, translations. Fixed-scope, quoted in writing.', schema: [ORG], body: bodies.ondemand },
   { path: '/guides', title: 'Guides', description: 'Plain-English guides to owning your business online — from Guillen Solutions.', schema: [ORG], body: bodies.guides },
   { path: '/status', title: 'Status & Updates', description: 'Live service status and a running log of stack updates, new features, and announcements from Guillen Solutions — see us at work.', schema: [ORG], body: bodies.status },
-  { path: '/contact', title: 'Contact', description: 'Reach Guillen Solutions — text us (text-first — new inquiries by text), message us on WhatsApp, or email. Boston in person, everywhere else remote. English or Español.', schema: [ORG], body: bodies.contact },
+  { path: '/contact', title: 'Contact', description: 'Reach Guillen Solutions — text us (text-first — new inquiries by text), message us on WhatsApp, or email. Based in Boston and North Houston, remote everywhere else. English or Español.', schema: [ORG], body: bodies.contact },
   ...PACKAGES.map(p => ({
     path: `/plans/${p.id}`, title: p.name, description: p.description, schema: [ORG], body: planBody(p),
   })),

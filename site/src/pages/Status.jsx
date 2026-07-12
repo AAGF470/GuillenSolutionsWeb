@@ -234,7 +234,7 @@ export default function Status() {
       <CtaBanner
         eyebrow={t('Questions about your service?', '¿Preguntas sobre tu servicio?')}
         headline={t('We’re one message away.', 'Estamos a un mensaje de distancia.')}
-        subtext={t('Boston in person, everywhere else remote. English or Español.', 'Boston en persona, todo lo demás remoto. En inglés o español.')}
+        subtext={t('Based in Boston and North Houston, remote everywhere else. English or Español.', 'Con base en Boston y el norte de Houston, todo lo demás remoto. En inglés o español.')}
         cta={{ label: t('Get in touch', 'Contáctanos'), href: `mailto:${CONTACT_EMAIL}` }}
         variant="accent"
       />

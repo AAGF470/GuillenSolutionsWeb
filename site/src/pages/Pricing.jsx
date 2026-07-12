@@ -220,8 +220,8 @@ export default function Pricing() {
         eyebrow={t('Prefer to just talk?', '¿Prefieres solo hablar?')}
         headline={t("Tell us what you need and we'll price it in writing.", 'Dinos qué necesitas y te lo cotizamos por escrito.')}
         subtext={t(
-          'Boston in person, everywhere else remote. English or Español.',
-          'Boston en persona, todo lo demás remoto. En inglés o español.',
+          'Based in Boston and North Houston, remote everywhere else. English or Español.',
+          'Con base en Boston y el norte de Houston, todo lo demás remoto. En inglés o español.',
         )}
         cta={{ label: t('Get in touch', 'Contáctanos'), href: 'mailto:contact@guillensolutions.com' }}
         variant="accent"

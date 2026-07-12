@@ -41,8 +41,8 @@ export default function Contact() {
       <Seo
         title={t('Contact', 'Contacto')}
         description={t(
-          'Reach Guillen Solutions — text us, message us on WhatsApp, or email (new inquiries by text; current clients get calls and visits). Boston in person, everywhere else remote. English or Español.',
-          'Contacta a Guillen Solutions — envíanos un texto, escríbenos por WhatsApp o por correo (consultas nuevas por texto; los clientes actuales reciben llamadas y visitas). Boston en persona, todo lo demás remoto. En inglés o español.',
+          'Reach Guillen Solutions — text us, message us on WhatsApp, or email (new inquiries by text; current clients get calls and visits). Based in Boston and North Houston, remote everywhere else. English or Español.',
+          'Contacta a Guillen Solutions — envíanos un texto, escríbenos por WhatsApp o por correo (consultas nuevas por texto; los clientes actuales reciben llamadas y visitas). Con base en Boston y el norte de Houston, todo lo demás remoto. En inglés o español.',
         )}
         path="/contact"
       />
@@ -51,8 +51,8 @@ export default function Contact() {
         eyebrow={t('Contact', 'Contacto')}
         headline={t('Text us — we\'ll text right back.', 'Escríbenos — te respondemos enseguida.')}
         subtext={t(
-          'The fastest way to reach us is a text or a message. Boston in person, everywhere else remote — in English or Español.',
-          'La forma más rápida de contactarnos es un texto o un mensaje. Boston en persona, todo lo demás remoto — en inglés o español.',
+          'The fastest way to reach us is a text or a message. Based in Boston and North Houston, remote everywhere else — in English or Español.',
+          'La forma más rápida de contactarnos es un texto o un mensaje. Con base en Boston y el norte de Houston, todo lo demás remoto — en inglés o español.',
         )}
         size="compact"
         variant="alt"
@@ -65,8 +65,8 @@ export default function Contact() {
         columns={3}
         variant="default"
         callout={t(
-          'New inquiries are text only — it keeps everything clear and in writing, in either language. Current clients get more than text: calls, and in-person visits around Boston, are part of working together.',
-          'Las consultas nuevas son solo por texto — mantiene todo claro y por escrito, en cualquiera de los dos idiomas. Los clientes actuales reciben más que texto: llamadas, y visitas en persona por Boston, son parte de trabajar juntos.',
+          'New inquiries are text only — it keeps everything clear and in writing, in either language. Current clients get more than text: calls, and in-person visits around Boston and North Houston, are part of working together.',
+          'Las consultas nuevas son solo por texto — mantiene todo claro y por escrito, en cualquiera de los dos idiomas. Los clientes actuales reciben más que texto: llamadas, y visitas en persona por Boston y el norte de Houston, son parte de trabajar juntos.',
         )}
       />
       </Reveal>
