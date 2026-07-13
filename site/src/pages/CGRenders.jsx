@@ -20,12 +20,13 @@ import './CGRenders.css'
 
 // A CMS-fed image slot (Globals → Site images). Unfilled slots render
 // nothing — keying an image into the slot in the CMS makes the shot appear.
-function Shot({ label, img, wide }) {
+// No captions: the images change from the CMS, so fixed text under them drifts.
+function Shot({ img, wide }) {
+  const t = useT()
   if (!img) return null
   return (
     <figure className={`gs-cg__shot${wide ? ' gs-cg__shot--wide' : ''}`}>
-      <img className="gs-cg__ph" src={img} alt={label} loading="lazy" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-      <figcaption>{label}</figcaption>
+      <img className="gs-cg__ph" src={img} alt={t('CG product render — Guillen Solutions', 'Render de producto 3D — Guillen Solutions')} loading="lazy" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
     </figure>
   )
 }
@@ -99,17 +100,17 @@ export default function CGRenders() {
           <h2 className="section-title">{t('From studio packs to lifestyle heroes', 'De paquetes de estudio a tomas principales ambientadas')}</h2>
           <p className="section-sub">
             {t(
-              'Placeholders below — swap in real renders as we build the portfolio. The same model produces the clean listing shots and the staged scenes.',
-              'Marcadores de posición abajo — los reemplazamos con renders reales conforme armamos el portafolio. El mismo modelo produce las tomas de listado limpias y las escenas ambientadas.',
+              'Shots from our render pipeline. The same model produces the clean listing shots and the staged scenes.',
+              'Tomas de nuestro pipeline de renders. El mismo modelo produce las tomas de listado limpias y las escenas ambientadas.',
             )}
           </p>
           <div className="gs-cg__gallery">
-            <Shot wide label={t('Lifestyle hero — product staged in a real scene', 'Toma principal ambientada — producto montado en una escena real')} slot="renders-lifestyle-hero" img={siteImages['renders-lifestyle-hero']} />
-            <Shot label={t('White-background listing shot', 'Toma de listado con fondo blanco')} slot="renders-studio-front" img={siteImages['renders-studio-front']} />
-            <Shot label={t('Three-quarter angle', 'Ángulo de tres cuartos')} slot="renders-studio-34" img={siteImages['renders-studio-34']} />
-            <Shot label={t('Detail crop — materials & finish', 'Acercamiento de detalle — materiales y acabado')} slot="renders-detail" img={siteImages['renders-detail']} />
-            <Shot label={t('Color / label variant', 'Variante de color / etiqueta')} slot="renders-variant" img={siteImages['renders-variant']} />
-            <Shot wide label={t('Second lifestyle scene — ad / banner ready', 'Segunda escena ambientada — lista para anuncio / banner')} slot="renders-lifestyle-2" img={siteImages['renders-lifestyle-2']} />
+            <Shot wide img={siteImages['renders-lifestyle-hero']} />
+            <Shot img={siteImages['renders-studio-front']} />
+            <Shot img={siteImages['renders-studio-34']} />
+            <Shot img={siteImages['renders-detail']} />
+            <Shot img={siteImages['renders-variant']} />
+            <Shot wide img={siteImages['renders-lifestyle-2']} />
           </div>
         </div>
       </section>
