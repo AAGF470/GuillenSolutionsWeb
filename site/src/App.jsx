@@ -108,20 +108,20 @@ function navGroups(t) {
     {
       label: t('Work & Library', 'Trabajo y biblioteca'), match: p => p === '/work',
       items: [
-        { to: '/work',         label: t('Client work', 'Trabajo con clientes'),            sub: t('Three industries, three states, one system', 'Tres industrias, tres estados, un solo sistema') },
-        { to: '/work#library', label: t('Live component library', 'Biblioteca de componentes en vivo'), sub: t('47+ components, rendered on the page', '47+ componentes, mostrados en la página') },
+        { to: '/work/',         label: t('Client work', 'Trabajo con clientes'),            sub: t('Three industries, three states, one system', 'Tres industrias, tres estados, un solo sistema') },
+        { to: '/work/#library', label: t('Live component library', 'Biblioteca de componentes en vivo'), sub: t('47+ components, rendered on the page', '47+ componentes, mostrados en la página') },
       ],
     },
     {
       label: t('Services', 'Servicios'), match: p => p.startsWith('/plans') || p === '/on-demand' || p === '/pricing' || p === '/renders',
       items: [
-        { to: '/plans/freelance', label: t('Freelance / Solo website', 'Sitio Freelance / Individual'),  sub: t('$600 first year · independent professionals', '$600 el primer año · profesionales independientes') },
-        { to: '/plans/standard',  label: t('Standard Business website', 'Sitio Negocio Estándar'), sub: t('$950 first year · most popular', '$950 el primer año · el más popular') },
-        { to: '/plans/enhanced',  label: t('Online Business Enhanced', 'Negocio en Línea Enhanced'), sub: t('~$1,900 first year · actively managed', '~$1,900 el primer año · gestión activa') },
-        { to: '/plans/private-hosting', label: t('Private Hosting Plan', 'Plan de Hosting Privado'), sub: t('WordPress or dedicated · in development', 'WordPress o dedicado · en desarrollo') },
-        { to: '/renders',         label: t('CG product renders', 'Renders de producto 3D'),        sub: t('Model once, render many · from $150', 'Modela una vez, renderiza muchas · desde $150') },
-        { to: '/on-demand',       label: t('On-demand services', 'Servicios a pedido'),        sub: t('Add later, whenever you need them', 'Agrégalos después, cuando los necesites') },
-        { to: '/pricing',         label: t('Full pricing & order', 'Precios completos y pedido'),      sub: t('Every option on one page', 'Todas las opciones en una página') },
+        { to: '/plans/freelance/', label: t('Freelance / Solo website', 'Sitio Freelance / Individual'),  sub: t('$600 first year · independent professionals', '$600 el primer año · profesionales independientes') },
+        { to: '/plans/standard/',  label: t('Standard Business website', 'Sitio Negocio Estándar'), sub: t('$950 first year · most popular', '$950 el primer año · el más popular') },
+        { to: '/plans/enhanced/',  label: t('Online Business Enhanced', 'Negocio en Línea Enhanced'), sub: t('~$1,900 first year · actively managed', '~$1,900 el primer año · gestión activa') },
+        { to: '/plans/private-hosting/', label: t('Private Hosting Plan', 'Plan de Hosting Privado'), sub: t('WordPress or dedicated · in development', 'WordPress o dedicado · en desarrollo') },
+        { to: '/renders/',         label: t('CG product renders', 'Renders de producto 3D'),        sub: t('Model once, render many · from $150', 'Modela una vez, renderiza muchas · desde $150') },
+        { to: '/on-demand/',       label: t('On-demand services', 'Servicios a pedido'),        sub: t('Add later, whenever you need them', 'Agrégalos después, cuando los necesites') },
+        { to: '/pricing/',         label: t('Full pricing & order', 'Precios completos y pedido'),      sub: t('Every option on one page', 'Todas las opciones en una página') },
       ],
     },
   ]
@@ -163,10 +163,10 @@ function MobileMenu({ open, onClose }) {
             ))}
           </div>
         ))}
-        <Link to="/guides" className="gs-mnav__link" onClick={onClose}>{t('Guides', 'Guías')}</Link>
-        <Link to="/status" className="gs-mnav__link" onClick={onClose}>{t('Status', 'Estado')}</Link>
-        <Link to="/contact" className="gs-mnav__link" onClick={onClose}>{t('Contact', 'Contacto')}</Link>
-        <Link to="/pricing" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>{t('Build your quote', 'Arma tu cotización')}</Link>
+        <Link to="/guides/" className="gs-mnav__link" onClick={onClose}>{t('Guides', 'Guías')}</Link>
+        <Link to="/status/" className="gs-mnav__link" onClick={onClose}>{t('Status', 'Estado')}</Link>
+        <Link to="/contact/" className="gs-mnav__link" onClick={onClose}>{t('Contact', 'Contacto')}</Link>
+        <Link to="/pricing/" className="gs-nav__cta gs-mnav__cta" onClick={onClose}>{t('Build your quote', 'Arma tu cotización')}</Link>
         <LangToggle className="gs-lang--mobile" />
       </div>
       <button type="button" className="gs-mnav__backdrop" aria-label={t('Close menu', 'Cerrar menú')} onClick={onClose} />
@@ -187,7 +187,11 @@ function Nav() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  const guidesActive = pathname === '/guides' || pathname.startsWith('/guides/')
+  // Internal links use the canonical trailing-slash form (so Google indexes one
+  // URL per page, not both), which means pathname arrives as "/work/". Strip the
+  // trailing slash before the nav's path tests so highlighting still matches.
+  const navPath = pathname !== '/' ? pathname.replace(/\/$/, '') : pathname
+  const guidesActive = navPath === '/guides' || navPath.startsWith('/guides/')
   return (
     <nav className={`gs-nav${scrolled ? ' is-scrolled' : ''}`} aria-label="Main">
       <Link to="/" className="gs-nav__logo">
@@ -197,15 +201,15 @@ function Nav() {
       <div className="gs-nav__links">
         <NavLink to="/" end className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Home', 'Inicio')}</NavLink>
         {navGroups(t).map(g => (
-          <NavDropdown key={g.label} label={g.label} active={g.match(pathname)} items={g.items} />
+          <NavDropdown key={g.label} label={g.label} active={g.match(navPath)} items={g.items} />
         ))}
-        <NavLink to="/guides" className={`gs-nav__link${guidesActive ? ' is-active' : ''}`}>{t('Guides', 'Guías')}</NavLink>
-        <NavLink to="/status" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Status', 'Estado')}</NavLink>
-        <NavLink to="/contact" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Contact', 'Contacto')}</NavLink>
+        <NavLink to="/guides/" className={`gs-nav__link${guidesActive ? ' is-active' : ''}`}>{t('Guides', 'Guías')}</NavLink>
+        <NavLink to="/status/" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Status', 'Estado')}</NavLink>
+        <NavLink to="/contact/" className={({ isActive }) => `gs-nav__link${isActive ? ' is-active' : ''}`}>{t('Contact', 'Contacto')}</NavLink>
       </div>
       <div className="gs-nav__actions">
         <LangToggle className="gs-lang--nav" />
-        <Link to="/pricing" className="gs-nav__cta">{t('Build your quote', 'Arma tu cotización')}</Link>
+        <Link to="/pricing/" className="gs-nav__cta">{t('Build your quote', 'Arma tu cotización')}</Link>
       </div>
       <button
         type="button"
@@ -242,23 +246,23 @@ function Footer() {
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">{t('Explore', 'Explora')}</span>
           <Link to="/">{t('Home', 'Inicio')}</Link>
-          <Link to="/work">{t('Work & Library', 'Trabajo y biblioteca')}</Link>
-          <Link to="/plans/freelance">{t('Freelance plan', 'Plan Freelance')}</Link>
-          <Link to="/plans/standard">{t('Standard plan', 'Plan Estándar')}</Link>
-          <Link to="/plans/enhanced">{t('Online Business Enhanced', 'Negocio en Línea Enhanced')}</Link>
-          <Link to="/plans/private-hosting">{t('Private Hosting plan', 'Plan de Hosting Privado')}</Link>
-          <Link to="/on-demand">{t('On-demand services', 'Servicios a pedido')}</Link>
-          <Link to="/renders">{t('CG product renders', 'Renders de producto 3D')}</Link>
-          <Link to="/pricing">{t('Full pricing & order', 'Precios completos y pedido')}</Link>
-          <Link to="/guides">{t('Guides', 'Guías')}</Link>
-          <Link to="/status">{t('Status & updates', 'Estado y novedades')}</Link>
+          <Link to="/work/">{t('Work & Library', 'Trabajo y biblioteca')}</Link>
+          <Link to="/plans/freelance/">{t('Freelance plan', 'Plan Freelance')}</Link>
+          <Link to="/plans/standard/">{t('Standard plan', 'Plan Estándar')}</Link>
+          <Link to="/plans/enhanced/">{t('Online Business Enhanced', 'Negocio en Línea Enhanced')}</Link>
+          <Link to="/plans/private-hosting/">{t('Private Hosting plan', 'Plan de Hosting Privado')}</Link>
+          <Link to="/on-demand/">{t('On-demand services', 'Servicios a pedido')}</Link>
+          <Link to="/renders/">{t('CG product renders', 'Renders de producto 3D')}</Link>
+          <Link to="/pricing/">{t('Full pricing & order', 'Precios completos y pedido')}</Link>
+          <Link to="/guides/">{t('Guides', 'Guías')}</Link>
+          <Link to="/status/">{t('Status & updates', 'Estado y novedades')}</Link>
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">{t('Get in touch', 'Contáctanos')}</span>
-          <Link to="/contact">{t('Contact us', 'Contáctanos')}</Link>
+          <Link to="/contact/">{t('Contact us', 'Contáctanos')}</Link>
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           <SocialLinks />
-          <Link to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
+          <Link to="/pricing/">{t('Build your quote', 'Arma tu cotización')}</Link>
           <span className="gs-footer__muted">English &amp; Español</span>
         </div>
       </div>
@@ -266,7 +270,7 @@ function Footer() {
       <div className="gs-footer__serving">
         <span>{t('Serving', 'Sirviendo')}:</span>
         {LOCATION_GUIDES.map(g => (
-          <Link key={g.slug} to={`/guides/${g.slug}`}>{g.city}</Link>
+          <Link key={g.slug} to={`/guides/${g.slug}/`}>{g.city}</Link>
         ))}
       </div>
       <div className="gs-footer__bottom">
@@ -317,7 +321,7 @@ export default function App() {
               in /admin and it replaces the coded fallback (both locales). */}
           <Route path="/contact" element={<PayloadPage slug="contact" fallback={<Contact />} fallbackWhileLoading />} />
           {/* Old routes → merged destinations. */}
-          <Route path="/components" element={<Navigate to="/work" replace />} />
+          <Route path="/components" element={<Navigate to="/work/" replace />} />
           <Route path="/about" element={<Navigate to="/" replace />} />
           {/* Any other CMS-authored page is live at its slug. */}
           <Route path="/:slug" element={<CmsPage />} />

@@ -379,7 +379,7 @@ export const SERVICES = [
     title: 'Websites you own',
     price: 'from $600',
     body: 'Custom, content-managed sites with flat all-in pricing — domain, hosting, CMS, and every login in your name from day one.',
-    to: '/pricing',
+    to: '/pricing/',
     linkLabel: 'See plans & pricing',
   },
   {
@@ -388,7 +388,7 @@ export const SERVICES = [
     title: 'CG product renders',
     price: 'from $150',
     body: 'Studio-quality product imagery from a 3D model we build once — listing packs and lifestyle heroes, no photo studio, no reshoots.',
-    to: '/renders',
+    to: '/renders/',
     linkLabel: 'Explore product renders',
   },
   {
@@ -397,7 +397,7 @@ export const SERVICES = [
     title: 'Get set up & found',
     price: 'add-ons',
     body: 'Google Business Profile so locals find you on Maps, plus email at your domain, an AI phone menu that routes callers, and logo & cards — the essentials that get you discovered, all owned by you.',
-    to: '/pricing',
+    to: '/pricing/',
     linkLabel: 'Browse add-ons',
   },
   {
@@ -406,7 +406,7 @@ export const SERVICES = [
     title: 'On-demand work',
     price: 'from $45',
     body: 'Landing pages, newsletters, QR menus, translations, seasonal swaps — fixed-scope jobs, quoted in writing, delivered fast.',
-    to: '/on-demand',
+    to: '/on-demand/',
     linkLabel: 'See the menu',
   },
 ]
@@ -439,6 +439,25 @@ export const WHERE_WE_ARE = {
     { icon: 'zap',    title: 'Early-client pricing',             body: "Today's rates are introductory. Start now and you lock in fair, gradual pricing as we grow — put in writing before you sign." },
     { icon: 'shield', title: 'Every claim, personally backed',   body: 'Small enough to stand behind each promise by name — ownership, exit terms, the number you were quoted. No fine-print games.' },
   ],
+}
+
+// ── Para negocios latinos — the market we grew out of ────────────────────────
+// Deliberately Spanish-forward (headline stays Spanish even in English mode):
+// a Spanish-speaking owner skimming the page should recognize themselves
+// instantly. The pains here are real ones we've cleaned up after — a
+// "marketing guy" who owned the domain, accounts in someone else's name,
+// nothing ever explained in the owner's language.
+export const PARA_LATINOS = {
+  eyebrow: 'Para negocios latinos · For Latino-owned businesses',
+  headline: 'Hecho por latinos, para negocios como el tuyo.',
+  subhead: 'Built by a Latino-owned studio, for businesses like yours.',
+  lead: 'Too many local Latino businesses get the same story: a "marketing guy" who registered the domain in his own name, social accounts nobody can log into, and no one willing to explain any of it in your language. We\'ve cleaned up after exactly that — so our answer is structural. Everything goes in your name with a written credentials handover, the whole engagement can run in Spanish or English — calls, contracts, and receipts included — and your site ships in both languages so you reach both sides of your market.',
+  points: [
+    { icon: 'users',  title: 'Trabajamos en tu idioma',  body: 'Every call, contract, receipt, and explanation in Spanish or English — whichever you prefer, both first-class. You should never have to sign something you can\'t fully read.' },
+    { icon: 'shield', title: 'Tu negocio, a tu nombre',  body: 'Domain, website, accounts, and every password registered to you from day one — with a written handover document. And if a previous "web guy" is holding your site or accounts hostage, untangling that is work we know well.' },
+    { icon: 'zap',    title: 'Sitio bilingüe de serie',  body: 'An English and a Spanish version of your site is the standard build, not an add-on — one tap to switch. Your English-speaking customers and tu gente both get the real thing.' },
+  ],
+  cta: { label: 'Hablemos — en español o inglés', href: '/contact/' },
 }
 
 // ── Referral commission program ──────────────────────────────────────────────
@@ -516,6 +535,7 @@ export const LOCATION_GUIDES = [
       { q: 'Do you meet clients in person in New York?', a: 'We work with New York clients remotely — calls, email, and screen-share — which keeps costs down and timelines fast. In-person visits are available in our home markets, Boston and North Houston.' },
       { q: 'Can you help my business show up on Google Maps in my borough?', a: 'Yes. Google Business Profile setup ($300) is one of our most popular add-ons for local NYC businesses — it often matters more than anything on the site itself.' },
       { q: 'Do you build online stores for NYC shops?', a: "We build a clean storefront skinned over Square or Shopify, so customers get live product and availability — while checkout, payments, and customer data stay with the platform's bank-grade security." },
+      { q: 'Can the whole process run in Spanish?', a: "Yes — we're a Latino-owned studio, and everything can happen in Spanish: calls, contracts, receipts, and support. Your site ships in English and Spanish as standard, so you reach both sides of New York's market." },
     ],
   },
   {
@@ -539,6 +559,7 @@ export const LOCATION_GUIDES = [
       { q: 'Can we meet in person?', a: 'Yes — Boston is one of our home markets, and in-person meetings are standard. We can come to you anywhere in the metro, from Charlestown to Dorchester.' },
       { q: 'Which Boston neighborhoods do you work with?', a: 'All of them — Roxbury, the South End, Seaport, Back Bay, Dorchester, Jamaica Plain, and beyond. We tune your local SEO to the areas you serve.' },
       { q: 'Do you work with bilingual Boston businesses?', a: "Absolutely. Full English/Spanish sites are built in at no design premium — a real advantage in Boston's diverse neighborhoods." },
+      { q: 'Can the whole process run in Spanish?', a: "Yes — we're a Latino-owned studio, and the entire engagement can happen in Spanish: meetings, contracts, receipts, and support. From East Boston to Jamaica Plain, work with us in the language you're most comfortable in." },
     ],
   },
   {
@@ -562,6 +583,7 @@ export const LOCATION_GUIDES = [
       { q: 'Do you meet clients in person in Houston?', a: 'Yes — North Houston is home ground for us (we\'re from the Klein/Spring area), so in-person meetings are available here just like in Boston. Calls and screen-share keep everything fast between visits.' },
       { q: 'Which North Houston areas do you cover?', a: 'The Woodlands, Klein, Spring, and Tomball, plus the surrounding North Houston communities.' },
       { q: 'Can you help me rank for my town specifically?', a: "Yes — we optimize your site and Google Business Profile for the specific towns you serve, so you're not lost in greater-Houston results." },
+      { q: 'Can the whole process run in Spanish?', a: "Yes — we're a Latino-owned studio from this very area, and everything can happen in Spanish: calls, contracts, receipts, and support. Your site ships bilingual as standard — a real advantage in North Houston." },
     ],
   },
   {
@@ -585,6 +607,7 @@ export const LOCATION_GUIDES = [
       { q: 'Have you built for Dallas businesses before?', a: 'Yes — our first client site was Angel Electrical Services, a licensed Dallas electrician: trust-first design with a quote form that routes to the owner.' },
       { q: 'Which Dallas areas do you serve?', a: 'Dallas proper, plus Irving, Grand Prairie, and the surrounding metroplex.' },
       { q: 'Do you meet in person in Dallas?', a: 'We work with Dallas clients remotely, which keeps things fast and affordable — with in-person available in our home markets, Boston and North Houston. Calls and screen-share handle everything.' },
+      { q: 'Can the whole process run in Spanish?', a: "Yes — we're a Latino-owned studio, and everything can happen in Spanish: calls, contracts, receipts, and support. Your site ships in English and Spanish as standard, so you reach all of DFW's market." },
     ],
   },
 ]
@@ -729,6 +752,10 @@ export const FAQS = [
   {
     q: 'How does the referral program work? Can I refer a non-profit or a friend\'s business?',
     a: 'Anyone can refer anyone — clients, friends, other business owners, non-profits included. When someone you send signs and pays for a package, you earn 10% of the first $600 and 5% of anything above, paid by Zelle the same day both sides confirm each other. No sign-up, no forms: they mention your name, we confirm with you, done.',
+  },
+  {
+    q: '¿Puedo hacer todo el proceso en español?',
+    a: 'Sí — somos un estudio latino, y todo el proceso puede ser en español: llamadas, contratos, recibos y soporte. Tu sitio sale en inglés y español de serie, sin costo extra. / Yes — we\'re Latino-owned, and the entire engagement can run in Spanish: calls, contracts, receipts, and support. Bilingual sites are our standard build, at no premium.',
   },
 ]
 

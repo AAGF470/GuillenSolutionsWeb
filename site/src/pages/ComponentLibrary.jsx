@@ -279,7 +279,7 @@ export function LibraryShowcase() {
         </section>
 
         <p className="gs-showcase__foot">
-          {t('Want a page built from these?', '¿Quieres una página construida con estos?')} <Link to="/pricing#order">{t('Build your quote →', 'Arma tu cotización →')}</Link>
+          {t('Want a page built from these?', '¿Quieres una página construida con estos?')} <Link to="/pricing/#order">{t('Build your quote →', 'Arma tu cotización →')}</Link>
         </p>
       </div>
     </div>

@@ -135,7 +135,7 @@ export default function Pricing() {
                     {t('Talk to us', 'Habla con nosotros')}
                   </a>
                 ) : (
-                  <Link className="gs-plan__cta" to="/pricing#order">
+                  <Link className="gs-plan__cta" to="/pricing/#order">
                     {t('Build your quote', 'Arma tu cotización')}
                   </Link>
                 )}

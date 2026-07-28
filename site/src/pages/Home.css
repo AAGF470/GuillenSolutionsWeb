@@ -235,3 +235,55 @@
   color: var(--color-text-sub);   /* was text-faint (2.1:1) — WCAG AA floor */
 }
 .gs-hero-facts b { color: var(--color-text); font-weight: 600; }
+
+/* ── Para negocios latinos ────────────────────────────────────────────────
+   Spanish-forward section: warm accent hairline + ember eyebrow already come
+   from the section system; cards mirror gs-svc__card. */
+.gs-latino__title { max-width: 26ch; }
+.gs-latino__subhead {
+  margin: 2px 0 0;
+  font-size: 15.5px;
+  color: var(--color-text-sub);
+  font-style: italic;
+}
+.gs-latino__lead { margin-top: 14px; }
+.gs-latino__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+@media (max-width: 860px) { .gs-latino__grid { grid-template-columns: 1fr; } }
+.gs-latino__card {
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-left: 3px solid var(--gs-ember);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+}
+.gs-latino__card h3 {
+  margin: 0 0 8px;
+  font-size: 16.5px;
+  letter-spacing: -0.01em;
+}
+.gs-latino__card p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--color-text-sub);
+}
+.gs-latino__ctarow { margin-top: 26px; }
+.gs-latino__cta {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md, 8px);
+  padding: 12px 22px;
+  text-decoration: none;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+.gs-latino__cta:hover { filter: brightness(1.08); transform: translateY(-1px); }

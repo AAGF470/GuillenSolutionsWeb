@@ -21,6 +21,7 @@ export default function Home() {
   const {
     PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
     CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE, MARKETS,
+    PARA_LATINOS,
   } = useContent()
   // Market photos come from the CMS `markets` global (upload → appears here).
   const marketImages = useMarketImages()
@@ -38,7 +39,7 @@ export default function Home() {
     note:        p.note,
     features:    p.features,
     featured:    p.featured,
-    cta:         { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
+    cta:         { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
   }))
 
   const WHAT_WE_DO = [
@@ -76,7 +77,7 @@ export default function Home() {
         )}
         ctas={[
           { label: t('See what we do', 'Ver qué hacemos'),   href: '#services',  variant: 'solid' },
-          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing', variant: 'ghost' },
+          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/', variant: 'ghost' },
         ]}
         layout="left"
       />
@@ -119,7 +120,7 @@ export default function Home() {
               'Run a non-profit? We price mission-driven builds case by case — we\'ve waived build costs for causes we believe in, and donations always flow straight to you, never through us. ',
               '¿Diriges una organización sin fines de lucro? Los proyectos con causa los cotizamos caso por caso — hemos exonerado costos de construcción por causas en las que creemos, y las donaciones siempre fluyen directo a ti, nunca a través de nosotros. ',
             )}
-            <Link to="/contact">{t('Talk to us →', 'Habla con nosotros →')}</Link>
+            <Link to="/contact/">{t('Talk to us →', 'Habla con nosotros →')}</Link>
           </p>
         </div>
       </section>
@@ -145,9 +146,34 @@ export default function Home() {
         image={siteImages['home-story-1'] || '/img/sample-1.svg'}
         imageAlt="Guillen Solutions"
         layout="image-right"
-        cta={{ label: t('See what we build', 'Ver lo que construimos'), href: '/work', variant: 'ghost-bordered' }}
+        cta={{ label: t('See what we build', 'Ver lo que construimos'), href: '/work/', variant: 'ghost-bordered' }}
         variant="default"
       />
+
+      {/* Para negocios latinos — Spanish-forward by design: the headline stays
+          Spanish even in English mode, so Latino owners recognize themselves
+          instantly. Follows the origin story it answers. */}
+      <Reveal>
+      <section className="section section--alt gs-latino" id="para-latinos">
+        <div className="section-container">
+          <p className="section-eyebrow">{PARA_LATINOS.eyebrow}</p>
+          <h2 className="section-title gs-latino__title" lang="es">{PARA_LATINOS.headline}</h2>
+          {PARA_LATINOS.subhead && <p className="gs-latino__subhead">{PARA_LATINOS.subhead}</p>}
+          <p className="section-sub gs-latino__lead">{PARA_LATINOS.lead}</p>
+          <Reveal stagger className="gs-latino__grid">
+            {PARA_LATINOS.points.map(p => (
+              <div key={p.title} className="gs-latino__card">
+                <h3 lang="es">{p.title}</h3>
+                <p>{p.body}</p>
+              </div>
+            ))}
+          </Reveal>
+          <div className="gs-latino__ctarow">
+            <Link to={PARA_LATINOS.cta.href} className="gs-latino__cta" lang="es">{PARA_LATINOS.cta.label}</Link>
+          </div>
+        </div>
+      </section>
+      </Reveal>
 
       {/* Where we fit — the honest comparison against every alternative */}
       <FeatureGrid
@@ -183,11 +209,11 @@ export default function Home() {
         <div className="gs-inline-note-wrap">
           <p className="gs-note">
             {t('Each plan has its own deep dive', 'Cada plan tiene su propio recorrido a fondo')} ({' '}
-            <Link to="/plans/freelance">Freelance</Link> ·{' '}
-            <Link to="/plans/standard">{t('Standard', 'Estándar')}</Link> ·{' '}
-            <Link to="/plans/enhanced">{t('Enhanced', 'Enhanced')}</Link> ·{' '}
-            <Link to="/plans/private-hosting">{t('Private Hosting', 'Hosting Privado')}</Link>{' '}
-            ) {t('and every option lives on one page at', 'y todas las opciones viven en una página en')} <Link to="/pricing">{t('full pricing & order', 'precios completos y pedido')}</Link>.
+            <Link to="/plans/freelance/">Freelance</Link> ·{' '}
+            <Link to="/plans/standard/">{t('Standard', 'Estándar')}</Link> ·{' '}
+            <Link to="/plans/enhanced/">{t('Enhanced', 'Enhanced')}</Link> ·{' '}
+            <Link to="/plans/private-hosting/">{t('Private Hosting', 'Hosting Privado')}</Link>{' '}
+            ) {t('and every option lives on one page at', 'y todas las opciones viven en una página en')} <Link to="/pricing/">{t('full pricing & order', 'precios completos y pedido')}</Link>.
           </p>
           <p className="gs-note">{GROWTH_NOTE}</p>
         </div>
@@ -204,7 +230,7 @@ export default function Home() {
         image={siteImages['home-story-2'] || '/img/sample-2.svg'}
         imageAlt="CG product render examples"
         layout="image-left"
-        cta={{ label: t('Explore product renders', 'Explorar renders de producto'), href: '/renders', variant: 'solid' }}
+        cta={{ label: t('Explore product renders', 'Explorar renders de producto'), href: '/renders/', variant: 'solid' }}
         variant="default"
       />
 
@@ -261,7 +287,7 @@ export default function Home() {
               </div>
             ))}
           </Reveal>
-          <Link to="/work#library" className="gs-libpeek__cta">{t('Explore the full component library →', 'Explora la biblioteca de componentes completa →')}</Link>
+          <Link to="/work/#library" className="gs-libpeek__cta">{t('Explore the full component library →', 'Explora la biblioteca de componentes completa →')}</Link>
         </div>
       </section>
 
@@ -276,7 +302,7 @@ export default function Home() {
         frameLabel={t('In writing — before you sign', 'Por escrito — antes de firmar')}
         clauses={[
           ...OWNERSHIP.slice(0, 2).map(text => ({ text })),
-          { text: OWNERSHIP[2], href: '/guides/do-you-own-your-website' },
+          { text: OWNERSHIP[2], href: '/guides/do-you-own-your-website/' },
           ...OWNERSHIP.slice(3).map(text => ({ text })),
         ]}
         signature={{
@@ -284,7 +310,7 @@ export default function Home() {
           sub: t('Every number confirmed in writing · English & Español', 'Cada número confirmado por escrito · English & Español'),
         }}
         stamp={t('NO LOCK-IN', 'SIN ATADURAS')}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order' }}
       />
 
       {/* Where we are now — honest about being a new, owner-run studio */}
@@ -349,7 +375,7 @@ export default function Home() {
             )}
           </p>
           <div className="gs-home-cta__actions">
-            <Link className="gs-btn-solid" to="/pricing">{t('Build your quote', 'Arma tu cotización')}</Link>
+            <Link className="gs-btn-solid" to="/pricing/">{t('Build your quote', 'Arma tu cotización')}</Link>
             <a className="gs-btn-ghost" href={`mailto:${CONTACT_EMAIL}`}>{t('Get in touch', 'Contáctanos')}</a>
           </div>
         </div>

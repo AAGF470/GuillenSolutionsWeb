@@ -39,7 +39,7 @@ function PlanPageContent({ planId }) {
   // the configurator flow. Its CTAs invite a conversation by email instead.
   const cta = data.tbd
     ? { label: t('Get in touch', 'Contáctanos'), href: `mailto:${CONTACT_EMAIL}`, variant: 'solid' }
-    : { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' }
+    : { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order', variant: 'solid' }
 
   return (
     <>
@@ -124,7 +124,7 @@ export default function PlanPage() {
       slug={`plans-${planId}`}
       fallback={<PlanPageContent planId={planId} />}
       fallbackWhileLoading
-      seo={{ ...plan.seo, path: `/plans/${planId}` }}
+      seo={{ ...plan.seo, path: `/plans/${planId}/` }}
     />
   )
 }

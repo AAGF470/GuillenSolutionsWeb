@@ -37,7 +37,9 @@ export function prerender({
 
   for (const r of routes) {
     const full = r.title ? `${r.title} — ${name}` : name
-    const url = `${site}${r.path === '/' ? '' : r.path}`
+    // Trailing slash for sub-pages = the URL the server actually serves 200 at
+    // (nginx 301s /pricing → /pricing/), so canonical/og:url are never a redirect.
+    const url = `${site}${r.path === '/' ? '/' : r.path + '/'}`
     const head = [
       `<meta name="description" content="${esc(r.description)}" />`,
       `<meta name="robots" content="index,follow" />`,
@@ -49,9 +51,14 @@ export function prerender({
       `<meta property="og:url" content="${url}" />`,
       `<meta property="og:locale" content="${locale}" />`,
       `<meta property="og:locale:alternate" content="${altLocale}" />`,
-      `<meta name="twitter:card" content="summary" />`,
+      `<meta property="og:image" content="${site}/og.png" />`,
+      `<meta property="og:image:width" content="1200" />`,
+      `<meta property="og:image:height" content="630" />`,
+      `<meta property="og:image:alt" content="${esc(name)} — websites you own, top to bottom." />`,
+      `<meta name="twitter:card" content="summary_large_image" />`,
       `<meta name="twitter:title" content="${esc(full)}" />`,
       `<meta name="twitter:description" content="${esc(r.description)}" />`,
+      `<meta name="twitter:image" content="${site}/og.png" />`,
       ...(r.schema || []).map(ldjson),
     ].join('\n    ')
 
@@ -72,7 +79,7 @@ export function prerender({
   const sitemap =
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     routes.map(r => {
-      const loc = `${site}${r.path === '/' ? '' : r.path}`
+      const loc = `${site}${r.path === '/' ? '/' : r.path + '/'}`
       return `  <url><loc>${loc}</loc><changefreq>${changefreqFor(r.path)}</changefreq><priority>${priorityFor(r.path)}</priority></url>`
     }).join('\n') +
     `\n</urlset>\n`

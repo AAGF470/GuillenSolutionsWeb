@@ -29,7 +29,7 @@ function GuideCard({ post, locale }) {
   const tags = (post.tags || []).map(t => t?.text ?? t).filter(Boolean)
   const src = coverUrl(post.cover)
   return (
-    <Link to={`/guides/${post.slug}`} className="gs-guides__card">
+    <Link to={`/guides/${post.slug}/`} className="gs-guides__card">
       {src && (
         <div className="gs-guides__cover">
           <img src={src} alt={post.cover?.alt || ''} loading="lazy" />
@@ -70,7 +70,7 @@ function LocalGuides() {
             const areaGuides = LOCATION_GUIDES.filter(x => x.isArea && x.marketId === g.marketId)
             return (
               <div key={g.slug} className="gs-lguide">
-                <Link to={`/guides/${g.slug}`} className="gs-lguide__main">
+                <Link to={`/guides/${g.slug}/`} className="gs-lguide__main">
                   <span className="gs-lguide__place">{g.city}, {g.state}</span>
                   <span className="gs-lguide__title">{t('Web design in', 'Diseño web en')} {g.city}</span>
                   <span className="gs-lguide__areas">{areas.slice(0, 4).join(' · ')}{areas.length > 4 ? ' …' : ''}</span>
@@ -79,7 +79,7 @@ function LocalGuides() {
                 {areaGuides.length > 0 && (
                   <div className="gs-lguide__chips">
                     {areaGuides.map(a => (
-                      <Link key={a.slug} to={`/guides/${a.slug}`} className="gs-lguide__chip">{a.city}</Link>
+                      <Link key={a.slug} to={`/guides/${a.slug}/`} className="gs-lguide__chip">{a.city}</Link>
                     ))}
                   </div>
                 )}
@@ -133,7 +133,7 @@ export default function Guides() {
               <h2>{t('Guides are coming.', 'Las guías vienen en camino.')}</h2>
               <p>
                 {t('We’re writing up the first batch right now — devlogs and case studies from real projects. Check back soon, or', 'Estamos escribiendo el primer lote ahora mismo — devlogs y casos de estudio de proyectos reales. Vuelve pronto, o')}{' '}
-                <Link to="/work">{t('browse our work', 'explora nuestro trabajo')}</Link>{t(' in the meantime.', ' mientras tanto.')}
+                <Link to="/work/">{t('browse our work', 'explora nuestro trabajo')}</Link>{t(' in the meantime.', ' mientras tanto.')}
               </p>
             </div>
           )}

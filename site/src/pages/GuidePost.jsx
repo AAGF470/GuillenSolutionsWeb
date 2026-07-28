@@ -26,7 +26,7 @@ function NotFound() {
       <p style={{ opacity: 0.7, marginBottom: '1.5rem' }}>
         {t('This guide doesn’t exist (yet). It may not have been published in the CMS.', 'Esta guía no existe (todavía). Puede que no se haya publicado en el CMS.')}
       </p>
-      <Link to="/guides" className="gs-nav__cta">{t('All guides', 'Todas las guías')}</Link>
+      <Link to="/guides/" className="gs-nav__cta">{t('All guides', 'Todas las guías')}</Link>
     </section>
   )
 }
@@ -96,10 +96,10 @@ export default function GuidePost() {
 
   return (
     <>
-      <Seo title={post.title} description={post.excerpt} path={`/guides/${slug}`} schema={schema} />
+      <Seo title={post.title} description={post.excerpt} path={`/guides/${slug}/`} schema={schema} />
       <article className="gs-post">
         <header className="gs-post__header">
-          <Link to="/guides" className="gs-post__back">{t('← All guides', '← Todas las guías')}</Link>
+          <Link to="/guides/" className="gs-post__back">{t('← All guides', '← Todas las guías')}</Link>
           <h1 className="gs-post__title">{post.title}</h1>
           <div className="gs-post__meta">
             {date && <span className="gs-post__date">{date}</span>}

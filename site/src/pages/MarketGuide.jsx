@@ -38,7 +38,7 @@ function AreaLinks({ guide }) {
         <p className="section-eyebrow">{t('Nearby areas we serve', 'Zonas cercanas que servimos')}</p>
         <div className="gs-guide__arealinks">
           {related.map(g => (
-            <Link key={g.slug} to={`/guides/${g.slug}`} className="gs-lguide__chip">
+            <Link key={g.slug} to={`/guides/${g.slug}/`} className="gs-lguide__chip">
               {g.isArea ? g.city : `${t('All of', 'Todo')} ${g.city}`}
             </Link>
           ))}
@@ -61,7 +61,7 @@ export default function MarketGuide({ guide }) {
       <Seo
         title={guide.metaTitle}
         description={guide.metaDescription}
-        path={`/guides/${guide.slug}`}
+        path={`/guides/${guide.slug}/`}
         schema={locationGuideSchema(guide)}
       />
 
@@ -72,7 +72,7 @@ export default function MarketGuide({ guide }) {
         size="compact"
         variant="alt"
         ctas={[
-          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order', variant: 'solid' },
+          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order', variant: 'solid' },
           { label: t('Talk to us', 'Habla con nosotros'), href: `mailto:${CONTACT_EMAIL}`, variant: 'ghost-bordered' },
         ]}
       />
@@ -81,7 +81,7 @@ export default function MarketGuide({ guide }) {
       <section className="section section--default gs-seam-bottom">
         <div className="section-container gs-guide">
           <div className="gs-guide__intro">
-            <p className="gs-guide__back"><Link to="/guides">{t('← All guides', '← Todas las guías')}</Link></p>
+            <p className="gs-guide__back"><Link to="/guides/">{t('← All guides', '← Todas las guías')}</Link></p>
             {guide.intro.map((p, i) => (
               <p key={i} className="gs-guide__lead">{p}</p>
             ))}
@@ -156,7 +156,7 @@ export default function MarketGuide({ guide }) {
           'Build a quote in a minute, or reach out and we\'ll talk it through — in English or Español.',
           'Arma una cotización en un minuto, o contáctanos y lo conversamos — en inglés o español.',
         )}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order' }}
         variant="accent"
       />
     </>

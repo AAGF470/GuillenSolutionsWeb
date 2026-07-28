@@ -18,7 +18,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { prerender, esc, list } from './prerender-core.mjs'
 import {
-  PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS, FOUND,
+  PACKAGES, SERVICES, ADDONS, ON_DEMAND, FAQS, FOUND, PARA_LATINOS,
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CONTACT_EMAIL,
   LOCATION_GUIDES, MARKETS, CONTACT,
 } from '../src/data.js'
@@ -31,27 +31,27 @@ const NAME = 'Guillen Solutions'
 
 // ── shared chrome (crawlable link graph) ─────────────────────────────────────
 const NAV = [
-  ['/', 'Home'], ['/work', 'Work & Library'],
-  ['/plans/freelance', 'Freelance plan'], ['/plans/standard', 'Standard plan'],
-  ['/plans/enhanced', 'Online Business Enhanced'], ['/plans/private-hosting', 'Private Hosting plan'],
-  ['/renders', 'CG product renders'],
-  ['/on-demand', 'On-demand services'], ['/pricing', 'Full pricing & order'],
-  ['/guides', 'Guides'], ['/status', 'Status & updates'], ['/contact', 'Contact'],
+  ['/', 'Home'], ['/work/', 'Work & Library'],
+  ['/plans/freelance/', 'Freelance plan'], ['/plans/standard/', 'Standard plan'],
+  ['/plans/enhanced/', 'Online Business Enhanced'], ['/plans/private-hosting/', 'Private Hosting plan'],
+  ['/renders/', 'CG product renders'],
+  ['/on-demand/', 'On-demand services'], ['/pricing/', 'Full pricing & order'],
+  ['/guides/', 'Guides'], ['/status/', 'Status & updates'], ['/contact/', 'Contact'],
 ]
 const header = `<header><a href="/">Guillen Solutions</a><nav>${
   NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
-}</nav><a href="/pricing">Build your quote</a></header>`
+}</nav><a href="/pricing/">Build your quote</a></header>`
 const footer = `<footer><p>Honest, upfront digital services for small businesses — websites, product renders, and the setup around them. You own your domain, your content, your accounts, and every login — no lock-in, ever.</p><nav>${
   NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
 }</nav><p>Serving: ${
-  LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}">${esc(g.city)}</a>`).join(' · ')
+  LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}/">${esc(g.city)}</a>`).join(' · ')
 }</p><p>Get in touch: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
 
 const wrap = (h1, sub, inner) =>
   `${header}<main><h1>${esc(h1)}</h1><p>${esc(sub)}</p>${inner}</main>${footer}`
 
 // ── per-route bodies (real content, derived from data) ───────────────────────
-const planLine = p => `<strong>${esc(p.name)}</strong> — ${esc(p.price)} ${esc(p.period)}${p.tbd ? ' (in development)' : ` (then $${p.recurring}/yr)`}. ${esc(p.description)} <a href="/plans/${p.id}">Details</a>`
+const planLine = p => `<strong>${esc(p.name)}</strong> — ${esc(p.price)} ${esc(p.period)}${p.tbd ? ' (in development)' : ` (then $${p.recurring}/yr)`}. ${esc(p.description)} <a href="/plans/${p.id}/">Details</a>`
 
 const bodies = {
   home: wrap(
@@ -60,7 +60,8 @@ const bodies = {
     `<h2>What we do</h2>${list(SERVICES.map(s => `<strong>${esc(s.title)}</strong> (${esc(s.price)}) — ${esc(s.body)} <a href="${s.to}">${esc(s.linkLabel)}</a>`))}
      <h2>Website plans</h2>${list(PACKAGES.map(planLine))}
      <h2>${esc(FOUND.headline)}</h2><p>${esc(FOUND.lead)}</p>${list(FOUND.points.map(p => `<strong>${esc(p.title)}</strong> — ${esc(p.body)}`))}
-     <p><a href="/pricing">Build your quote</a></p>`,
+     <h2 lang="es">${esc(PARA_LATINOS.headline)}</h2><p>${esc(PARA_LATINOS.subhead)}</p><p>${esc(PARA_LATINOS.lead)}</p>${list(PARA_LATINOS.points.map(p => `<strong>${esc(p.title)}</strong> — ${esc(p.body)}`))}
+     <p><a href="/pricing/">Build your quote</a></p>`,
   ),
   work: wrap(
     'One toolkit. Every kind of business.',
@@ -70,7 +71,7 @@ const bodies = {
       '<strong>FencingPatrol</strong> — family general contractor, Long Island, New York. Bold, bilingual, call-first.',
       '<strong>Cryark Inc</strong> — game &amp; tools studio, Boston, Massachusetts. Cinematic dark-mode site with a devlog.',
       '<strong>Northeastern Satellite Lab</strong> — student CubeSat club, Boston. Dark aerospace theme (content being filled in by the club).',
-    ])}<p>One component system, any look. <a href="/work">Explore the library</a>.</p>`,
+    ])}<p>One component system, any look. <a href="/work/">Explore the library</a>.</p>`,
   ),
   pricing: wrap(
     'Price it yourself, right here.',
@@ -94,7 +95,7 @@ const bodies = {
   guides: wrap(
     'Guides',
     'Plain-English guides to owning your business online — including web design guides for the local markets we serve.',
-    `<h2>Guides by location</h2>${list(LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}"><strong>Web design in ${esc(g.city)}, ${esc(g.state)}</strong></a> — ${esc(g.lead)}`))}`,
+    `<h2>Guides by location</h2>${list(LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}/"><strong>Web design in ${esc(g.city)}, ${esc(g.state)}</strong></a> — ${esc(g.lead)}`))}`,
   ),
   contact: wrap(
     'Text us — we\'ll text right back.',
@@ -109,7 +110,7 @@ const bodies = {
     'What we\'re running, and what\'s new.',
     'Live status of the services we run for you, plus a running log of stack updates, new features, and announcements. Transparency is part of the deal.',
     `<h2>Service status</h2><p>Live health checks run in your browser for the website and the content/inquiry API. Your content and backups live on separate, protected storage — if a public server fails, we rebuild from clean backups in hours.</p>
-     <h2>Updates &amp; announcements</h2><p>Stack and infrastructure updates, new features, and business news are logged in the open. <a href="/status">See the latest</a>.</p>`,
+     <h2>Updates &amp; announcements</h2><p>Stack and infrastructure updates, new features, and business news are logged in the open. <a href="/status/">See the latest</a>.</p>`,
   ),
 }
 
@@ -118,7 +119,7 @@ const planBody = p => wrap(
   p.description,
   `<p>${esc(p.price)} ${esc(p.period)} — ${p.tbd
     ? 'pricing is being finalized; reach out if this is what you need.'
-    : `then $${p.recurring}/yr for hosting + domain renewal, agreed in writing.`}</p>${list(p.features.map(esc))}<p><a href="/pricing#order">Build your quote</a></p>`,
+    : `then $${p.recurring}/yr for hosting + domain renewal, agreed in writing.`}</p>${list(p.features.map(esc))}<p><a href="/pricing/#order">Build your quote</a></p>`,
 )
 
 // Local-market guide — real, indexable service-area content per market.
@@ -132,7 +133,7 @@ const guideBody = g => {
      <h2>${esc(g.whyTitle)}</h2>${list(g.why.map(esc))}
      <h2>What we build for ${esc(g.city)} businesses</h2>${list(SERVICES.map(s => `<strong>${esc(s.title)}</strong> (${esc(s.price)}) — ${esc(s.body)} <a href="${s.to}">${esc(s.linkLabel)}</a>`))}
      <h2>Questions · ${esc(g.city)}</h2>${list(g.faq.map(f => `<strong>${esc(f.q)}</strong> ${esc(f.a)}`))}
-     <p><a href="/pricing#order">Build your quote</a></p>`,
+     <p><a href="/pricing/#order">Build your quote</a></p>`,
   )
 }
 

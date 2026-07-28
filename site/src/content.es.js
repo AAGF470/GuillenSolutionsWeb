@@ -342,7 +342,7 @@ export const SERVICES = [
     title: 'Sitios web que son tuyos',
     price: 'desde $600',
     body: 'Sitios personalizados y gestionables con precio plano todo incluido — dominio, hosting, CMS y cada acceso a tu nombre desde el primer día.',
-    to: '/pricing',
+    to: '/pricing/',
     linkLabel: 'Ver planes y precios',
   },
   {
@@ -351,7 +351,7 @@ export const SERVICES = [
     title: 'Renders de producto 3D',
     price: 'desde $150',
     body: 'Imágenes de producto con calidad de estudio a partir de un modelo 3D que construimos una vez — paquetes de listado y tomas ambientadas, sin estudio fotográfico, sin repetir tomas.',
-    to: '/renders',
+    to: '/renders/',
     linkLabel: 'Explorar renders de producto',
   },
   {
@@ -360,7 +360,7 @@ export const SERVICES = [
     title: 'Prepárate y hazte visible',
     price: 'complementos',
     body: 'Perfil de Empresa de Google para que los locales te encuentren en Maps, además de correo en tu dominio, un menú telefónico con IA que dirige las llamadas y logo y tarjetas — lo esencial para que te descubran, todo tuyo.',
-    to: '/pricing',
+    to: '/pricing/',
     linkLabel: 'Ver complementos',
   },
   {
@@ -369,7 +369,7 @@ export const SERVICES = [
     title: 'Trabajo a pedido',
     price: 'desde $45',
     body: 'Páginas de aterrizaje, boletines, menús QR, traducciones, cambios de temporada — trabajos de alcance fijo, cotizados por escrito, entregados rápido.',
-    to: '/on-demand',
+    to: '/on-demand/',
     linkLabel: 'Ver el menú',
   },
 ]
@@ -545,7 +545,27 @@ export const FAQS = [
     q: '¿Cómo funciona el programa de referidos? ¿Puedo referir a una organización sin fines de lucro o al negocio de un amigo?',
     a: 'Cualquiera puede referir a cualquiera — clientes, amigos, otros dueños de negocio, organizaciones sin fines de lucro incluidas. Cuando alguien que envías firma y paga un paquete, ganas 10% de los primeros $600 y 5% de lo que exceda, pagado por Zelle el mismo día en que ambas partes se confirman entre sí. Sin registro, sin formularios: mencionan tu nombre, lo confirmamos contigo, listo.',
   },
+  {
+    q: '¿Puedo hacer todo el proceso en español?',
+    a: 'Sí — somos un estudio latino, y todo el proceso puede ser en español: llamadas, contratos, recibos y soporte. Nunca deberías firmar algo que no puedas leer por completo. Y tu sitio sale en inglés y español de serie, sin costo extra.',
+  },
 ]
+
+// ---------------------------------------------------------------------------
+// PARA_LATINOS — versión en español (la sección es bilingüe por diseño).
+// ---------------------------------------------------------------------------
+export const PARA_LATINOS = {
+  eyebrow: 'Para negocios latinos',
+  headline: 'Hecho por latinos, para negocios como el tuyo.',
+  subhead: 'Un estudio latino, con el proceso completo en tu idioma.',
+  lead: 'A demasiados negocios latinos les tocó la misma historia: un "encargado del marketing" que registró el dominio a su propio nombre, cuentas de redes a las que nadie puede entrar, y nadie dispuesto a explicar nada en tu idioma. Hemos limpiado exactamente ese desastre — por eso nuestra respuesta es estructural. Todo queda a tu nombre con una entrega de contraseñas por escrito, el proceso completo puede ser en español o inglés — llamadas, contratos y recibos incluidos — y tu sitio sale en ambos idiomas para que llegues a los dos lados de tu mercado.',
+  points: [
+    { icon: 'users',  title: 'Trabajamos en tu idioma',  body: 'Cada llamada, contrato, recibo y explicación en español o inglés — el que tú prefieras, ambos de primera. Nunca deberías firmar algo que no puedas leer por completo.' },
+    { icon: 'shield', title: 'Tu negocio, a tu nombre',  body: 'Dominio, sitio, cuentas y cada contraseña registrados a tu nombre desde el primer día — con un documento de entrega por escrito. Y si un "web guy" anterior tiene tu sitio o tus cuentas secuestradas, desenredar eso es trabajo que conocemos bien.' },
+    { icon: 'zap',    title: 'Sitio bilingüe de serie',  body: 'La versión en inglés y en español de tu sitio es lo estándar, no un extra — un toque para cambiar. Tus clientes de habla inglesa y tu gente reciben lo mismo: lo real.' },
+  ],
+  cta: { label: 'Hablemos — en español o inglés', href: '/contact/' },
+}
 
 // ---------------------------------------------------------------------------
 // LOCATION_GUIDES — Spanish overrides. slug, marketId y state se mantienen
@@ -573,6 +593,7 @@ export const LOCATION_GUIDES = [
       { q: '¿Se reúnen en persona con clientes en Nueva York?', a: 'Trabajamos con los clientes de Nueva York de forma remota — llamadas, correo y pantalla compartida — lo que mantiene bajos los costos y ágiles los tiempos. Las visitas en persona están disponibles en nuestros mercados base, Boston y el norte de Houston.' },
       { q: '¿Pueden ayudar a que mi negocio aparezca en Google Maps en mi condado?', a: 'Sí. La configuración del Perfil de Empresa de Google ($300) es uno de nuestros complementos más populares para los negocios locales de NYC — muchas veces importa más que cualquier cosa dentro del sitio en sí.' },
       { q: '¿Construyen tiendas en línea para comercios de NYC?', a: 'Construimos un escaparate limpio revestido sobre Square o Shopify, para que los clientes vean producto y disponibilidad en vivo — mientras el checkout, los pagos y los datos del cliente se quedan con la seguridad de nivel bancario de la plataforma.' },
+      { q: '¿Puedo hacer todo el proceso en español?', a: 'Sí — somos un estudio latino, y todo puede ser en español: llamadas, contratos, recibos y soporte. Tu sitio sale en inglés y español de serie, para que llegues a los dos lados del mercado neoyorquino.' },
     ],
   },
   {
@@ -596,6 +617,7 @@ export const LOCATION_GUIDES = [
       { q: '¿Podemos reunirnos en persona?', a: 'Sí — Boston es uno de nuestros mercados base, y las reuniones en persona son lo estándar. Podemos ir a ti en cualquier punto del área metropolitana, de Charlestown a Dorchester.' },
       { q: '¿Con qué vecindarios de Boston trabajan?', a: 'Con todos — Roxbury, el South End, Seaport, Back Bay, Dorchester, Jamaica Plain y más allá. Ajustamos tu SEO local a las zonas que atiendes.' },
       { q: '¿Trabajan con negocios bilingües de Boston?', a: 'Por completo. Los sitios totalmente en inglés/español vienen integrados sin recargo de diseño — una ventaja real en los diversos vecindarios de Boston.' },
+      { q: '¿Puedo hacer todo el proceso en español?', a: 'Sí — somos un estudio latino, y todo el proceso puede ser en español: reuniones, contratos, recibos y soporte. De East Boston a Jamaica Plain, trabaja con nosotros en el idioma en que estés más cómodo.' },
     ],
   },
   {
@@ -619,6 +641,7 @@ export const LOCATION_GUIDES = [
       { q: '¿Se reúnen en persona con clientes en Houston?', a: 'Trabajamos con los clientes del Norte de Houston de forma remota, lo que mantiene los tiempos ágiles y los costos bajos. Las reuniones en persona están disponibles en nuestros mercados base, Boston y el norte de Houston., pero las llamadas y la pantalla compartida cubren todo lo que necesitamos.' },
       { q: '¿Qué zonas del Norte de Houston cubren?', a: 'The Woodlands, Klein, Spring y Tomball, además de las comunidades circundantes del Norte de Houston.' },
       { q: '¿Pueden ayudarme a posicionar específicamente en mi ciudad?', a: 'Sí — optimizamos tu sitio y tu Perfil de Empresa de Google para las ciudades específicas que atiendes, para que no te pierdas entre los resultados del gran Houston.' },
+      { q: '¿Puedo hacer todo el proceso en español?', a: 'Sí — somos un estudio latino de esta misma zona, y todo puede ser en español: llamadas, contratos, recibos y soporte. Tu sitio sale bilingüe de serie — una ventaja real en el Norte de Houston.' },
     ],
   },
   {
@@ -642,6 +665,7 @@ export const LOCATION_GUIDES = [
       { q: '¿Han construido antes para negocios de Dallas?', a: 'Sí — nuestro primer sitio de cliente fue Angel Electrical Services, un electricista con licencia en Dallas: diseño enfocado en la confianza con un formulario de cotización que llega al dueño.' },
       { q: '¿Qué zonas de Dallas atienden?', a: 'Dallas propiamente, además de Irving, Grand Prairie y el área metropolitana circundante.' },
       { q: '¿Se reúnen en persona en Dallas?', a: 'Trabajamos con los clientes de Dallas de forma remota, lo que mantiene todo ágil y accesible. Las reuniones en persona son una oferta exclusiva de Boston, pero las llamadas y la pantalla compartida se encargan de todo.' },
+      { q: '¿Puedo hacer todo el proceso en español?', a: 'Sí — somos un estudio latino, y todo puede ser en español: llamadas, contratos, recibos y soporte. Tu sitio sale en inglés y español de serie, para que llegues a todo el mercado del metroplex.' },
     ],
   },
 ]

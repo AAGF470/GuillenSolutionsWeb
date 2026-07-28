@@ -169,7 +169,7 @@ export default function WorkAndLibrary() {
         eyebrow={t("Your industry's next", 'Tu industria es la que sigue')}
         headline={t('Whatever you do, we can build it — and hand it to you.', 'Hagas lo que hagas, podemos construirlo — y entregártelo.')}
         subtext={t('Different trade, different state, different style. Same honest, you-own-everything setup.', 'Otro oficio, otro estado, otro estilo. La misma configuración honesta en la que eres dueño de todo.')}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing#order' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order' }}
         variant="accent"
       />
 
