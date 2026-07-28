@@ -5,7 +5,7 @@ import {
 import Seo from '../components/Seo.jsx'
 import PayloadPage from '../PayloadPage.jsx'
 import { useContent } from '../content.js'
-import { useT } from '../i18n.jsx'
+import { useT, useLangPath } from '../i18n.jsx'
 import { CONTACT_EMAIL } from '../data.js'
 
 // ---------------------------------------------------------------------------
@@ -16,6 +16,7 @@ import { CONTACT_EMAIL } from '../data.js'
 
 function NotFound() {
   const t = useT()
+  const lp = useLangPath()
   return (
     <section style={{ maxWidth: 640, margin: '0 auto', padding: '8rem 1.5rem', textAlign: 'center' }}>
       <title>Plan not found — Guillen Solutions</title>
@@ -39,7 +40,7 @@ function PlanPageContent({ planId }) {
   // the configurator flow. Its CTAs invite a conversation by email instead.
   const cta = data.tbd
     ? { label: t('Get in touch', 'Contáctanos'), href: `mailto:${CONTACT_EMAIL}`, variant: 'solid' }
-    : { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order', variant: 'solid' }
+    : { label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/#order'), variant: 'solid' }
 
   return (
     <>

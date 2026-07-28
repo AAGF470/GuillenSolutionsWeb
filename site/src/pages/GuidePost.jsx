@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import Seo from '../components/Seo.jsx'
 import RichContent from '../components/RichContent.jsx'
 import { formatDate } from './Guides.jsx'

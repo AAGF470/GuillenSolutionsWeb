@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import { HeroSection, CtaBanner, Faq, FeatureGrid } from '@aagf470/ui'
 import VoiceDemo from '../components/VoiceDemo.jsx'
 import { Reveal } from '@aagf470/ui'

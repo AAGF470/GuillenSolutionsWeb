@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import './Home.css'
 import {
   HeroSection,
@@ -14,10 +14,11 @@ import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
 import { useMarketImages } from '../lib/marketImages.js'
 import { useSiteImages } from '../lib/siteImages.js'
-import { useT } from '../i18n.jsx'
+import { useT, useLangPath } from '../i18n.jsx'
 
 export default function Home() {
   const t = useT()
+  const lp = useLangPath()
   const {
     PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
     CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE, MARKETS,
@@ -39,7 +40,7 @@ export default function Home() {
     note:        p.note,
     features:    p.features,
     featured:    p.featured,
-    cta:         { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order', variant: p.featured ? 'solid' : 'ghost-bordered' },
+    cta:         { label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/#order'), variant: p.featured ? 'solid' : 'ghost-bordered' },
   }))
 
   const WHAT_WE_DO = [
@@ -77,7 +78,7 @@ export default function Home() {
         )}
         ctas={[
           { label: t('See what we do', 'Ver qué hacemos'),   href: '#services',  variant: 'solid' },
-          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/', variant: 'ghost' },
+          { label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/'), variant: 'ghost' },
         ]}
         layout="left"
       />
@@ -146,7 +147,7 @@ export default function Home() {
         image={siteImages['home-story-1'] || '/img/sample-1.svg'}
         imageAlt="Guillen Solutions"
         layout="image-right"
-        cta={{ label: t('See what we build', 'Ver lo que construimos'), href: '/work/', variant: 'ghost-bordered' }}
+        cta={{ label: t('See what we build', 'Ver lo que construimos'), href: lp('/work/'), variant: 'ghost-bordered' }}
         variant="default"
       />
 
@@ -230,7 +231,7 @@ export default function Home() {
         image={siteImages['home-story-2'] || '/img/sample-2.svg'}
         imageAlt="CG product render examples"
         layout="image-left"
-        cta={{ label: t('Explore product renders', 'Explorar renders de producto'), href: '/renders/', variant: 'solid' }}
+        cta={{ label: t('Explore product renders', 'Explorar renders de producto'), href: lp('/renders/'), variant: 'solid' }}
         variant="default"
       />
 
@@ -302,7 +303,7 @@ export default function Home() {
         frameLabel={t('In writing — before you sign', 'Por escrito — antes de firmar')}
         clauses={[
           ...OWNERSHIP.slice(0, 2).map(text => ({ text })),
-          { text: OWNERSHIP[2], href: '/guides/do-you-own-your-website/' },
+          { text: OWNERSHIP[2], href: lp('/guides/do-you-own-your-website/') },
           ...OWNERSHIP.slice(3).map(text => ({ text })),
         ]}
         signature={{
@@ -310,7 +311,7 @@ export default function Home() {
           sub: t('Every number confirmed in writing · English & Español', 'Cada número confirmado por escrito · English & Español'),
         }}
         stamp={t('NO LOCK-IN', 'SIN ATADURAS')}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/#order') }}
       />
 
       {/* Where we are now — honest about being a new, owner-run studio */}

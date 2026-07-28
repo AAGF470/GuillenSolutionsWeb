@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import {
   HeroSection,
   FeatureGrid,

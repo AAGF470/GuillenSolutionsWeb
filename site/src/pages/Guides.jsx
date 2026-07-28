@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import { HeroSection } from '@aagf470/ui'
 import { Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'

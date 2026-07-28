@@ -8,26 +8,39 @@
 //   path        string  — route path ("/about") for the canonical URL
 //   schema      object? — JSON-LD schema.org object
 // ---------------------------------------------------------------------------
+import { useLang } from '../i18n.jsx'
+
 const SITE = 'https://guillensolutions.com'
 const NAME = 'Guillen Solutions'
 const OG_IMAGE = `${SITE}/og.png`
 
 export default function Seo({ title, description, path = '/', schema }) {
+  const { lang } = useLang()
   const full = title ? `${title} — ${NAME}` : NAME
-  // Trailing slash for sub-pages matches the 200 URL the server serves.
-  const url = `${SITE}${path === '/' ? '' : path + '/'}`
+  // `path` is always the ENGLISH path. Normalize it to exactly one trailing
+  // slash (matching the 200 URL the server serves), then derive both language
+  // URLs. Critical: without the /es prefix here, the client render would stamp
+  // an English canonical onto a Spanish page and Google would treat the whole
+  // Spanish site as duplicate content.
+  const bare = path === '/' ? '/' : `/${path.replace(/^\/+|\/+$/g, '')}/`
+  const enUrl = `${SITE}${bare}`
+  const esUrl = `${SITE}${bare === '/' ? '/es/' : `/es${bare}`}`
+  const url = lang === 'es' ? esUrl : enUrl
   return (
     <>
       <title>{full}</title>
       {description && <meta name="description" content={description} />}
       <link rel="canonical" href={url} />
+      <link rel="alternate" hrefLang="en" href={enUrl} />
+      <link rel="alternate" hrefLang="es" href={esUrl} />
+      <link rel="alternate" hrefLang="x-default" href={enUrl} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={NAME} />
       <meta property="og:title" content={full} />
       {description && <meta property="og:description" content={description} />}
       <meta property="og:url" content={url} />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:locale:alternate" content="es_ES" />
+      <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+      <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
       <meta property="og:image" content={OG_IMAGE} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />

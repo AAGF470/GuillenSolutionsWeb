@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { Routes, Route, NavLink, Link, Navigate, useLocation, useParams } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
+import { Link, NavLink } from './lib/LangLink.jsx'
 import './App.css'
 import { CONTACT_EMAIL } from './data'
 import { useContent } from './content.js'
@@ -23,19 +24,25 @@ import { homeSchema } from './schema'
 
 // Per-route SEO — one source of truth regardless of whether the CMS layout
 // or the bespoke fallback renders.
-const SEO = {
+const seoFor = t => ({
   home: {
-    title: 'Digital Business Solutions You Own',
-    description: 'Websites, CG product renders, and business setup for small businesses — flat all-in pricing, and you own everything: domain, content, images, every login. English & Español.',
+    title: t('Digital Business Solutions You Own', 'Soluciones Digitales Para Tu Negocio — Y Todo Es Tuyo'),
+    description: t(
+      'Websites, CG product renders, and business setup for small businesses — flat all-in pricing, and you own everything: domain, content, images, every login. English & Español.',
+      'Sitios web, renders de producto 3D y la preparación del negocio para pequeños negocios — precio plano, y eres dueño de todo: dominio, contenido, imágenes y cada acceso. Hablamos español.',
+    ),
     path: '/',
     schema: homeSchema,
   },
   work: {
-    title: 'Our Work & Component Library',
-    description: 'Three states, three industries, one 47+ component system — client sites for an electrician, a contractor, and a game studio, plus the live toolkit they were built from.',
+    title: t('Our Work & Component Library', 'Nuestro Trabajo y Biblioteca de Componentes'),
+    description: t(
+      'Three states, three industries, one 47+ component system — client sites for an electrician, a contractor, and a game studio, plus the live toolkit they were built from.',
+      'Tres estados, tres industrias, un sistema de 47+ componentes — sitios para un electricista, un contratista y un estudio de videojuegos, más el kit con el que se construyeron.',
+    ),
     path: '/work',
   },
-}
+})
 
 // Scroll to top on route change; scroll to hash target if present.
 // Hash targets can arrive AFTER navigation (CMS pages render async), so retry
@@ -290,7 +297,45 @@ function GuideRoute() {
   return guide ? <MarketGuide guide={guide} /> : <GuidePost />
 }
 
+// Every page exists at two URLs: the English path, and the same path under
+// /es. Both render the same components — the active language comes from the URL
+// (LanguageProvider) — so the Spanish site is a real, indexable mirror instead
+// of a client-side toggle over English URLs. `p` is '' (English) or '/es'.
+//
+// Main pages render from the CMS if a page exists at that slug with blocks;
+// otherwise they fall back to the bespoke React page (shown immediately, no
+// blank flash). /components stays code-only (it's a live library showcase).
+function pageRoutes(p = '', t = en => en) {
+  const at = (s) => (s === '/' ? p || '/' : `${p}${s}`)
+  const SEO = seoFor(t)
+  return [
+    <Route key={at('/')} path={at('/')} element={<PayloadPage slug="home" fallback={<Home />} fallbackWhileLoading seo={SEO.home} />} />,
+    // Merged Work + Component Library — rendered directly so the live showcase
+    // stays code-only; the old CMS 'work' page is retired.
+    <Route key={at('/work')} path={at('/work')} element={<><Seo {...SEO.work} /><WorkAndLibrary /></>} />,
+    // Per-plan sales pages (config-driven, one component).
+    <Route key={at('/plans')} path={at('/plans/:planId')} element={<PlanPage />} />,
+    <Route key={at('/on-demand')} path={at('/on-demand')} element={<OnDemand />} />,
+    <Route key={at('/renders')} path={at('/renders')} element={<CGRenders />} />,
+    <Route key={at('/pricing')} path={at('/pricing')} element={<Pricing />} />,
+    <Route key={at('/guides')} path={at('/guides')} element={<Guides />} />,
+    // Known local-market slugs render the static MarketGuide; anything else
+    // falls through to the CMS-backed devlog post.
+    <Route key={at('/guides/:slug')} path={at('/guides/:slug')} element={<GuideRoute />} />,
+    <Route key={at('/status')} path={at('/status')} element={<Status />} />,
+    // Contact is CMS-takeover-capable: author a 'contact' page with blocks in
+    // /admin and it replaces the coded fallback (both locales).
+    <Route key={at('/contact')} path={at('/contact')} element={<PayloadPage slug="contact" fallback={<Contact />} fallbackWhileLoading />} />,
+    // Old routes → merged destinations.
+    <Route key={at('/components')} path={at('/components')} element={<Navigate to={`${p}/work/`} replace />} />,
+    <Route key={at('/about')} path={at('/about')} element={<Navigate to={p || '/'} replace />} />,
+    // Any other CMS-authored page is live at its slug.
+    <Route key={at('/:slug')} path={at('/:slug')} element={<CmsPage />} />,
+  ]
+}
+
 export default function App() {
+  const t = useT()
   return (
     <div className="gs-app">
       <ScrollManager />
@@ -298,33 +343,8 @@ export default function App() {
       <main>
         <Suspense fallback={null}>
         <Routes>
-          {/* Main pages render from the CMS if a page exists at that slug with
-              blocks; otherwise they fall back to the bespoke React page (shown
-              immediately, no blank flash). Build a CMS page at the slug to take
-              over. /components stays code-only (it's a live library showcase). */}
-          <Route path="/" element={<PayloadPage slug="home" fallback={<Home />} fallbackWhileLoading seo={SEO.home} />} />
-          {/* Merged Work + Component Library. Rendered directly (not via the
-              CMS) so the live showcase stays code-only; the old CMS 'work'
-              page is retired. */}
-          <Route path="/work" element={<><Seo {...SEO.work} /><WorkAndLibrary /></>} />
-          {/* Per-plan sales pages (config-driven, one component). */}
-          <Route path="/plans/:planId" element={<PlanPage />} />
-          <Route path="/on-demand" element={<OnDemand />} />
-          <Route path="/renders" element={<CGRenders />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/guides" element={<Guides />} />
-          {/* Known local-market slugs render the static MarketGuide; anything
-              else falls through to the CMS-backed devlog post. */}
-          <Route path="/guides/:slug" element={<GuideRoute />} />
-          <Route path="/status" element={<Status />} />
-          {/* Contact is CMS-takeover-capable: author a 'contact' page with blocks
-              in /admin and it replaces the coded fallback (both locales). */}
-          <Route path="/contact" element={<PayloadPage slug="contact" fallback={<Contact />} fallbackWhileLoading />} />
-          {/* Old routes → merged destinations. */}
-          <Route path="/components" element={<Navigate to="/work/" replace />} />
-          <Route path="/about" element={<Navigate to="/" replace />} />
-          {/* Any other CMS-authored page is live at its slug. */}
-          <Route path="/:slug" element={<CmsPage />} />
+          {pageRoutes('', t)}
+          {pageRoutes('/es', t)}
         </Routes>
         </Suspense>
       </main>

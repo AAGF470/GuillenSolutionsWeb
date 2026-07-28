@@ -40,17 +40,34 @@ export function prerender({
     // Trailing slash for sub-pages = the URL the server actually serves 200 at
     // (nginx 301s /pricing → /pricing/), so canonical/og:url are never a redirect.
     const url = `${site}${r.path === '/' ? '/' : r.path + '/'}`
+    // Language pair: `r.lang` ('en'|'es') + `r.pair` (the counterpart's path).
+    // Emitting reciprocal hreflang on BOTH pages is what tells Google these are
+    // translations of one page rather than competing duplicates.
+    const lang = r.lang || 'en'
+    const abs = p => `${site}${p === '/' ? '/' : p + '/'}`
+    const alternates = r.pair
+      ? (() => {
+          const enPath = lang === 'es' ? r.pair : r.path
+          const esPath = lang === 'es' ? r.path : r.pair
+          return [
+            `<link rel="alternate" hreflang="en" href="${abs(enPath)}" />`,
+            `<link rel="alternate" hreflang="es" href="${abs(esPath)}" />`,
+            `<link rel="alternate" hreflang="x-default" href="${abs(enPath)}" />`,
+          ]
+        })()
+      : []
     const head = [
       `<meta name="description" content="${esc(r.description)}" />`,
       `<meta name="robots" content="index,follow" />`,
       `<link rel="canonical" href="${url}" />`,
+      ...alternates,
       `<meta property="og:type" content="website" />`,
       `<meta property="og:site_name" content="${name}" />`,
       `<meta property="og:title" content="${esc(full)}" />`,
       `<meta property="og:description" content="${esc(r.description)}" />`,
       `<meta property="og:url" content="${url}" />`,
-      `<meta property="og:locale" content="${locale}" />`,
-      `<meta property="og:locale:alternate" content="${altLocale}" />`,
+      `<meta property="og:locale" content="${lang === 'es' ? altLocale : locale}" />`,
+      `<meta property="og:locale:alternate" content="${lang === 'es' ? locale : altLocale}" />`,
       `<meta property="og:image" content="${site}/og.png" />`,
       `<meta property="og:image:width" content="1200" />`,
       `<meta property="og:image:height" content="630" />`,
@@ -63,6 +80,7 @@ export function prerender({
     ].join('\n    ')
 
     const html = template
+      .replace(/<html([^>]*)\slang="[^"]*"/, `<html$1 lang="${lang}"`)
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(full)}</title>`)
       .replace('</head>', `    ${head}\n  </head>`)
       // createRoot() replaces this fallback with the live app in a real browser.

@@ -1,4 +1,5 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import PayloadPage from '../PayloadPage.jsx'
 
 // Any page authored in the CMS is live here at its slug (e.g. /services).

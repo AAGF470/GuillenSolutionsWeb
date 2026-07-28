@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { HeroSection, CtaBanner } from '@aagf470/ui'
 import { LibraryFacts, LibraryShowcase } from './ComponentLibrary.jsx'
-import { useT } from '../i18n.jsx'
+import { useT, useLangPath } from '../i18n.jsx'
 import './Work.css'
 
 // ---------------------------------------------------------------------------
@@ -21,6 +21,7 @@ const asHref = u => (u ? (/^https?:\/\//.test(u) ? u : `https://${u}`) : null)
 // A browser frame showing a screenshot, with a tidy placeholder if it's absent.
 function ScreenshotFrame({ url, image, alt }) {
   const t = useT()
+  const lp = useLangPath()
   const [failed, setFailed] = useState(false)
   return (
     <div className="work-frame">
@@ -169,7 +170,7 @@ export default function WorkAndLibrary() {
         eyebrow={t("Your industry's next", 'Tu industria es la que sigue')}
         headline={t('Whatever you do, we can build it — and hand it to you.', 'Hagas lo que hagas, podemos construirlo — y entregártelo.')}
         subtext={t('Different trade, different state, different style. Same honest, you-own-everything setup.', 'Otro oficio, otro estado, otro estilo. La misma configuración honesta en la que eres dueño de todo.')}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/#order') }}
         variant="accent"
       />
 

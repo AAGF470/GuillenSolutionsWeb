@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LangLink.jsx'
 import { HeroSection, Faq, CtaBanner } from '@aagf470/ui'
 import { Reveal } from '@aagf470/ui'
 import Seo from '../components/Seo.jsx'
@@ -6,7 +6,7 @@ import { useContent } from '../content.js'
 import { useMarketImages } from '../lib/marketImages.js'
 import { CONTACT_EMAIL } from '../data.js'
 import { locationGuideSchema } from '../schema.js'
-import { useT } from '../i18n.jsx'
+import { useT, useLangPath } from '../i18n.jsx'
 import './MarketGuide.css'
 
 // ---------------------------------------------------------------------------
@@ -27,6 +27,7 @@ const Pin = () => (
 
 function AreaLinks({ guide }) {
   const t = useT()
+  const lp = useLangPath()
   const { LOCATION_GUIDES } = useContent()
   const related = guide.isArea
     ? LOCATION_GUIDES.filter(g => g.marketId === guide.marketId && g.slug !== guide.slug)
@@ -72,7 +73,7 @@ export default function MarketGuide({ guide }) {
         size="compact"
         variant="alt"
         ctas={[
-          { label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order', variant: 'solid' },
+          { label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/#order'), variant: 'solid' },
           { label: t('Talk to us', 'Habla con nosotros'), href: `mailto:${CONTACT_EMAIL}`, variant: 'ghost-bordered' },
         ]}
       />
@@ -156,7 +157,7 @@ export default function MarketGuide({ guide }) {
           'Build a quote in a minute, or reach out and we\'ll talk it through — in English or Español.',
           'Arma una cotización en un minuto, o contáctanos y lo conversamos — en inglés o español.',
         )}
-        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: '/pricing/#order' }}
+        cta={{ label: t('Build your quote', 'Arma tu cotización'), href: lp('/pricing/#order') }}
         variant="accent"
       />
     </>

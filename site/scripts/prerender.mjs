@@ -22,6 +22,10 @@ import {
   CG_RENDER_TIERS, CG_RENDER_SHOTS, CG_RENDER_PACKAGES, CONTACT_EMAIL,
   LOCATION_GUIDES, MARKETS, CONTACT,
 } from '../src/data.js'
+// Whole-module views for the Spanish mirror: ES overrides on the EN base, the
+// same merge useContent() does at runtime, so nothing can drift between them.
+import * as EN_ALL from '../src/data.js'
+import * as ES_ALL from '../src/content.es.js'
 import { ORG, homeSchema, pricingSchema, rendersSchema, locationGuideSchema } from '../src/schema.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -38,14 +42,22 @@ const NAV = [
   ['/on-demand/', 'On-demand services'], ['/pricing/', 'Full pricing & order'],
   ['/guides/', 'Guides'], ['/status/', 'Status & updates'], ['/contact/', 'Contact'],
 ]
-const header = `<header><a href="/">Guillen Solutions</a><nav>${
-  NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
-}</nav><a href="/pricing/">Build your quote</a></header>`
-const footer = `<footer><p>Honest, upfront digital services for small businesses — websites, product renders, and the setup around them. You own your domain, your content, your accounts, and every login — no lock-in, ever.</p><nav>${
-  NAV.map(([h, l]) => `<a href="${h}">${l}</a>`).join('')
-}</nav><p>Serving: ${
-  LOCATION_GUIDES.map(g => `<a href="/guides/${g.slug}/">${esc(g.city)}</a>`).join(' · ')
-}</p><p>Get in touch: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
+// Chrome is per-language: the Spanish pages must link to Spanish pages, or the
+// /es cluster leaks all of its internal link equity back into English.
+const chrome = (p = '') => {
+  const es = p === '/es'
+  const nav = NAV.map(([h, l]) => `<a href="${p}${h}">${l}</a>`).join('')
+  const header = `<header><a href="${p || '/'}">Guillen Solutions</a><nav>${nav}</nav><a href="${p}/pricing/">${es ? 'Arma tu cotización' : 'Build your quote'}</a></header>`
+  const blurb = es
+    ? 'Servicios digitales honestos y transparentes para pequeños negocios — sitios web, renders de producto y toda la preparación alrededor. Eres dueño de tu dominio, tu contenido, tus cuentas y cada acceso — sin ataduras, nunca.'
+    : 'Honest, upfront digital services for small businesses — websites, product renders, and the setup around them. You own your domain, your content, your accounts, and every login — no lock-in, ever.'
+  const footer = `<footer><p>${blurb}</p><nav>${nav}</nav><p>${es ? 'Atendemos' : 'Serving'}: ${
+    LOCATION_GUIDES.map(g => `<a href="${p}/guides/${g.slug}/">${esc(g.city)}</a>`).join(' · ')
+  }</p><p>${es ? 'Contáctanos' : 'Get in touch'}: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
+  return { header, footer }
+}
+const { header, footer } = chrome('')
+const ES_CHROME = chrome('/es')
 
 const wrap = (h1, sub, inner) =>
   `${header}<main><h1>${esc(h1)}</h1><p>${esc(sub)}</p>${inner}</main>${footer}`
@@ -156,12 +168,127 @@ const ROUTES = [
   })),
 ]
 
+// ── Spanish mirror (/es/…) ───────────────────────────────────────────────────
+// Until now the Spanish site existed ONLY client-side (a toggle over the same
+// English URL), so Google had nothing Spanish to index and the site couldn't
+// rank for a single Spanish query. These are real, prerendered Spanish pages at
+// their own URLs, paired to the English ones with reciprocal hreflang.
+// Content comes from the same content.es.js the app uses — no new translations.
+const ES = { ...EN_ALL, ...ES_ALL }
+const esWrap = (h1, sub, inner) =>
+  `${ES_CHROME.header}<main><h1>${esc(h1)}</h1><p>${esc(sub)}</p>${inner}</main>${ES_CHROME.footer}`
+const esPlanLine = p => `<strong>${esc(p.name)}</strong> — ${esc(p.price)} ${esc(p.period)}${p.tbd ? ' (en desarrollo)' : ` (después $${p.recurring}/año)`}. ${esc(p.description)} <a href="/es/plans/${p.id}/">Detalles</a>`
+
+const esBodies = {
+  home: esWrap(
+    'Todo lo que tu negocio necesita para verse real en línea — y todo es tuyo.',
+    'Sitios web, imágenes de producto con calidad de estudio y toda la preparación del negocio alrededor — hechos para pequeños negocios, con precio plano y puestos a tu nombre.',
+    `<h2>Qué hacemos</h2>${list(ES.SERVICES.map(s => `<strong>${esc(s.title)}</strong> (${esc(s.price)}) — ${esc(s.body)} <a href="/es${s.to}">${esc(s.linkLabel)}</a>`))}
+     <h2>Planes de sitio web</h2>${list(ES.PACKAGES.map(esPlanLine))}
+     <h2>${esc(ES.FOUND.headline)}</h2><p>${esc(ES.FOUND.lead)}</p>${list(ES.FOUND.points.map(p => `<strong>${esc(p.title)}</strong> — ${esc(p.body)}`))}
+     <h2>${esc(ES.PARA_LATINOS.headline)}</h2><p>${esc(ES.PARA_LATINOS.subhead)}</p><p>${esc(ES.PARA_LATINOS.lead)}</p>${list(ES.PARA_LATINOS.points.map(p => `<strong>${esc(p.title)}</strong> — ${esc(p.body)}`))}
+     <p><a href="/es/pricing/">Arma tu cotización</a></p>`,
+  ),
+  pricing: esWrap(
+    'Calcula el precio tú mismo, aquí mismo.',
+    'Elige un plan y los complementos que necesites para un número transparente y todo incluido. Cada cifra confirmada por escrito.',
+    `<h2>Planes</h2>${list(ES.PACKAGES.map(p => `${esPlanLine(p)}${list(p.features.map(esc))}`))}
+     <h2>Complementos</h2>${list([...ES.ADDONS, ...ES.ON_DEMAND].map(a => `<strong>${esc(a.name)}</strong> — ${esc(a.price)}: ${esc(a.body)}`))}
+     <h2>Preguntas frecuentes</h2>${list(ES.FAQS.map(f => `<strong>${esc(f.q)}</strong> ${esc(f.a)}`))}`,
+  ),
+  renders: esWrap(
+    'Imágenes de producto con calidad de estudio, sin el estudio.',
+    'Construimos tu producto en 3D una vez y luego renderizamos todas las tomas que necesites. Modela una vez, renderiza muchas.',
+    `<h2>Base por producto (modelo + primera toma)</h2>${list(ES.CG_RENDER_TIERS.map(t => `<strong>${esc(t.name)}</strong> — ${esc(t.price)} ${esc(t.per)}. ${esc(t.body)}`))}
+     <h2>Tomas adicionales</h2>${list(ES.CG_RENDER_SHOTS.map(s => `<strong>${esc(s.name)}</strong> — ${esc(s.price)} ${esc(s.per)}. ${esc(s.body)}`))}
+     <h2>Paquetes</h2>${list(ES.CG_RENDER_PACKAGES.map(p => `<strong>${esc(p.name)}</strong> — ${esc(p.price)}. ${esc(p.body)}`))}`,
+  ),
+  ondemand: esWrap(
+    'Nada de esto hay que decidirlo hoy.',
+    'Servicios que los negocios agregan después del lanzamiento, cuando los necesitan — alcance fijo, precio por adelantado.',
+    list(ES.ON_DEMAND.map(s => `<strong>${esc(s.name)}</strong> — ${esc(s.price)}: ${esc(s.body)}`)),
+  ),
+  work: esWrap(
+    'Un solo kit de herramientas. Todo tipo de negocio.',
+    'De un electricista en Dallas a un contratista en Long Island y un estudio de videojuegos en Boston — industrias muy distintas, tres estados, tres estilos completamente diferentes. Todo construido con la misma biblioteca de 47+ componentes, y todo propiedad del cliente.',
+    `<p>Un sistema de componentes, cualquier estilo. <a href="/es/work/">Explora la biblioteca</a>.</p>`,
+  ),
+  guides: esWrap(
+    'Guías',
+    'Guías en español claro para ser dueño de tu negocio en línea — incluyendo guías de diseño web para los mercados locales que atendemos.',
+    `<h2>Guías por ubicación</h2>${list(ES.LOCATION_GUIDES.map(g => `<a href="/es/guides/${g.slug}/"><strong>Diseño web en ${esc(g.city)}, ${esc(g.state)}</strong></a> — ${esc(g.lead)}`))}`,
+  ),
+  contact: esWrap(
+    'Escríbenos — te respondemos por mensaje.',
+    'La forma más rápida de contactarnos es un mensaje de texto o WhatsApp. Con base en Boston y el norte de Houston, remoto en todas partes — en español o inglés.',
+    `${list([
+      `<strong>Línea de texto</strong> — ${esc(CONTACT.textLine.display)}`,
+      `<strong>WhatsApp</strong> — ${esc(CONTACT.whatsapp.display)}`,
+      `<strong>Correo</strong> — <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>`,
+    ])}<p>Las consultas nuevas son por mensaje; los clientes actuales reciben llamadas y visitas en persona por Boston y el norte de Houston.</p>`,
+  ),
+  status: esWrap(
+    'Qué tenemos funcionando y qué hay de nuevo.',
+    'Estado en vivo de los servicios que operamos para ti, más un registro de actualizaciones y anuncios. La transparencia es parte del trato.',
+    `<h2>Estado del servicio</h2><p>Las verificaciones de salud corren en vivo en tu navegador para el sitio y la API de contenido. Tu contenido y respaldos viven en almacenamiento separado y protegido.</p>`,
+  ),
+}
+
+const esPlanBody = p => esWrap(
+  p.name,
+  p.description,
+  `<p>${esc(p.price)} ${esc(p.period)} — ${p.tbd
+    ? 'el precio se está finalizando; contáctanos si esto es lo que necesitas.'
+    : `después $${p.recurring}/año por hosting + renovación del dominio, acordado por escrito.`}</p>${list(p.features.map(esc))}<p><a href="/es/pricing/#order">Arma tu cotización</a></p>`,
+)
+
+const esGuideBody = g => {
+  const areas = ES.MARKETS.find(m => m.id === g.marketId)?.areas ?? []
+  return esWrap(
+    g.metaTitle,
+    g.lead,
+    `${g.intro.map(p => `<p>${esc(p)}</p>`).join('')}
+     <h2>Zonas que atendemos en ${esc(g.city)}</h2>${list(areas.map(esc))}
+     <h2>${esc(g.whyTitle)}</h2>${list(g.why.map(esc))}
+     <h2>Qué construimos para negocios de ${esc(g.city)}</h2>${list(ES.SERVICES.map(s => `<strong>${esc(s.title)}</strong> (${esc(s.price)}) — ${esc(s.body)} <a href="/es${s.to}">${esc(s.linkLabel)}</a>`))}
+     <h2>Preguntas · ${esc(g.city)}</h2>${list(g.faq.map(f => `<strong>${esc(f.q)}</strong> ${esc(f.a)}`))}
+     <p><a href="/es/pricing/#order">Arma tu cotización</a></p>`,
+  )
+}
+
+// Every ES route declares lang + its English counterpart, so prerender-core can
+// emit reciprocal hreflang on both sides of each pair.
+const ES_ROUTES = [
+  { path: '/es', pair: '/', title: 'Soluciones Digitales Para Tu Negocio — Y Todo Es Tuyo', description: 'Sitios web, renders de producto 3D y la preparación del negocio para pequeños negocios — precio plano, y eres dueño de todo: dominio, contenido, imágenes y cada acceso. Hablamos español.', schema: homeSchema, body: esBodies.home },
+  { path: '/es/work', pair: '/work', title: 'Nuestro Trabajo y Biblioteca de Componentes', description: 'Tres estados, tres industrias, un sistema de 47+ componentes — sitios para un electricista, un contratista y un estudio de videojuegos.', schema: [ORG], body: esBodies.work },
+  { path: '/es/pricing', pair: '/pricing', title: 'Precios y Pedido', description: 'Arma tu pedido: elige un plan y complementos para un número todo incluido. Cada cifra confirmada por escrito.', schema: pricingSchema, body: esBodies.pricing },
+  { path: '/es/renders', pair: '/renders', title: 'Renders de Producto 3D', description: 'Imágenes de producto con calidad de estudio para e-commerce — modela una vez, renderiza muchas. Desde $150 por producto.', schema: rendersSchema, body: esBodies.renders },
+  { path: '/es/on-demand', pair: '/on-demand', title: 'Servicios a Pedido', description: 'Servicios que agregas después del lanzamiento, cuando los necesites — páginas de aterrizaje, menús QR, traducciones. Alcance fijo, cotizado por escrito.', schema: [ORG], body: esBodies.ondemand },
+  { path: '/es/guides', pair: '/guides', title: 'Guías', description: 'Guías en español claro para ser dueño de tu negocio en línea — de Guillen Solutions.', schema: [ORG], body: esBodies.guides },
+  { path: '/es/status', pair: '/status', title: 'Estado y Actualizaciones', description: 'Estado en vivo de los servicios y un registro de actualizaciones y anuncios de Guillen Solutions.', schema: [ORG], body: esBodies.status },
+  { path: '/es/contact', pair: '/contact', title: 'Contacto', description: 'Contacta a Guillen Solutions — escríbenos por texto o WhatsApp, o por correo. Boston y el norte de Houston, remoto en todas partes. En español o inglés.', schema: [ORG], body: esBodies.contact },
+  ...ES.PACKAGES.map(p => ({
+    path: `/es/plans/${p.id}`, pair: `/plans/${p.id}`, title: p.name, description: p.description, schema: [ORG], body: esPlanBody(p),
+  })),
+  ...ES.LOCATION_GUIDES.map(g => ({
+    path: `/es/guides/${g.slug}`, pair: `/guides/${g.slug}`, title: g.metaTitle, description: g.metaDescription,
+    schema: locationGuideSchema(g), body: esGuideBody(g),
+  })),
+].map(r => ({ ...r, lang: 'es' }))
+
+// Pair the English routes back at their Spanish counterparts (same hreflang
+// cluster, declared from both sides as Google requires).
+const EN_ROUTES = ROUTES.map(r => {
+  const es = ES_ROUTES.find(e => e.pair === r.path)
+  return es ? { ...r, lang: 'en', pair: es.path } : { ...r, lang: 'en' }
+})
+
 // ── render + sitemap via the generic harness ─────────────────────────────────
 prerender({
   dist: DIST,
   site: SITE,
   name: NAME,
-  routes: ROUTES,
+  routes: [...EN_ROUTES, ...ES_ROUTES],
   priorityFor: path =>
     path === '/' ? '1.0'
       : path.startsWith('/plans/') ? '0.9'
