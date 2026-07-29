@@ -14,7 +14,10 @@ const SITE = 'https://guillensolutions.com'
 const NAME = 'Guillen Solutions'
 const OG_IMAGE = `${SITE}/og.png`
 
-export default function Seo({ title, description, path = '/', schema }) {
+// `standalone` — the page exists in ONE language only (e.g. the Spanish-first
+// landing pages). Claiming an hreflang counterpart that doesn't exist would
+// point Google at a 404, so alternates are omitted for those.
+export default function Seo({ title, description, path = '/', schema, standalone = false }) {
   const { lang } = useLang()
   const full = title ? `${title} — ${NAME}` : NAME
   // `path` is always the ENGLISH path. Normalize it to exactly one trailing
@@ -31,9 +34,9 @@ export default function Seo({ title, description, path = '/', schema }) {
       <title>{full}</title>
       {description && <meta name="description" content={description} />}
       <link rel="canonical" href={url} />
-      <link rel="alternate" hrefLang="en" href={enUrl} />
-      <link rel="alternate" hrefLang="es" href={esUrl} />
-      <link rel="alternate" hrefLang="x-default" href={enUrl} />
+      {!standalone && <link rel="alternate" hrefLang="en" href={enUrl} />}
+      {!standalone && <link rel="alternate" hrefLang="es" href={esUrl} />}
+      {!standalone && <link rel="alternate" hrefLang="x-default" href={enUrl} />}
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={NAME} />
       <meta property="og:title" content={full} />

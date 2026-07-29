@@ -1,0 +1,137 @@
+/* EsLanding — Spanish-first landing pages. Reuses MarketGuide.css for the
+   shared areas/services blocks; this adds only the trust + referral pieces. */
+
+.gs-eslanding__trust {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+.gs-eslanding__trust-card {
+  position: relative;
+  background: var(--color-surface-high);
+  border: 1px solid var(--color-border-low);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px 22px;
+}
+.gs-eslanding__trust-num {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gs-ember);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.gs-eslanding__trust-card h3 {
+  margin: 0 0 8px;
+  font-size: 16.5px;
+  letter-spacing: -0.01em;
+}
+.gs-eslanding__trust-card p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--color-text-sub);
+}
+
+/* Referral — two columns on desktop, stacked on mobile. */
+.gs-eslanding__ref {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 34px;
+  align-items: start;
+}
+.gs-eslanding__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+.gs-eslanding__steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-border-low);
+}
+.gs-eslanding__steps li::before {
+  content: counter(step);
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-mid);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-sub);
+}
+.gs-eslanding__steps li b { font-size: 15px; }
+.gs-eslanding__steps li span {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-sub);
+}
+.gs-eslanding__wa {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-md, 8px);
+  padding: 12px 20px;
+  text-decoration: none;
+}
+.gs-eslanding__wa:hover { filter: brightness(1.08); }
+
+/* Local: industries + areas aside. */
+.gs-eslanding__local {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 34px;
+  align-items: start;
+}
+.gs-eslanding__inds {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px 20px;
+}
+.gs-eslanding__inds li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-sub);
+}
+.gs-eslanding__inds li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gs-ember);
+}
+.gs-eslanding__note {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-text-dim);
+}
+
+@media (max-width: 860px) {
+  .gs-eslanding__ref,
+  .gs-eslanding__local { grid-template-columns: 1fr; }
+}

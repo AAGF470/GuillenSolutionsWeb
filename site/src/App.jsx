@@ -4,6 +4,7 @@ import { Link, NavLink } from './lib/LangLink.jsx'
 import './App.css'
 import { CONTACT_EMAIL } from './data'
 import { useContent } from './content.js'
+import { ES_LANDINGS } from './esLanding.js'
 import { useLang, useT } from './i18n.jsx'
 import Home from './pages/Home.jsx'
 const WorkAndLibrary = lazy(() => import('./pages/WorkAndLibrary.jsx'))
@@ -17,6 +18,7 @@ const MarketGuide = lazy(() => import('./pages/MarketGuide.jsx'))
 const Status = lazy(() => import('./pages/Status.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
 const CmsPage = lazy(() => import('./pages/CmsPage.jsx'))
+const EsLanding = lazy(() => import('./pages/EsLanding.jsx'))
 import PayloadPage from './PayloadPage.jsx'
 import Seo from './components/Seo.jsx'
 import SocialLinks from './components/SocialLinks.jsx'
@@ -234,6 +236,7 @@ function Nav() {
 
 function Footer() {
   const t = useT()
+  const { lang } = useLang()
   const { LOCATION_GUIDES } = useContent()
   return (
     <footer className="gs-footer">
@@ -249,6 +252,19 @@ function Footer() {
           <p className="gs-footer__identity">
             {t('Proudly Latino-owned · English & Español', 'Con orgullo, propiedad latina · English & Español')}
           </p>
+          {/* Spanish-first landing pages — shown only in Spanish, where they're
+              the relevant entry points (and where Google should find them). */}
+          {lang === 'es' && (
+            <p className="gs-footer__eslandings">
+              Páginas web por zona:{' '}
+              {ES_LANDINGS.map((l, i) => (
+                <span key={l.slug}>
+                  {i > 0 && ' · '}
+                  <Link to={`/es/${l.slug}/`}>{l.shortCity}</Link>
+                </span>
+              ))}
+            </p>
+          )}
         </div>
         <div className="gs-footer__col">
           <span className="gs-footer__col-title">{t('Explore', 'Explora')}</span>
@@ -345,6 +361,10 @@ export default function App() {
         <Routes>
           {pageRoutes('', t)}
           {pageRoutes('/es', t)}
+          {/* Spanish-first landing pages — Spanish-only, no English twin. */}
+          {ES_LANDINGS.map(l => (
+            <Route key={l.slug} path={`/es/${l.slug}`} element={<EsLanding slug={l.slug} />} />
+          ))}
         </Routes>
         </Suspense>
       </main>

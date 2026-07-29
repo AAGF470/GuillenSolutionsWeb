@@ -26,6 +26,7 @@ import {
 // same merge useContent() does at runtime, so nothing can drift between them.
 import * as EN_ALL from '../src/data.js'
 import * as ES_ALL from '../src/content.es.js'
+import { ES_LANDINGS } from '../src/esLanding.js'
 import { ORG, homeSchema, pricingSchema, rendersSchema, locationGuideSchema } from '../src/schema.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -53,7 +54,7 @@ const chrome = (p = '') => {
     : 'Honest, upfront digital services for small businesses — websites, product renders, and the setup around them. You own your domain, your content, your accounts, and every login — no lock-in, ever.'
   const footer = `<footer><p>${blurb}</p><nav>${nav}</nav><p>${es ? 'Atendemos' : 'Serving'}: ${
     LOCATION_GUIDES.map(g => `<a href="${p}/guides/${g.slug}/">${esc(g.city)}</a>`).join(' · ')
-  }</p><p>${es ? 'Contáctanos' : 'Get in touch'}: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
+  }</p>${es ? `<p>Páginas web por zona: ${ES_LANDINGS.map(L => `<a href="/es/${L.slug}/">${esc(L.shortCity)}</a>`).join(' · ')}</p>` : ''}<p>${es ? 'Contáctanos' : 'Get in touch'}: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
   return { header, footer }
 }
 const { header, footer } = chrome('')
@@ -276,6 +277,41 @@ const ES_ROUTES = [
   })),
 ].map(r => ({ ...r, lang: 'es' }))
 
+// Spanish-FIRST landing pages: written for how Hispanic owners search and
+// ordered trust-first. Spanish-only, so they carry NO `pair` — claiming an
+// hreflang counterpart that doesn't exist would point Google at a 404.
+const esLandingBody = L => esWrap(
+  L.h1,
+  L.lead,
+  `<h2>${esc(L.trust.title)}</h2><p>${esc(L.searchNote || '')}</p>${list(L.trust.points.map(p => `<strong>${esc(p.title)}</strong> — ${esc(p.body)}`))}
+   <h2>${esc(ES.REFERRAL_PROGRAM.headline)}</h2><p>${esc(ES.REFERRAL_PROGRAM.lead)}</p>${list(ES.REFERRAL_PROGRAM.steps.map(st => `<strong>${esc(st.title)}</strong> — ${esc(st.body)}`))}
+   <h2>${esc(L.industries.title)}</h2><p>${esc(L.industries.body)}</p>${list(L.industries.items.map(esc))}
+   <h2>Zonas que atendemos</h2>${list(L.areas.map(esc))}<p>${esc(L.localNote)}</p>
+   <h2>Lo que hacemos</h2>${list(ES.SERVICES.map(sv => `<strong>${esc(sv.title)}</strong> (${esc(sv.price)}) — ${esc(sv.body)}`))}
+   <h2>Preguntas de dueños en ${esc(L.city)}</h2>${list(L.faq.map(f => `<strong>${esc(f.q)}</strong> ${esc(f.a)}`))}
+   <p><a href="/es/pricing/">Ver precios</a> · <a href="/es/contact/">Contáctanos</a></p>`,
+)
+
+const ES_LANDING_ROUTES = ES_LANDINGS.map(L => ({
+  path: `/es/${L.slug}`,
+  lang: 'es',
+  title: L.metaTitle,
+  description: L.metaDescription,
+  schema: [{
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: NAME,
+    url: `${SITE}/es/${L.slug}/`,
+    description: L.metaDescription,
+    inLanguage: 'es',
+    knowsLanguage: ['es', 'en'],
+    areaServed: L.areas.filter(a => !a.startsWith('y ')).map(a => ({ '@type': 'City', name: a })),
+    priceRange: '$600–$1,900 primer año',
+    email: CONTACT_EMAIL,
+  }],
+  body: esLandingBody(L),
+}))
+
 // Pair the English routes back at their Spanish counterparts (same hreflang
 // cluster, declared from both sides as Google requires).
 const EN_ROUTES = ROUTES.map(r => {
@@ -288,7 +324,7 @@ prerender({
   dist: DIST,
   site: SITE,
   name: NAME,
-  routes: [...EN_ROUTES, ...ES_ROUTES],
+  routes: [...EN_ROUTES, ...ES_ROUTES, ...ES_LANDING_ROUTES],
   priorityFor: path =>
     path === '/' ? '1.0'
       : path.startsWith('/plans/') ? '0.9'

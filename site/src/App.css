@@ -459,3 +459,8 @@
    green) can override it. */
 .gs-socials__link:hover svg { color: var(--color-on-accent); }
 .gs-contact-socials { display: flex; justify-content: center; padding-bottom: 40px; }
+
+/* Spanish-first landing links in the footer (Spanish only). */
+.gs-footer__eslandings { margin: 10px 0 0; font-size: 13px; color: var(--color-text-dim); }
+.gs-footer__eslandings a { color: var(--color-text-sub); text-decoration: none; }
+.gs-footer__eslandings a:hover { color: var(--color-accent); }

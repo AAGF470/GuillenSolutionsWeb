@@ -14,11 +14,12 @@ import { CONTACT_EMAIL } from '../data'
 import { useContent } from '../content.js'
 import { useMarketImages } from '../lib/marketImages.js'
 import { useSiteImages } from '../lib/siteImages.js'
-import { useT, useLangPath } from '../i18n.jsx'
+import { useT, useLang, useLangPath } from '../i18n.jsx'
 
 export default function Home() {
   const t = useT()
   const lp = useLangPath()
+  const { lang } = useLang()
   const {
     PACKAGES, OWNERSHIP, GROWTH_NOTE, PRICING_PROMISE, POSITIONING,
     CMS_LEAD, RUN_SAFE_POINTS, SERVICES, REFERRAL_PROGRAM, FOUND, WHERE_WE_ARE, MARKETS,
@@ -64,6 +65,56 @@ export default function Home() {
     { icon: 'mail',   title: t('Contact & forms', 'Contacto y formularios'),    body: t('Inquiry forms and hours/location blocks that route straight to you.', 'Formularios de contacto y bloques de horarios/ubicación que te llegan directo a ti.') },
   ]
 
+  // Section ORDER differs by language. Hispanic small-business buying runs on
+  // confianza and referrals, not feature lists — so in Spanish the "para
+  // negocios latinos" trust block and the referral program move directly under
+  // the hero. English keeps its original order (features → proof → referral).
+  const latinoSection = (
+      <Reveal>
+    <section className="section section--alt gs-latino" id="para-latinos">
+      <div className="section-container">
+        <p className="section-eyebrow">{PARA_LATINOS.eyebrow}</p>
+        <h2 className="section-title gs-latino__title" lang="es">{PARA_LATINOS.headline}</h2>
+        {PARA_LATINOS.subhead && <p className="gs-latino__subhead">{PARA_LATINOS.subhead}</p>}
+        <p className="section-sub gs-latino__lead">{PARA_LATINOS.lead}</p>
+        <Reveal stagger className="gs-latino__grid">
+          {PARA_LATINOS.points.map(p => (
+            <div key={p.title} className="gs-latino__card">
+              <h3 lang="es">{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </Reveal>
+        <div className="gs-latino__ctarow">
+          <Link to={PARA_LATINOS.cta.href} className="gs-latino__cta" lang="es">{PARA_LATINOS.cta.label}</Link>
+        </div>
+      </div>
+    </section>
+    </Reveal>
+  )
+  const referralSection = (
+      <Reveal>
+    <section className="section section--default gs-refer">
+      <div className="section-container">
+        <p className="section-eyebrow">{REFERRAL_PROGRAM.eyebrow}</p>
+        <h2 className="section-title">{REFERRAL_PROGRAM.headline}</h2>
+        <p className="section-sub">{REFERRAL_PROGRAM.lead}</p>
+        <Reveal stagger className="gs-refer__steps">
+          {REFERRAL_PROGRAM.steps.map((s, i) => (
+            <div key={s.title} className="gs-refer__step">
+              <span className="gs-refer__num">{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))}
+        </Reveal>
+        <p className="gs-refer__fine">{REFERRAL_PROGRAM.fine}</p>
+      </div>
+    </section>
+    </Reveal>
+  )
+  const trustFirst = lang === 'es'
+
   return (
     <>
       <HeroSection
@@ -89,6 +140,9 @@ export default function Home() {
         <span><b>{t('Flat pricing,', 'Precios planos,')}</b> {t('confirmed in writing', 'confirmados por escrito')}</span>
         <span><b>{t('Proudly', 'Con orgullo,')}</b> {t('Latino-owned', 'propiedad latina')}</span>
       </div>
+
+      {trustFirst && latinoSection}
+      {trustFirst && referralSection}
 
       {/* The service lines — websites are the core, no longer the whole story */}
       <Reveal>
@@ -154,27 +208,7 @@ export default function Home() {
       {/* Para negocios latinos — Spanish-forward by design: the headline stays
           Spanish even in English mode, so Latino owners recognize themselves
           instantly. Follows the origin story it answers. */}
-      <Reveal>
-      <section className="section section--alt gs-latino" id="para-latinos">
-        <div className="section-container">
-          <p className="section-eyebrow">{PARA_LATINOS.eyebrow}</p>
-          <h2 className="section-title gs-latino__title" lang="es">{PARA_LATINOS.headline}</h2>
-          {PARA_LATINOS.subhead && <p className="gs-latino__subhead">{PARA_LATINOS.subhead}</p>}
-          <p className="section-sub gs-latino__lead">{PARA_LATINOS.lead}</p>
-          <Reveal stagger className="gs-latino__grid">
-            {PARA_LATINOS.points.map(p => (
-              <div key={p.title} className="gs-latino__card">
-                <h3 lang="es">{p.title}</h3>
-                <p>{p.body}</p>
-              </div>
-            ))}
-          </Reveal>
-          <div className="gs-latino__ctarow">
-            <Link to={PARA_LATINOS.cta.href} className="gs-latino__cta" lang="es">{PARA_LATINOS.cta.label}</Link>
-          </div>
-        </div>
-      </section>
-      </Reveal>
+      {!trustFirst && latinoSection}
 
       {/* Where we fit — the honest comparison against every alternative */}
       <FeatureGrid
@@ -328,25 +362,7 @@ export default function Home() {
       </Reveal>
 
       {/* Referral commission — open to anyone, not just clients */}
-      <Reveal>
-      <section className="section section--default gs-refer">
-        <div className="section-container">
-          <p className="section-eyebrow">{REFERRAL_PROGRAM.eyebrow}</p>
-          <h2 className="section-title">{REFERRAL_PROGRAM.headline}</h2>
-          <p className="section-sub">{REFERRAL_PROGRAM.lead}</p>
-          <Reveal stagger className="gs-refer__steps">
-            {REFERRAL_PROGRAM.steps.map((s, i) => (
-              <div key={s.title} className="gs-refer__step">
-                <span className="gs-refer__num">{i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </div>
-            ))}
-          </Reveal>
-          <p className="gs-refer__fine">{REFERRAL_PROGRAM.fine}</p>
-        </div>
-      </section>
-      </Reveal>
+      {!trustFirst && referralSection}
 
       {/* Primary markets — LocationGrid from the shared library; images are
           CMS-owned (uploaded via a locationGrid block), not hardcoded here. */}
