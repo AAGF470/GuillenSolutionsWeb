@@ -30,6 +30,7 @@ function NotFound() {
 
 // The bespoke render — used directly and as the CMS fallback.
 function PlanPageContent({ planId }) {
+  const lp = useLangPath()
   const t = useT()
   const { PACKAGES, PLAN_PAGES } = useContent()
   const plan = PLAN_PAGES[planId]

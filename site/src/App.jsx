@@ -5,6 +5,7 @@ import './App.css'
 import { CONTACT_EMAIL } from './data'
 import { useContent } from './content.js'
 import { ES_LANDINGS } from './esLanding.js'
+import { INDUSTRY_PAGES } from './industryPages.js'
 import { useLang, useT } from './i18n.jsx'
 import Home from './pages/Home.jsx'
 const WorkAndLibrary = lazy(() => import('./pages/WorkAndLibrary.jsx'))
@@ -19,6 +20,7 @@ const Status = lazy(() => import('./pages/Status.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
 const CmsPage = lazy(() => import('./pages/CmsPage.jsx'))
 const EsLanding = lazy(() => import('./pages/EsLanding.jsx'))
+const IndustryPage = lazy(() => import('./pages/IndustryPage.jsx'))
 import PayloadPage from './PayloadPage.jsx'
 import Seo from './components/Seo.jsx'
 import SocialLinks from './components/SocialLinks.jsx'
@@ -254,6 +256,17 @@ function Footer() {
           </p>
           {/* Spanish-first landing pages — shown only in Spanish, where they're
               the relevant entry points (and where Google should find them). */}
+          {lang !== 'es' && (
+            <p className="gs-footer__eslandings">
+              Websites for:{' '}
+              {INDUSTRY_PAGES.map((i, n) => (
+                <span key={i.slug}>
+                  {n > 0 && ' · '}
+                  <Link to={`/${i.slug}/`}>{i.industry}</Link>
+                </span>
+              ))}
+            </p>
+          )}
           {lang === 'es' && (
             <p className="gs-footer__eslandings">
               Páginas web por zona:{' '}
@@ -364,6 +377,10 @@ export default function App() {
           {/* Spanish-first landing pages — Spanish-only, no English twin. */}
           {ES_LANDINGS.map(l => (
             <Route key={l.slug} path={`/es/${l.slug}`} element={<EsLanding slug={l.slug} />} />
+          ))}
+          {/* Industry long-tail pages — English-only for now. */}
+          {INDUSTRY_PAGES.map(i => (
+            <Route key={i.slug} path={`/${i.slug}`} element={<IndustryPage slug={i.slug} />} />
           ))}
         </Routes>
         </Suspense>

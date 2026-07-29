@@ -27,6 +27,7 @@ import {
 import * as EN_ALL from '../src/data.js'
 import * as ES_ALL from '../src/content.es.js'
 import { ES_LANDINGS } from '../src/esLanding.js'
+import { INDUSTRY_PAGES } from '../src/industryPages.js'
 import { ORG, homeSchema, pricingSchema, rendersSchema, locationGuideSchema } from '../src/schema.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -54,7 +55,7 @@ const chrome = (p = '') => {
     : 'Honest, upfront digital services for small businesses — websites, product renders, and the setup around them. You own your domain, your content, your accounts, and every login — no lock-in, ever.'
   const footer = `<footer><p>${blurb}</p><nav>${nav}</nav><p>${es ? 'Atendemos' : 'Serving'}: ${
     LOCATION_GUIDES.map(g => `<a href="${p}/guides/${g.slug}/">${esc(g.city)}</a>`).join(' · ')
-  }</p>${es ? `<p>Páginas web por zona: ${ES_LANDINGS.map(L => `<a href="/es/${L.slug}/">${esc(L.shortCity)}</a>`).join(' · ')}</p>` : ''}<p>${es ? 'Contáctanos' : 'Get in touch'}: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
+  }</p>${!es ? `<p>Websites for: ${INDUSTRY_PAGES.map(P => `<a href="/${P.slug}/">${esc(P.industry)}</a>`).join(' · ')}</p>` : ''}${es ? `<p>Páginas web por zona: ${ES_LANDINGS.map(L => `<a href="/es/${L.slug}/">${esc(L.shortCity)}</a>`).join(' · ')}</p>` : ''}<p>${es ? 'Contáctanos' : 'Get in touch'}: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> · <a href="https://www.facebook.com/profile.php?id=61591594841523">Facebook</a> · <a href="https://www.instagram.com/guillensolutions/">Instagram</a> · English &amp; Español</p><p>© ${new Date().getFullYear()} ${NAME}</p></footer>`
   return { header, footer }
 }
 const { header, footer } = chrome('')
@@ -312,6 +313,42 @@ const ES_LANDING_ROUTES = ES_LANDINGS.map(L => ({
   body: esLandingBody(L),
 }))
 
+// Industry long-tail pages (English-only → no `pair`, no hreflang).
+const industryBody = P => wrap(
+  P.h1,
+  P.lead,
+  `<h2>${esc(P.proof.title)}</h2><p>${esc(P.proof.body)}</p><p><a href="${P.proof.linkTo}">${esc(P.proof.linkLabel)}</a></p>
+   <h2>${esc(P.needs.title)}</h2>${list(P.needs.items.map(i => `<strong>${esc(i.title)}</strong> — ${esc(i.body)}`))}
+   <p>${esc(P.marketsLine)}</p>
+   <h2>Questions from ${esc(P.industry)}</h2>${list(P.faq.map(f => `<strong>${esc(f.q)}</strong> ${esc(f.a)}`))}
+   <p><a href="/pricing/">Build your quote</a></p>`,
+)
+
+const INDUSTRY_ROUTES = INDUSTRY_PAGES.map(P => ({
+  path: `/${P.slug}`,
+  lang: 'en',
+  title: P.metaTitle,
+  description: P.metaDescription,
+  schema: [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: `Website design for ${P.industry}`,
+      name: P.metaTitle,
+      url: `${SITE}/${P.slug}/`,
+      description: P.metaDescription,
+      provider: { '@type': 'ProfessionalService', name: NAME, url: `${SITE}/` },
+      areaServed: ['Boston, MA', 'North Houston, TX', 'Dallas, TX', 'New York, NY'].map(n => ({ '@type': 'City', name: n })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: P.faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+  ],
+  body: industryBody(P),
+}))
+
 // Pair the English routes back at their Spanish counterparts (same hreflang
 // cluster, declared from both sides as Google requires).
 const EN_ROUTES = ROUTES.map(r => {
@@ -324,7 +361,7 @@ prerender({
   dist: DIST,
   site: SITE,
   name: NAME,
-  routes: [...EN_ROUTES, ...ES_ROUTES, ...ES_LANDING_ROUTES],
+  routes: [...EN_ROUTES, ...ES_ROUTES, ...ES_LANDING_ROUTES, ...INDUSTRY_ROUTES],
   priorityFor: path =>
     path === '/' ? '1.0'
       : path.startsWith('/plans/') ? '0.9'

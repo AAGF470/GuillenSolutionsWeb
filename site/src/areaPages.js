@@ -117,13 +117,52 @@ const AREAS = [
       es: 'De las librerías de Harvard Square a las startups de Kendall Square, los negocios de Cambridge atienden a una de las clientelas más digitales que existen — si tu sitio es lento o anticuado aquí, la gente lo nota de inmediato.',
     },
   },
+
+  // ── Dallas metroplex, TX — added because Search Console already shows
+  //    impressions for these towns with no page of their own (Grand Prairie
+  //    alone drew 22 impressions across 4 queries, one already at position 19).
+  {
+    slug: 'web-design-grand-prairie', area: 'Grand Prairie', state: 'TX', marketId: 'dallas',
+    roads: ['I-30', 'SH 161 (President George Bush Turnpike)', 'Great Southwest Parkway'],
+    places: ['Lone Star Park', 'Epic Waters', 'Joe Pool Lake'],
+    flavor: {
+      en: 'Grand Prairie runs on working businesses — the Great Southwest industrial district, the shops and services along I-30, the trades that keep the whole metroplex moving — and it is heavily Spanish-speaking, so a bilingual site reaches both halves of the customer base at once.',
+      es: 'Grand Prairie vive de negocios que trabajan — el distrito industrial Great Southwest, los comercios y servicios a lo largo de la I-30, los oficios que mantienen andando todo el metroplex — y es una ciudad con mucha población hispana, así que un sitio bilingüe llega a las dos mitades de tu clientela a la vez.',
+    },
+  },
+  {
+    slug: 'web-design-irving', area: 'Irving', state: 'TX', marketId: 'dallas',
+    roads: ['SH 114', 'MacArthur Boulevard', 'Loop 12'],
+    places: ['Las Colinas', 'the Toyota Music Factory', 'the Heritage District'],
+    flavor: {
+      en: 'Irving is two towns at once: the corporate polish of Las Colinas and the family businesses of the Heritage District and MacArthur corridor. Both need a site that looks credible next to much bigger competitors — and one of the most diverse customer bases in Texas makes bilingual a real advantage.',
+      es: 'Irving son dos ciudades a la vez: el pulido corporativo de Las Colinas y los negocios familiares del Heritage District y el corredor de MacArthur. Las dos necesitan un sitio que se vea creíble junto a competidores mucho más grandes — y con una de las clientelas más diversas de Texas, ser bilingüe es una ventaja real.',
+    },
+  },
+  // ── New York, NY — Staten Island drew impressions across 3 queries with no
+  //    page of its own; the borough is small-business and home-services heavy.
+  {
+    slug: 'web-design-staten-island', area: 'Staten Island', state: 'NY', marketId: 'new-york',
+    roads: ['Hylan Boulevard', 'Richmond Avenue', 'the Staten Island Expressway (I-278)'],
+    places: ['St. George and the ferry terminal', 'New Dorp', 'Tottenville'],
+    flavor: {
+      en: 'Staten Island is the borough of small businesses — contractors, home services, family restaurants, shops along Hylan and Forest — where reputation travels by word of mouth and a customer\'s first check is your website on their phone.',
+      es: 'Staten Island es el condado de los pequeños negocios — contratistas, servicios para el hogar, restaurantes familiares, comercios a lo largo de Hylan y Forest — donde la reputación viaja de boca en boca y lo primero que revisa un cliente es tu página en su teléfono.',
+    },
+  },
 ]
+
+// Only North Houston and Boston are home markets (in-person). Dallas and New
+// York are served remotely — the templates below must not claim otherwise.
+const HOME = m => m === 'north-houston' || m === 'boston'
+const MARKET_EN = { 'north-houston': 'North Houston', boston: 'Boston', dallas: 'the Dallas metroplex', 'new-york': 'New York' }
+const MARKET_ES = { 'north-houston': 'el norte de Houston', boston: 'Boston', dallas: 'el metroplex de Dallas', 'new-york': 'Nueva York' }
 
 const S = {
   en: {
     title: a => `Web Design in ${a.area}, ${a.state} — Websites You Own`,
     desc: a => `Custom, bilingual websites for ${a.area} small businesses — near ${a.places[0]} and the ${a.roads[0]} corridor. Flat pricing, and you own everything.`,
-    lead: a => `Custom websites and digital setup for small businesses in ${a.area} — from ${a.places[0]} to ${a.roads[0]}. ${a.marketId === 'north-houston' ? 'Part of our North Houston home market.' : 'Part of our Boston home market.'}`,
+    lead: a => `Custom websites and digital setup for small businesses in ${a.area} — from ${a.places[0]} to ${a.roads[0]}. ${HOME(a.marketId) ? `Part of our ${MARKET_EN[a.marketId]} home market.` : `Part of the ${MARKET_EN[a.marketId]} area we serve.`}`,
     intro: a => [
       a.flavor.en,
       `We build for businesses along ${a.roads.join(', ')} and around ${a.places.slice(0, 2).join(' and ')}: custom design on our own component system, a simple editor you update from your phone, and hosting we manage. Every site ships fast, mobile-first, and structured so Google and AI assistants can actually read it.`,
@@ -131,7 +170,7 @@ const S = {
     ],
     whyTitle: a => `Why ${a.area} businesses work with us`,
     why: a => [
-      `Local, genuinely: ${a.marketId === 'north-houston' ? 'North Houston is home ground for us — we know the difference between the ' + a.roads[0] + ' corridor and ' + a.places[0] + '.' : 'Boston is a home market — we meet ' + a.area + ' clients in person.'}`,
+      `${HOME(a.marketId) ? 'Local, genuinely: ' : 'We know the area: '}${a.marketId === 'north-houston' ? 'North Houston is home ground for us — we know the difference between the ' + a.roads[0] + ' corridor and ' + a.places[0] + '.' : a.marketId === 'boston' ? 'Boston is a home market — we meet ' + a.area + ' clients in person.' : 'we build for ' + a.area + ' businesses remotely, and the pages name the streets and places your customers actually search.'}`,
       `Found where people search: your site and Google Business Profile tuned for "${a.area}" searches — the neighborhoods, not just the metro.`,
       `Bilingual at no premium: full English/Spanish builds, because ${a.area} customers shop in both.`,
       `Owned, not rented: flat first-year pricing from $600, renewal locked in writing, and a written exit with a runnable copy of your site.`,
@@ -140,7 +179,9 @@ const S = {
       { q: `Do you meet ${a.area} clients in person?`,
         a: a.marketId === 'north-houston'
           ? `Yes — North Houston is one of our two home markets (we’re from the Klein/Spring area), so in-person meetings around ${a.area} are available, with calls and screen-share keeping everything fast between visits.`
-          : `Yes — Boston is one of our two home markets, and in-person meetings are standard. We can come to you anywhere around ${a.area}.` },
+          : a.marketId === 'boston'
+          ? `Yes — Boston is one of our two home markets, and in-person meetings are standard. We can come to you anywhere around ${a.area}.`
+          : `We work with ${a.area} clients remotely — calls, WhatsApp, and screen-share — which keeps timelines fast and prices low. In-person visits are available in our home markets, Boston and North Houston.` },
       { q: `Can you help my business show up for "${a.area}" searches on Google?`,
         a: `That’s the point of a local build: your pages, your Google Business Profile, and your structured data all name ${a.area} and the places customers actually search — ${a.places.slice(0, 2).join(', ')}, ${a.roads[0]} — so you show up where you actually work.` },
       { q: `Do you build bilingual sites for ${a.area} businesses?`,
@@ -150,7 +191,7 @@ const S = {
   es: {
     title: a => `Diseño Web en ${a.area}, ${a.state} — Sitios Que Son Tuyos`,
     desc: a => `Sitios web a la medida y bilingües para pequeños negocios de ${a.area} — cerca de ${a.places[0]} y el corredor de ${a.roads[0]}. Precios planos, y todo es tuyo.`,
-    lead: a => `Sitios web a la medida y configuración digital para pequeños negocios de ${a.area} — de ${a.places[0]} a ${a.roads[0]}. ${a.marketId === 'north-houston' ? 'Parte de nuestro mercado base del norte de Houston.' : 'Parte de nuestro mercado base de Boston.'}`,
+    lead: a => `Sitios web a la medida y configuración digital para pequeños negocios de ${a.area} — de ${a.places[0]} a ${a.roads[0]}. ${HOME(a.marketId) ? `Parte de nuestro mercado base de ${MARKET_ES[a.marketId]}.` : `Parte de ${MARKET_ES[a.marketId]}, zona que atendemos.`}`,
     intro: a => [
       a.flavor.es,
       `Construimos para negocios a lo largo de ${a.roads.join(', ')} y alrededor de ${a.places.slice(0, 2).join(' y ')}: diseño a la medida sobre nuestro propio sistema de componentes, un editor simple que actualizas desde tu teléfono y hosting administrado por nosotros. Cada sitio sale rápido, primero-móvil y estructurado para que Google y los asistentes de IA puedan leerlo de verdad.`,
@@ -158,7 +199,7 @@ const S = {
     ],
     whyTitle: a => `Por qué los negocios de ${a.area} trabajan con nosotros`,
     why: a => [
-      `Locales de verdad: ${a.marketId === 'north-houston' ? 'el norte de Houston es terreno propio — sabemos la diferencia entre el corredor de ' + a.roads[0] + ' y ' + a.places[0] + '.' : 'Boston es mercado base — nos reunimos en persona con los clientes de ' + a.area + '.'}`,
+      `${HOME(a.marketId) ? 'Locales de verdad: ' : 'Conocemos la zona: '}${a.marketId === 'north-houston' ? 'el norte de Houston es terreno propio — sabemos la diferencia entre el corredor de ' + a.roads[0] + ' y ' + a.places[0] + '.' : a.marketId === 'boston' ? 'Boston es mercado base — nos reunimos en persona con los clientes de ' + a.area + '.' : 'construimos para negocios de ' + a.area + ' de forma remota, y las páginas nombran las calles y lugares que tus clientes de verdad buscan.'}`,
       `Encontrado donde la gente busca: tu sitio y tu Perfil de Empresa de Google afinados para búsquedas de "${a.area}" — los vecindarios, no solo la ciudad.`,
       `Bilingüe sin costo extra: sitios completos en inglés y español, porque los clientes de ${a.area} compran en ambos.`,
       `Tuyo, no rentado: precio plano desde $600 el primer año, renovación fijada por escrito y una salida escrita con una copia ejecutable de tu sitio.`,
@@ -167,7 +208,9 @@ const S = {
       { q: `¿Se reúnen en persona con clientes de ${a.area}?`,
         a: a.marketId === 'north-houston'
           ? `Sí — el norte de Houston es uno de nuestros dos mercados base (somos del área de Klein/Spring), así que las reuniones en persona por ${a.area} están disponibles, con llamadas y videollamadas entre visitas.`
-          : `Sí — Boston es uno de nuestros dos mercados base, y las reuniones en persona son lo estándar. Podemos ir a ti en cualquier punto de ${a.area}.` },
+          : a.marketId === 'boston'
+          ? `Sí — Boston es uno de nuestros dos mercados base, y las reuniones en persona son lo estándar. Podemos ir a ti en cualquier punto de ${a.area}.`
+          : `Con los clientes de ${a.area} trabajamos de forma remota — llamadas, WhatsApp y pantalla compartida — lo que mantiene los tiempos ágiles y los precios bajos. Las visitas en persona están disponibles en nuestros mercados base, Boston y el norte de Houston.` },
       { q: `¿Pueden ayudar a que mi negocio aparezca en búsquedas de "${a.area}" en Google?`,
         a: `Ese es el punto de una construcción local: tus páginas, tu Perfil de Empresa de Google y tus datos estructurados nombran ${a.area} y los lugares que la gente de verdad busca — ${a.places.slice(0, 2).join(', ')}, ${a.roads[0]} — para que aparezcas donde realmente trabajas.` },
       { q: `¿Construyen sitios bilingües para negocios de ${a.area}?`,

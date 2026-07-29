@@ -51,6 +51,7 @@ function AreaLinks({ guide }) {
 
 export default function MarketGuide({ guide }) {
   const t = useT()
+  const lp = useLangPath()
   const { MARKETS, SERVICES } = useContent()
   const market = MARKETS.find(m => m.id === guide.marketId)
   const areas = market?.areas ?? []

@@ -90,6 +90,7 @@ function BuildModal({ build, onClose }) {
 }
 
 export default function WorkAndLibrary() {
+  const lp = useLangPath()
   const t = useT()
   const [builds, setBuilds] = useState(null) // null = loading, [] = none
   const [active, setActive] = useState(null) // the build shown in the popup

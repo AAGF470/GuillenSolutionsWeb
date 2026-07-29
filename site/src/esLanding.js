@@ -170,6 +170,84 @@ export const ES_LANDINGS = [
       },
     ],
   },
+  {
+    slug: 'paginas-web-boston',
+    city: 'Boston',
+    shortCity: 'Boston',
+    state: 'MA',
+    metaTitle: 'Páginas Web para Negocios en Boston — Diseño Web en Español',
+    metaDescription:
+      'Diseño de páginas web para negocios hispanos en Boston: East Boston, Roxbury, Jamaica Plain y Chelsea. Nos reunimos en persona, todo el proceso en español, el dominio a tu nombre y precio fijo por escrito.',
+    h1: 'Páginas web para negocios en Boston',
+    lead:
+      'Boston es uno de nuestros dos mercados base — aquí sí nos podemos ver en persona, en tu negocio. Hacemos páginas web para negocios en East Boston, Roxbury, Jamaica Plain y Chelsea: todo el proceso en español, el dominio y las cuentas a tu nombre, y precio fijo por escrito.',
+    trust: {
+      title: 'Por qué los dueños nos dan la confianza',
+      points: [
+        {
+          title: 'Nos vemos en persona, aquí en Boston',
+          body: 'Boston es mercado base: podemos ir a tu negocio, ver tu espacio y explicarte todo cara a cara — en español. No es una llamada con un vendedor a mil millas de distancia.',
+        },
+        {
+          title: 'Hablamos tu idioma, de principio a fin',
+          body: 'Las llamadas, el contrato, los recibos y el soporte pueden ser todos en español. Nunca vas a firmar algo que no puedas leer completo.',
+        },
+        {
+          title: 'Todo queda a tu nombre — por escrito',
+          body: 'El dominio, la página, el correo y cada contraseña se registran a tu nombre desde el primer día, con un documento de entrega. Y si alguien más tiene control de tu dominio o tus redes, recuperarlo es trabajo que ya hemos hecho.',
+        },
+        {
+          title: 'Nos conoces por recomendación',
+          body: 'Así crecemos: un dueño nos recomienda con otro. Y si tú nos recomiendas a alguien, te pagamos comisión por Zelle el mismo día.',
+        },
+      ],
+    },
+    industries: {
+      title: 'Negocios que atendemos por aquí',
+      body: 'Los negocios de los barrios — los que se llenan por recomendación y se buscan en el teléfono antes de que alguien camine a la puerta.',
+      items: [
+        'Restaurantes, panaderías y food trucks',
+        'Barberías, salones y estéticas',
+        'Limpieza residencial y de oficinas',
+        'Construcción, pintura y remodelación',
+        'Talleres mecánicos y servicios de auto',
+        'Mercados, tiendas y bodegas',
+        'Mudanzas, fletes y transporte',
+        'Cuidado infantil y servicios profesionales',
+      ],
+    },
+    areas: ['East Boston', 'Roxbury', 'Jamaica Plain', 'Chelsea', 'South End', 'Dorchester', 'y el resto del área de Boston'],
+    localNote:
+      'Boston es uno de nuestros dos mercados base, así que las reuniones en persona son lo normal — de East Boston a Jamaica Plain, vamos a donde estés.',
+    searchNote:
+      'Si buscas un diseñador web en Boston que hable español, o quieres hacer una página web para tu negocio y saber el precio real de una vez, aquí está todo el proceso — por escrito.',
+    faq: [
+      {
+        q: '¿Se pueden reunir conmigo en persona?',
+        a: 'Sí. Boston es uno de nuestros dos mercados base, así que las reuniones en persona son lo estándar — podemos ir a tu negocio en East Boston, Roxbury, Jamaica Plain, Chelsea o donde estés en el área.',
+      },
+      {
+        q: '¿Todo el proceso puede ser en español?',
+        a: 'Sí, completamente: las reuniones, el contrato, los recibos, la capacitación y el soporte. Tu página también sale en español e inglés sin costo extra — una ventaja real en los barrios de Boston.',
+      },
+      {
+        q: '¿El dominio queda a mi nombre o al de ustedes?',
+        a: 'A tu nombre, siempre. Dominio, hosting, correo y cada cuenta con tu nombre desde el primer día, y te entregamos las contraseñas por escrito. Si algún día te vas, te llevas todo — incluida una copia funcional de tu sitio.',
+      },
+      {
+        q: '¿Cuánto cuesta y cómo puedo pagar?',
+        a: 'Desde $600 el primer año, todo incluido (dominio, hosting, diseño y tu panel para editar), después $200 al año; el plan más popular es $950 el primer año. El número exacto va por escrito antes de empezar, y aceptamos Zelle.',
+      },
+      {
+        q: 'Ya tengo Facebook e Instagram. ¿Para qué necesito una página?',
+        a: 'Las redes son de las plataformas; tu página es tuya. Cuando un cliente nuevo te busca en Google antes de llamarte, una página propia te hace ver establecido, te ayuda a salir en el mapa y no depende de un algoritmo. Ahí sí controlas lo que dice de tu negocio.',
+      },
+      {
+        q: '¿Puedo recomendar a otro dueño y ganar algo?',
+        a: 'Sí, cualquiera puede recomendar, seas cliente o no. Cuando la persona que nos mandas firma y paga, te pagamos 10% de los primeros $600 más 5% de lo que exceda, por Zelle el mismo día. Sin registros ni formularios.',
+      },
+    ],
+  },
 ]
 
 export const esLandingBySlug = slug => ES_LANDINGS.find(l => l.slug === slug)
